@@ -2,7 +2,7 @@ Note: for a release PR, append this parameter `?template=release_template.md` to
 
 --
 
-https://github.com/nimblehq/android-templates/issues/??
+https://github.com/nimblehq/jetpack-compose-crypto/issues/??
 
 ## What happened 👀
 
