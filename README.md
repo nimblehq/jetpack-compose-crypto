@@ -25,7 +25,12 @@ and may be redistributed under the terms specified in the [LICENSE] file.
 
 ## About
 
-![Nimble](https://assets.nimblehq.co/logo/dark/logo-dark-text-160.png)
+<a href="https://nimblehq.co/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://assets.nimblehq.co/logo/dark/logo-dark-text-160.png">
+    <img alt="Nimble logo" src="https://assets.nimblehq.co/logo/light/logo-light-text-160.png">
+  </picture>
+</a>
 
 This project is maintained and funded by Nimble.
 
