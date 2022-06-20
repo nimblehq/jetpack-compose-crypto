@@ -1,7 +1,5 @@
 package co.nimblehq.compose.crypto.domain.usecase
 
-import co.nimblehq.compose.crypto.domain.model.User
-import co.nimblehq.compose.crypto.domain.repository.UserRepository
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.mockk
