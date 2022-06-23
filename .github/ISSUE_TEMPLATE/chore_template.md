@@ -1,13 +1,13 @@
 ---
 name: "Chore"
-about: "Open a chore issue for a minor update."
+about: "Open a Chore for minor update."
 title: "Update "
 labels: "type : chore"
 ---
 
 ## Why
 
-Describe the update in detail and why it is needed.
+Describe the update details and why it's needed.
 
 ## Who Benefits?
 
