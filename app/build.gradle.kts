@@ -129,6 +129,7 @@ dependencies {
     implementation("androidx.core:core-ktx:${Versions.ANDROIDX_CORE_KTX_VERSION}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ANDROIDX_LIFECYCLE_VERSION}")
 
+    implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.COMPOSE_CONSTRAINT_LAYOUT_VERSION}")
     implementation("androidx.compose.ui:ui:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.foundation:foundation:${Versions.COMPOSE_VERSION}")
