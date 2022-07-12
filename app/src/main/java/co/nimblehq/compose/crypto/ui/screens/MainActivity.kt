@@ -1,16 +1,21 @@
 package co.nimblehq.compose.crypto.ui.screens
 
-import android.view.LayoutInflater
-import androidx.activity.viewModels
-import co.nimblehq.compose.crypto.databinding.ActivityMainBinding
-import co.nimblehq.compose.crypto.ui.base.BaseActivity
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import co.nimblehq.compose.crypto.ui.screens.compose.home.HomeScreen
+import co.nimblehq.compose.crypto.ui.screens.compose.theme.ComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : ComponentActivity() {
 
-    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
-        get() = { inflater -> ActivityMainBinding.inflate(inflater) }
-
-    override val viewModel by viewModels<MainViewModel>()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            ComposeTheme {
+                HomeScreen()
+            }
+        }
+    }
 }

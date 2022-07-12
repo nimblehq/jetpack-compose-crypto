@@ -16,7 +16,6 @@ import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.screens.compose.theme.Style
 import co.nimblehq.compose.crypto.ui.screens.compose.theme.Style.titleHome
 
-@ExperimentalMaterialApi
 @Composable
 fun HomeScreen() {
     Surface {
@@ -50,7 +49,6 @@ fun HomeScreen() {
     }
 }
 
-@ExperimentalMaterialApi
 @Composable
 @Preview
 fun HomeScreenPreview() {
@@ -59,7 +57,6 @@ fun HomeScreenPreview() {
     }
 }
 
-@ExperimentalMaterialApi
 @Composable
 @Preview
 fun HomeScreenPreviewDark() {

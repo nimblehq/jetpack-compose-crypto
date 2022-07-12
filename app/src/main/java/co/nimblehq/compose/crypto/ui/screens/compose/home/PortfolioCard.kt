@@ -27,7 +27,6 @@ import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.screens.compose.theme.Style
 
-@ExperimentalMaterialApi
 @Composable
 fun PortfolioCard(
     modifier: Modifier
@@ -47,7 +46,7 @@ fun PortfolioCard(
             totalCoins,
             todayProfitLabel,
             todayProfit,
-            profitPercent,
+            profitPercent
         ) = createRefs()
 
         Text(
@@ -105,7 +104,7 @@ fun PortfolioCard(
                 contentColor = Color.GuppieGreen
             ),
             shape = RoundedCornerShape(Dp20),
-            onClick = { /* TODO */ },
+            onClick = { /* TODO */ }
         ) {
             Icon(
                 imageVector = Icons.Filled.KeyboardArrowUp,
@@ -121,7 +120,6 @@ fun PortfolioCard(
     }
 }
 
-@ExperimentalMaterialApi
 @Composable
 @Preview
 fun PortfolioCardPreview() {
