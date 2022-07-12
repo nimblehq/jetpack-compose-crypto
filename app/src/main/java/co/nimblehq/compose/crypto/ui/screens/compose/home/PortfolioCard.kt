@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.compose.composables.home
+package co.nimblehq.compose.crypto.ui.screens.compose.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth

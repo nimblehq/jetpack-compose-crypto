@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.compose.composables.home
+package co.nimblehq.compose.crypto.ui.screens.compose.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -14,7 +14,7 @@ import co.nimblehq.compose.crypto.ui.screens.compose.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.screens.compose.theme.Style
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.titleHome
+import co.nimblehq.compose.crypto.ui.screens.compose.theme.Style.titleHome
 
 @ExperimentalMaterialApi
 @Composable
@@ -29,12 +29,11 @@ fun HomeScreen() {
 
             Text(
                 modifier = Modifier
-                    .padding(Dp16)
+                    .padding(start = Dp16, top = Dp16, end = Dp16)
                     .constrainAs(title) {
                         top.linkTo(parent.top)
                         linkTo(start = parent.start, end = parent.end)
                         width = Dimension.preferredWrapContent
-
                     },
                 text = stringResource(id = R.string.home_title),
                 textAlign = TextAlign.Center,

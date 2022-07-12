@@ -7,12 +7,12 @@ import androidx.compose.ui.text.font.FontWeight
 import co.nimblehq.compose.crypto.R
 
 object Typography {
-    private val MontserratFontFamily = FontFamily(
+    private val InterFontFamily = FontFamily(
         Font(R.font.inter_medium, FontWeight.Medium),
         Font(R.font.inter_semi_bold, FontWeight.SemiBold)
     )
 
     val ComposeTypography = Typography(
-        defaultFontFamily = MontserratFontFamily
+        defaultFontFamily = InterFontFamily
     )
 }

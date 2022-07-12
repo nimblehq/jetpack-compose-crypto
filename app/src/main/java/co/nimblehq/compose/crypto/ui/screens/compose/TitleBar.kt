@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.compose.composables
+package co.nimblehq.compose.crypto.ui.screens.compose
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
