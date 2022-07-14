@@ -1,19 +1,19 @@
 package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import co.nimblehq.compose.crypto.ui.theme.Color.Cultured
+import androidx.compose.runtime.DisposableEffect
+import co.nimblehq.compose.crypto.ui.theme.Color.AlmostWhite
 import co.nimblehq.compose.crypto.ui.theme.Color.BlueFreeSpeech
 import co.nimblehq.compose.crypto.ui.theme.Color.DarkJungleGreen
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Suppress("MatchingDeclarationName")
 object Palette {
     val ComposeLightPalette = lightColors(
         primary = BlueFreeSpeech,
-        surface = Cultured
+        surface = AlmostWhite,
     )
 
     val ComposeDarkPalette = darkColors(
@@ -31,6 +31,16 @@ fun ComposeTheme(
         Palette.ComposeDarkPalette
     } else {
         Palette.ComposeLightPalette
+    }
+
+    val systemUiController = rememberSystemUiController()
+    DisposableEffect(systemUiController, darkTheme) {
+        systemUiController.setSystemBarsColor(
+            color = colors.surface,
+            darkIcons = !darkTheme
+        )
+
+        onDispose { }
     }
 
     MaterialTheme(
