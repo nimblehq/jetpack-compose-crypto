@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.compose.theme
+package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.font.Font

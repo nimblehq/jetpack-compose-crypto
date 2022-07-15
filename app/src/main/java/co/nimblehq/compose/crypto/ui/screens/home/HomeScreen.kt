@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.compose.home
+package co.nimblehq.compose.crypto.ui.screens.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,11 +10,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.ComposeTheme
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp40
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Style
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Style.titleHome
+import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
+import co.nimblehq.compose.crypto.ui.theme.Style
+import co.nimblehq.compose.crypto.ui.theme.Style.titleHome
 
 @Composable
 fun HomeScreen() {

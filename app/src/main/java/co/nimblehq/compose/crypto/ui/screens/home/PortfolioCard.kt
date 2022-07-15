@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.compose.home
+package co.nimblehq.compose.crypto.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,16 +16,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Color
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.ComposeTheme
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp0
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp12
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp20
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp4
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp40
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension.Dp8
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Style
+import co.nimblehq.compose.crypto.ui.theme.Color
+import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp20
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
+import co.nimblehq.compose.crypto.ui.theme.Style
 
 @Composable
 fun PortfolioCard(

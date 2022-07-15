@@ -1,12 +1,12 @@
-package co.nimblehq.compose.crypto.ui.screens.compose.theme
+package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Color.AlmostWhite
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Color.BlueFreeSpeech
+import co.nimblehq.compose.crypto.ui.theme.Color.AlmostWhite
+import co.nimblehq.compose.crypto.ui.theme.Color.BlueFreeSpeech
 
 object Palette {
     val ComposeLightPalette = lightColors(

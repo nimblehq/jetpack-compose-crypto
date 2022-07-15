@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.compose.theme
+package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.ui.graphics.Color
@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Color.DarkJungleGreen
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Color.LightSilver
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.TextDimension.Sp16
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.TextDimension.Sp24
+import co.nimblehq.compose.crypto.ui.theme.Color.DarkJungleGreen
+import co.nimblehq.compose.crypto.ui.theme.Color.LightSilver
+import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp16
+import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp24
 
 object Style {
 

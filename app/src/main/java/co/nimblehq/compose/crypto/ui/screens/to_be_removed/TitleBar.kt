@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.compose
+package co.nimblehq.compose.crypto.ui.screens.to_be_removed
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension
+import co.nimblehq.compose.crypto.ui.theme.Dimension
 
 @Suppress("LongMethod")
 @ExperimentalComposeUiApi
