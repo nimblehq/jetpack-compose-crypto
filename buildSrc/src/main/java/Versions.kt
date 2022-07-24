@@ -21,6 +21,10 @@ object Versions {
     const val COMPOSE_VERSION = "1.0.2"
     const val CONSTRAINT_LAYOUT_VERSION = "2.0.0-alpha3"
 
+    const val FIREBASE_BOM_VERSION = "30.3.0"
+
+    const val GOOGLE_SERVICE_VERSION = "4.3.13"
+
     const val HILT_VERSION = "2.38.1"
 
     const val JAVAX_INJECT_VERSION = "1"
