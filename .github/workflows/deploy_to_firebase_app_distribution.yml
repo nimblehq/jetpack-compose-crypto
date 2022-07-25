@@ -66,4 +66,4 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID_STAGING}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: app/build/outputs/apk/staging/debug/app-debug.apk
+          file: app/build/outputs/apk/staging/debug/app-staging-debug.apk
