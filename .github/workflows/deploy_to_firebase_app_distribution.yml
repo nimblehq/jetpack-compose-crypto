@@ -5,7 +5,7 @@ on:
   # So it will trigger when the PR of the feature/chore/bugfix branch was merged.
   push:
     branches:
-      - develop
+      - 'test/**'
 
 jobs:
   deploy_staging_to_firebase_app_distribution:
