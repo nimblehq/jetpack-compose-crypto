@@ -1,11 +1,11 @@
-package co.nimblehq.compose.crypto.ui.screens.compose.composables
+package co.nimblehq.compose.crypto.ui.screens.to_be_removed
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import co.nimblehq.compose.crypto.ui.screens.compose.theme.Dimension
+import co.nimblehq.compose.crypto.ui.theme.Dimension
 
 @Composable
 fun ContentCard(

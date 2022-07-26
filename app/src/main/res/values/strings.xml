@@ -2,4 +2,12 @@
 <resources>
     <string name="app_name">Cryto Compose</string>
     <string name="error_generic">Unexpected error</string>
+
+    <string name="home_title">Trade Now and Get\nYour Life</string>
+
+    <string name="portfolio_card_total_coin_label">Total Coins</string>
+    <string name="portfolio_card_total_coin">$%s</string>
+    <string name="portfolio_card_today_profit_label">Today\'s Profit</string>
+    <string name="portfolio_card_today_profit">$%s</string>
+    <string name="portfolio_card_profit_percent">%1$s%%</string>
 </resources>

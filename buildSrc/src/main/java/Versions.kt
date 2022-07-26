@@ -19,6 +19,8 @@ object Versions {
     const val ANDROIDX_SUPPORT_VERSION = "1.3.0"
 
     const val COMPOSE_VERSION = "1.0.2"
+    const val COMPOSE_ACTIVITY_VERSION = "1.3.1"
+    const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.1"
     const val CONSTRAINT_LAYOUT_VERSION = "2.0.0-alpha3"
 
     const val FIREBASE_BOM_VERSION = "30.3.0"
