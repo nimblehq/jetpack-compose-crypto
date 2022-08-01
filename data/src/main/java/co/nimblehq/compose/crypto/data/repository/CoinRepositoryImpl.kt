@@ -23,7 +23,7 @@ class CoinRepositoryImpl(
     ): Flow<List<CoinItem>> = flow {
         emit(
             api.getCoins(
-                coinIds = coinIds,
+                coinIds = coinIds.joinToString(separator = ","),
                 currency = currency,
                 priceChangePercentage = priceChangePercentage,
                 itemOrder = itemOrder,

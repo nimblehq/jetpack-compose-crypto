@@ -9,15 +9,33 @@ import javax.inject.Inject
 
 class GetMyCoinsUseCase @Inject constructor(private val repository: CoinRepository) {
 
-    fun execute(): Flow<UseCaseResult<List<CoinItem>>> {
-        // TODO Update the request param
+    private val myCoinIds = listOf(
+        "bitcoin",
+        "ethereum",
+        "binancecoin",
+        "ripple",
+        "cardano",
+        "solana",
+        "polkadot",
+        "near",
+        "tron",
+        "dogecoin"
+    )
+
+    fun execute(
+        currency: String,
+        order: String,
+        priceChangeInHour: String,
+        itemPerPage: Int,
+        page: Int,
+    ): Flow<UseCaseResult<List<CoinItem>>> {
         return repository.getTrendingList(
-            coinIds = emptyList(),
-            currency = "",
-            priceChangePercentage = "",
-            itemOrder = "",
-            itemPerPage = 2,
-            page = 1
+            coinIds = myCoinIds,
+            currency = currency,
+            priceChangePercentage = priceChangeInHour,
+            itemOrder = order,
+            itemPerPage = itemPerPage,
+            page = page
         ).map { data -> UseCaseResult.Success(data) }
             .catch { exception -> error(UseCaseResult.Error(exception)) }
     }
