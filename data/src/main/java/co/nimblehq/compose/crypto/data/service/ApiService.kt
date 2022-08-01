@@ -6,9 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("markets")
+    @GET("coins/markets")
     suspend fun getCoins(
-        @Query("ids") coinIds: List<String>,
+        @Query("ids") coinIds: String,
         @Query("vs_currency") currency: String,
         @Query("price_change_percentage") priceChangePercentage: String,
         @Query("order") itemOrder: String,
