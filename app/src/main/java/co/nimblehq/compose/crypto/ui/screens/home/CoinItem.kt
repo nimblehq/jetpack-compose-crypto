@@ -34,6 +34,7 @@ import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
+@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun CoinItem(
     isPositiveNumber: Boolean = false /* TODO Update value to Object on Integrate ticket */
@@ -137,6 +138,7 @@ fun CoinItem(
     }
 }
 
+@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun CoinItemPreview() {
@@ -145,6 +147,7 @@ fun CoinItemPreview() {
     }
 }
 
+@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun CoinItemPreviewDark() {

@@ -19,6 +19,7 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp52
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
+@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun HomeScreen() {
     Surface {
@@ -94,6 +95,7 @@ fun HomeScreen() {
     }
 }
 
+@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun HomeScreenPreview() {
@@ -102,6 +104,7 @@ fun HomeScreenPreview() {
     }
 }
 
+@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun HomeScreenPreviewDark() {

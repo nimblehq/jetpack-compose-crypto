@@ -9,6 +9,7 @@ import co.nimblehq.compose.crypto.ui.theme.Color.Cultured
 import co.nimblehq.compose.crypto.ui.theme.Color.BlueFreeSpeech
 import co.nimblehq.compose.crypto.ui.theme.Color.DarkJungleGreen
 
+@Suppress("MatchingDeclarationName")
 object Palette {
     val ComposeLightPalette = lightColors(
         primary = BlueFreeSpeech,
@@ -20,6 +21,7 @@ object Palette {
     )
 }
 
+@Suppress("FunctionNaming")
 @Composable
 fun ComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

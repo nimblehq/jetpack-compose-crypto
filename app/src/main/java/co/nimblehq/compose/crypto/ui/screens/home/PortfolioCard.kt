@@ -27,6 +27,7 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
 
+@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun PortfolioCard(
     modifier: Modifier
@@ -120,6 +121,7 @@ fun PortfolioCard(
     }
 }
 
+@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun PortfolioCardPreview() {

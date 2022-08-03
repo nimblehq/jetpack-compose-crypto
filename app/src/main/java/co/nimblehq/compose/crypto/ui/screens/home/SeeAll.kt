@@ -19,6 +19,7 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp14
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
 
+@Suppress("FunctionNaming")
 @Composable
 fun SeeAll(
     modifier: Modifier
@@ -40,6 +41,7 @@ fun SeeAll(
     }
 }
 
+@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun SeeAllPreview() {
