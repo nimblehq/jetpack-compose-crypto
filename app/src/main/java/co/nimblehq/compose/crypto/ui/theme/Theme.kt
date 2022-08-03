@@ -5,18 +5,23 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import co.nimblehq.compose.crypto.ui.theme.Color.AlmostWhite
+import co.nimblehq.compose.crypto.ui.theme.Color.Cultured
 import co.nimblehq.compose.crypto.ui.theme.Color.BlueFreeSpeech
+import co.nimblehq.compose.crypto.ui.theme.Color.DarkJungleGreen
 
+@Suppress("MatchingDeclarationName")
 object Palette {
     val ComposeLightPalette = lightColors(
         primary = BlueFreeSpeech,
-        background = AlmostWhite
+        surface = Cultured
     )
 
-    val ComposeDarkPalette = darkColors()
+    val ComposeDarkPalette = darkColors(
+        surface = DarkJungleGreen
+    )
 }
 
+@Suppress("FunctionNaming")
 @Composable
 fun ComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -30,7 +35,6 @@ fun ComposeTheme(
 
     MaterialTheme(
         colors = colors,
-        typography = Typography.ComposeTypography,
         shapes = Shape.ComposeShapes,
         content = content
     )

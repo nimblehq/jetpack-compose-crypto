@@ -27,6 +27,7 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
 
+@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun PortfolioCard(
     modifier: Modifier
@@ -66,7 +67,7 @@ fun PortfolioCard(
                     top.linkTo(totalCoinsLabel.bottom, margin = Dp8)
                 },
             // TODO: Remove dummy value when work on Integrate.
-            text = stringResource(R.string.portfolio_card_total_coin, "7,273,291"),
+            text = stringResource(R.string.coin_currency, "7,273,291"),
             style = Style.whiteSemiBold24()
         )
 
@@ -87,7 +88,7 @@ fun PortfolioCard(
                     top.linkTo(todayProfitLabel.bottom, margin = Dp8)
                 },
             // TODO: Remove dummy value when work on Integrate.
-            text = stringResource(R.string.portfolio_card_today_profit, "193,280"),
+            text = stringResource(R.string.coin_currency, "193,280"),
             style = Style.whiteSemiBold24()
         )
 
@@ -113,13 +114,14 @@ fun PortfolioCard(
             )
             Text(
                 // TODO: Remove dummy value when work on Integrate.
-                text = stringResource(R.string.portfolio_card_profit_percent, 2.41),
+                text = stringResource(R.string.coin_profit_percent, "2.41"),
                 style = Style.medium16()
             )
         }
     }
 }
 
+@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun PortfolioCardPreview() {
