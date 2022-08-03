@@ -5,7 +5,8 @@
 
     <string name="home_title">Trade Now and Get\nYour Life</string>
     <string name="home_my_coins_title">My Coins 😎</string>
-    <string name="home_my_coins_see_all">see all</string>
+    <string name="home_trending_title">Trending 🔥</string>
+    <string name="home_see_all">see all</string>
 
     <string name="portfolio_card_total_coin_label">Total Coins</string>
     <string name="portfolio_card_today_profit_label">Today\'s Profit</string>

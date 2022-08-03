@@ -27,7 +27,7 @@ fun SeeAll(
     Row(modifier = modifier) {
         Text(
             modifier = Modifier.padding(end = Dp8),
-            text = stringResource(id = R.string.home_my_coins_see_all),
+            text = stringResource(id = R.string.home_see_all),
             style = Style.tiffanyBlueMedium14()
         )
         Icon(
