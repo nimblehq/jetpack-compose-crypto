@@ -27,7 +27,7 @@ class GetMyCoinsUseCase @Inject constructor(private val repository: CoinReposito
         order: String,
         priceChangeInHour: String,
         itemPerPage: Int,
-        page: Int,
+        page: Int
     ): Flow<UseCaseResult<List<CoinItem>>> {
         return repository.getTrendingList(
             coinIds = myCoinIds,
