@@ -16,7 +16,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import co.nimblehq.compose.crypto.ui.theme.Dimension
 
-@Suppress("LongMethod")
 @ExperimentalComposeUiApi
 @Composable
 fun TitleBar(
