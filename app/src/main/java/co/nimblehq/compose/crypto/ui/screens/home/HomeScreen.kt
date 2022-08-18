@@ -24,9 +24,7 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 fun HomeScreen() {
     Surface {
         ConstraintLayout(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = Dp16)
+            modifier = Modifier.fillMaxSize()
         ) {
             val (
                 title,
@@ -38,7 +36,7 @@ fun HomeScreen() {
 
             Text(
                 modifier = Modifier
-                    .padding(start = Dp16, top = Dp16, end = Dp16)
+                    .padding(top = Dp16)
                     .constrainAs(title) {
                         top.linkTo(parent.top)
                         linkTo(start = parent.start, end = parent.end)
@@ -51,18 +49,21 @@ fun HomeScreen() {
             )
 
             PortfolioCard(
-                modifier = Modifier.constrainAs(portfolioCard) {
-                    top.linkTo(title.bottom, margin = Dp40)
-                }
+                modifier = Modifier
+                    .constrainAs(portfolioCard) {
+                        top.linkTo(title.bottom, margin = Dp40)
+                    }
+                    .padding(horizontal = Dp16)
             )
 
             Text(
-                modifier = Modifier.constrainAs(myCoinsTitle) {
-                    top.linkTo(portfolioCard.bottom, margin = Dp52)
-                    start.linkTo(parent.start)
-                    width = Dimension.preferredWrapContent
-
-                },
+                modifier = Modifier
+                    .constrainAs(myCoinsTitle) {
+                        top.linkTo(portfolioCard.bottom, margin = Dp52)
+                        start.linkTo(parent.start)
+                        width = Dimension.preferredWrapContent
+                    }
+                    .padding(start = Dp16),
                 text = stringResource(id = R.string.home_my_coins_title),
                 style = Style.medium16(),
                 color = MaterialTheme.colors.textColor
@@ -76,6 +77,7 @@ fun HomeScreen() {
                         end.linkTo(parent.end)
                         width = Dimension.preferredWrapContent
                     }
+                    .padding(end = Dp16)
             )
 
             LazyRow(
@@ -84,7 +86,8 @@ fun HomeScreen() {
                     .constrainAs(myCoins) {
                         top.linkTo(myCoinsTitle.bottom, margin = Dp16)
                     },
-                horizontalArrangement = Arrangement.spacedBy(Dp16)
+                contentPadding = PaddingValues(horizontal = Dp16),
+                horizontalArrangement = Arrangement.spacedBy(Dp16),
             ) {
                 // TODO: Remove dummy value when work on Integrate.
                 item { CoinItem() }

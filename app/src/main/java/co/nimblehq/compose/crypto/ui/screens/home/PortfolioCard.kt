@@ -41,6 +41,7 @@ fun PortfolioCard(
                     colors = listOf(Color.MetallicSeaweed, Color.TiffanyBlue),
                 )
             )
+            .padding(horizontal = Dp16, vertical = Dp16)
     ) {
         val (
             totalCoinsLabel,
@@ -52,7 +53,6 @@ fun PortfolioCard(
 
         Text(
             modifier = Modifier
-                .padding(top = Dp16, start = Dp16)
                 .constrainAs(totalCoinsLabel) {
                     start.linkTo(parent.start)
                 },
@@ -62,7 +62,6 @@ fun PortfolioCard(
 
         Text(
             modifier = Modifier
-                .padding(horizontal = Dp16)
                 .constrainAs(totalCoins) {
                     top.linkTo(totalCoinsLabel.bottom, margin = Dp8)
                 },
@@ -73,7 +72,6 @@ fun PortfolioCard(
 
         Text(
             modifier = Modifier
-                .padding(start = Dp16)
                 .constrainAs(todayProfitLabel) {
                     top.linkTo(totalCoins.bottom, margin = Dp40)
                 },
@@ -83,7 +81,6 @@ fun PortfolioCard(
 
         Text(
             modifier = Modifier
-                .padding(start = Dp16, bottom = Dp16)
                 .constrainAs(todayProfit) {
                     top.linkTo(todayProfitLabel.bottom, margin = Dp8)
                 },
@@ -94,7 +91,6 @@ fun PortfolioCard(
 
         Button(
             modifier = Modifier
-                .padding(start = Dp16, end = Dp16, bottom = Dp16)
                 .shadow(elevation = Dp0)
                 .constrainAs(profitPercent) {
                     linkTo(top = todayProfitLabel.top, bottom = todayProfit.bottom)

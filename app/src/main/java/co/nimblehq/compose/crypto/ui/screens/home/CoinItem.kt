@@ -44,6 +44,7 @@ fun CoinItem(
             .wrapContentWidth()
             .clip(RoundedCornerShape(Dp12))
             .background(color = MaterialTheme.colors.coinItemColor)
+            .padding(horizontal = Dp8, vertical = Dp8)
     ) {
         val (
             logo,
@@ -57,7 +58,7 @@ fun CoinItem(
         Image(
             modifier = Modifier
                 .size(Dp60)
-                .padding(start = Dp8, end = Dp16, top = Dp8)
+                .padding(end = Dp16)
                 .constrainAs(logo) {
                     top.linkTo(coinSymbol.top)
                     bottom.linkTo(coinName.bottom)
@@ -70,7 +71,6 @@ fun CoinItem(
 
         Text(
             modifier = Modifier
-                .padding(end = Dp8, top = Dp8)
                 .constrainAs(coinSymbol) {
                     top.linkTo(parent.top)
                     start.linkTo(logo.end)
@@ -83,7 +83,7 @@ fun CoinItem(
 
         Text(
             modifier = Modifier
-                .padding(end = Dp8, top = Dp4)
+                .padding(top = Dp4)
                 .constrainAs(coinName) {
                     start.linkTo(coinSymbol.start)
                     top.linkTo(coinSymbol.bottom)
@@ -97,7 +97,7 @@ fun CoinItem(
 
         Text(
             modifier = Modifier
-                .padding(start = Dp8, end = Dp8, top = Dp22, bottom = Dp8)
+                .padding(top = Dp22)
                 .constrainAs(price) {
                     start.linkTo(logo.start)
                     top.linkTo(coinName.bottom)
@@ -111,7 +111,7 @@ fun CoinItem(
 
         Icon(
             modifier = Modifier
-                .padding(start = Dp25, bottom = Dp8)
+                .padding(start = Dp25)
                 .constrainAs(icon) {
                     start.linkTo(price.end)
                     top.linkTo(priceChange.top)
@@ -125,7 +125,6 @@ fun CoinItem(
 
         Text(
             modifier = Modifier
-                .padding(start = Dp8, end = Dp8, bottom = Dp8)
                 .constrainAs(priceChange) {
                     start.linkTo(icon.end)
                     bottom.linkTo(parent.bottom)
