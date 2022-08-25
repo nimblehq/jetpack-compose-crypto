@@ -10,9 +10,9 @@ data class CoinItem(
     val totalVolume: Long?,
     val high24h: Long?,
     val low24h: Long?,
-    val priceChange24h: Long?,
-    val priceChangePercentage24h: Int?,
-    val marketCapChange24h: Long?,
-    val marketCapChangePercentage24h: Int?,
-    val priceChangePercentage24hInCurrency: Long?
+    val priceChange24h: Double?,
+    val priceChangePercentage24h: Double?,
+    val marketCapChange24h: Double?,
+    val marketCapChangePercentage24h: Double?,
+    val priceChangePercentage24hInCurrency: Double?
 )

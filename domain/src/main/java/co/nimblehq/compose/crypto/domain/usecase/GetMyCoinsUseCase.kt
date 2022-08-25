@@ -36,7 +36,10 @@ class GetMyCoinsUseCase @Inject constructor(private val repository: CoinReposito
             itemOrder = order,
             itemPerPage = itemPerPage,
             page = page
-        ).map { data -> UseCaseResult.Success(data) }
-            .catch { exception -> error(UseCaseResult.Error(exception)) }
+        ).map { data ->
+            UseCaseResult.Success(data)
+        }.catch { exception ->
+            error(UseCaseResult.Error(exception))
+        }
     }
 }

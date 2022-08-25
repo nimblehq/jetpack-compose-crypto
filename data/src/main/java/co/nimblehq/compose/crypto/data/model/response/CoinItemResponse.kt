@@ -23,15 +23,15 @@ data class CoinItemResponse(
     @Json(name = "low_24h")
     val low24h: Long?,
     @Json(name = "price_change_24h")
-    val priceChange24h: Long?,
+    val priceChange24h: Double?,
     @Json(name = "price_change_percentage_24h")
-    val priceChangePercentage24h: Int?,
+    val priceChangePercentage24h: Double?,
     @Json(name = "market_cap_change_24h")
-    val marketCapChange24h: Long?,
+    val marketCapChange24h: Double?,
     @Json(name = "market_cap_change_percentage_24h")
-    val marketCapChangePercentage24h: Int?,
+    val marketCapChangePercentage24h: Double?,
     @Json(name = "price_change_percentage_24h_in_currency")
-    val priceChangePercentage24hInCurrency: Long?
+    val priceChangePercentage24hInCurrency: Double?
 )
 
 private fun CoinItemResponse.toModel() = CoinItem(
