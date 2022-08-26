@@ -35,20 +35,20 @@ data class CoinItemResponse(
 )
 
 private fun CoinItemResponse.toModel() = CoinItem(
-    id = id,
-    symbol = symbol,
-    coinName = coinName,
-    currentPrice = currentPrice,
-    marketCap = marketCap,
-    marketCapRank = marketCapRank,
-    totalVolume = totalVolume,
-    high24h = high24h,
-    low24h = low24h,
-    priceChange24h = priceChange24h,
-    priceChangePercentage24h = priceChangePercentage24h,
-    marketCapChange24h = marketCapChange24h,
-    marketCapChangePercentage24h = marketCapChangePercentage24h,
-    priceChangePercentage24hInCurrency = priceChangePercentage24hInCurrency
+    id = id.orEmpty(),
+    symbol = symbol.orEmpty(),
+    coinName = coinName.orEmpty(),
+    currentPrice = currentPrice ?: 0,
+    marketCap = marketCap ?: 0,
+    marketCapRank = marketCapRank  ?: 0,
+    totalVolume = totalVolume ?: 0,
+    high24h = high24h ?: 0,
+    low24h = low24h ?: 0,
+    priceChange24h = priceChange24h ?: 0.0,
+    priceChangePercentage24h = priceChangePercentage24h ?: 0.0,
+    marketCapChange24h = marketCapChange24h ?: 0.0,
+    marketCapChangePercentage24h = marketCapChangePercentage24h ?: 0.0,
+    priceChangePercentage24hInCurrency = priceChangePercentage24hInCurrency ?: 0.0
 )
 
 fun List<CoinItemResponse>.toModels() = this.map { it.toModel() }

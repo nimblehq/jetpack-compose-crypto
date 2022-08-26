@@ -4,19 +4,19 @@ import co.nimblehq.compose.crypto.data.model.response.ErrorResponse
 import co.nimblehq.compose.crypto.data.service.JsonApiException
 import co.nimblehq.compose.crypto.data.service.UnknownException
 import co.nimblehq.compose.crypto.data.service.providers.MoshiBuilderProvider
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.transform
 import retrofit2.Response
+import kotlin.experimental.ExperimentalTypeInference
 
-fun <T> Flow<Response<T>>.transform(): Flow<T> = transform { response ->
-    flow {
-        val body = response.body()
-        if (response.isSuccessful && body != null) {
-            emit(body)
-        } else {
-            error(mapError(response))
-        }
+@OptIn(ExperimentalTypeInference::class)
+fun <T> flowTransform(@BuilderInference block: suspend FlowCollector<T>.() -> Response<T>) = flow {
+    val response = block()
+    val body = response.body()
+    if (response.isSuccessful && body != null) {
+        emit(body)
+    } else {
+        error(mapError(response))
     }
 }
 
