@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string name="app_name">Cryto Compose</string>
+    <string name="error_generic">Unexpected error</string>
+
+    <string name="home_title">Trade Now and Get\nYour Life</string>
+    <string name="home_my_coins_title">My Coins 😎</string>
+    <string name="home_my_coins_see_all">see all</string>
+
+    <string name="portfolio_card_total_coin_label">Total Coins</string>
+    <string name="portfolio_card_today_profit_label">Today\'s Profit</string>
+
+    <string name="coin_currency">$%s</string>
+    <string name="coin_profit_percent">%1$s%%</string>
+</resources>

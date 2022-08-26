@@ -1,25 +1,35 @@
-# Git Repository Template
+# Jetpack Compose Crypto
 
-Project repository template to set up all public projects at [Nimble](https://nimblehq.co/)
+This is an sample Crypto market prices app built with Jetpack Compose
+
+### Screenshot 📸
+
+TBD
+
+### References:
+- [Coingecko API](https://www.coingecko.com/en/api/documentation)
+- [Figma Design](https://www.figma.com/community/file/1108313912145052181)
 
 ## Usage
 
 Clone the repository
 
-`git clone git@github.com:nimblehq/git-template.git`
+`git clone git@github.com:nimblehq/jetpack-compose-crypto.git`
 
 ## License
 
-This project is Copyright (c) 2014 and onwards Nimble. It is free software and may be redistributed under the terms specified in the [LICENSE] file.
+This project is Copyright (c) 2014 and onwards. It is free software,
+and may be redistributed under the terms specified in the [LICENSE] file.
 
 [LICENSE]: /LICENSE
 
 ## About
+
 <a href="https://nimblehq.co/">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://assets.nimblehq.co/logo/dark/logo-dark-text-160.png">
     <img alt="Nimble logo" src="https://assets.nimblehq.co/logo/light/logo-light-text-160.png">
-  </picture>    
+  </picture>
 </a>
 
 This project is maintained and funded by Nimble.

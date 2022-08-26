@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "815978434764",
+    "project_id": "jetpack-compose-crypto",
+    "storage_bucket": "jetpack-compose-crypto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815978434764:android:b009466b8c08fa18fc7269",
+        "android_client_info": {
+          "package_name": "co.nimblehq.compose.crypto.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815978434764-h4p3pe9e9198t33ghiv2ptp99b0nqko5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPYTu8leHXVj8iqmnrSyMllEm0Ckbp8t4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815978434764-h4p3pe9e9198t33ghiv2ptp99b0nqko5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
