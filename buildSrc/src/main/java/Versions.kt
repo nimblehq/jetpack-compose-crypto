@@ -15,6 +15,7 @@ object Versions {
     const val ANDROIDX_CORE_KTX_VERSION = "1.8.0"
     const val ANDROIDX_FRAGMENT_VERSION = "1.3.3"
     const val ANDROIDX_LIFECYCLE_VERSION = "2.5.1"
+    const val ANDROIDX_NAVIGATION_COMPOSE_VERSION = "2.5.1"
     const val ANDROIDX_NAVIGATION_VERSION = "2.3.4"
     const val ANDROIDX_SUPPORT_VERSION = "1.3.0"
 

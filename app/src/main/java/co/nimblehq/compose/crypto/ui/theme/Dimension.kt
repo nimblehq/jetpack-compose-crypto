@@ -7,6 +7,7 @@ object Dimension {
     val Dp0 = 0.dp
     val Dp4 = 4.dp
     val Dp8 = 8.dp
+    val Dp9 = 9.dp
     val Dp12 = 12.dp
     val Dp13 = 13.dp
     val Dp14 = 14.dp

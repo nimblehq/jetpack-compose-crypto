@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.home
+package co.nimblehq.compose.crypto.ui.screens.price
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
@@ -25,7 +26,8 @@ import kotlin.math.abs
 fun PriceChange(
     priceChangePercentage24hInCurrency: Double,
     modifier: Modifier,
-    iconPaddingEnd: Dp
+    iconPaddingEnd: Dp,
+    textStyle: TextStyle = Style.medium16()
 ) {
     val isPositiveNumber = priceChangePercentage24hInCurrency >= 0
 
@@ -39,11 +41,7 @@ fun PriceChange(
             } else {
                 painterResource(id = R.drawable.ic_fire_opal_arrow_down)
             },
-            tint = if (isPositiveNumber) {
-                Color.GuppieGreen
-            } else {
-                Color.FireOpal
-            },
+            tint = if (isPositiveNumber) Color.GuppieGreen else Color.FireOpal,
             contentDescription = null
         )
 
@@ -52,11 +50,8 @@ fun PriceChange(
                 R.string.coin_profit_percent,
                 abs(priceChangePercentage24hInCurrency).toFormattedString()
             ),
-            style = if (isPositiveNumber) {
-                Style.guppieGreenMedium16()
-            } else {
-                Style.fireOpalGreenMedium16()
-            }
+            style = textStyle,
+            color = if (isPositiveNumber) Color.GuppieGreen else Color.FireOpal
         )
     }
 }
