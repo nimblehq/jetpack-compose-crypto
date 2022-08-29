@@ -28,8 +28,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun HomeScreen() {
-    val scrollState = rememberScrollState()
-
     Surface {
         BoxWithConstraints {
             val screenHeight = maxHeight
@@ -37,7 +35,7 @@ fun HomeScreen() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(state = scrollState)
+                    .verticalScroll(state = rememberScrollState())
             ) {
                 Text(
                     modifier = Modifier

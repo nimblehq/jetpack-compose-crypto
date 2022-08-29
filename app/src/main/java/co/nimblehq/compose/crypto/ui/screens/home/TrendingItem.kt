@@ -16,6 +16,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
@@ -93,6 +94,7 @@ fun TrendingItem(
                     bottom.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
                 },
+            iconPaddingEnd = Dp13,
             isPositiveNumber = isPositiveNumber
         )
     }
