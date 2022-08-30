@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.constraintlayout.compose.Dimension
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -19,8 +18,6 @@ import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp22
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp25
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
@@ -31,12 +28,13 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
-fun CoinItem(
+fun TrendingItem(
     isPositiveNumber: Boolean = false /* TODO Update value to Object on Integrate ticket */
 ) {
+
     ConstraintLayout(
         modifier = Modifier
-            .wrapContentWidth()
+            .fillMaxWidth()
             .clip(RoundedCornerShape(Dp12))
             .background(color = MaterialTheme.colors.coinItemColor)
             .padding(horizontal = Dp8, vertical = Dp8)
@@ -45,7 +43,6 @@ fun CoinItem(
             logo,
             coinSymbol,
             coinName,
-            price,
             priceChange
         ) = createRefs()
 
@@ -89,26 +86,12 @@ fun CoinItem(
             style = Style.medium14()
         )
 
-        Text(
-            modifier = Modifier
-                .padding(top = Dp22)
-                .constrainAs(price) {
-                    start.linkTo(logo.start)
-                    top.linkTo(coinName.bottom)
-                    width = Dimension.preferredWrapContent
-                },
-            // TODO: Remove dummy value when work on Integrate.
-            text = stringResource(R.string.coin_currency, "24,209"),
-            color = MaterialTheme.colors.textColor,
-            style = Style.semiBold16()
-        )
-
         PriceChange(
             modifier = Modifier
-                .padding(start = Dp25)
                 .constrainAs(priceChange) {
-                    start.linkTo(price.end)
-                    bottom.linkTo(parent.bottom)
+                    end.linkTo(parent.end)
+                    top.linkTo(coinSymbol.top)
+                    bottom.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
                 },
             iconPaddingEnd = Dp13,
@@ -120,17 +103,17 @@ fun CoinItem(
 @Suppress("FunctionNaming")
 @Composable
 @Preview
-fun CoinItemPreview() {
+fun TrendingItemPreview() {
     ComposeTheme {
-        CoinItem()
+        TrendingItem()
     }
 }
 
 @Suppress("FunctionNaming")
 @Composable
 @Preview
-fun CoinItemPreviewDark() {
+fun TrendingItemPreviewDark() {
     ComposeTheme(darkTheme = true) {
-        CoinItem()
+        TrendingItem()
     }
 }
