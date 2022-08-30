@@ -7,16 +7,14 @@ import co.nimblehq.compose.crypto.data.service.providers.MoshiBuilderProvider
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
-import kotlin.experimental.ExperimentalTypeInference
 
-@OptIn(ExperimentalTypeInference::class)
-fun <T> flowTransform(@BuilderInference block: suspend FlowCollector<T>.() -> Response<T>) = flow {
+fun <T> flowTransform(block: suspend FlowCollector<T>.() -> Response<T>) = flow {
     val response = block()
     val body = response.body()
     if (response.isSuccessful && body != null) {
         emit(body)
     } else {
-        error(mapError(response))
+        throw mapError(response)
     }
 }
 

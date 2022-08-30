@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.data.repository
 
 import co.nimblehq.compose.crypto.data.flowTransform
+import co.nimblehq.compose.crypto.data.model.response.CoinItemResponse
 import co.nimblehq.compose.crypto.data.model.response.toModels
 import co.nimblehq.compose.crypto.data.service.ApiService
 import co.nimblehq.compose.crypto.domain.model.CoinItem
@@ -19,7 +20,7 @@ class CoinRepositoryImpl(
         itemOrder: String,
         itemPerPage: Int,
         page: Int
-    ): Flow<List<CoinItem>> = flowTransform {
+    ): Flow<List<CoinItem>> = flowTransform<List<CoinItemResponse>> {
         api.getCoins(
             coinIds = coinIds.joinToString(separator = ","),
             currency = currency,
