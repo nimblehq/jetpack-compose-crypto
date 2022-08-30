@@ -34,6 +34,7 @@ data class CoinItemResponse(
     val priceChangePercentage24hInCurrency: Double?
 )
 
+@Suppress("ComplexMethod")
 private fun CoinItemResponse.toModel() = CoinItem(
     id = id.orEmpty(),
     symbol = symbol.orEmpty(),

@@ -20,20 +20,26 @@ class GetMyCoinsUseCase @Inject constructor(private val repository: CoinReposito
         "dogecoin"
     )
 
+    data class Input(
+        val currency: String,
+        val order: String,
+        val priceChangeInHour: String,
+        val itemPerPage: Int,
+        val page: Int
+    )
+
     fun execute(
-        currency: String,
-        order: String,
-        priceChangeInHour: String,
-        itemPerPage: Int,
-        page: Int
+        input: Input
     ): Flow<List<CoinItem>> {
-        return repository.getTrendingList(
-            coinIds = myCoinIds,
-            currency = currency,
-            priceChangePercentage = priceChangeInHour,
-            itemOrder = order,
-            itemPerPage = itemPerPage,
-            page = page
-        )
+        return with(input) {
+            repository.getTrendingList(
+                coinIds = myCoinIds,
+                currency = currency,
+                priceChangePercentage = priceChangeInHour,
+                itemOrder = order,
+                itemPerPage = itemPerPage,
+                page = page
+            )
+        }
     }
 }

@@ -26,6 +26,7 @@ private fun <T> mapError(response: Response<T>?): Exception {
     else UnknownException
 }
 
+@Suppress("TooGenericExceptionCaught")
 private fun parseErrorResponse(source: String?): ErrorResponse? {
     return try {
         val moshi = MoshiBuilderProvider.moshiBuilder.build()

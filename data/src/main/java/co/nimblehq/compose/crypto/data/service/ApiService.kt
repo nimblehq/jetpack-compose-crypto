@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+@Suppress("LongParameterList")
 interface ApiService {
     @GET("coins/markets")
     suspend fun getCoins(
