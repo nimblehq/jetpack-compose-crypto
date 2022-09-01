@@ -16,7 +16,7 @@ class CoinRepositoryImpl(
     private val api: ApiService
 ) : CoinRepository {
 
-    override fun getTrendingList(
+    override fun getCoins(
         coinIds: List<String>,
         currency: String,
         priceChangePercentage: String,
