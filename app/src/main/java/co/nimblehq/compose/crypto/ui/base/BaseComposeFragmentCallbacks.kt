@@ -10,6 +10,7 @@ package co.nimblehq.compose.crypto.ui.base
  *
  * See more detail in each function.
  */
+@Deprecated("unused")
 interface BaseComposeFragmentCallbacks {
 
     /**
