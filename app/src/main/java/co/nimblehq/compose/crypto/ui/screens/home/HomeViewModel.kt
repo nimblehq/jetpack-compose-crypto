@@ -1,8 +1,9 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
-import co.nimblehq.compose.crypto.domain.model.CoinItem
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.ui.base.*
+import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
+import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import co.nimblehq.compose.crypto.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -14,7 +15,7 @@ private const val MY_COINS_PRICE_CHANGE_IN_HOUR = "24h"
 private const val MY_COINS_ITEM_PER_PAGE = 10
 
 interface Output : BaseOutput {
-    val myCoins: StateFlow<List<CoinItem>>
+    val myCoins: StateFlow<List<CoinItemUiModel>>
 }
 
 @HiltViewModel
@@ -26,8 +27,8 @@ class HomeViewModel @Inject constructor(
     override val input = this
     override val output = this
 
-    private val _myCoins = MutableStateFlow<List<CoinItem>>(emptyList())
-    override val myCoins: StateFlow<List<CoinItem>>
+    private val _myCoins = MutableStateFlow<List<CoinItemUiModel>>(emptyList())
+    override val myCoins: StateFlow<List<CoinItemUiModel>>
         get() = _myCoins
 
     init {
@@ -45,8 +46,8 @@ class HomeViewModel @Inject constructor(
                 .catch { e ->
                     _error.emit(e)
                 }
-                .collect {
-                    _myCoins.emit(it)
+                .collect { myCoins ->
+                    _myCoins.emit(myCoins.map { it.toUiModel() })
                 }
             hideLoading()
         }

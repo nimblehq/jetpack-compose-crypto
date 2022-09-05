@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.domain.model.CoinItem
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
@@ -21,13 +20,14 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp52
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
-    val myCoins: List<CoinItem> by viewModel.myCoins.collectAsState()
+    val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
 
     Surface {
         Column(
@@ -87,7 +87,7 @@ fun HomeScreen(
 
 @Suppress("FunctionNaming", "LongMethod", "MagicNumber")
 @Composable
-private fun MyCoins(coins: List<CoinItem>) {
+private fun MyCoins(coins: List<CoinItemUiModel>) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()

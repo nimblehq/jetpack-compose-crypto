@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.ui.screens.BaseViewModelTest
+import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
@@ -39,7 +40,7 @@ class HomeViewModelTest : BaseViewModelTest() {
         runBlockingTest {
             testDispatcher.pauseDispatcher()
             initViewModel()
-            val expected = MockUtil.myCoins
+            val expected = MockUtil.myCoins.map { it.toUiModel() }
             viewModel.output.myCoins.test {
                 testDispatcher.resumeDispatcher()
                 expectMostRecentItem() shouldBe expected

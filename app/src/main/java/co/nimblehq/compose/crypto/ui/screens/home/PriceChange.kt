@@ -12,16 +12,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.domain.model.CoinItem
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
+import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import kotlin.math.abs
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun PriceChange(
-    coinItem: CoinItem,
+    coinItem: CoinItemUiModel,
     modifier: Modifier,
     iconPaddingEnd: Dp
 ) {

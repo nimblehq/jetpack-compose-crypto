@@ -14,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.domain.model.CoinItem
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
@@ -29,13 +28,14 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
 import java.math.BigDecimal
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun CoinItem(
-    coinItem: CoinItem
+    coinItem: CoinItemUiModel
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -137,20 +137,11 @@ fun CoinItemPreviewDark() {
     }
 }
 
-internal val coinItemPreview = CoinItem(
+internal val coinItemPreview = CoinItemUiModel(
     id = "bitcoin",
     symbol = "btc",
     coinName = "Bitcoin",
     image = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
     currentPrice = BigDecimal(21953),
-    marketCap = BigDecimal(418632879244),
-    marketCapRank = 1,
-    totalVolume = BigDecimal(40284988945),
-    high24h = BigDecimal(23014),
-    low24h = BigDecimal(21175),
-    priceChange24h = BigDecimal(777.55),
-    priceChangePercentage24h = 3.67201,
-    marketCapChange24h = BigDecimal(15300446085.0),
-    marketCapChangePercentage24h = 3.79351,
     priceChangePercentage24hInCurrency = 3.672009841642702
 )
