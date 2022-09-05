@@ -1,9 +1,9 @@
 object Versions {
-    const val BUILD_GRADLE_VERSION = "4.2.1"
+    const val BUILD_GRADLE_VERSION = "7.0.4"
 
-    const val ANDROID_COMPILE_SDK_VERSION = 30
+    const val ANDROID_COMPILE_SDK_VERSION = 31
     const val ANDROID_MIN_SDK_VERSION = 23
-    const val ANDROID_TARGET_SDK_VERSION = 30
+    const val ANDROID_TARGET_SDK_VERSION = 31
 
     const val ANDROID_VERSION_CODE = 1
     const val ANDROID_VERSION_NAME = "3.9.0"
@@ -12,7 +12,7 @@ object Versions {
     const val ANDROID_COMMON_KTX_VERSION = "0.1.1"
     const val ANDROID_CRYPTO_VERSION = "1.0.0"
     const val ANDROIDX_ACTIVITY_KTX_VERSION = "1.2.1"
-    const val ANDROIDX_CORE_KTX_VERSION = "1.3.0"
+    const val ANDROIDX_CORE_KTX_VERSION = "1.8.0"
     const val ANDROIDX_FRAGMENT_VERSION = "1.3.3"
     const val ANDROIDX_LIFECYCLE_VERSION = "2.5.1"
     const val ANDROIDX_NAVIGATION_VERSION = "2.3.4"
@@ -47,7 +47,8 @@ object Versions {
     const val DETEKT_VERSION = "1.20.0"
 
     // Testing libraries
-    const val TEST_JUNIT_ANDROIDX_EXT_VERSION = "1.1.2"
+    const val TEST_ANDROIDX_CORE_VERSION = "1.4.0"
+    const val TEST_JUNIT_ANDROIDX_EXT_VERSION = "1.1.3"
     const val TEST_JUNIT_VERSION = "4.13.2"
     const val TEST_KOTEST_VERSION = "4.6.3"
     const val TEST_MOCKK_VERSION = "1.10.6"
