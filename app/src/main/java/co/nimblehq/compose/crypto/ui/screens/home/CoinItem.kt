@@ -11,10 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.constraintlayout.compose.Dimension
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.domain.model.CoinItem
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
@@ -32,6 +33,7 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun CoinItem(
+    coinItem: CoinItem,
     isPositiveNumber: Boolean = false /* TODO Update value to Object on Integrate ticket */
 ) {
     ConstraintLayout(
@@ -69,8 +71,7 @@ fun CoinItem(
                     top.linkTo(parent.top)
                     start.linkTo(logo.end)
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = "BTC",
+            text = coinItem.symbol,
             color = MaterialTheme.colors.textColor,
             style = Style.semiBold16()
         )
@@ -83,8 +84,7 @@ fun CoinItem(
                     top.linkTo(coinSymbol.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = "Bitcoin",
+            text = coinItem.coinName,
             color = MaterialTheme.colors.coinNameColor,
             style = Style.medium14()
         )
@@ -122,7 +122,7 @@ fun CoinItem(
 @Preview
 fun CoinItemPreview() {
     ComposeTheme {
-        CoinItem()
+        CoinItem(coinItem)
     }
 }
 
@@ -131,6 +131,23 @@ fun CoinItemPreview() {
 @Preview
 fun CoinItemPreviewDark() {
     ComposeTheme(darkTheme = true) {
-        CoinItem()
+        CoinItem(coinItem)
     }
 }
+
+private val coinItem = CoinItem(
+    id = "bitcoin",
+    symbol = "btc",
+    coinName = "Bitcoin",
+    currentPrice = 21953,
+    marketCap = 418632879244,
+    marketCapRank = 1,
+    totalVolume = 40284988945,
+    high24h = 23014,
+    low24h = 21175,
+    priceChange24h = 777.55,
+    priceChangePercentage24h = 3.67201,
+    marketCapChange24h = 15300446085.0,
+    marketCapChangePercentage24h = 3.79351,
+    priceChangePercentage24hInCurrency = 3.672009841642702,
+)

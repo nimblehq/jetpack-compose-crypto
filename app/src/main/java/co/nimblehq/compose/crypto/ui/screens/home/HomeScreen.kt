@@ -5,14 +5,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.domain.model.CoinItem
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
@@ -23,7 +25,11 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: HomeViewModel = viewModel()
+) {
+    val myCoins: List<CoinItem> by viewModel.myCoins.collectAsState()
+
     Surface {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -47,7 +53,7 @@ fun HomeScreen() {
                     )
                 }
 
-                item { Coins() }
+                item { MyCoins(myCoins) }
 
                 item {
                     Box(
@@ -82,7 +88,7 @@ fun HomeScreen() {
 
 @Suppress("FunctionNaming", "LongMethod", "MagicNumber")
 @Composable
-private fun Coins() {
+private fun MyCoins(coins: List<CoinItem>) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -126,9 +132,8 @@ private fun Coins() {
             contentPadding = PaddingValues(horizontal = Dp16),
             horizontalArrangement = Arrangement.spacedBy(Dp16)
         ) {
-            // TODO: Remove dummy value when work on Integrate.
-            items(3) { index ->
-                if (index == 1) CoinItem(true) else CoinItem()
+            items(coins.size) { index ->
+                if (index == 1) CoinItem(coins[index], true) else CoinItem(coins[index])
             }
         }
     }
