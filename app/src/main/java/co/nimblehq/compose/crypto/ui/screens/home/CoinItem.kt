@@ -16,6 +16,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.domain.model.CoinItem
+import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
@@ -34,8 +35,7 @@ import java.math.BigDecimal
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun CoinItem(
-    coinItem: CoinItem,
-    isPositiveNumber: Boolean = false /* TODO Update value to Object on Integrate ticket */
+    coinItem: CoinItem
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -72,7 +72,7 @@ fun CoinItem(
                     top.linkTo(parent.top)
                     start.linkTo(logo.end)
                 },
-            text = coinItem.symbol,
+            text = coinItem.symbol.uppercase(),
             color = MaterialTheme.colors.textColor,
             style = Style.semiBold16()
         )
@@ -98,13 +98,16 @@ fun CoinItem(
                     top.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = stringResource(R.string.coin_currency, "24,209"),
+            text = stringResource(
+                R.string.coin_currency,
+                coinItem.currentPrice.toFormattedString()
+            ),
             color = MaterialTheme.colors.textColor,
             style = Style.semiBold16()
         )
 
         PriceChange(
+            coinItem = coinItem,
             modifier = Modifier
                 .padding(start = Dp25)
                 .constrainAs(priceChange) {
@@ -112,8 +115,7 @@ fun CoinItem(
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            iconPaddingEnd = Dp13,
-            isPositiveNumber = isPositiveNumber
+            iconPaddingEnd = Dp13
         )
     }
 }
@@ -123,7 +125,7 @@ fun CoinItem(
 @Preview
 fun CoinItemPreview() {
     ComposeTheme {
-        CoinItem(coinItem)
+        CoinItem(coinItemPreview)
     }
 }
 
@@ -132,11 +134,11 @@ fun CoinItemPreview() {
 @Preview
 fun CoinItemPreviewDark() {
     ComposeTheme(darkTheme = true) {
-        CoinItem(coinItem)
+        CoinItem(coinItemPreview)
     }
 }
 
-private val coinItem = CoinItem(
+internal val coinItemPreview = CoinItem(
     id = "bitcoin",
     symbol = "btc",
     coinName = "Bitcoin",

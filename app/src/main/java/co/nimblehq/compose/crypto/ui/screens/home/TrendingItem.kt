@@ -10,9 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.constraintlayout.compose.Dimension
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
@@ -87,6 +87,7 @@ fun TrendingItem(
         )
 
         PriceChange(
+            coinItem = coinItemPreview,
             modifier = Modifier
                 .constrainAs(priceChange) {
                     end.linkTo(parent.end)
@@ -94,8 +95,7 @@ fun TrendingItem(
                     bottom.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            iconPaddingEnd = Dp13,
-            isPositiveNumber = isPositiveNumber
+            iconPaddingEnd = Dp13
         )
     }
 }

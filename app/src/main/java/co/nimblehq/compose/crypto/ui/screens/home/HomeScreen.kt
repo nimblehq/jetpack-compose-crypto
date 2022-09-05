@@ -2,8 +2,7 @@ package co.nimblehq.compose.crypto.ui.screens.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -132,8 +131,8 @@ private fun MyCoins(coins: List<CoinItem>) {
             contentPadding = PaddingValues(horizontal = Dp16),
             horizontalArrangement = Arrangement.spacedBy(Dp16)
         ) {
-            items(coins.size) { index ->
-                if (index == 1) CoinItem(coins[index], true) else CoinItem(coins[index])
+            items(coins) { coin ->
+                CoinItem(coin)
             }
         }
     }
