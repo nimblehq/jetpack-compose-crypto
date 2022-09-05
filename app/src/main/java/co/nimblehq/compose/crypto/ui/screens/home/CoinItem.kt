@@ -9,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -30,6 +29,7 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import coil.compose.rememberAsyncImagePainter
 import java.math.BigDecimal
 
 @Suppress("FunctionNaming", "LongMethod")
@@ -61,8 +61,7 @@ fun CoinItem(
                     bottom.linkTo(coinName.bottom)
                     start.linkTo(parent.start)
                 },
-            // TODO: Remove dummy image when work on Integrate.
-            painter = painterResource(id = R.drawable.ic_btc_bitcoin),
+            painter = rememberAsyncImagePainter(coinItem.image),
             contentDescription = null
         )
 
@@ -142,6 +141,7 @@ internal val coinItemPreview = CoinItem(
     id = "bitcoin",
     symbol = "btc",
     coinName = "Bitcoin",
+    image = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
     currentPrice = BigDecimal(21953),
     marketCap = BigDecimal(418632879244),
     marketCapRank = 1,

@@ -9,6 +9,7 @@ data class CoinItemResponse(
     val symbol: String?,
     @Json(name = "name")
     val coinName: String?,
+    val image: String?,
     @Json(name = "current_price")
     val currentPrice: BigDecimal?,
     @Json(name = "market_cap")
@@ -38,6 +39,7 @@ private fun CoinItemResponse.toModel() = CoinItem(
     id = id.orEmpty(),
     symbol = symbol.orEmpty(),
     coinName = coinName.orEmpty(),
+    image = image.orEmpty(),
     currentPrice = currentPrice ?: BigDecimal.ZERO,
     marketCap = marketCap ?: BigDecimal.ZERO,
     marketCapRank = marketCapRank ?: 0,

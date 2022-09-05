@@ -22,6 +22,7 @@ object Versions {
     const val COMPOSE_ACTIVITY_VERSION = "1.3.1"
     const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.1"
     const val CONSTRAINT_LAYOUT_VERSION = "2.0.0-alpha3"
+    const val COIL_VERSION = "2.0.0" // API 31
 
     const val FIREBASE_BOM_VERSION = "30.3.0"
 

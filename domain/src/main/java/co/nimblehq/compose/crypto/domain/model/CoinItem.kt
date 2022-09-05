@@ -6,6 +6,7 @@ data class CoinItem(
     val id: String,
     val symbol: String,
     val coinName: String,
+    val image: String,
     val currentPrice: BigDecimal,
     val marketCap: BigDecimal,
     val marketCapRank: Int,

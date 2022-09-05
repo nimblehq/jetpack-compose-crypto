@@ -146,6 +146,7 @@ dependencies {
 
     implementation("com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM_VERSION}")
 
+    implementation("io.coil-kt:coil-compose:${Versions.COIL_VERSION}")
 
     implementation("com.jakewharton.timber:timber:${Versions.TIMBER_LOG_VERSION}")
 
