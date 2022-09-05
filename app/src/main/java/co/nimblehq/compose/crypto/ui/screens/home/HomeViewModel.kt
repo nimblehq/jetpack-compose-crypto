@@ -8,6 +8,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
+private const val MY_COINS_CURRENCY = "usd"
+private const val MY_COINS_ORDER = "market_cap_desc"
+private const val MY_COINS_PRICE_CHANGE_IN_HOUR = "24h"
+private const val MY_COINS_ITEM_PER_PAGE = 10
+
 interface Output : BaseOutput {
     val myCoins: StateFlow<List<CoinItem>>
 }
@@ -30,10 +35,10 @@ class HomeViewModel @Inject constructor(
             showLoading()
             getMyCoinsUseCase.execute(
                 GetMyCoinsUseCase.Input(
-                    currency = "usd",
-                    order = "market_cap_desc",
-                    priceChangeInHour = "24h",
-                    itemPerPage = 10,
+                    currency = MY_COINS_CURRENCY,
+                    order = MY_COINS_ORDER,
+                    priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
+                    itemPerPage = MY_COINS_ITEM_PER_PAGE,
                     page = 1
                 )
             )

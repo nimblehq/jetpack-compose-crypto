@@ -29,6 +29,7 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import java.math.BigDecimal
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
@@ -139,15 +140,15 @@ private val coinItem = CoinItem(
     id = "bitcoin",
     symbol = "btc",
     coinName = "Bitcoin",
-    currentPrice = 21953,
-    marketCap = 418632879244,
+    currentPrice = BigDecimal(21953),
+    marketCap = BigDecimal(418632879244),
     marketCapRank = 1,
-    totalVolume = 40284988945,
-    high24h = 23014,
-    low24h = 21175,
-    priceChange24h = 777.55,
+    totalVolume = BigDecimal(40284988945),
+    high24h = BigDecimal(23014),
+    low24h = BigDecimal(21175),
+    priceChange24h = BigDecimal(777.55),
     priceChangePercentage24h = 3.67201,
-    marketCapChange24h = 15300446085.0,
+    marketCapChange24h = BigDecimal(15300446085.0),
     marketCapChangePercentage24h = 3.79351,
-    priceChangePercentage24hInCurrency = 3.672009841642702,
+    priceChangePercentage24hInCurrency = 3.672009841642702
 )

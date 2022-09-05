@@ -2,32 +2,31 @@ package co.nimblehq.compose.crypto.data.model.response
 
 import co.nimblehq.compose.crypto.domain.model.CoinItem
 import com.squareup.moshi.Json
+import java.math.BigDecimal
 
 data class CoinItemResponse(
-    @Json(name = "id")
     val id: String?,
-    @Json(name = "symbol")
     val symbol: String?,
     @Json(name = "name")
     val coinName: String?,
     @Json(name = "current_price")
-    val currentPrice: Int?,
+    val currentPrice: BigDecimal?,
     @Json(name = "market_cap")
-    val marketCap: Long?,
+    val marketCap: BigDecimal?,
     @Json(name = "market_cap_rank")
     val marketCapRank: Int?,
     @Json(name = "total_volume")
-    val totalVolume: Long?,
+    val totalVolume: BigDecimal?,
     @Json(name = "high_24h")
-    val high24h: Long?,
+    val high24h: BigDecimal?,
     @Json(name = "low_24h")
-    val low24h: Long?,
+    val low24h: BigDecimal?,
     @Json(name = "price_change_24h")
-    val priceChange24h: Double?,
+    val priceChange24h: BigDecimal?,
     @Json(name = "price_change_percentage_24h")
     val priceChangePercentage24h: Double?,
     @Json(name = "market_cap_change_24h")
-    val marketCapChange24h: Double?,
+    val marketCapChange24h: BigDecimal?,
     @Json(name = "market_cap_change_percentage_24h")
     val marketCapChangePercentage24h: Double?,
     @Json(name = "price_change_percentage_24h_in_currency")
@@ -39,15 +38,15 @@ private fun CoinItemResponse.toModel() = CoinItem(
     id = id.orEmpty(),
     symbol = symbol.orEmpty(),
     coinName = coinName.orEmpty(),
-    currentPrice = currentPrice ?: 0,
-    marketCap = marketCap ?: 0,
-    marketCapRank = marketCapRank  ?: 0,
-    totalVolume = totalVolume ?: 0,
-    high24h = high24h ?: 0,
-    low24h = low24h ?: 0,
-    priceChange24h = priceChange24h ?: 0.0,
+    currentPrice = currentPrice ?: BigDecimal.ZERO,
+    marketCap = marketCap ?: BigDecimal.ZERO,
+    marketCapRank = marketCapRank ?: 0,
+    totalVolume = totalVolume ?: BigDecimal.ZERO,
+    high24h = high24h ?: BigDecimal.ZERO,
+    low24h = low24h ?: BigDecimal.ZERO,
+    priceChange24h = priceChange24h ?: BigDecimal.ZERO,
     priceChangePercentage24h = priceChangePercentage24h ?: 0.0,
-    marketCapChange24h = marketCapChange24h ?: 0.0,
+    marketCapChange24h = marketCapChange24h ?: BigDecimal.ZERO,
     marketCapChangePercentage24h = marketCapChangePercentage24h ?: 0.0,
     priceChangePercentage24hInCurrency = priceChangePercentage24hInCurrency ?: 0.0
 )
