@@ -170,6 +170,8 @@ dependencies {
     testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_VERSION}")
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.KOTLIN_REFLECT_VERSION}")
     testImplementation("io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.TEST_COROUTINES_VERSION}")
+    testImplementation("app.cash.turbine:turbine:${Versions.TEST_TURBINE_VERSION}")
 
     kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
