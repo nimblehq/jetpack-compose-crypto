@@ -8,8 +8,16 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
+interface BaseInput
+
+interface BaseOutput
+
 @Suppress("PropertyName")
 abstract class BaseViewModel(private val dispatchersProvider: DispatchersProvider) : ViewModel() {
+
+    abstract val input: BaseInput
+
+    abstract val output: BaseOutput
 
     private var loadingCount: Int = 0
 
@@ -17,8 +25,8 @@ abstract class BaseViewModel(private val dispatchersProvider: DispatchersProvide
     val showLoading: StateFlow<IsLoading>
         get() = _showLoading
 
-    protected val _error = MutableSharedFlow<String>()
-    val error: SharedFlow<String>
+    protected val _error = MutableSharedFlow<Throwable>()
+    val error: SharedFlow<Throwable>
         get() = _error
 
     protected val _navigator = MutableSharedFlow<NavigationEvent>()
