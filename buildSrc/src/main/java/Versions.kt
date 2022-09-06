@@ -38,6 +38,7 @@ object Versions {
     const val KOTLIN_VERSION = "1.5.21"
     const val KOTLINX_COROUTINES_VERSION = "1.5.0"
 
+    const val MATERIAL_VERSION = "1.6.0"
     const val MOSHI_VERSION = "1.12.0"
 
     const val OKHTTP_VERSION = "4.9.1"
