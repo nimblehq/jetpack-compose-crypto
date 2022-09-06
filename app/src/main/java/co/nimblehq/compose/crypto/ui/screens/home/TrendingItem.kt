@@ -88,7 +88,7 @@ fun TrendingItem(
         )
 
         PriceChange(
-            coinItem = coinItemPreview,
+            priceChangePercentage24hInCurrency = coinItemPreview.priceChangePercentage24hInCurrency,
             modifier = Modifier
                 .constrainAs(priceChange) {
                     end.linkTo(parent.end)

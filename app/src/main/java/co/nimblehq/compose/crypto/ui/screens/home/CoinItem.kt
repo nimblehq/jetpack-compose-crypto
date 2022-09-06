@@ -106,7 +106,7 @@ fun CoinItem(
         )
 
         PriceChange(
-            coinItem = coinItem,
+            priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
             modifier = Modifier
                 .padding(start = Dp25)
                 .constrainAs(priceChange) {

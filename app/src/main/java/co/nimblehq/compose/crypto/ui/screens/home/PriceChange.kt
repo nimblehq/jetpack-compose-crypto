@@ -15,17 +15,16 @@ import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
-import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import kotlin.math.abs
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun PriceChange(
-    coinItem: CoinItemUiModel,
+    priceChangePercentage24hInCurrency: Double,
     modifier: Modifier,
     iconPaddingEnd: Dp
 ) {
-    val isPositiveNumber = coinItem.priceChangePercentage24hInCurrency >= 0
+    val isPositiveNumber = priceChangePercentage24hInCurrency >= 0
 
     Row(modifier = modifier) {
         Icon(
@@ -48,7 +47,7 @@ fun PriceChange(
         Text(
             text = stringResource(
                 R.string.coin_profit_percent,
-                abs(coinItem.priceChangePercentage24hInCurrency).toFormattedString()
+                abs(priceChangePercentage24hInCurrency).toFormattedString()
             ),
             style = if (isPositiveNumber) {
                 Style.guppieGreenMedium16()
@@ -65,7 +64,7 @@ fun PriceChange(
 fun PriceChangePreview() {
     ComposeTheme {
         PriceChange(
-            coinItem = coinItemPreview,
+            priceChangePercentage24hInCurrency = coinItemPreview.priceChangePercentage24hInCurrency,
             modifier = Modifier,
             iconPaddingEnd = Dp13
         )
