@@ -41,6 +41,17 @@ fun HomeScreen(
     val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
     val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
 
+    HomeScreenBody(
+        myCoins = myCoins,
+        trendingCoins = trendingCoins
+    )
+}
+
+@Composable
+private fun HomeScreenBody(
+    myCoins: List<CoinItemUiModel>,
+    trendingCoins: List<CoinItemUiModel>,
+) {
     Surface {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -64,7 +75,11 @@ fun HomeScreen(
                     )
                 }
 
-                item { MyCoins(myCoins) }
+                item {
+                    MyCoins(
+                        coins = myCoins
+                    )
+                }
 
                 item {
                     Box(
@@ -154,7 +169,10 @@ private fun MyCoins(coins: List<CoinItemUiModel>) {
 @Preview
 fun HomeScreenPreview() {
     ComposeTheme {
-        HomeScreen()
+        HomeScreenBody(
+            myCoins = listOf(coinItemPreview),
+            trendingCoins = listOf(coinItemPreview),
+        )
     }
 }
 
@@ -163,6 +181,9 @@ fun HomeScreenPreview() {
 @Preview
 fun HomeScreenPreviewDark() {
     ComposeTheme(darkTheme = true) {
-        HomeScreen()
+        HomeScreenBody(
+            myCoins = listOf(coinItemPreview),
+            trendingCoins = listOf(coinItemPreview),
+        )
     }
 }
