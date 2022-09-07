@@ -10,6 +10,7 @@ data class CoinItem(
     val currentPrice: BigDecimal,
     val marketCap: BigDecimal,
     val marketCapRank: Int,
+    val fullyDilutedValuation: BigDecimal,
     val totalVolume: BigDecimal,
     val high24h: BigDecimal,
     val low24h: BigDecimal,
@@ -17,5 +18,23 @@ data class CoinItem(
     val priceChangePercentage24h: Double,
     val marketCapChange24h: BigDecimal,
     val marketCapChangePercentage24h: Double,
+    val circulatingSupply: BigDecimal,
+    val totalSupply: BigDecimal,
+    val maxSupply: BigDecimal,
+    val ath: BigDecimal,
+    val athChangePercentage: BigDecimal,
+    val athDate: String,
+    val atl: BigDecimal,
+    val atlChangePercentage: BigDecimal,
+    val atlDate: String,
+    val roi: RoiItem?,
+    val lastUpdated: String,
     val priceChangePercentage24hInCurrency: Double
-)
+) {
+
+    data class RoiItem(
+        val times: BigDecimal,
+        val currency: String,
+        val percentage: BigDecimal
+    )
+}

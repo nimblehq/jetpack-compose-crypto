@@ -17,7 +17,7 @@ class CoinRepositoryImpl(
 ) : CoinRepository {
 
     override fun getCoins(
-        coinIds: List<String>,
+        coinIds: List<String>?,
         currency: String,
         priceChangePercentage: String,
         itemOrder: String,
@@ -25,7 +25,7 @@ class CoinRepositoryImpl(
         page: Int
     ): Flow<List<CoinItem>> = flowTransform<List<CoinItemResponse>> {
         api.getCoins(
-            coinIds = coinIds.joinToString(separator = ","),
+            coinIds = coinIds?.joinToString(separator = ","),
             currency = currency,
             priceChangePercentage = priceChangePercentage,
             itemOrder = itemOrder,

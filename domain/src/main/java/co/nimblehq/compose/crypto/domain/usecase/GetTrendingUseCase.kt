@@ -1,6 +1,6 @@
 package co.nimblehq.compose.crypto.domain.usecase
 
-import co.nimblehq.compose.crypto.domain.model.TrendingItem
+import co.nimblehq.compose.crypto.domain.model.CoinItem
 import co.nimblehq.compose.crypto.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -15,9 +15,9 @@ class GetTrendingUseCase @Inject constructor(private val repository: CoinReposit
         val page: Int
     )
 
-    fun execute(input: Input): Flow<List<TrendingItem>> {
+    fun execute(input: Input): Flow<List<CoinItem>> {
         return with(input) {
-            repository.getTrends(
+            repository.getCoins(
                 currency = currency,
                 priceChangePercentage = priceChangeInHour,
                 itemOrder = order,

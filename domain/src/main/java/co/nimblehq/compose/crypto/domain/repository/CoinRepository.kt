@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 @Suppress("LongParameterList")
 interface CoinRepository {
     fun getCoins(
-        coinIds: List<String>,
+        coinIds: List<String>? = null,
         currency: String,
         priceChangePercentage: String,
         itemOrder: String,
