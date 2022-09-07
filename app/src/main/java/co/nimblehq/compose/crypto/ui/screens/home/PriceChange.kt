@@ -12,18 +12,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.theme.Color
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.extension.toFormattedString
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
-import co.nimblehq.compose.crypto.ui.theme.Style
+import kotlin.math.abs
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun PriceChange(
+    priceChangePercentage24hInCurrency: Double,
     modifier: Modifier,
-    iconPaddingEnd: Dp,
-    isPositiveNumber: Boolean = false
+    iconPaddingEnd: Dp
 ) {
+    val isPositiveNumber = priceChangePercentage24hInCurrency >= 0
+
     Row(modifier = modifier) {
         Icon(
             modifier = Modifier
@@ -43,8 +45,10 @@ fun PriceChange(
         )
 
         Text(
-            // TODO: Remove dummy value when work on Integrate.
-            text = stringResource(R.string.coin_profit_percent, "6.21"),
+            text = stringResource(
+                R.string.coin_profit_percent,
+                abs(priceChangePercentage24hInCurrency).toFormattedString()
+            ),
             style = if (isPositiveNumber) {
                 Style.guppieGreenMedium16()
             } else {
@@ -60,6 +64,7 @@ fun PriceChange(
 fun PriceChangePreview() {
     ComposeTheme {
         PriceChange(
+            priceChangePercentage24hInCurrency = coinItemPreview.priceChangePercentage24hInCurrency,
             modifier = Modifier,
             iconPaddingEnd = Dp13
         )

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
+@Deprecated("unused")
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     protected abstract val viewModel: BaseViewModel

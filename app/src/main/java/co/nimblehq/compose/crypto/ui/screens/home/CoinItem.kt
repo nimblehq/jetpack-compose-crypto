@@ -9,12 +9,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.constraintlayout.compose.Dimension
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
@@ -28,11 +28,14 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
+import coil.compose.rememberAsyncImagePainter
+import java.math.BigDecimal
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun CoinItem(
-    isPositiveNumber: Boolean = false /* TODO Update value to Object on Integrate ticket */
+    coinItem: CoinItemUiModel
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -58,8 +61,7 @@ fun CoinItem(
                     bottom.linkTo(coinName.bottom)
                     start.linkTo(parent.start)
                 },
-            // TODO: Remove dummy image when work on Integrate.
-            painter = painterResource(id = R.drawable.ic_btc_bitcoin),
+            painter = rememberAsyncImagePainter(coinItem.image),
             contentDescription = null
         )
 
@@ -69,8 +71,7 @@ fun CoinItem(
                     top.linkTo(parent.top)
                     start.linkTo(logo.end)
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = "BTC",
+            text = coinItem.symbol.uppercase(),
             color = MaterialTheme.colors.textColor,
             style = Style.semiBold16()
         )
@@ -83,8 +84,7 @@ fun CoinItem(
                     top.linkTo(coinSymbol.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = "Bitcoin",
+            text = coinItem.coinName,
             color = MaterialTheme.colors.coinNameColor,
             style = Style.medium14()
         )
@@ -97,13 +97,16 @@ fun CoinItem(
                     top.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = stringResource(R.string.coin_currency, "24,209"),
+            text = stringResource(
+                R.string.coin_currency,
+                coinItem.currentPrice.toFormattedString()
+            ),
             color = MaterialTheme.colors.textColor,
             style = Style.semiBold16()
         )
 
         PriceChange(
+            priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
             modifier = Modifier
                 .padding(start = Dp25)
                 .constrainAs(priceChange) {
@@ -111,8 +114,7 @@ fun CoinItem(
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            iconPaddingEnd = Dp13,
-            isPositiveNumber = isPositiveNumber
+            iconPaddingEnd = Dp13
         )
     }
 }
@@ -122,7 +124,7 @@ fun CoinItem(
 @Preview
 fun CoinItemPreview() {
     ComposeTheme {
-        CoinItem()
+        CoinItem(coinItemPreview)
     }
 }
 
@@ -131,6 +133,15 @@ fun CoinItemPreview() {
 @Preview
 fun CoinItemPreviewDark() {
     ComposeTheme(darkTheme = true) {
-        CoinItem()
+        CoinItem(coinItemPreview)
     }
 }
+
+internal val coinItemPreview = CoinItemUiModel(
+    id = "bitcoin",
+    symbol = "btc",
+    coinName = "Bitcoin",
+    image = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+    currentPrice = BigDecimal(21953),
+    priceChangePercentage24hInCurrency = 3.672009841642702
+)

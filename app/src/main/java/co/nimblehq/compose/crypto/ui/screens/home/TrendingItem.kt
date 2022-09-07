@@ -9,11 +9,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.constraintlayout.compose.Dimension
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
-import co.nimblehq.compose.crypto.R
+import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
@@ -25,6 +23,7 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import coil.compose.rememberAsyncImagePainter
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
@@ -56,7 +55,9 @@ fun TrendingItem(
                     start.linkTo(parent.start)
                 },
             // TODO: Remove dummy image when work on Integrate.
-            painter = painterResource(id = R.drawable.ic_btc_bitcoin),
+            painter = rememberAsyncImagePainter(
+                "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579"
+            ),
             contentDescription = null
         )
 
@@ -87,6 +88,7 @@ fun TrendingItem(
         )
 
         PriceChange(
+            priceChangePercentage24hInCurrency = coinItemPreview.priceChangePercentage24hInCurrency,
             modifier = Modifier
                 .constrainAs(priceChange) {
                     end.linkTo(parent.end)
@@ -94,8 +96,7 @@ fun TrendingItem(
                     bottom.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            iconPaddingEnd = Dp13,
-            isPositiveNumber = isPositiveNumber
+            iconPaddingEnd = Dp13
         )
     }
 }
