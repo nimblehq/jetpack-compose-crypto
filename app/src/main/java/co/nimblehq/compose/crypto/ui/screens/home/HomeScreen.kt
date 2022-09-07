@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
@@ -38,10 +39,12 @@ fun HomeScreen(
         }
     }
 
+    val showLoading: IsLoading by viewModel.showLoading.collectAsState()
     val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
     val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
 
     HomeScreenBody(
+        showLoading = showLoading,
         myCoins = myCoins,
         trendingCoins = trendingCoins
     )
@@ -49,6 +52,7 @@ fun HomeScreen(
 
 @Composable
 private fun HomeScreenBody(
+    showLoading: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
 ) {
@@ -77,6 +81,7 @@ private fun HomeScreenBody(
 
                 item {
                     MyCoins(
+                        showLoading = showLoading,
                         coins = myCoins
                     )
                 }
@@ -113,7 +118,7 @@ private fun HomeScreenBody(
 
 @Suppress("FunctionNaming", "LongMethod", "MagicNumber")
 @Composable
-private fun MyCoins(coins: List<CoinItemUiModel>) {
+private fun MyCoins(showLoading: IsLoading, coins: List<CoinItemUiModel>) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -148,17 +153,28 @@ private fun MyCoins(coins: List<CoinItemUiModel>) {
                 .padding(end = Dp16)
         )
 
-        LazyRow(
-            modifier = Modifier
-                .constrainAs(myCoins) {
-                    top.linkTo(myCoinsTitle.bottom, margin = Dp16)
-                    start.linkTo(parent.start)
-                },
-            contentPadding = PaddingValues(horizontal = Dp16),
-            horizontalArrangement = Arrangement.spacedBy(Dp16)
-        ) {
-            items(coins) { coin ->
-                CoinItem(coin)
+        if (showLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .constrainAs(myCoins) {
+                        top.linkTo(myCoinsTitle.bottom, margin = Dp16)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+            )
+        } else {
+            LazyRow(
+                modifier = Modifier
+                    .constrainAs(myCoins) {
+                        top.linkTo(myCoinsTitle.bottom, margin = Dp16)
+                        start.linkTo(parent.start)
+                    },
+                contentPadding = PaddingValues(horizontal = Dp16),
+                horizontalArrangement = Arrangement.spacedBy(Dp16)
+            ) {
+                items(coins) { coin ->
+                    CoinItem(coin)
+                }
             }
         }
     }
@@ -170,6 +186,7 @@ private fun MyCoins(coins: List<CoinItemUiModel>) {
 fun HomeScreenPreview() {
     ComposeTheme {
         HomeScreenBody(
+            showLoading = false,
             myCoins = listOf(coinItemPreview),
             trendingCoins = listOf(coinItemPreview),
         )
@@ -182,6 +199,20 @@ fun HomeScreenPreview() {
 fun HomeScreenPreviewDark() {
     ComposeTheme(darkTheme = true) {
         HomeScreenBody(
+            showLoading = false,
+            myCoins = listOf(coinItemPreview),
+            trendingCoins = listOf(coinItemPreview),
+        )
+    }
+}
+
+@Suppress("FunctionNaming")
+@Composable
+@Preview
+fun HomeScreenLoadingPreview() {
+    ComposeTheme {
+        HomeScreenBody(
+            showLoading = true,
             myCoins = listOf(coinItemPreview),
             trendingCoins = listOf(coinItemPreview),
         )
