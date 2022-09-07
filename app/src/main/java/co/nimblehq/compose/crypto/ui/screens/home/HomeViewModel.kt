@@ -2,6 +2,7 @@ package co.nimblehq.compose.crypto.ui.screens.home
 
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
+import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.*
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
@@ -33,6 +34,14 @@ class HomeViewModel @Inject constructor(
     override val input = this
     override val output = this
 
+    private val _showMyCoinsLoading = MutableStateFlow(false)
+    val showMyCoinsLoading: StateFlow<IsLoading>
+        get() = _showMyCoinsLoading
+
+    private val _showTrendingCoinsLoading = MutableStateFlow(false)
+    val showTrendingCoinsLoading: StateFlow<IsLoading>
+        get() = _showTrendingCoinsLoading
+
     private val _myCoins = MutableStateFlow<List<CoinItemUiModel>>(emptyList())
     override val myCoins: StateFlow<List<CoinItemUiModel>>
         get() = _myCoins
@@ -48,7 +57,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getMyCoins() {
         execute {
-            showLoading()
+            _showMyCoinsLoading.value = true
             getMyCoinsUseCase.execute(
                 GetMyCoinsUseCase.Input(
                     currency = MY_COINS_CURRENCY,
@@ -64,13 +73,13 @@ class HomeViewModel @Inject constructor(
                 .collect { coins ->
                     _myCoins.emit(coins.map { it.toUiModel() })
                 }
-            hideLoading()
+            _showMyCoinsLoading.value = false
         }
     }
 
     private fun getTrendingCoins() {
         execute {
-            showLoading()
+            _showTrendingCoinsLoading.value = true
             getTrendingCoinsUseCase.execute(
                 GetTrendingCoinsUseCase.Input(
                     currency = MY_COINS_CURRENCY,
@@ -86,7 +95,7 @@ class HomeViewModel @Inject constructor(
                 .collect { coins ->
                     _trendingCoins.emit(coins.map { it.toUiModel() })
                 }
-            hideLoading()
+            _showTrendingCoinsLoading.value = false
         }
     }
 }

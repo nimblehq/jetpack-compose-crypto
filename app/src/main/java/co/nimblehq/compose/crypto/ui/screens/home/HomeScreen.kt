@@ -39,12 +39,14 @@ fun HomeScreen(
         }
     }
 
-    val showLoading: IsLoading by viewModel.showLoading.collectAsState()
+    val showMyCoinsLoading: IsLoading by viewModel.showMyCoinsLoading.collectAsState()
+    val showTrendingCoinsLoading: IsLoading by viewModel.showTrendingCoinsLoading.collectAsState()
     val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
     val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
 
     HomeScreenBody(
-        showLoading = showLoading,
+        showMyCoinsLoading = showMyCoinsLoading,
+        showTrendingCoinsLoading = showTrendingCoinsLoading,
         myCoins = myCoins,
         trendingCoins = trendingCoins
     )
@@ -52,7 +54,8 @@ fun HomeScreen(
 
 @Composable
 private fun HomeScreenBody(
-    showLoading: IsLoading,
+    showMyCoinsLoading: IsLoading,
+    showTrendingCoinsLoading: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
 ) {
@@ -81,7 +84,7 @@ private fun HomeScreenBody(
 
                 item {
                     MyCoins(
-                        showLoading = showLoading,
+                        showMyCoinsLoading = showMyCoinsLoading,
                         coins = myCoins
                     )
                 }
@@ -106,9 +109,19 @@ private fun HomeScreenBody(
                     }
                 }
 
-                items(trendingCoins) { coin ->
-                    Box(modifier = Modifier.padding(start = Dp16, end = Dp16, bottom = Dp16)) {
-                        TrendingItem(coin)
+                if (showTrendingCoinsLoading) {
+                    item {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentWidth(align = Alignment.CenterHorizontally),
+                        )
+                    }
+                } else {
+                    items(trendingCoins) { coin ->
+                        Box(modifier = Modifier.padding(start = Dp16, end = Dp16, bottom = Dp16)) {
+                            TrendingItem(coin)
+                        }
                     }
                 }
             }
@@ -118,7 +131,7 @@ private fun HomeScreenBody(
 
 @Suppress("FunctionNaming", "LongMethod", "MagicNumber")
 @Composable
-private fun MyCoins(showLoading: IsLoading, coins: List<CoinItemUiModel>) {
+private fun MyCoins(showMyCoinsLoading: IsLoading, coins: List<CoinItemUiModel>) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -153,7 +166,7 @@ private fun MyCoins(showLoading: IsLoading, coins: List<CoinItemUiModel>) {
                 .padding(end = Dp16)
         )
 
-        if (showLoading) {
+        if (showMyCoinsLoading) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .constrainAs(myCoins) {
@@ -186,7 +199,8 @@ private fun MyCoins(showLoading: IsLoading, coins: List<CoinItemUiModel>) {
 fun HomeScreenPreview() {
     ComposeTheme {
         HomeScreenBody(
-            showLoading = false,
+            showMyCoinsLoading = false,
+            showTrendingCoinsLoading = false,
             myCoins = listOf(coinItemPreview),
             trendingCoins = listOf(coinItemPreview),
         )
@@ -199,7 +213,8 @@ fun HomeScreenPreview() {
 fun HomeScreenPreviewDark() {
     ComposeTheme(darkTheme = true) {
         HomeScreenBody(
-            showLoading = false,
+            showMyCoinsLoading = false,
+            showTrendingCoinsLoading = false,
             myCoins = listOf(coinItemPreview),
             trendingCoins = listOf(coinItemPreview),
         )
@@ -212,7 +227,8 @@ fun HomeScreenPreviewDark() {
 fun HomeScreenLoadingPreview() {
     ComposeTheme {
         HomeScreenBody(
-            showLoading = true,
+            showMyCoinsLoading = true,
+            showTrendingCoinsLoading = true,
             myCoins = listOf(coinItemPreview),
             trendingCoins = listOf(coinItemPreview),
         )
