@@ -1,5 +1,6 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -7,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,12 +23,21 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp52
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
+import co.nimblehq.compose.crypto.ui.userReadableMessage
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        viewModel.error.collect { error ->
+            val message = error.userReadableMessage(context)
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
     val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
 
