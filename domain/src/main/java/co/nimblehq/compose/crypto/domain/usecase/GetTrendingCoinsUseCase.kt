@@ -5,7 +5,7 @@ import co.nimblehq.compose.crypto.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetTrendingUseCase @Inject constructor(private val repository: CoinRepository) {
+class GetTrendingCoinsUseCase @Inject constructor(private val repository: CoinRepository) {
 
     data class Input(
         val currency: String,

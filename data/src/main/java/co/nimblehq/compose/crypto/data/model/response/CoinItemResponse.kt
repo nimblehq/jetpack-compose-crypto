@@ -44,13 +44,13 @@ data class CoinItemResponse(
     @Json(name = "ath")
     val ath: BigDecimal?,
     @Json(name = "ath_change_percentage")
-    val athChangePercentage: BigDecimal?,
+    val athChangePercentage: Double?,
     @Json(name = "ath_date")
     val athDate: String?,
     @Json(name = "atl")
     val atl: BigDecimal?,
     @Json(name = "atl_change_percentage")
-    val atlChangePercentage: BigDecimal?,
+    val atlChangePercentage: Double?,
     @Json(name = "atl_date")
     val atlDate: String?,
     @Json(name = "roi")
@@ -67,7 +67,7 @@ data class CoinItemResponse(
         @Json(name = "currency")
         val currency: String?,
         @Json(name = "percentage")
-        val percentage: BigDecimal?
+        val percentage: Double?
     )
 }
 
@@ -92,10 +92,10 @@ private fun CoinItemResponse.toModel() = CoinItem(
     totalSupply = totalSupply ?: BigDecimal.ZERO,
     maxSupply = maxSupply ?: BigDecimal.ZERO,
     ath = ath ?: BigDecimal.ZERO,
-    athChangePercentage = athChangePercentage ?: BigDecimal.ZERO,
+    athChangePercentage = athChangePercentage ?: 0.0,
     athDate = athDate.orEmpty(),
     atl = atl ?: BigDecimal.ZERO,
-    atlChangePercentage = atlChangePercentage ?:BigDecimal.ZERO,
+    atlChangePercentage = atlChangePercentage ?: 0.0,
     atlDate = atlDate.orEmpty(),
     roi = roi?.toModel(),
     lastUpdated = lastUpdated.orEmpty(),
@@ -107,5 +107,5 @@ fun List<CoinItemResponse>.toModels() = this.map { it.toModel() }
 private fun CoinItemResponse.RoiItemResponse.toModel() = CoinItem.RoiItem(
     times = times ?: BigDecimal.ZERO,
     currency = currency.orEmpty(),
-    percentage = percentage ?: BigDecimal.ZERO
+    percentage = percentage ?: 0.0
 )

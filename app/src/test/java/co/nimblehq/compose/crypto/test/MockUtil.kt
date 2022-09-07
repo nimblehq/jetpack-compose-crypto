@@ -26,15 +26,15 @@ object MockUtil {
             totalSupply = BigDecimal(21000000),
             maxSupply = BigDecimal(21000000),
             ath = BigDecimal(69045),
-            athChangePercentage = BigDecimal(-68.93253),
+            athChangePercentage = -68.93253,
             athDate = "2021-11-10T14:24:19.604Z",
             atl = BigDecimal(0.0398177),
-            atlChangePercentage = BigDecimal(661256.26362),
+            atlChangePercentage = 661256.26362,
             atlDate = "2017-10-19T00:00:00.000Z",
             roi = CoinItem.RoiItem(
                 times = BigDecimal(106.82921216576392),
                 currency = "btc",
-                percentage = BigDecimal(10682.921216576393)
+                percentage = 10682.921216576393
             ),
             lastUpdated = "2022-09-07T05:38:22.556Z",
             priceChangePercentage24hInCurrency = 3.672009841642702

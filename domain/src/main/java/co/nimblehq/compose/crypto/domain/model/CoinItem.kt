@@ -22,10 +22,10 @@ data class CoinItem(
     val totalSupply: BigDecimal,
     val maxSupply: BigDecimal,
     val ath: BigDecimal,
-    val athChangePercentage: BigDecimal,
+    val athChangePercentage: Double,
     val athDate: String,
     val atl: BigDecimal,
-    val atlChangePercentage: BigDecimal,
+    val atlChangePercentage: Double,
     val atlDate: String,
     val roi: RoiItem?,
     val lastUpdated: String,
@@ -35,6 +35,6 @@ data class CoinItem(
     data class RoiItem(
         val times: BigDecimal,
         val currency: String,
-        val percentage: BigDecimal
+        val percentage: Double
     )
 }
