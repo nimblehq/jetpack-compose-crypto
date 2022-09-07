@@ -16,7 +16,6 @@ import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
@@ -51,8 +50,8 @@ fun TrendingItem(
                 .size(Dp60)
                 .padding(end = Dp16)
                 .constrainAs(logo) {
-                    top.linkTo(coinSymbol.top)
-                    bottom.linkTo(coinName.bottom)
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                 },
             painter = rememberAsyncImagePainter(coinItem.image),
@@ -63,6 +62,7 @@ fun TrendingItem(
             modifier = Modifier
                 .constrainAs(coinSymbol) {
                     top.linkTo(parent.top)
+                    bottom.linkTo(coinName.top)
                     start.linkTo(logo.end)
                 },
             text = coinItem.symbol.uppercase(),
@@ -72,10 +72,10 @@ fun TrendingItem(
 
         Text(
             modifier = Modifier
-                .padding(top = Dp4)
                 .constrainAs(coinName) {
                     start.linkTo(coinSymbol.start)
                     top.linkTo(coinSymbol.bottom)
+                    bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
                 },
             text = coinItem.coinName,
