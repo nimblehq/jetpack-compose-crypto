@@ -23,12 +23,13 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun TrendingItem(
-    isPositiveNumber: Boolean = false /* TODO Update value to Object on Integrate ticket */
+    coinItem: CoinItemUiModel
 ) {
 
     ConstraintLayout(
@@ -54,10 +55,7 @@ fun TrendingItem(
                     bottom.linkTo(coinName.bottom)
                     start.linkTo(parent.start)
                 },
-            // TODO: Remove dummy image when work on Integrate.
-            painter = rememberAsyncImagePainter(
-                "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579"
-            ),
+            painter = rememberAsyncImagePainter(coinItem.image),
             contentDescription = null
         )
 
@@ -67,8 +65,7 @@ fun TrendingItem(
                     top.linkTo(parent.top)
                     start.linkTo(logo.end)
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = "BTC",
+            text = coinItem.symbol.uppercase(),
             color = MaterialTheme.colors.textColor,
             style = Style.semiBold16()
         )
@@ -81,14 +78,13 @@ fun TrendingItem(
                     top.linkTo(coinSymbol.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = "Bitcoin",
+            text = coinItem.coinName,
             color = MaterialTheme.colors.coinNameColor,
             style = Style.medium14()
         )
 
         PriceChange(
-            priceChangePercentage24hInCurrency = coinItemPreview.priceChangePercentage24hInCurrency,
+            priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
             modifier = Modifier
                 .constrainAs(priceChange) {
                     end.linkTo(parent.end)
@@ -106,7 +102,7 @@ fun TrendingItem(
 @Preview
 fun TrendingItemPreview() {
     ComposeTheme {
-        TrendingItem()
+        TrendingItem(coinItemPreview)
     }
 }
 
@@ -115,6 +111,6 @@ fun TrendingItemPreview() {
 @Preview
 fun TrendingItemPreviewDark() {
     ComposeTheme(darkTheme = true) {
-        TrendingItem()
+        TrendingItem(coinItemPreview)
     }
 }

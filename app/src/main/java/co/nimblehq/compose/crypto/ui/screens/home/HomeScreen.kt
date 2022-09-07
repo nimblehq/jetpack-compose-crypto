@@ -28,6 +28,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
     val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
+    val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
 
     Surface {
         Column(
@@ -74,10 +75,9 @@ fun HomeScreen(
                     }
                 }
 
-                // TODO: Remove dummy value when work on Integrate.
-                items(4) { index ->
+                items(trendingCoins) { coin ->
                     Box(modifier = Modifier.padding(start = Dp16, end = Dp16, bottom = Dp16)) {
-                        if (index == 1) TrendingItem(true) else TrendingItem()
+                        TrendingItem(coin)
                     }
                 }
             }
