@@ -16,8 +16,8 @@ class CoinRepositoryImpl(
     private val api: ApiService
 ) : CoinRepository {
 
-    override fun getTrendingList(
-        coinIds: List<String>,
+    override fun getCoins(
+        coinIds: List<String>?,
         currency: String,
         priceChangePercentage: String,
         itemOrder: String,
@@ -25,7 +25,7 @@ class CoinRepositoryImpl(
         page: Int
     ): Flow<List<CoinItem>> = flowTransform<List<CoinItemResponse>> {
         api.getCoins(
-            coinIds = coinIds.joinToString(separator = ","),
+            coinIds = coinIds?.joinToString(separator = ","),
             currency = currency,
             priceChangePercentage = priceChangePercentage,
             itemOrder = itemOrder,

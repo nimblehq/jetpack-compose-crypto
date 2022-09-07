@@ -5,20 +5,7 @@ import co.nimblehq.compose.crypto.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetMyCoinsUseCase @Inject constructor(private val repository: CoinRepository) {
-
-    private val myCoinIds = listOf(
-        "bitcoin",
-        "ethereum",
-        "binancecoin",
-        "ripple",
-        "cardano",
-        "solana",
-        "polkadot",
-        "near",
-        "tron",
-        "dogecoin"
-    )
+class GetTrendingCoinsUseCase @Inject constructor(private val repository: CoinRepository) {
 
     data class Input(
         val currency: String,
@@ -28,12 +15,9 @@ class GetMyCoinsUseCase @Inject constructor(private val repository: CoinReposito
         val page: Int
     )
 
-    fun execute(
-        input: Input
-    ): Flow<List<CoinItem>> {
+    fun execute(input: Input): Flow<List<CoinItem>> {
         return with(input) {
             repository.getCoins(
-                coinIds = myCoinIds,
                 currency = currency,
                 priceChangePercentage = priceChangeInHour,
                 itemOrder = order,
