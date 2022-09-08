@@ -52,6 +52,7 @@ fun HomeScreen(
     )
 }
 
+@Suppress("FunctionNaming")
 @Composable
 private fun HomeScreenBody(
     showMyCoinsLoading: IsLoading,

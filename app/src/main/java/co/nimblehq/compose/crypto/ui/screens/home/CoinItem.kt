@@ -137,6 +137,7 @@ fun CoinItemPreviewDark() {
     }
 }
 
+@Suppress("MagicNumber")
 internal val coinItemPreview = CoinItemUiModel(
     id = "bitcoin",
     symbol = "btc",
