@@ -49,7 +49,7 @@ fun HomeScreen(
     val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
     val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
 
-    HomeScreenBody(
+    HomeScreenContent(
         showMyCoinsLoading = showMyCoinsLoading,
         showTrendingCoinsLoading = showTrendingCoinsLoading,
         myCoins = myCoins,
@@ -59,7 +59,7 @@ fun HomeScreen(
 
 @Suppress("FunctionNaming")
 @Composable
-private fun HomeScreenBody(
+private fun HomeScreenContent(
     showMyCoinsLoading: IsLoading,
     showTrendingCoinsLoading: IsLoading,
     myCoins: List<CoinItemUiModel>,
@@ -209,7 +209,7 @@ fun HomeScreenPreview(
 ) {
     with(params) {
         ComposeTheme {
-            HomeScreenBody(
+            HomeScreenContent(
                 showMyCoinsLoading = isLoading,
                 showTrendingCoinsLoading = isLoading,
                 myCoins = myCoins,
@@ -227,7 +227,7 @@ fun HomeScreenPreviewDark(
 ) {
     with(params) {
         ComposeTheme {
-            HomeScreenBody(
+            HomeScreenContent(
                 showMyCoinsLoading = isLoading,
                 showTrendingCoinsLoading = isLoading,
                 myCoins = myCoins,
