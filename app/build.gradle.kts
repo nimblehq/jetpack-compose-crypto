@@ -134,7 +134,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:${Versions.COMPOSE_ACTIVITY_VERSION}")
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.COMPOSE_CONSTRAINT_LAYOUT_VERSION}")
     implementation("androidx.compose.ui:ui:${Versions.COMPOSE_VERSION}")
-    implementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.foundation:foundation:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.material:material:${Versions.COMPOSE_VERSION}")
 
@@ -157,6 +157,7 @@ dependencies {
 
     kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
 
+    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
     debugImplementation("androidx.fragment:fragment-testing:${Versions.ANDROIDX_FRAGMENT_VERSION}")
 
     // Testing

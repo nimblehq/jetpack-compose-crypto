@@ -40,4 +40,6 @@ object MockUtil {
             priceChangePercentage24hInCurrency = 3.672009841642702
         )
     )
+
+    val trendingCoins = myCoins
 }
