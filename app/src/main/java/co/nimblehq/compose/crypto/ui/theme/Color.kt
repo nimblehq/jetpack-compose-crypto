@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 @Suppress("MagicNumber")
 object Color {
     val BlueFreeSpeech = Color(0xFF3F51B5)
-    val AlmostWhite = Color(0xFFF8F8F8)
+    val Guyabano = Color(0xFFF8F8F8)
     val MetallicSeaweed = Color(0xFF028090)
     val TiffanyBlue = Color(0xFF00BFB2)
     val Water = Color(0xFFD6F5F3)

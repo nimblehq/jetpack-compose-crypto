@@ -4,16 +4,16 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import co.nimblehq.compose.crypto.ui.theme.Color.AlmostWhite
 import co.nimblehq.compose.crypto.ui.theme.Color.BlueFreeSpeech
 import co.nimblehq.compose.crypto.ui.theme.Color.DarkJungleGreen
+import co.nimblehq.compose.crypto.ui.theme.Color.Guyabano
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Suppress("MatchingDeclarationName")
 object Palette {
     val ComposeLightPalette = lightColors(
         primary = BlueFreeSpeech,
-        surface = AlmostWhite,
+        surface = Guyabano,
     )
 
     val ComposeDarkPalette = darkColors(
