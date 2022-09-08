@@ -1,5 +1,7 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -121,7 +123,7 @@ fun CoinItem(
 
 @Suppress("FunctionNaming")
 @Composable
-@Preview
+@Preview(uiMode = UI_MODE_NIGHT_NO)
 fun CoinItemPreview() {
     ComposeTheme {
         CoinItem(coinItemPreview)
@@ -130,9 +132,9 @@ fun CoinItemPreview() {
 
 @Suppress("FunctionNaming")
 @Composable
-@Preview
+@Preview(uiMode = UI_MODE_NIGHT_YES)
 fun CoinItemPreviewDark() {
-    ComposeTheme(darkTheme = true) {
+    ComposeTheme {
         CoinItem(coinItemPreview)
     }
 }

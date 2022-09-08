@@ -1,5 +1,7 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,10 +14,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.lib.IsLoading
+import co.nimblehq.compose.crypto.ui.preview.LoadingPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
@@ -196,12 +200,14 @@ private fun MyCoins(showMyCoinsLoading: IsLoading, coins: List<CoinItemUiModel>)
 
 @Suppress("FunctionNaming")
 @Composable
-@Preview
-fun HomeScreenPreview() {
+@Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
+fun HomeScreenPreview(
+    @PreviewParameter(LoadingPreviewParameterProvider::class) isLoading: IsLoading
+) {
     ComposeTheme {
         HomeScreenBody(
-            showMyCoinsLoading = false,
-            showTrendingCoinsLoading = false,
+            showMyCoinsLoading = isLoading,
+            showTrendingCoinsLoading = isLoading,
             myCoins = listOf(coinItemPreview),
             trendingCoins = listOf(coinItemPreview),
         )
@@ -210,26 +216,14 @@ fun HomeScreenPreview() {
 
 @Suppress("FunctionNaming")
 @Composable
-@Preview
-fun HomeScreenPreviewDark() {
-    ComposeTheme(darkTheme = true) {
-        HomeScreenBody(
-            showMyCoinsLoading = false,
-            showTrendingCoinsLoading = false,
-            myCoins = listOf(coinItemPreview),
-            trendingCoins = listOf(coinItemPreview),
-        )
-    }
-}
-
-@Suppress("FunctionNaming")
-@Composable
-@Preview
-fun HomeScreenLoadingPreview() {
+@Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
+fun HomeScreenPreviewDark(
+    @PreviewParameter(LoadingPreviewParameterProvider::class) isLoading: IsLoading
+) {
     ComposeTheme {
         HomeScreenBody(
-            showMyCoinsLoading = true,
-            showTrendingCoinsLoading = true,
+            showMyCoinsLoading = isLoading,
+            showTrendingCoinsLoading = isLoading,
             myCoins = listOf(coinItemPreview),
             trendingCoins = listOf(coinItemPreview),
         )
