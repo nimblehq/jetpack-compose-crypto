@@ -136,7 +136,10 @@ private fun HomeScreenBody(
 
 @Suppress("FunctionNaming", "LongMethod", "MagicNumber")
 @Composable
-private fun MyCoins(showMyCoinsLoading: IsLoading, coins: List<CoinItemUiModel>) {
+private fun MyCoins(
+    showMyCoinsLoading: IsLoading,
+    coins: List<CoinItemUiModel>
+) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -176,8 +179,7 @@ private fun MyCoins(showMyCoinsLoading: IsLoading, coins: List<CoinItemUiModel>)
                 modifier = Modifier
                     .constrainAs(myCoins) {
                         top.linkTo(myCoinsTitle.bottom, margin = Dp16)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
+                        linkTo(start = parent.start, end = parent.end)
                     },
             )
         } else {

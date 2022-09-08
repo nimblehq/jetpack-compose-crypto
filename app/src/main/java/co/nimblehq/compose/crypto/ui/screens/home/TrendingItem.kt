@@ -52,8 +52,7 @@ fun TrendingItem(
                 .size(Dp60)
                 .padding(end = Dp16)
                 .constrainAs(logo) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
+                    linkTo(top = parent.top, bottom = parent.bottom)
                     start.linkTo(parent.start)
                 },
             painter = rememberAsyncImagePainter(coinItem.image),
