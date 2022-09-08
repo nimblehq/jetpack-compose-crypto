@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
@@ -101,17 +103,21 @@ fun TrendingItem(
 @Suppress("FunctionNaming")
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_NO)
-fun TrendingItemPreview() {
+fun TrendingItemPreview(
+    @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
+) {
     ComposeTheme {
-        TrendingItem(coinItemPreview)
+        TrendingItem(coinItem)
     }
 }
 
 @Suppress("FunctionNaming")
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_YES)
-fun TrendingItemPreviewDark() {
+fun TrendingItemPreviewDark(
+    @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
+) {
     ComposeTheme(darkTheme = true) {
-        TrendingItem(coinItemPreview)
+        TrendingItem(coinItem)
     }
 }

@@ -19,7 +19,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.lib.IsLoading
-import co.nimblehq.compose.crypto.ui.preview.LoadingPreviewParameterProvider
+import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
+import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
@@ -204,15 +205,17 @@ private fun MyCoins(
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
 fun HomeScreenPreview(
-    @PreviewParameter(LoadingPreviewParameterProvider::class) isLoading: IsLoading
+    @PreviewParameter(HomeScreenPreviewParameterProvider::class) params: HomeScreenParams
 ) {
-    ComposeTheme {
-        HomeScreenBody(
-            showMyCoinsLoading = isLoading,
-            showTrendingCoinsLoading = isLoading,
-            myCoins = listOf(coinItemPreview),
-            trendingCoins = listOf(coinItemPreview),
-        )
+    with(params) {
+        ComposeTheme {
+            HomeScreenBody(
+                showMyCoinsLoading = isLoading,
+                showTrendingCoinsLoading = isLoading,
+                myCoins = myCoins,
+                trendingCoins = trendingCoins,
+            )
+        }
     }
 }
 
@@ -220,14 +223,16 @@ fun HomeScreenPreview(
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 fun HomeScreenPreviewDark(
-    @PreviewParameter(LoadingPreviewParameterProvider::class) isLoading: IsLoading
+    @PreviewParameter(HomeScreenPreviewParameterProvider::class) params: HomeScreenParams
 ) {
-    ComposeTheme {
-        HomeScreenBody(
-            showMyCoinsLoading = isLoading,
-            showTrendingCoinsLoading = isLoading,
-            myCoins = listOf(coinItemPreview),
-            trendingCoins = listOf(coinItemPreview),
-        )
+    with(params) {
+        ComposeTheme {
+            HomeScreenBody(
+                showMyCoinsLoading = isLoading,
+                showTrendingCoinsLoading = isLoading,
+                myCoins = myCoins,
+                trendingCoins = trendingCoins,
+            )
+        }
     }
 }

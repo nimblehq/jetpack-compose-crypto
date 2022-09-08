@@ -13,10 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
+import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
@@ -32,7 +34,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
-import java.math.BigDecimal
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
@@ -124,27 +125,21 @@ fun CoinItem(
 @Suppress("FunctionNaming")
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_NO)
-fun CoinItemPreview() {
+fun CoinItemPreview(
+    @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
+) {
     ComposeTheme {
-        CoinItem(coinItemPreview)
+        CoinItem(coinItem)
     }
 }
 
 @Suppress("FunctionNaming")
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_YES)
-fun CoinItemPreviewDark() {
+fun CoinItemPreviewDark(
+    @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
+) {
     ComposeTheme {
-        CoinItem(coinItemPreview)
+        CoinItem(coinItem)
     }
 }
-
-@Suppress("MagicNumber")
-internal val coinItemPreview = CoinItemUiModel(
-    id = "bitcoin",
-    symbol = "btc",
-    coinName = "Bitcoin",
-    image = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
-    currentPrice = BigDecimal(21953),
-    priceChangePercentage24hInCurrency = 3.672009841642702
-)

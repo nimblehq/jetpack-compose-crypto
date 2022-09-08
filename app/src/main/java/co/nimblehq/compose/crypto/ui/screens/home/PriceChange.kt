@@ -10,11 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
+import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
+import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import kotlin.math.abs
 
 @Suppress("FunctionNaming", "LongMethod")
@@ -61,10 +64,12 @@ fun PriceChange(
 @Suppress("FunctionNaming")
 @Composable
 @Preview
-fun PriceChangePreview() {
+fun PriceChangePreview(
+    @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
+) {
     ComposeTheme {
         PriceChange(
-            priceChangePercentage24hInCurrency = coinItemPreview.priceChangePercentage24hInCurrency,
+            priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
             modifier = Modifier,
             iconPaddingEnd = Dp13
         )
