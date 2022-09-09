@@ -10,8 +10,6 @@ android {
     defaultConfig {
         minSdk = Versions.ANDROID_MIN_SDK_VERSION
         targetSdk = Versions.ANDROID_TARGET_SDK_VERSION
-        versionCode = Versions.ANDROID_VERSION_CODE
-        versionName = Versions.ANDROID_VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -63,6 +61,8 @@ dependencies {
     implementation("com.squareup.moshi:moshi:${Versions.MOSHI_VERSION}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.KOTLIN_VERSION}")
     implementation("javax.inject:javax.inject:${Versions.JAVAX_INJECT_VERSION}")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KOTLINX_COROUTINES_VERSION}")
 
     api("com.squareup.retrofit2:converter-moshi:${Versions.RETROFIT_VERSION}")
     api("com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}")

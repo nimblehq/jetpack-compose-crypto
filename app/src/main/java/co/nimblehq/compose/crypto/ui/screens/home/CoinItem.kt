@@ -1,28 +1,27 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.constraintlayout.compose.Dimension
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.theme.Color.FireOpal
-import co.nimblehq.compose.crypto.ui.theme.Color.GuppieGreen
+import co.nimblehq.compose.crypto.extension.toFormattedString
+import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp22
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp25
@@ -33,11 +32,13 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
+import coil.compose.rememberAsyncImagePainter
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun CoinItem(
-    isPositiveNumber: Boolean = false /* TODO Update value to Object on Integrate ticket */
+    coinItem: CoinItemUiModel
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -51,7 +52,6 @@ fun CoinItem(
             coinSymbol,
             coinName,
             price,
-            icon,
             priceChange
         ) = createRefs()
 
@@ -64,8 +64,7 @@ fun CoinItem(
                     bottom.linkTo(coinName.bottom)
                     start.linkTo(parent.start)
                 },
-            // TODO: Remove dummy image when work on Integrate.
-            painter = painterResource(id = R.drawable.ic_btc_bitcoin),
+            painter = rememberAsyncImagePainter(coinItem.image),
             contentDescription = null
         )
 
@@ -75,8 +74,7 @@ fun CoinItem(
                     top.linkTo(parent.top)
                     start.linkTo(logo.end)
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = "BTC",
+            text = coinItem.symbol.uppercase(),
             color = MaterialTheme.colors.textColor,
             style = Style.semiBold16()
         )
@@ -89,8 +87,7 @@ fun CoinItem(
                     top.linkTo(coinSymbol.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = "Bitcoin",
+            text = coinItem.coinName,
             color = MaterialTheme.colors.coinNameColor,
             style = Style.medium14()
         )
@@ -103,54 +100,46 @@ fun CoinItem(
                     top.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = stringResource(R.string.coin_currency, "24,209"),
+            text = stringResource(
+                R.string.coin_currency,
+                coinItem.currentPrice.toFormattedString()
+            ),
             color = MaterialTheme.colors.textColor,
             style = Style.semiBold16()
         )
 
-        Icon(
+        PriceChange(
+            priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
             modifier = Modifier
                 .padding(start = Dp25)
-                .constrainAs(icon) {
-                    start.linkTo(price.end)
-                    top.linkTo(priceChange.top)
-                    bottom.linkTo(priceChange.bottom)
-                    width = Dimension.preferredWrapContent
-                },
-            imageVector = if (isPositiveNumber) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-            tint = if (isPositiveNumber) GuppieGreen else FireOpal,
-            contentDescription = null
-        )
-
-        Text(
-            modifier = Modifier
                 .constrainAs(priceChange) {
-                    start.linkTo(icon.end)
+                    start.linkTo(price.end)
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
                 },
-            // TODO: Remove dummy value when work on Integrate.
-            text = stringResource(R.string.coin_profit_percent, "6.21"),
-            style = if (isPositiveNumber) Style.guppieGreenMedium16() else Style.fireOpalGreenMedium16()
+            iconPaddingEnd = Dp13
         )
     }
 }
 
 @Suppress("FunctionNaming")
 @Composable
-@Preview
-fun CoinItemPreview() {
+@Preview(uiMode = UI_MODE_NIGHT_NO)
+fun CoinItemPreview(
+    @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
+) {
     ComposeTheme {
-        CoinItem()
+        CoinItem(coinItem)
     }
 }
 
 @Suppress("FunctionNaming")
 @Composable
-@Preview
-fun CoinItemPreviewDark() {
-    ComposeTheme(darkTheme = true) {
-        CoinItem()
+@Preview(uiMode = UI_MODE_NIGHT_YES)
+fun CoinItemPreviewDark(
+    @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
+) {
+    ComposeTheme {
+        CoinItem(coinItem)
     }
 }

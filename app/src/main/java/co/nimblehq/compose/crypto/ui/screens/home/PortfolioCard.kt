@@ -1,17 +1,17 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -20,9 +20,9 @@ import co.nimblehq.compose.crypto.ui.theme.Color
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp20
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
@@ -101,11 +101,12 @@ fun PortfolioCard(
                 contentColor = Color.GuppieGreen
             ),
             shape = RoundedCornerShape(Dp20),
+            contentPadding = PaddingValues(start = Dp13, end = Dp8),
             onClick = { /* TODO */ }
         ) {
             Icon(
-                imageVector = Icons.Filled.KeyboardArrowUp,
-                modifier = Modifier.padding(end = Dp4),
+                painter = painterResource(id = R.drawable.ic_guppie_green_arrow_up),
+                modifier = Modifier.padding(end = Dp13),
                 contentDescription = null
             )
             Text(

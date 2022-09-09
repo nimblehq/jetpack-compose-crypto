@@ -48,14 +48,14 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs[BuildType.RELEASE]
-            buildConfigField("String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\"")
+            buildConfigField("String", "BASE_API_URL", "\"https://api.coingecko.com/api/v3/\"")
         }
 
         getByName(BuildType.DEBUG) {
             // For quickly testing build with proguard, enable this
             isMinifyEnabled = false
             signingConfig = signingConfigs[BuildType.DEBUG]
-            buildConfigField("String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\"")
+            buildConfigField("String", "BASE_API_URL", "\"https://api.coingecko.com/api/v3/\"")
             /**
              * From AGP 4.2.0, Jacoco generates the report incorrectly, and the report is missing
              * some code coverage from module. On the new version of Gradle, they introduce a new
@@ -129,11 +129,12 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT_VERSION}")
     implementation("androidx.core:core-ktx:${Versions.ANDROIDX_CORE_KTX_VERSION}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ANDROIDX_LIFECYCLE_VERSION}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.ANDROIDX_LIFECYCLE_VERSION}")
 
     implementation("androidx.activity:activity-compose:${Versions.COMPOSE_ACTIVITY_VERSION}")
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.COMPOSE_CONSTRAINT_LAYOUT_VERSION}")
     implementation("androidx.compose.ui:ui:${Versions.COMPOSE_VERSION}")
-    implementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.foundation:foundation:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.material:material:${Versions.COMPOSE_VERSION}")
 
@@ -145,6 +146,7 @@ dependencies {
 
     implementation("com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM_VERSION}")
 
+    implementation("io.coil-kt:coil-compose:${Versions.COIL_VERSION}")
 
     implementation("com.jakewharton.timber:timber:${Versions.TIMBER_LOG_VERSION}")
 
@@ -155,19 +157,22 @@ dependencies {
 
     kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
 
+    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
     debugImplementation("androidx.fragment:fragment-testing:${Versions.ANDROIDX_FRAGMENT_VERSION}")
 
     // Testing
     testImplementation("io.kotest:kotest-assertions-core:${Versions.TEST_KOTEST_VERSION}")
     testImplementation("junit:junit:${Versions.TEST_JUNIT_VERSION}")
     testImplementation("org.robolectric:robolectric:${Versions.TEST_ROBOLECTRIC_VERSION}")
-    testImplementation("androidx.test:core:${Versions.ANDROIDX_CORE_KTX_VERSION}")
+    testImplementation("androidx.test:core:${Versions.TEST_ANDROIDX_CORE_VERSION}")
     testImplementation("androidx.test:runner:${Versions.TEST_RUNNER_VERSION}")
     testImplementation("androidx.test:rules:${Versions.TEST_RUNNER_VERSION}")
     testImplementation("androidx.test.ext:junit-ktx:${Versions.TEST_JUNIT_ANDROIDX_EXT_VERSION}")
     testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_VERSION}")
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.KOTLIN_REFLECT_VERSION}")
     testImplementation("io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.TEST_COROUTINES_VERSION}")
+    testImplementation("app.cash.turbine:turbine:${Versions.TEST_TURBINE_VERSION}")
 
     kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")

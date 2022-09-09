@@ -1,98 +1,203 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.viewmodel.compose.viewModel
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.lib.IsLoading
+import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
+import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp52
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
+import co.nimblehq.compose.crypto.ui.userReadableMessage
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: HomeViewModel = viewModel()
+) {
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        viewModel.error.collect { error ->
+            val message = error.userReadableMessage(context)
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    val showMyCoinsLoading: IsLoading by viewModel.showMyCoinsLoading.collectAsState()
+    val showTrendingCoinsLoading: IsLoading by viewModel.showTrendingCoinsLoading.collectAsState()
+    val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
+    val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
+
+    HomeScreenContent(
+        showMyCoinsLoading = showMyCoinsLoading,
+        showTrendingCoinsLoading = showTrendingCoinsLoading,
+        myCoins = myCoins,
+        trendingCoins = trendingCoins
+    )
+}
+
+@Suppress("FunctionNaming")
+@Composable
+private fun HomeScreenContent(
+    showMyCoinsLoading: IsLoading,
+    showTrendingCoinsLoading: IsLoading,
+    myCoins: List<CoinItemUiModel>,
+    trendingCoins: List<CoinItemUiModel>,
+) {
     Surface {
-        ConstraintLayout(
-            modifier = Modifier.fillMaxSize()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding()
         ) {
-            val (
-                title,
-                portfolioCard,
-                myCoinsTitle,
-                seeAll,
-                myCoins
-            ) = createRefs()
+            LazyColumn {
+                item {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = Dp16),
+                        text = stringResource(id = R.string.home_title),
+                        textAlign = TextAlign.Center,
+                        style = Style.semiBold24(),
+                        color = MaterialTheme.colors.textColor
+                    )
+                }
 
-            Text(
-                modifier = Modifier
-                    .padding(top = Dp16)
-                    .constrainAs(title) {
-                        top.linkTo(parent.top)
-                        linkTo(start = parent.start, end = parent.end)
-                        width = Dimension.preferredWrapContent
-                    },
-                text = stringResource(id = R.string.home_title),
-                textAlign = TextAlign.Center,
-                style = Style.semiBold24(),
-                color = MaterialTheme.colors.textColor
-            )
+                item {
+                    PortfolioCard(
+                        modifier = Modifier.padding(start = Dp16, top = Dp40, end = Dp16)
+                    )
+                }
 
-            PortfolioCard(
-                modifier = Modifier
-                    .constrainAs(portfolioCard) {
-                        top.linkTo(title.bottom, margin = Dp40)
+                item {
+                    MyCoins(
+                        showMyCoinsLoading = showMyCoinsLoading,
+                        coins = myCoins
+                    )
+                }
+
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = Dp16, top = Dp24, end = Dp16, bottom = Dp16)
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.home_trending_title),
+                            style = Style.medium16(),
+                            color = MaterialTheme.colors.textColor
+                        )
+
+                        SeeAll(
+                            modifier = Modifier
+                                .align(alignment = Alignment.CenterEnd)
+                                .clickable(onClick = { /* TODO: Update on Integrate ticket */ })
+                        )
                     }
-                    .padding(horizontal = Dp16)
-            )
+                }
 
-            Text(
-                modifier = Modifier
-                    .constrainAs(myCoinsTitle) {
-                        top.linkTo(portfolioCard.bottom, margin = Dp52)
-                        start.linkTo(parent.start)
-                        width = Dimension.preferredWrapContent
+                if (showTrendingCoinsLoading) {
+                    item {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentWidth(align = Alignment.CenterHorizontally),
+                        )
                     }
-                    .padding(start = Dp16),
-                text = stringResource(id = R.string.home_my_coins_title),
-                style = Style.medium16(),
-                color = MaterialTheme.colors.textColor
-            )
-
-            SeeAll(
-                modifier = Modifier
-                    .clickable(onClick = { /* TODO: Update on Integrate ticket */ })
-                    .constrainAs(seeAll) {
-                        top.linkTo(myCoinsTitle.top)
-                        end.linkTo(parent.end)
-                        width = Dimension.preferredWrapContent
+                } else {
+                    items(trendingCoins) { coin ->
+                        Box(modifier = Modifier.padding(start = Dp16, end = Dp16, bottom = Dp16)) {
+                            TrendingItem(coin)
+                        }
                     }
-                    .padding(end = Dp16)
-            )
+                }
+            }
+        }
+    }
+}
 
-            LazyRow(
+@Suppress("FunctionNaming", "LongMethod", "MagicNumber")
+@Composable
+private fun MyCoins(
+    showMyCoinsLoading: IsLoading,
+    coins: List<CoinItemUiModel>
+) {
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = Dp52)
+    ) {
+
+        val (
+            myCoinsTitle,
+            seeAllMyCoins,
+            myCoins
+        ) = createRefs()
+
+        Text(
+            modifier = Modifier
+                .constrainAs(myCoinsTitle) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                }
+                .padding(start = Dp16),
+            text = stringResource(id = R.string.home_my_coins_title),
+            style = Style.medium16(),
+            color = MaterialTheme.colors.textColor
+        )
+
+        SeeAll(
+            modifier = Modifier
+                .clickable(onClick = { /* TODO: Update on Integrate ticket */ })
+                .constrainAs(seeAllMyCoins) {
+                    top.linkTo(myCoinsTitle.top)
+                    end.linkTo(parent.end)
+                }
+                .padding(end = Dp16)
+        )
+
+        if (showMyCoinsLoading) {
+            CircularProgressIndicator(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .constrainAs(myCoins) {
                         top.linkTo(myCoinsTitle.bottom, margin = Dp16)
+                        linkTo(start = parent.start, end = parent.end)
+                    },
+            )
+        } else {
+            LazyRow(
+                modifier = Modifier
+                    .constrainAs(myCoins) {
+                        top.linkTo(myCoinsTitle.bottom, margin = Dp16)
+                        start.linkTo(parent.start)
                     },
                 contentPadding = PaddingValues(horizontal = Dp16),
-                horizontalArrangement = Arrangement.spacedBy(Dp16),
+                horizontalArrangement = Arrangement.spacedBy(Dp16)
             ) {
-                // TODO: Remove dummy value when work on Integrate.
-                item { CoinItem() }
-                item { CoinItem(true) }
-                item { CoinItem() }
+                items(coins) { coin ->
+                    CoinItem(coin)
+                }
             }
         }
     }
@@ -100,18 +205,36 @@ fun HomeScreen() {
 
 @Suppress("FunctionNaming")
 @Composable
-@Preview
-fun HomeScreenPreview() {
-    ComposeTheme {
-        HomeScreen()
+@Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
+fun HomeScreenPreview(
+    @PreviewParameter(HomeScreenPreviewParameterProvider::class) params: HomeScreenParams
+) {
+    with(params) {
+        ComposeTheme {
+            HomeScreenContent(
+                showMyCoinsLoading = isLoading,
+                showTrendingCoinsLoading = isLoading,
+                myCoins = myCoins,
+                trendingCoins = trendingCoins,
+            )
+        }
     }
 }
 
 @Suppress("FunctionNaming")
 @Composable
-@Preview
-fun HomeScreenPreviewDark() {
-    ComposeTheme(darkTheme = true) {
-        HomeScreen()
+@Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
+fun HomeScreenPreviewDark(
+    @PreviewParameter(HomeScreenPreviewParameterProvider::class) params: HomeScreenParams
+) {
+    with(params) {
+        ComposeTheme {
+            HomeScreenContent(
+                showMyCoinsLoading = isLoading,
+                showTrendingCoinsLoading = isLoading,
+                myCoins = myCoins,
+                trendingCoins = trendingCoins,
+            )
+        }
     }
 }

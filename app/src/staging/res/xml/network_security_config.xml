@@ -9,7 +9,7 @@
 
     <domain-config>
         <!-- Enter your base URL here -->
-        <domain includeSubdomains="true">www.jsonplaceholder.typicode.com</domain>
+        <domain includeSubdomains="true">api.coingecko.com</domain>
         <trust-anchors>
             <certificates src="user" />
             <certificates src="system" />
