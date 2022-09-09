@@ -67,7 +67,9 @@ private fun HomeScreenContent(
 ) {
     Surface {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding()
         ) {
             LazyColumn {
                 item {
