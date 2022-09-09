@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.information
+package co.nimblehq.compose.crypto.ui.screens.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,7 +18,7 @@ import co.nimblehq.compose.crypto.ui.theme.Style.coinInfoSellBuyBackground
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
-fun CoinInfoSellBuy(
+fun SellBuyGroup(
     modifier: Modifier
 ) {
     Row(
@@ -49,17 +49,17 @@ fun CoinInfoSellBuy(
 @Suppress("FunctionNaming")
 @Composable
 @Preview
-fun CoinInfoSellBuyPreview() {
+fun SellBuyGroupPreview() {
     ComposeTheme {
-        CoinInfoSellBuy(modifier = Modifier)
+        SellBuyGroup(modifier = Modifier)
     }
 }
 
 @Suppress("FunctionNaming")
 @Composable
 @Preview
-fun CoinInfoSellBuyPreviewDark() {
+fun SellBuyGroupPreviewDark() {
     ComposeTheme(darkTheme = true) {
-        CoinInfoSellBuy(modifier = Modifier)
+        SellBuyGroup(modifier = Modifier)
     }
 }

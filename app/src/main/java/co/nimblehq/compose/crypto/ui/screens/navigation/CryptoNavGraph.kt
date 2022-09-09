@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import co.nimblehq.compose.crypto.extension.provideViewModels
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeViewModel
-import co.nimblehq.compose.crypto.ui.screens.information.CoinInfoScreen
+import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 
 @Suppress("FunctionNaming")
 @Composable
@@ -32,7 +32,7 @@ fun CryptoNavGraph(
             )
         }
         composable(CryptoScreen.COIN_INFORMATION.name) {
-            CoinInfoScreen()
+            DetailScreen()
         }
     }
 }

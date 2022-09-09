@@ -34,6 +34,7 @@ import co.nimblehq.compose.crypto.ui.userReadableMessage
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
+    // TODO: Remove it and handle in VM instead
     onMyCoinsItemClick: () -> Unit
 ) {
     val context = LocalContext.current

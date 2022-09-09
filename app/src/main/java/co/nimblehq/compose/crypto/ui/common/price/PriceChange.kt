@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.price
+package co.nimblehq.compose.crypto.ui.common.price
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
@@ -27,7 +26,7 @@ fun PriceChange(
     priceChangePercentage24hInCurrency: Double,
     modifier: Modifier,
     iconPaddingEnd: Dp,
-    textStyle: TextStyle = Style.medium16()
+    displayForDetailPage: Boolean = false
 ) {
     val isPositiveNumber = priceChangePercentage24hInCurrency >= 0
 
@@ -50,7 +49,7 @@ fun PriceChange(
                 R.string.coin_profit_percent,
                 abs(priceChangePercentage24hInCurrency).toFormattedString()
             ),
-            style = textStyle,
+            style = if(displayForDetailPage) Style.medium14() else Style.medium16(),
             color = if (isPositiveNumber) Color.GuppieGreen else Color.FireOpal
         )
     }

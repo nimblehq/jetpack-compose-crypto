@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.price
+package co.nimblehq.compose.crypto.ui.common.price
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding

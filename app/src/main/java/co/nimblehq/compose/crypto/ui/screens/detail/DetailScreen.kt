@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.information
+package co.nimblehq.compose.crypto.ui.screens.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import co.nimblehq.compose.crypto.ui.screens.price.PriceChangeButton
+import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
 import co.nimblehq.compose.crypto.ui.theme.Color
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
@@ -34,7 +34,7 @@ import coil.compose.rememberAsyncImagePainter
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
-fun CoinInfoScreen() {
+fun DetailScreen() {
     val localDensity = LocalDensity.current
     val sellBuyLayoutHeight = remember { mutableStateOf(Dp0) }
 
@@ -55,7 +55,7 @@ fun CoinInfoScreen() {
                 coinInfoItem
             ) = createRefs()
 
-            CoinInfoAppbar(modifier = Modifier
+            Appbar(modifier = Modifier
                 .constrainAs(appBar) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
@@ -126,7 +126,7 @@ fun CoinInfoScreen() {
                 .navigationBarsPadding(),
             contentAlignment = Alignment.BottomEnd
         ) {
-            CoinInfoSellBuy(
+            SellBuyGroup(
                 modifier = Modifier.onGloballyPositioned {
                     sellBuyLayoutHeight.value = with(localDensity) { it.size.height.toDp() }
                 }
@@ -143,25 +143,25 @@ private fun CoinInfo(
 ) {
     // TODO: Remove dummy value when work on Integrate.
     Column(modifier = modifier.padding(start = Dp16, end = Dp16, bottom = sellBuyLayoutHeight)) {
-        CoinInfoItem(
+        DetailItem(
             modifier = Modifier,
-            coinInfoItemTitle = "Market Cap",
-            coinInfoItemPrice = "387,992,058,833.42",
-            coinInfoItemPricePercent = 7.32
+            title = "Market Cap",
+            price = "387,992,058,833.42",
+            pricePercent = 7.32
         )
 
-        CoinInfoItem(
+        DetailItem(
             modifier = Modifier.padding(top = Dp16),
-            coinInfoItemTitle = "All Time High",
-            coinInfoItemPrice = "4,891.70",
-            coinInfoItemPricePercent = 33.42
+            title = "All Time High",
+            price = "4,891.70",
+            pricePercent = 33.42
         )
 
-        CoinInfoItem(
+        DetailItem(
             modifier = Modifier.padding(vertical = Dp16),
-            coinInfoItemTitle = "All Time Low",
-            coinInfoItemPrice = "0.4209",
-            coinInfoItemPricePercent = 773717.23
+            title = "All Time Low",
+            price = "0.4209",
+            pricePercent = 773717.23
         )
     }
 }
@@ -169,17 +169,17 @@ private fun CoinInfo(
 @Suppress("FunctionNaming")
 @Composable
 @Preview
-fun CoinInfoScreenPreview() {
+fun DetailScreenPreview() {
     ComposeTheme {
-        CoinInfoScreen()
+        DetailScreen()
     }
 }
 
 @Suppress("FunctionNaming")
 @Composable
 @Preview
-fun CoinInfoScreenPreviewDark() {
+fun DetailScreenPreviewDark() {
     ComposeTheme(darkTheme = true) {
-        CoinInfoScreen()
+        DetailScreen()
     }
 }

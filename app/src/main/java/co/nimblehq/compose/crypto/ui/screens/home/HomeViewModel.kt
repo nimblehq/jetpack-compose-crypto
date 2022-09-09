@@ -24,6 +24,7 @@ interface Output : BaseOutput {
     val trendingCoins: StateFlow<List<CoinItemUiModel>>
 }
 
+@Suppress("FunctionNaming", "LongMethod")
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     dispatchers: DispatchersProvider,

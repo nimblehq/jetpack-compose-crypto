@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.information
+package co.nimblehq.compose.crypto.ui.screens.detail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,11 +10,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Style
+import co.nimblehq.compose.crypto.ui.theme.Style.coinIfoAppBarIconColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
-fun CoinInfoAppbar(
+fun Appbar(
     modifier: Modifier
 ) {
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
@@ -23,11 +24,8 @@ fun CoinInfoAppbar(
             onClick = { /*TODO*/ }
         ) {
             Icon(
-                painter = if (MaterialTheme.colors.isLight) {
-                    painterResource(id = R.drawable.ic_back_dark)
-                } else {
-                    painterResource(id = R.drawable.ic_back_light)
-                },
+                painter = painterResource(id = R.drawable.ic_back),
+                tint = MaterialTheme.colors.coinIfoAppBarIconColor,
                 contentDescription = null
             )
         }
@@ -45,11 +43,8 @@ fun CoinInfoAppbar(
             onClick = { /*TODO*/ }
         ) {
             Icon(
-                painter = if (MaterialTheme.colors.isLight) {
-                    painterResource(id = R.drawable.ic_heart_dark)
-                } else {
-                    painterResource(id = R.drawable.ic_heart_light)
-                },
+                painter = painterResource(id = R.drawable.ic_heart),
+                tint = MaterialTheme.colors.coinIfoAppBarIconColor,
                 contentDescription = null
             )
         }
@@ -59,10 +54,10 @@ fun CoinInfoAppbar(
 @Suppress("FunctionNaming")
 @Preview
 @Composable
-fun CoinInfoAppbarPreview() {
+fun AppbarPreview() {
     ComposeTheme {
         Surface {
-            CoinInfoAppbar(modifier = Modifier)
+            Appbar(modifier = Modifier)
         }
     }
 }
@@ -70,10 +65,10 @@ fun CoinInfoAppbarPreview() {
 @Suppress("FunctionNaming")
 @Preview
 @Composable
-fun CoinInfoAppbarPreviewDark() {
+fun AppbarPreviewDark() {
     ComposeTheme(darkTheme = true) {
         Surface {
-            CoinInfoAppbar(modifier = Modifier)
+            Appbar(modifier = Modifier)
         }
     }
 }

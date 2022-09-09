@@ -10,6 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.Color.DarkJungleGreen
 import co.nimblehq.compose.crypto.ui.theme.Color.LightSilver
+import co.nimblehq.compose.crypto.ui.theme.Color.Quartz
 import co.nimblehq.compose.crypto.ui.theme.Color.QuartzAlpha20
 import co.nimblehq.compose.crypto.ui.theme.Color.SonicSilver
 import co.nimblehq.compose.crypto.ui.theme.Color.TiffanyBlue
@@ -43,6 +44,10 @@ object Style {
     val Colors.coinInfoSellBuyBackground: Color
         @Composable
         get() = if (isLight) White else DarkJungleGreen
+
+    val Colors.coinIfoAppBarIconColor: Color
+        @Composable
+        get() = if (isLight) Quartz else White
 
     @Composable
     fun medium12() = textStyle.copy(fontWeight = FontWeight.Medium, fontSize = Sp12)
