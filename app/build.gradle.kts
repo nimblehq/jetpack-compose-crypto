@@ -142,8 +142,6 @@ dependencies {
     implementation("androidx.navigation:navigation-runtime-ktx:${Versions.ANDROIDX_NAVIGATION_VERSION}")
     implementation("androidx.navigation:navigation-ui-ktx:${Versions.ANDROIDX_NAVIGATION_VERSION}")
 
-    implementation("com.google.android.material:material:${Versions.MATERIAL_VERSION}")
-
     implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
 
     implementation("com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM_VERSION}")
