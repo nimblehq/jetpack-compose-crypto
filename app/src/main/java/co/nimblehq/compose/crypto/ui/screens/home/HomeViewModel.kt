@@ -24,7 +24,6 @@ interface Output : BaseOutput {
     val trendingCoins: StateFlow<List<CoinItemUiModel>>
 }
 
-@Suppress("FunctionNaming", "LongMethod")
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
@@ -56,47 +55,43 @@ class HomeViewModel @Inject constructor(
         getTrendingCoins()
     }
 
-    private fun getMyCoins() {
-        execute {
-            _showMyCoinsLoading.value = true
-            getMyCoinsUseCase.execute(
-                GetMyCoinsUseCase.Input(
-                    currency = MY_COINS_CURRENCY,
-                    order = MY_COINS_ORDER,
-                    priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
-                    itemPerPage = MY_COINS_ITEM_PER_PAGE,
-                    page = MY_COINS_INITIAL_PAGE
-                )
+    private fun getMyCoins() = execute {
+        _showMyCoinsLoading.value = true
+        getMyCoinsUseCase.execute(
+            GetMyCoinsUseCase.Input(
+                currency = MY_COINS_CURRENCY,
+                order = MY_COINS_ORDER,
+                priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
+                itemPerPage = MY_COINS_ITEM_PER_PAGE,
+                page = MY_COINS_INITIAL_PAGE
             )
-                .catch { e ->
-                    _error.emit(e)
-                }
-                .collect { coins ->
-                    _myCoins.emit(coins.map { it.toUiModel() })
-                }
-            _showMyCoinsLoading.value = false
-        }
+        )
+            .catch { e ->
+                _error.emit(e)
+            }
+            .collect { coins ->
+                _myCoins.emit(coins.map { it.toUiModel() })
+            }
+        _showMyCoinsLoading.value = false
     }
 
-    private fun getTrendingCoins() {
-        execute {
-            _showTrendingCoinsLoading.value = true
-            getTrendingCoinsUseCase.execute(
-                GetTrendingCoinsUseCase.Input(
-                    currency = MY_COINS_CURRENCY,
-                    order = MY_COINS_ORDER,
-                    priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
-                    itemPerPage = MY_COINS_ITEM_PER_PAGE,
-                    page = MY_COINS_INITIAL_PAGE
-                )
+    private fun getTrendingCoins() = execute {
+        _showTrendingCoinsLoading.value = true
+        getTrendingCoinsUseCase.execute(
+            GetTrendingCoinsUseCase.Input(
+                currency = MY_COINS_CURRENCY,
+                order = MY_COINS_ORDER,
+                priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
+                itemPerPage = MY_COINS_ITEM_PER_PAGE,
+                page = MY_COINS_INITIAL_PAGE
             )
-                .catch { e ->
-                    _error.emit(e)
-                }
-                .collect { coins ->
-                    _trendingCoins.emit(coins.map { it.toUiModel() })
-                }
-            _showTrendingCoinsLoading.value = false
-        }
+        )
+            .catch { e ->
+                _error.emit(e)
+            }
+            .collect { coins ->
+                _trendingCoins.emit(coins.map { it.toUiModel() })
+            }
+        _showTrendingCoinsLoading.value = false
     }
 }

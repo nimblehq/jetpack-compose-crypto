@@ -1,15 +1,14 @@
 package co.nimblehq.compose.crypto.ui.screens.detail
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.constraintlayout.compose.Dimension
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
@@ -18,7 +17,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun DetailItem(
     modifier: Modifier,
@@ -73,7 +71,6 @@ fun DetailItem(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun DetailItemPreview() {
@@ -89,7 +86,6 @@ fun DetailItemPreview() {
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun DetailItemPreviewDark() {

@@ -30,7 +30,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
@@ -59,7 +58,7 @@ fun HomeScreen(
     )
 }
 
-@Suppress("FunctionNaming")
+@Suppress("LongParameterList")
 @Composable
 private fun HomeScreenContent(
     showMyCoinsLoading: IsLoading,
@@ -141,7 +140,6 @@ private fun HomeScreenContent(
     }
 }
 
-@Suppress("FunctionNaming", "LongMethod", "MagicNumber")
 @Composable
 private fun MyCoins(
     showMyCoinsLoading: IsLoading,
@@ -211,7 +209,6 @@ private fun MyCoins(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
 fun HomeScreenPreview(
@@ -230,7 +227,6 @@ fun HomeScreenPreview(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 fun HomeScreenPreviewDark(

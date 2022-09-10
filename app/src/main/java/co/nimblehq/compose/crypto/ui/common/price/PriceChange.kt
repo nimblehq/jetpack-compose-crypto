@@ -20,7 +20,6 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import kotlin.math.abs
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun PriceChange(
     priceChangePercentage24hInCurrency: Double,
@@ -54,7 +53,6 @@ fun PriceChange(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun PriceChangePreview(

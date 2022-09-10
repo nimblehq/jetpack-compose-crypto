@@ -3,15 +3,12 @@ package co.nimblehq.compose.crypto.ui.screens.navigation
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.*
 import co.nimblehq.compose.crypto.extension.provideViewModels
+import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeViewModel
-import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 
-@Suppress("FunctionNaming")
 @Composable
 fun CryptoNavGraph(
     componentActivity: ComponentActivity,

@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.ui.screens.detail
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,7 +14,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinInfoAppBarIconColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun Appbar(
     modifier: Modifier
@@ -51,7 +51,6 @@ fun Appbar(
     }
 }
 
-@Suppress("FunctionNaming")
 @Preview
 @Composable
 fun AppbarPreview() {
@@ -62,7 +61,6 @@ fun AppbarPreview() {
     }
 }
 
-@Suppress("FunctionNaming")
 @Preview
 @Composable
 fun AppbarPreviewDark() {

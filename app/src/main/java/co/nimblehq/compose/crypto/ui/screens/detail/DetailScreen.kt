@@ -1,27 +1,21 @@
 package co.nimblehq.compose.crypto.ui.screens.detail
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import co.nimblehq.compose.crypto.R
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
@@ -30,7 +24,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import coil.compose.rememberAsyncImagePainter
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun DetailScreen() {
     val localDensity = LocalDensity.current
@@ -132,7 +125,6 @@ fun DetailScreen() {
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 private fun CoinInfo(
     modifier: Modifier,
@@ -163,7 +155,6 @@ private fun CoinInfo(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun DetailScreenPreview() {
@@ -172,7 +163,6 @@ fun DetailScreenPreview() {
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun DetailScreenPreviewDark() {

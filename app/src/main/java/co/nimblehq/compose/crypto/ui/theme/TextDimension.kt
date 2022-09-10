@@ -2,7 +2,6 @@ package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.ui.unit.sp
 
-@Suppress("MagicNumber")
 object TextDimension {
     val Sp12 = 12.sp
     val Sp14 = 14.sp
