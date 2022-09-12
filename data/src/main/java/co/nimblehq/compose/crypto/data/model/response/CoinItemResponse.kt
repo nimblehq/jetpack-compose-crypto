@@ -1,5 +1,6 @@
 package co.nimblehq.compose.crypto.data.model.response
 
+import co.nimblehq.compose.crypto.data.extension.orZero
 import co.nimblehq.compose.crypto.domain.model.CoinItem
 import com.squareup.moshi.Json
 import java.math.BigDecimal
@@ -71,41 +72,40 @@ data class CoinItemResponse(
     )
 }
 
-@Suppress("ComplexMethod", "LongMethod")
 private fun CoinItemResponse.toModel() = CoinItem(
     id = id.orEmpty(),
     symbol = symbol.orEmpty(),
     coinName = coinName.orEmpty(),
     image = image.orEmpty(),
-    currentPrice = currentPrice ?: BigDecimal.ZERO,
-    marketCap = marketCap ?: BigDecimal.ZERO,
-    marketCapRank = marketCapRank ?: 0,
-    fullyDilutedValuation = fullyDilutedValuation ?: BigDecimal.ZERO,
-    totalVolume = totalVolume ?: BigDecimal.ZERO,
-    high24h = high24h ?: BigDecimal.ZERO,
-    low24h = low24h ?: BigDecimal.ZERO,
-    priceChange24h = priceChange24h ?: BigDecimal.ZERO,
-    priceChangePercentage24h = priceChangePercentage24h ?: 0.0,
-    marketCapChange24h = marketCapChange24h ?: BigDecimal.ZERO,
-    marketCapChangePercentage24h = marketCapChangePercentage24h ?: 0.0,
-    circulatingSupply = circulatingSupply ?: BigDecimal.ZERO,
-    totalSupply = totalSupply ?: BigDecimal.ZERO,
-    maxSupply = maxSupply ?: BigDecimal.ZERO,
-    ath = ath ?: BigDecimal.ZERO,
-    athChangePercentage = athChangePercentage ?: 0.0,
+    currentPrice = currentPrice.orZero(),
+    marketCap = marketCap.orZero(),
+    marketCapRank = marketCapRank.orZero(),
+    fullyDilutedValuation = fullyDilutedValuation.orZero(),
+    totalVolume = totalVolume.orZero(),
+    high24h = high24h.orZero(),
+    low24h = low24h.orZero(),
+    priceChange24h = priceChange24h.orZero(),
+    priceChangePercentage24h = priceChangePercentage24h.orZero(),
+    marketCapChange24h = marketCapChange24h.orZero(),
+    marketCapChangePercentage24h = marketCapChangePercentage24h.orZero(),
+    circulatingSupply = circulatingSupply.orZero(),
+    totalSupply = totalSupply.orZero(),
+    maxSupply = maxSupply.orZero(),
+    ath = ath.orZero(),
+    athChangePercentage = athChangePercentage.orZero(),
     athDate = athDate.orEmpty(),
-    atl = atl ?: BigDecimal.ZERO,
-    atlChangePercentage = atlChangePercentage ?: 0.0,
+    atl = atl.orZero(),
+    atlChangePercentage = atlChangePercentage.orZero(),
     atlDate = atlDate.orEmpty(),
     roi = roi?.toModel(),
     lastUpdated = lastUpdated.orEmpty(),
-    priceChangePercentage24hInCurrency = priceChangePercentage24hInCurrency ?: 0.0
+    priceChangePercentage24hInCurrency = priceChangePercentage24hInCurrency.orZero()
 )
 
 fun List<CoinItemResponse>.toModels() = this.map { it.toModel() }
 
 private fun CoinItemResponse.RoiItemResponse.toModel() = CoinItem.RoiItem(
-    times = times ?: BigDecimal.ZERO,
+    times = times.orZero(),
     currency = currency.orEmpty(),
-    percentage = percentage ?: 0.0
+    percentage = percentage.orZero()
 )
