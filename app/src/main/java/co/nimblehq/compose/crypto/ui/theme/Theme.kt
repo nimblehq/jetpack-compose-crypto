@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -6,7 +7,6 @@ import androidx.compose.runtime.Composable
 import co.nimblehq.compose.crypto.ui.theme.Color.DarkJungleGreen
 import co.nimblehq.compose.crypto.ui.theme.Color.Guyabano
 
-@Suppress("MatchingDeclarationName")
 object Palette {
     val ComposeLightPalette = lightColors(
         surface = Guyabano,
@@ -17,7 +17,6 @@ object Palette {
     )
 }
 
-@Suppress("FunctionNaming")
 @Composable
 fun ComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

@@ -2,7 +2,6 @@ package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-@Suppress("MagicNumber")
 object Color {
     val White = Color(0xFFFFFFFF)
     val Guyabano = Color(0xFFF8F8F8)

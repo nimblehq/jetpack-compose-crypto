@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.ui.screens.detail
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -15,7 +16,6 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Style
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun SellBuyButton(
     modifier: Modifier,
@@ -43,7 +43,6 @@ fun SellBuyButton(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun SellBuyButtonPreview() {

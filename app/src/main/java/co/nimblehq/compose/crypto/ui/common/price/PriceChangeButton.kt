@@ -3,10 +3,7 @@ package co.nimblehq.compose.crypto.ui.common.price
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,18 +11,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Color.FireOpal
 import co.nimblehq.compose.crypto.ui.theme.Color.GuppieGreen
 import co.nimblehq.compose.crypto.ui.theme.Color.Water
 import co.nimblehq.compose.crypto.ui.theme.Color.WhiteIce
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
-import co.nimblehq.compose.crypto.ui.theme.Dimension
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9
-import co.nimblehq.compose.crypto.ui.theme.Style
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun PriceChangeButton(
     modifier: Modifier,
@@ -63,7 +57,6 @@ fun PriceChangeButton(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun PriceChangeButtonPreview() {

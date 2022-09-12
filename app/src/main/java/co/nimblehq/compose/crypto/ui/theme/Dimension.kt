@@ -2,7 +2,6 @@ package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.ui.unit.dp
 
-@Suppress("MagicNumber")
 object Dimension {
     val Dp0 = 0.dp
     val Dp4 = 4.dp

@@ -2,9 +2,7 @@ package co.nimblehq.compose.crypto.ui.screens.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -36,7 +34,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun CoinItem(
     coinItem: CoinItemUiModel,
@@ -124,7 +121,6 @@ fun CoinItem(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_NO)
 fun CoinItemPreview(
@@ -138,7 +134,6 @@ fun CoinItemPreview(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 fun CoinItemPreviewDark(
