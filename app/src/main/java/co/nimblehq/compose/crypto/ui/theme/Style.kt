@@ -45,7 +45,7 @@ object Style {
         @Composable
         get() = if (isLight) White else DarkJungleGreen
 
-    val Colors.coinIfoAppBarIconColor: Color
+    val Colors.coinInfoAppBarIconColor: Color
         @Composable
         get() = if (isLight) Quartz else White
 

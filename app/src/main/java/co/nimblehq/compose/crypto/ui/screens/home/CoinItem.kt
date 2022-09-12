@@ -23,7 +23,6 @@ import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp22
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp25
@@ -120,8 +119,7 @@ fun CoinItem(
                     start.linkTo(price.end)
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
-                },
-            iconPaddingEnd = Dp13
+                }
         )
     }
 }

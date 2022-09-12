@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Style
-import co.nimblehq.compose.crypto.ui.theme.Style.coinIfoAppBarIconColor
+import co.nimblehq.compose.crypto.ui.theme.Style.coinInfoAppBarIconColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
 @Suppress("FunctionNaming", "LongMethod")
@@ -25,7 +25,7 @@ fun Appbar(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
-                tint = MaterialTheme.colors.coinIfoAppBarIconColor,
+                tint = MaterialTheme.colors.coinInfoAppBarIconColor,
                 contentDescription = null
             )
         }
@@ -44,7 +44,7 @@ fun Appbar(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_heart),
-                tint = MaterialTheme.colors.coinIfoAppBarIconColor,
+                tint = MaterialTheme.colors.coinInfoAppBarIconColor,
                 contentDescription = null
             )
         }

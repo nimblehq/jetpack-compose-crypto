@@ -17,7 +17,6 @@ import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
 import co.nimblehq.compose.crypto.ui.theme.Color
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
@@ -91,8 +90,6 @@ fun PortfolioCard(
                     linkTo(top = todayProfitLabel.top, bottom = todayProfit.bottom)
                     end.linkTo(parent.end)
                 },
-            iconPaddingEnd = Dp13,
-            backgroundColor = Color.Water,
             // TODO: Remove dummy value when work on Integrate.
             priceChangePercent = "6.21",
             isPositiveNumber = true

@@ -14,7 +14,6 @@ import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
@@ -69,7 +68,6 @@ fun DetailItem(
                     top.linkTo(itemTitle.top)
                     bottom.linkTo(itemPrice.bottom)
                 },
-            iconPaddingEnd = Dp9,
             displayForDetailPage = true
         )
     }

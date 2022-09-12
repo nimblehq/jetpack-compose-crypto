@@ -21,13 +21,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
-import co.nimblehq.compose.crypto.ui.theme.Color
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import coil.compose.rememberAsyncImagePainter
@@ -96,10 +94,9 @@ fun DetailScreen() {
                         top.linkTo(currentPrice.bottom)
                         linkTo(start = parent.start, end = parent.end)
                     },
-                iconPaddingEnd = Dp9,
-                backgroundColor = Color.WhiteIce,
                 // TODO: Remove dummy image when work on Integrate.
                 priceChangePercent = "6.21",
+                displayForDetailPage = true,
                 isPositiveNumber = true
             )
 

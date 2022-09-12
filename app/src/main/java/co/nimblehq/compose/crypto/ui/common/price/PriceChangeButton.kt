@@ -10,34 +10,33 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.Color.FireOpal
 import co.nimblehq.compose.crypto.ui.theme.Color.GuppieGreen
 import co.nimblehq.compose.crypto.ui.theme.Color.Water
+import co.nimblehq.compose.crypto.ui.theme.Color.WhiteIce
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9
 import co.nimblehq.compose.crypto.ui.theme.Style
 
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun PriceChangeButton(
     modifier: Modifier,
-    iconPaddingEnd: Dp,
-    backgroundColor: Color,
     priceChangePercent: String,
+    displayForDetailPage: Boolean = false,
     isPositiveNumber: Boolean = false
 ) {
     Button(
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = backgroundColor,
+            backgroundColor = if (displayForDetailPage) WhiteIce else Water,
             contentColor = if (isPositiveNumber) GuppieGreen else FireOpal
         ),
         shape = RoundedCornerShape(Dimension.Dp20),
@@ -47,7 +46,7 @@ fun PriceChangeButton(
     ) {
         Icon(
             modifier = Modifier
-                .padding(end = iconPaddingEnd)
+                .padding(end = if (displayForDetailPage) Dp9 else Dp13)
                 .align(alignment = Alignment.CenterVertically),
             painter = if (isPositiveNumber) {
                 painterResource(id = R.drawable.ic_guppie_green_arrow_up)
@@ -71,8 +70,6 @@ fun PriceChangeButtonPreview() {
     ComposeTheme {
         PriceChangeButton(
             modifier = Modifier,
-            iconPaddingEnd = Dp13,
-            backgroundColor = Water,
             priceChangePercent = "6.21"
         )
     }
