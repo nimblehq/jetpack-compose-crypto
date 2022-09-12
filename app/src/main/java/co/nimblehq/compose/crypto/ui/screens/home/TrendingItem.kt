@@ -16,9 +16,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
+import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
@@ -94,8 +94,7 @@ fun TrendingItem(
                     top.linkTo(coinSymbol.top)
                     bottom.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
-                },
-            iconPaddingEnd = Dp13
+                }
         )
     }
 }

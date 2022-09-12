@@ -13,4 +13,7 @@
 
     <string name="coin_currency">$%s</string>
     <string name="coin_profit_percent">%1$s%%</string>
+
+    <string name="coin_info_sell_button">Sell</string>
+    <string name="coin_info_buy_button">Buy</string>
 </resources>

@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.home
+package co.nimblehq.compose.crypto.ui.common.price
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -11,12 +11,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.Dp
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import kotlin.math.abs
 
@@ -25,25 +25,21 @@ import kotlin.math.abs
 fun PriceChange(
     priceChangePercentage24hInCurrency: Double,
     modifier: Modifier,
-    iconPaddingEnd: Dp
+    displayForDetailPage: Boolean = false
 ) {
     val isPositiveNumber = priceChangePercentage24hInCurrency >= 0
 
     Row(modifier = modifier) {
         Icon(
             modifier = Modifier
-                .padding(end = iconPaddingEnd)
+                .padding(end = if (displayForDetailPage) Dp9 else Dp13)
                 .align(alignment = Alignment.CenterVertically),
             painter = if (isPositiveNumber) {
                 painterResource(id = R.drawable.ic_guppie_green_arrow_up)
             } else {
                 painterResource(id = R.drawable.ic_fire_opal_arrow_down)
             },
-            tint = if (isPositiveNumber) {
-                Color.GuppieGreen
-            } else {
-                Color.FireOpal
-            },
+            tint = if (isPositiveNumber) Color.GuppieGreen else Color.FireOpal,
             contentDescription = null
         )
 
@@ -52,11 +48,8 @@ fun PriceChange(
                 R.string.coin_profit_percent,
                 abs(priceChangePercentage24hInCurrency).toFormattedString()
             ),
-            style = if (isPositiveNumber) {
-                Style.guppieGreenMedium16()
-            } else {
-                Style.fireOpalGreenMedium16()
-            }
+            style = if (displayForDetailPage) Style.medium14() else Style.medium16(),
+            color = if (isPositiveNumber) Color.GuppieGreen else Color.FireOpal
         )
     }
 }
@@ -70,8 +63,7 @@ fun PriceChangePreview(
     ComposeTheme {
         PriceChange(
             priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
-            modifier = Modifier,
-            iconPaddingEnd = Dp13
+            modifier = Modifier
         )
     }
 }

@@ -4,6 +4,7 @@ import co.nimblehq.compose.crypto.domain.model.CoinItem
 import com.squareup.moshi.Json
 import java.math.BigDecimal
 
+@Suppress("LongMethod")
 data class CoinItemResponse(
     @Json(name = "id")
     val id: String?,

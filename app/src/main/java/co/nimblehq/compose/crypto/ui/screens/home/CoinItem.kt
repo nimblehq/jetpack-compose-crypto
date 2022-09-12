@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -18,10 +19,10 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
+import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp22
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp25
@@ -38,12 +39,14 @@ import coil.compose.rememberAsyncImagePainter
 @Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun CoinItem(
-    coinItem: CoinItemUiModel
+    coinItem: CoinItemUiModel,
+    onMyCoinsItemClick: () -> Unit
 ) {
     ConstraintLayout(
         modifier = Modifier
             .wrapContentWidth()
             .clip(RoundedCornerShape(Dp12))
+            .clickable { onMyCoinsItemClick.invoke() }
             .background(color = MaterialTheme.colors.coinItemColor)
             .padding(horizontal = Dp8, vertical = Dp8)
     ) {
@@ -116,8 +119,7 @@ fun CoinItem(
                     start.linkTo(price.end)
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
-                },
-            iconPaddingEnd = Dp13
+                }
         )
     }
 }
@@ -129,7 +131,10 @@ fun CoinItemPreview(
     @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
 ) {
     ComposeTheme {
-        CoinItem(coinItem)
+        CoinItem(
+            coinItem = coinItem,
+            onMyCoinsItemClick = {}
+        )
     }
 }
 
@@ -140,6 +145,9 @@ fun CoinItemPreviewDark(
     @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
 ) {
     ComposeTheme {
-        CoinItem(coinItem)
+        CoinItem(
+            coinItem = coinItem,
+            onMyCoinsItemClick = {}
+        )
     }
 }
