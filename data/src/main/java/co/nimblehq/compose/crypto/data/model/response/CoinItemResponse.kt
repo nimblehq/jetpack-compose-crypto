@@ -72,7 +72,7 @@ data class CoinItemResponse(
     )
 }
 
-private fun CoinItemResponse.toModel() = CoinItem(
+fun CoinItemResponse.toModel() = CoinItem(
     id = id.orEmpty(),
     symbol = symbol.orEmpty(),
     coinName = coinName.orEmpty(),
@@ -101,8 +101,6 @@ private fun CoinItemResponse.toModel() = CoinItem(
     lastUpdated = lastUpdated.orEmpty(),
     priceChangePercentage24hInCurrency = priceChangePercentage24hInCurrency.orZero()
 )
-
-fun List<CoinItemResponse>.toModels() = this.map { it.toModel() }
 
 private fun CoinItemResponse.RoiItemResponse.toModel() = CoinItem.RoiItem(
     times = times.orZero(),
