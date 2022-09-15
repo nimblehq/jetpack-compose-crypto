@@ -72,7 +72,7 @@ data class CoinItemResponse(
     )
 }
 
-fun CoinItemResponse.toModel() = CoinItem(
+internal fun CoinItemResponse.toModel() = CoinItem(
     id = id.orEmpty(),
     symbol = symbol.orEmpty(),
     coinName = coinName.orEmpty(),

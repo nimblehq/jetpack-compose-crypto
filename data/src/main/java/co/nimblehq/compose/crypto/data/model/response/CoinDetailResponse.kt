@@ -109,7 +109,7 @@ data class CoinDetailResponse(
     )
 }
 
-fun CoinDetailResponse.toModel() = CoinDetail(
+internal fun CoinDetailResponse.toModel() = CoinDetail(
     id = id.orEmpty(),
     symbol = symbol.orEmpty(),
     coinName = coinName.orEmpty(),
