@@ -2,8 +2,12 @@ package co.nimblehq.compose.crypto.ui.screens.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -21,11 +25,11 @@ import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp14
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp22
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp25
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
@@ -45,7 +49,7 @@ fun CoinItem(
             .clip(RoundedCornerShape(Dp12))
             .clickable { onMyCoinsItemClick.invoke() }
             .background(color = MaterialTheme.colors.coinItemColor)
-            .padding(horizontal = Dp8, vertical = Dp8)
+            .padding(Dp8)
     ) {
         val (
             logo,
@@ -57,11 +61,10 @@ fun CoinItem(
 
         Image(
             modifier = Modifier
-                .size(Dp60)
-                .padding(end = Dp16)
+                .size(Dp40)
                 .constrainAs(logo) {
-                    top.linkTo(coinSymbol.top)
-                    bottom.linkTo(coinName.bottom)
+                    top.linkTo(anchor = coinSymbol.top, margin = Dp8)
+                    bottom.linkTo(anchor = coinName.bottom, margin = Dp8)
                     start.linkTo(parent.start)
                 },
             painter = rememberAsyncImagePainter(coinItem.image),
@@ -72,7 +75,7 @@ fun CoinItem(
             modifier = Modifier
                 .constrainAs(coinSymbol) {
                     top.linkTo(parent.top)
-                    start.linkTo(logo.end)
+                    start.linkTo(anchor = logo.end, margin = Dp16)
                 },
             text = coinItem.symbol.uppercase(),
             color = MaterialTheme.colors.textColor,
@@ -94,10 +97,9 @@ fun CoinItem(
 
         Text(
             modifier = Modifier
-                .padding(top = Dp22)
                 .constrainAs(price) {
                     start.linkTo(logo.start)
-                    top.linkTo(coinName.bottom)
+                    top.linkTo(anchor = coinName.bottom, margin = Dp14)
                     width = Dimension.preferredWrapContent
                 },
             text = stringResource(
