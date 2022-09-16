@@ -9,7 +9,7 @@ data class CoinPriceResponse(
     val prices: List<List<BigDecimal>>
 )
 
-fun CoinPriceResponse.toModel() = this.prices.map { response ->
+internal fun CoinPriceResponse.toModel() = this.prices.map { response ->
     CoinPrice(
         timeStamp = (response[0].toLong()),
         price = response[1]

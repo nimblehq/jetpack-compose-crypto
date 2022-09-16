@@ -1,7 +1,6 @@
 package co.nimblehq.compose.crypto.domain.repository
 
-import co.nimblehq.compose.crypto.domain.model.CoinItem
-import co.nimblehq.compose.crypto.domain.model.CoinPrice
+import co.nimblehq.compose.crypto.domain.model.*
 import kotlinx.coroutines.flow.Flow
 
 @Suppress("LongParameterList")
@@ -14,6 +13,16 @@ interface CoinRepository {
         itemPerPage: Int,
         page: Int
     ): Flow<List<CoinItem>>
+
+    fun getCoinDetail(
+        coinId: String,
+        localization: Boolean = false,
+        tickers: Boolean = false,
+        marketData: Boolean = true,
+        communityData: Boolean = false,
+        developerData: Boolean = false,
+        sparkline: Boolean = false
+    ): Flow<CoinDetail>
 
     fun getCoinPrices(
         coinId: String,
