@@ -16,4 +16,6 @@ object Color {
     val QuartzAlpha20 = Quartz.copy(alpha = 0.2f)
     val FireOpal = Color(0xFFF15950)
     val SonicSilver = Color(0xFF70747C)
+    val CaribbeanGreen = Color(0xFF00BDB0)
+    val CaribbeanGreenAlpha30 = CaribbeanGreen.copy(alpha = 0.3f)
 }

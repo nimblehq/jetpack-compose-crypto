@@ -2,12 +2,18 @@ package co.nimblehq.compose.crypto.ui.screens.detail
 
 import android.content.res.Configuration
 import android.widget.Toast
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -22,12 +28,20 @@ import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
+import co.nimblehq.compose.crypto.ui.components.linechart.CryptoLineChart
+import co.nimblehq.compose.crypto.ui.components.linechart.EmptyXAxisDrawer
+import co.nimblehq.compose.crypto.ui.components.linechart.EmptyYAxisDrawer
+import co.nimblehq.compose.crypto.ui.components.linechart.GradientLineShader
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
+import co.nimblehq.compose.crypto.ui.theme.Color.CaribbeanGreen
+import co.nimblehq.compose.crypto.ui.theme.Color.CaribbeanGreenAlpha30
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
@@ -35,6 +49,11 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 import coil.compose.rememberAsyncImagePainter
+import me.bytebeats.views.charts.line.LineChartData
+import me.bytebeats.views.charts.line.render.line.SolidLineDrawer
+import me.bytebeats.views.charts.line.render.point.EmptyPointDrawer
+import me.bytebeats.views.charts.simpleChartAnimation
+import kotlin.random.Random
 
 @Composable
 fun DetailScreen(
@@ -144,17 +163,40 @@ private fun DetailScreenContent(
                 )
 
                 // TODO: Update this section when work create UI for a graph.
-                Spacer(
+                val mockData = mutableListOf<LineChartData.Point>()
+                for (i in 1..10) {
+                    mockData.add(
+                        LineChartData.Point(Random.nextInt(1, 20).toFloat(), "")
+                    )
+                }
+                CryptoLineChart(
                     modifier = Modifier
-                        .height(350.dp)
+                        .fillMaxWidth()
                         .constrainAs(graph) {
-                            top.linkTo(priceChangePercent.bottom)
-                        }
+                            top.linkTo(priceChangePercent.bottom, margin = Dp24)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                        },
+                    lineChartData = LineChartData(
+                        points = mockData
+                    ),
+                    animation = simpleChartAnimation(),
+                    pointDrawer = EmptyPointDrawer,
+                    lineDrawer = SolidLineDrawer(thickness = 2.dp, color = CaribbeanGreen),
+                    lineShader = GradientLineShader(
+                        colors = listOf(
+                            CaribbeanGreenAlpha30,
+                            Color.Transparent
+                        )
+                    ),
+                    xAxisDrawer = EmptyXAxisDrawer(),
+                    yAxisDrawer = EmptyYAxisDrawer(),
+                    horizontalOffset = 0f
                 )
 
                 CoinInfo(
                     modifier = Modifier.constrainAs(coinInfoItem) {
-                        top.linkTo(graph.bottom)
+                        top.linkTo(graph.bottom, margin = Dp40)
                     },
                     sellBuyLayoutHeight = sellBuyLayoutHeight.value,
                     coinDetailUiModel = coinDetailUiModel
@@ -165,7 +207,12 @@ private fun DetailScreenContent(
                 CircularProgressIndicator(
                     modifier = Modifier
                         .constrainAs(progressIndicator) {
-                            linkTo(start = parent.start, end = parent.end, top = parent.top, bottom = parent.bottom)
+                            linkTo(
+                                start = parent.start,
+                                end = parent.end,
+                                top = parent.top,
+                                bottom = parent.bottom
+                            )
                         },
                 )
             }
