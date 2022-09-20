@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.dp
 import co.nimblehq.compose.crypto.ui.components.chartintervals.ChartIntervalsButtonGroup
+import co.nimblehq.compose.crypto.ui.components.chartintervals.TimeIntervals
 import me.bytebeats.views.charts.line.*
 import me.bytebeats.views.charts.line.render.line.EmptyLineShader
 import me.bytebeats.views.charts.line.render.line.ILineDrawer
@@ -39,6 +40,7 @@ fun CryptoLineChart(
     xAxisDrawer: IXAxisDrawer = SimpleXAxisDrawer(),
     yAxisDrawer: IYAxisDrawer = SimpleYAxisDrawer(),
     horizontalOffset: Float = 5F,
+    onTimeIntervalChanged: (TimeIntervals) -> Unit
 ) {
     check(horizontalOffset in 0F..25F) {
         "Horizontal Offset is the percentage offset from side, and must be between 0 and 25, included."
@@ -115,7 +117,8 @@ fun CryptoLineChart(
         // Chart intervals
         ChartIntervalsButtonGroup(
             modifier = Modifier
-                .padding(top = 24.dp)
+                .padding(top = 24.dp),
+            onIntervalChanged = onTimeIntervalChanged
         )
     }
 }

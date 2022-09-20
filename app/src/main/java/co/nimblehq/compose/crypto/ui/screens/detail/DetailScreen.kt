@@ -94,6 +94,7 @@ private fun DetailScreenContent(
 ) {
     val localDensity = LocalDensity.current
     val sellBuyLayoutHeight = remember { mutableStateOf(Dp0) }
+    val context = LocalContext.current
 
     Surface {
         ConstraintLayout(
@@ -191,8 +192,16 @@ private fun DetailScreenContent(
                     ),
                     xAxisDrawer = EmptyXAxisDrawer(),
                     yAxisDrawer = EmptyYAxisDrawer(),
-                    horizontalOffset = 0f
-                )
+                    horizontalOffset = 0f,
+                onTimeIntervalChanged = { timeIntervals ->
+                    // TODO Refresh the chart on time interval changed
+                    Toast.makeText(
+                        context,
+                        "Time interval changed: $timeIntervals",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            )
 
                 CoinInfo(
                     modifier = Modifier.constrainAs(coinInfoItem) {

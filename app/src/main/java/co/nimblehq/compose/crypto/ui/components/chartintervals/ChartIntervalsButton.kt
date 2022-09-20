@@ -16,7 +16,8 @@ import co.nimblehq.compose.crypto.ui.theme.Color
 
 @Composable
 fun ChartIntervalsButtonGroup(
-    modifier: Modifier
+    modifier: Modifier,
+    onIntervalChanged: (TimeIntervals) -> Unit
 ) {
 
     val selectedColor = remember { mutableStateOf(0) }
@@ -47,7 +48,12 @@ fun ChartIntervalsButtonGroup(
                         shape = RoundedCornerShape(12.dp)
                     ),
                 interval = interval,
-                onClick = { selectedColor.value = index }
+                onClick = {
+                    if (selectedColor.value != index) {
+                        selectedColor.value = index
+                        onIntervalChanged.invoke(interval)
+                    }
+                }
             )
         }
     }
@@ -72,6 +78,7 @@ fun ChartIntervalsButton(
 @Composable
 fun ChartIntervalsButtonGroupPreview() {
     ChartIntervalsButtonGroup(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        onIntervalChanged = {}
     )
 }
