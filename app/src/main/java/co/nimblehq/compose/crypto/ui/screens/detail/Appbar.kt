@@ -16,12 +16,14 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
 @Composable
 fun Appbar(
-    modifier: Modifier
+    modifier: Modifier,
+    title: String,
+    onBackIconClick: () -> Unit
 ) {
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         IconButton(
             modifier = Modifier.align(Alignment.CenterStart),
-            onClick = { /*TODO*/ }
+            onClick = { onBackIconClick.invoke() }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
@@ -32,8 +34,7 @@ fun Appbar(
 
         Text(
             modifier = Modifier.align(Alignment.Center),
-            // TODO: Remove dummy value when work on Integrate.
-            text = "Ethereum",
+            text = title,
             color = MaterialTheme.colors.textColor,
             style = Style.medium16()
         )
@@ -56,7 +57,11 @@ fun Appbar(
 fun AppbarPreview() {
     ComposeTheme {
         Surface {
-            Appbar(modifier = Modifier)
+            Appbar(
+                modifier = Modifier,
+                title = "Ethereum",
+                onBackIconClick = {}
+            )
         }
     }
 }
@@ -66,7 +71,11 @@ fun AppbarPreview() {
 fun AppbarPreviewDark() {
     ComposeTheme(darkTheme = true) {
         Surface {
-            Appbar(modifier = Modifier)
+            Appbar(
+                modifier = Modifier,
+                title = "Ethereum",
+                onBackIconClick = {}
+            )
         }
     }
 }

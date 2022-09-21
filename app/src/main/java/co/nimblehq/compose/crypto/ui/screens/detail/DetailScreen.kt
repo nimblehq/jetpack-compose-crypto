@@ -10,11 +10,16 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
+import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
+import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
@@ -22,10 +27,32 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
-fun DetailScreen() {
+fun DetailScreen(
+    navController: NavController,
+    viewModel: DetailViewModel,
+    id: String,
+) {
+    viewModel.input.getCoinId(coinId = id)
+
+    val coinDetailUiModel: CoinDetailUiModel? by viewModel.output.coinDetailUiModel.collectAsState()
+
+    coinDetailUiModel?.let {
+        DetailScreenContent(
+            coinDetailUiModel = it,
+            onBackIconClick = { navController.popBackStack() }
+        )
+    }
+}
+
+@Composable
+fun DetailScreenContent(
+    coinDetailUiModel: CoinDetailUiModel,
+    onBackIconClick: () -> Unit
+) {
     val localDensity = LocalDensity.current
     val sellBuyLayoutHeight = remember { mutableStateOf(Dp0) }
 
@@ -46,11 +73,14 @@ fun DetailScreen() {
                 coinInfoItem
             ) = createRefs()
 
-            Appbar(modifier = Modifier
-                .constrainAs(appBar) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                }
+            Appbar(
+                modifier = Modifier
+                    .constrainAs(appBar) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                    },
+                title = coinDetailUiModel.coinName,
+                onBackIconClick = onBackIconClick
             )
 
             Image(
@@ -61,10 +91,7 @@ fun DetailScreen() {
                         linkTo(start = parent.start, end = parent.end)
                     }
                     .padding(top = Dp8),
-                // TODO: Remove dummy image when work on Integrate.
-                painter = rememberAsyncImagePainter(
-                    "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579"
-                ),
+                painter = rememberAsyncImagePainter(coinDetailUiModel.image),
                 contentDescription = null
             )
 
@@ -75,8 +102,10 @@ fun DetailScreen() {
                         linkTo(start = parent.start, end = parent.end)
                     }
                     .padding(vertical = Dp8),
-                // TODO: Remove dummy value when work on Integrate.
-                text = stringResource(R.string.coin_currency, "3,260.62"),
+                text = stringResource(
+                    R.string.coin_currency,
+                    coinDetailUiModel.currentPrice.toFormattedString()
+                ),
                 color = MaterialTheme.colors.textColor,
                 style = Style.semiBold24()
             )
@@ -87,10 +116,8 @@ fun DetailScreen() {
                         top.linkTo(currentPrice.bottom)
                         linkTo(start = parent.start, end = parent.end)
                     },
-                // TODO: Remove dummy image when work on Integrate.
-                priceChangePercent = "6.21",
-                displayForDetailPage = true,
-                isPositiveNumber = true
+                priceChangePercent = coinDetailUiModel.priceChangePercentage24hInCurrency,
+                displayForDetailPage = true
             )
 
             // TODO: Update this section when work create UI for a graph.
@@ -106,7 +133,8 @@ fun DetailScreen() {
                 modifier = Modifier.constrainAs(coinInfoItem) {
                     top.linkTo(graph.bottom)
                 },
-                sellBuyLayoutHeight = sellBuyLayoutHeight.value
+                sellBuyLayoutHeight = sellBuyLayoutHeight.value,
+                coinDetailUiModel = coinDetailUiModel
             )
         }
 
@@ -128,45 +156,55 @@ fun DetailScreen() {
 @Composable
 private fun CoinInfo(
     modifier: Modifier,
-    sellBuyLayoutHeight: Dp
+    sellBuyLayoutHeight: Dp,
+    coinDetailUiModel: CoinDetailUiModel
 ) {
-    // TODO: Remove dummy value when work on Integrate.
     Column(modifier = modifier.padding(start = Dp16, end = Dp16, bottom = sellBuyLayoutHeight)) {
         DetailItem(
             modifier = Modifier,
-            title = "Market Cap",
-            price = "387,992,058,833.42",
-            pricePercent = 7.32
+            title = stringResource(id = R.string.detail_market_cap_title),
+            price = coinDetailUiModel.marketCap.toFormattedString(),
+            pricePercent = coinDetailUiModel.marketCapChangePercentage24h
         )
 
         DetailItem(
             modifier = Modifier.padding(top = Dp16),
-            title = "All Time High",
-            price = "4,891.70",
-            pricePercent = 33.42
+            title = stringResource(id = R.string.detail_all_time_high_title),
+            price = coinDetailUiModel.ath.toFormattedString(),
+            pricePercent = coinDetailUiModel.athChangePercentage
         )
 
         DetailItem(
             modifier = Modifier.padding(vertical = Dp16),
-            title = "All Time Low",
-            price = "0.4209",
-            pricePercent = 773717.23
+            title = stringResource(id = R.string.detail_all_time_low_title),
+            price = coinDetailUiModel.atl.toFormattedString(),
+            pricePercent = coinDetailUiModel.atlChangePercentage
         )
     }
 }
 
 @Composable
 @Preview
-fun DetailScreenPreview() {
+fun DetailScreenPreview(
+    @PreviewParameter(DetailScreenPreviewParameterProvider::class) params: DetailScreenParams
+) {
     ComposeTheme {
-        DetailScreen()
+        DetailScreenContent(
+            coinDetailUiModel = params.detail,
+            onBackIconClick = {}
+        )
     }
 }
 
 @Composable
 @Preview
-fun DetailScreenPreviewDark() {
+fun DetailScreenPreviewDark(
+    @PreviewParameter(DetailScreenPreviewParameterProvider::class) params: DetailScreenParams
+) {
     ComposeTheme(darkTheme = true) {
-        DetailScreen()
+        DetailScreenContent(
+            coinDetailUiModel = params.detail,
+            onBackIconClick = {}
+        )
     }
 }

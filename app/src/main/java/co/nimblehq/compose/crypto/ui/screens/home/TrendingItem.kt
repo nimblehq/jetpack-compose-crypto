@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,13 +35,15 @@ import coil.compose.rememberAsyncImagePainter
 
 @Composable
 fun TrendingItem(
-    coinItem: CoinItemUiModel
+    coinItem: CoinItemUiModel,
+    onItemClick: () -> Unit
 ) {
 
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(Dp12))
+            .clickable { onItemClick.invoke() }
             .background(color = MaterialTheme.colors.coinItemColor)
             .padding(Dp8)
     ) {
@@ -111,7 +114,10 @@ fun TrendingItemPreview(
     @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
 ) {
     ComposeTheme {
-        TrendingItem(coinItem)
+        TrendingItem(
+            coinItem = coinItem,
+            onItemClick = {}
+        )
     }
 }
 
@@ -121,6 +127,9 @@ fun TrendingItemPreviewDark(
     @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
 ) {
     ComposeTheme(darkTheme = true) {
-        TrendingItem(coinItem)
+        TrendingItem(
+            coinItem = coinItem,
+            onItemClick = {}
+        )
     }
 }

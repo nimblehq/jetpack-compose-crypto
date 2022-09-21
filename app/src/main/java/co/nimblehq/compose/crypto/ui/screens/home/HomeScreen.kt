@@ -16,10 +16,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
+import co.nimblehq.compose.crypto.ui.screens.navigation.CryptoScreen
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
@@ -32,15 +34,20 @@ import co.nimblehq.compose.crypto.ui.userReadableMessage
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel,
-    // TODO: Remove it and handle in VM instead
-    onMyCoinsItemClick: () -> Unit
+    navController: NavController,
+    viewModel: HomeViewModel
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         viewModel.error.collect { error ->
             val message = error.userReadableMessage(context)
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.output.navigateToDetail.collect { id ->
+            navController.navigate("${CryptoScreen.COIN_INFORMATION.name}/$id")
         }
     }
 
@@ -54,7 +61,12 @@ fun HomeScreen(
         showTrendingCoinsLoading = showTrendingCoinsLoading,
         myCoins = myCoins,
         trendingCoins = trendingCoins,
-        onMyCoinsItemClick = onMyCoinsItemClick
+        onMyCoinsItemClick = { index ->
+            viewModel.input.onMyCoinsItemClick(position = index)
+        },
+        onTrendingItemClick = { index ->
+            viewModel.input.onTrendingCoinsItemClick(position = index)
+        }
     )
 }
 
@@ -65,7 +77,8 @@ private fun HomeScreenContent(
     showTrendingCoinsLoading: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: () -> Unit
+    onMyCoinsItemClick: (Int) -> Unit,
+    onTrendingItemClick: (Int) -> Unit
 ) {
     Surface {
         Column(
@@ -129,9 +142,12 @@ private fun HomeScreenContent(
                         )
                     }
                 } else {
-                    items(trendingCoins) { coin ->
+                    itemsIndexed(trendingCoins) { index, coin ->
                         Box(modifier = Modifier.padding(start = Dp16, end = Dp16, bottom = Dp16)) {
-                            TrendingItem(coin)
+                            TrendingItem(
+                                coinItem = coin,
+                                onItemClick = { onTrendingItemClick.invoke(index) }
+                            )
                         }
                     }
                 }
@@ -144,7 +160,7 @@ private fun HomeScreenContent(
 private fun MyCoins(
     showMyCoinsLoading: IsLoading,
     coins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: () -> Unit
+    onMyCoinsItemClick: (Int) -> Unit
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -198,10 +214,10 @@ private fun MyCoins(
                 contentPadding = PaddingValues(horizontal = Dp16),
                 horizontalArrangement = Arrangement.spacedBy(Dp16)
             ) {
-                items(coins) { coin ->
+                itemsIndexed(coins) { index, coin ->
                     CoinItem(
                         coinItem = coin,
-                        onMyCoinsItemClick = onMyCoinsItemClick
+                        onItemClick = { onMyCoinsItemClick.invoke(index) }
                     )
                 }
             }
@@ -221,6 +237,7 @@ fun HomeScreenPreview(
                 showTrendingCoinsLoading = isLoading,
                 myCoins = myCoins,
                 trendingCoins = trendingCoins,
+                onTrendingItemClick = {},
                 onMyCoinsItemClick = {}
             )
         }
@@ -239,6 +256,7 @@ fun HomeScreenPreviewDark(
                 showTrendingCoinsLoading = isLoading,
                 myCoins = myCoins,
                 trendingCoins = trendingCoins,
+                onTrendingItemClick = {},
                 onMyCoinsItemClick = {}
             )
         }

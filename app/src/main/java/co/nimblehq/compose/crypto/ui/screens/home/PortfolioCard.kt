@@ -88,8 +88,7 @@ fun PortfolioCard(
                     end.linkTo(parent.end)
                 },
             // TODO: Remove dummy value when work on Integrate.
-            priceChangePercent = "6.21",
-            isPositiveNumber = true
+            priceChangePercent = 6.21,
         )
     }
 }

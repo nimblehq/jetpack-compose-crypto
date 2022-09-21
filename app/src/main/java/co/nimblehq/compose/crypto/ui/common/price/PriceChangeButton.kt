@@ -23,10 +23,11 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9
 @Composable
 fun PriceChangeButton(
     modifier: Modifier,
-    priceChangePercent: String,
+    priceChangePercent: Double,
     displayForDetailPage: Boolean = false,
-    isPositiveNumber: Boolean = false
 ) {
+    val isPositiveNumber = priceChangePercent >= 0
+
     Button(
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
@@ -63,7 +64,7 @@ fun PriceChangeButtonPreview() {
     ComposeTheme {
         PriceChangeButton(
             modifier = Modifier,
-            priceChangePercent = "6.21"
+            priceChangePercent = 6.21
         )
     }
 }

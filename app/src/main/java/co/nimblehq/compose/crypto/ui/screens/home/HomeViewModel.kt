@@ -17,11 +17,20 @@ private const val MY_COINS_PRICE_CHANGE_IN_HOUR = "24h"
 private const val MY_COINS_ITEM_PER_PAGE = 10
 private const val MY_COINS_INITIAL_PAGE = 1
 
+interface Input : BaseInput {
+
+    fun onMyCoinsItemClick(position: Int)
+
+    fun onTrendingCoinsItemClick(position: Int)
+}
+
 interface Output : BaseOutput {
 
     val myCoins: StateFlow<List<CoinItemUiModel>>
 
     val trendingCoins: StateFlow<List<CoinItemUiModel>>
+
+    val navigateToDetail: SharedFlow<String>
 }
 
 @HiltViewModel
@@ -29,7 +38,7 @@ class HomeViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
     private val getMyCoinsUseCase: GetMyCoinsUseCase,
     private val getTrendingCoinsUseCase: GetTrendingCoinsUseCase
-) : BaseViewModel(dispatchers), BaseInput, Output {
+) : BaseViewModel(dispatchers), Input, Output {
 
     override val input = this
     override val output = this
@@ -49,6 +58,10 @@ class HomeViewModel @Inject constructor(
     private val _trendingCoins = MutableStateFlow<List<CoinItemUiModel>>(emptyList())
     override val trendingCoins: StateFlow<List<CoinItemUiModel>>
         get() = _trendingCoins
+
+    private val _navigateToDetail= MutableSharedFlow<String>()
+    override val navigateToDetail: SharedFlow<String>
+        get() = _navigateToDetail
 
     init {
         getMyCoins()
@@ -93,5 +106,19 @@ class HomeViewModel @Inject constructor(
                 _trendingCoins.emit(coins.map { it.toUiModel() })
             }
         _showTrendingCoinsLoading.value = false
+    }
+
+    override fun onMyCoinsItemClick(position: Int) {
+        execute {
+            val id = _myCoins.value[position].id
+            _navigateToDetail.emit(id)
+        }
+    }
+
+    override fun onTrendingCoinsItemClick(position: Int) {
+        execute {
+            val id = _trendingCoins.value[position].id
+            _navigateToDetail.emit(id)
+        }
     }
 }

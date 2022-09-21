@@ -3,9 +3,12 @@ package co.nimblehq.compose.crypto.ui.screens.navigation
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import androidx.navigation.navArgument
 import co.nimblehq.compose.crypto.extension.provideViewModels
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
+import co.nimblehq.compose.crypto.ui.screens.detail.DetailViewModel
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeViewModel
 
@@ -19,17 +22,25 @@ fun CryptoNavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(CryptoScreen.HOME.name) {
+        composable(route = CryptoScreen.HOME.name) {
             val homeViewModel: HomeViewModel by componentActivity.provideViewModels()
             HomeScreen(
+                navController = navController,
                 viewModel = homeViewModel,
-                onMyCoinsItemClick = {
-                    navController.navigate(route = CryptoScreen.COIN_INFORMATION.name)
-                }
             )
         }
-        composable(CryptoScreen.COIN_INFORMATION.name) {
-            DetailScreen()
+        composable(
+            route = "${CryptoScreen.COIN_INFORMATION.name}/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.StringType
+            })
+        ) {
+            val detailViewModel: DetailViewModel by componentActivity.provideViewModels()
+            DetailScreen(
+                navController = navController,
+                viewModel = detailViewModel,
+                id = it.arguments?.getString("id") ?: ""
+            )
         }
     }
 }
