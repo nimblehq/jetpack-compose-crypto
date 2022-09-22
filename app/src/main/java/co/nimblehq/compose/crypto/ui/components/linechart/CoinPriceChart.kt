@@ -30,7 +30,7 @@ import me.bytebeats.views.charts.line.render.yaxis.SimpleYAxisDrawer
 import me.bytebeats.views.charts.simpleChartAnimation
 
 @Composable
-fun CryptoLineChart(
+fun CoinPriceChart(
     lineChartData: LineChartData,
     modifier: Modifier = Modifier,
     animation: AnimationSpec<Float> = simpleChartAnimation(),
@@ -39,6 +39,7 @@ fun CryptoLineChart(
     lineShader: ILineShader = EmptyLineShader,
     xAxisDrawer: IXAxisDrawer = SimpleXAxisDrawer(),
     yAxisDrawer: IYAxisDrawer = SimpleYAxisDrawer(),
+    labelDrawer: ILabelDrawer = CoinPriceLabelDrawer(),
     horizontalOffset: Float = 5F,
     onTimeIntervalChanged: (TimeIntervals) -> Unit
 ) {
@@ -93,22 +94,39 @@ fun CryptoLineChart(
                         transitionProgress = transitionAnimation.value
                     )
                 )
+
+                val maxPrice = lineChartData.points.maxOf { it.value }
+                val minPrice = lineChartData.points.minOf { it.value }
+                val maxPriceIndex = lineChartData.points.indexOfFirst { it.value == maxPrice }
+                val minPriceIndex = lineChartData.points.indexOfFirst { it.value == minPrice }
+
                 lineChartData.points.forEachIndexed { index, point ->
                     withProgress(
                         index = index,
                         lineChartData = lineChartData,
                         transitionProgress = transitionAnimation.value
                     ) {
+                        val pointLocation = computePointLocation(
+                            drawableArea = chartDrawableArea,
+                            lineChartData = lineChartData,
+                            point = point,
+                            index = index
+                        )
                         pointDrawer.drawPoint(
                             drawScope = this,
                             canvas = canvas,
-                            center = computePointLocation(
-                                drawableArea = chartDrawableArea,
-                                lineChartData = lineChartData,
-                                point = point,
-                                index = index
-                            )
+                            center = pointLocation
                         )
+                        if (index in listOf(minPriceIndex, maxPriceIndex)) {
+                            labelDrawer.drawLabel(
+                                drawScope = this,
+                                canvas = canvas,
+                                label = point.label,
+                                pointLocation = pointLocation,
+                                xAxisArea = xAxisDrawableArea,
+                                isHighestPrice = index == maxPriceIndex
+                            )
+                        }
                     }
                 }
             }

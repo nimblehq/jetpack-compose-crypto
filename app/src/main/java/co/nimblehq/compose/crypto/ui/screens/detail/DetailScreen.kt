@@ -13,7 +13,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -28,13 +27,11 @@ import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
-import co.nimblehq.compose.crypto.ui.components.linechart.CryptoLineChart
-import co.nimblehq.compose.crypto.ui.components.linechart.EmptyXAxisDrawer
-import co.nimblehq.compose.crypto.ui.components.linechart.EmptyYAxisDrawer
-import co.nimblehq.compose.crypto.ui.components.linechart.GradientLineShader
+import co.nimblehq.compose.crypto.ui.components.linechart.*
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
+import co.nimblehq.compose.crypto.ui.theme.Color
 import co.nimblehq.compose.crypto.ui.theme.Color.CaribbeanGreen
 import co.nimblehq.compose.crypto.ui.theme.Color.CaribbeanGreenAlpha30
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
@@ -167,10 +164,13 @@ private fun DetailScreenContent(
                 val mockData = mutableListOf<LineChartData.Point>()
                 for (i in 1..10) {
                     mockData.add(
-                        LineChartData.Point(Random.nextInt(1, 20).toFloat(), "")
+                        LineChartData.Point(
+                            Random.nextInt(18000, 30000).toFloat(),
+                            stringResource(R.string.coin_currency, "3,260.62")
+                        )
                     )
                 }
-                CryptoLineChart(
+                CoinPriceChart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .constrainAs(graph) {
@@ -187,21 +187,24 @@ private fun DetailScreenContent(
                     lineShader = GradientLineShader(
                         colors = listOf(
                             CaribbeanGreenAlpha30,
-                            Color.Transparent
+                            androidx.compose.ui.graphics.Color.Transparent
                         )
                     ),
                     xAxisDrawer = EmptyXAxisDrawer(),
                     yAxisDrawer = EmptyYAxisDrawer(),
+                    labelDrawer = CoinPriceLabelDrawer(
+                        labelTextColors = Color.FireOpal to Color.GuppieGreen
+                    ),
                     horizontalOffset = 0f,
-                onTimeIntervalChanged = { timeIntervals ->
-                    // TODO Refresh the chart on time interval changed
-                    Toast.makeText(
-                        context,
-                        "Time interval changed: $timeIntervals",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            )
+                    onTimeIntervalChanged = { timeIntervals ->
+                        // TODO Refresh the chart on time interval changed
+                        Toast.makeText(
+                            context,
+                            "Time interval changed: $timeIntervals",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                )
 
                 CoinInfo(
                     modifier = Modifier.constrainAs(coinInfoItem) {
