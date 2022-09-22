@@ -11,8 +11,8 @@ data class GradientLineShader(
     val colors: List<Color> = listOf(Color.Cyan, Color.Transparent)
 ) : ILineShader {
     override fun fillLine(drawScope: DrawScope, canvas: Canvas, fillPath: Path) {
-        val gradient = Brush.linearGradient(
-            colors = colors,
+        val gradient = Brush.verticalGradient(
+            colors = colors
         )
         drawScope.drawPath(path = fillPath, brush = gradient)
     }
