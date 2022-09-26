@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
-import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
+import co.nimblehq.compose.crypto.ui.screens.navigation.CryptoNavGraph
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             ComposeTheme {
-                HomeScreen()
+                CryptoNavGraph(this)
             }
         }
     }

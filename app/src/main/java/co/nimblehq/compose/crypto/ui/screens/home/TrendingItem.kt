@@ -4,7 +4,9 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -15,12 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp6
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
@@ -29,7 +32,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun TrendingItem(
     coinItem: CoinItemUiModel
@@ -40,7 +42,7 @@ fun TrendingItem(
             .fillMaxWidth()
             .clip(RoundedCornerShape(Dp12))
             .background(color = MaterialTheme.colors.coinItemColor)
-            .padding(horizontal = Dp8, vertical = Dp8)
+            .padding(Dp8)
     ) {
         val (
             logo,
@@ -51,10 +53,14 @@ fun TrendingItem(
 
         Image(
             modifier = Modifier
-                .size(Dp60)
-                .padding(end = Dp16)
+                .size(Dp40)
                 .constrainAs(logo) {
-                    linkTo(top = parent.top, bottom = parent.bottom)
+                    linkTo(
+                        top = parent.top,
+                        bottom = parent.bottom,
+                        topMargin = Dp6,
+                        bottomMargin = Dp6
+                    )
                     start.linkTo(parent.start)
                 },
             painter = rememberAsyncImagePainter(coinItem.image),
@@ -66,7 +72,7 @@ fun TrendingItem(
                 .constrainAs(coinSymbol) {
                     top.linkTo(parent.top)
                     bottom.linkTo(coinName.top)
-                    start.linkTo(logo.end)
+                    start.linkTo(anchor = logo.end, margin = Dp16)
                 },
             text = coinItem.symbol.uppercase(),
             color = MaterialTheme.colors.textColor,
@@ -94,13 +100,11 @@ fun TrendingItem(
                     top.linkTo(coinSymbol.top)
                     bottom.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
-                },
-            iconPaddingEnd = Dp13
+                }
         )
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_NO)
 fun TrendingItemPreview(
@@ -111,7 +115,6 @@ fun TrendingItemPreview(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 fun TrendingItemPreviewDark(

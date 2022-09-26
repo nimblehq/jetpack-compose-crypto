@@ -16,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.lifecycle.viewmodel.compose.viewModel
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
@@ -31,10 +30,11 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 
-@Suppress("FunctionNaming", "LongMethod")
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel,
+    // TODO: Remove it and handle in VM instead
+    onMyCoinsItemClick: () -> Unit
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -53,17 +53,19 @@ fun HomeScreen(
         showMyCoinsLoading = showMyCoinsLoading,
         showTrendingCoinsLoading = showTrendingCoinsLoading,
         myCoins = myCoins,
-        trendingCoins = trendingCoins
+        trendingCoins = trendingCoins,
+        onMyCoinsItemClick = onMyCoinsItemClick
     )
 }
 
-@Suppress("FunctionNaming")
+@Suppress("LongParameterList")
 @Composable
 private fun HomeScreenContent(
     showMyCoinsLoading: IsLoading,
     showTrendingCoinsLoading: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
+    onMyCoinsItemClick: () -> Unit
 ) {
     Surface {
         Column(
@@ -93,7 +95,8 @@ private fun HomeScreenContent(
                 item {
                     MyCoins(
                         showMyCoinsLoading = showMyCoinsLoading,
-                        coins = myCoins
+                        coins = myCoins,
+                        onMyCoinsItemClick = onMyCoinsItemClick
                     )
                 }
 
@@ -137,11 +140,11 @@ private fun HomeScreenContent(
     }
 }
 
-@Suppress("FunctionNaming", "LongMethod", "MagicNumber")
 @Composable
 private fun MyCoins(
     showMyCoinsLoading: IsLoading,
-    coins: List<CoinItemUiModel>
+    coins: List<CoinItemUiModel>,
+    onMyCoinsItemClick: () -> Unit
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -196,14 +199,16 @@ private fun MyCoins(
                 horizontalArrangement = Arrangement.spacedBy(Dp16)
             ) {
                 items(coins) { coin ->
-                    CoinItem(coin)
+                    CoinItem(
+                        coinItem = coin,
+                        onMyCoinsItemClick = onMyCoinsItemClick
+                    )
                 }
             }
         }
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
 fun HomeScreenPreview(
@@ -216,12 +221,12 @@ fun HomeScreenPreview(
                 showTrendingCoinsLoading = isLoading,
                 myCoins = myCoins,
                 trendingCoins = trendingCoins,
+                onMyCoinsItemClick = {}
             )
         }
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 fun HomeScreenPreviewDark(
@@ -234,6 +239,7 @@ fun HomeScreenPreviewDark(
                 showTrendingCoinsLoading = isLoading,
                 myCoins = myCoins,
                 trendingCoins = trendingCoins,
+                onMyCoinsItemClick = {}
             )
         }
     }

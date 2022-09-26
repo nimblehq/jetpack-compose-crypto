@@ -1,8 +1,6 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -13,13 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.theme.Color
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp14
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
-import co.nimblehq.compose.crypto.ui.theme.Style
 
-@Suppress("FunctionNaming")
 @Composable
 fun SeeAll(
     modifier: Modifier
@@ -41,7 +36,6 @@ fun SeeAll(
     }
 }
 
-@Suppress("FunctionNaming")
 @Composable
 @Preview
 fun SeeAllPreview() {

@@ -3,19 +3,19 @@ package co.nimblehq.compose.crypto.ui.theme
 import androidx.compose.material.Colors
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.Color.DarkJungleGreen
-import co.nimblehq.compose.crypto.ui.theme.Color.FireOpal
-import co.nimblehq.compose.crypto.ui.theme.Color.GuppieGreen
 import co.nimblehq.compose.crypto.ui.theme.Color.LightSilver
+import co.nimblehq.compose.crypto.ui.theme.Color.Quartz
 import co.nimblehq.compose.crypto.ui.theme.Color.QuartzAlpha20
 import co.nimblehq.compose.crypto.ui.theme.Color.SonicSilver
 import co.nimblehq.compose.crypto.ui.theme.Color.TiffanyBlue
+import co.nimblehq.compose.crypto.ui.theme.Color.White
+import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp12
 import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp14
 import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp16
 import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp24
@@ -41,6 +41,17 @@ object Style {
         @Composable
         get() = if (isLight) SonicSilver else LightSilver
 
+    val Colors.coinInfoSellBuyBackground: Color
+        @Composable
+        get() = if (isLight) White else DarkJungleGreen
+
+    val Colors.coinInfoAppBarIconColor: Color
+        @Composable
+        get() = if (isLight) Quartz else White
+
+    @Composable
+    fun medium12() = textStyle.copy(fontWeight = FontWeight.Medium, fontSize = Sp12)
+
     @Composable
     fun medium14() = textStyle.copy(fontWeight = FontWeight.Medium, fontSize = Sp14)
 
@@ -52,12 +63,6 @@ object Style {
 
     @Composable
     fun lightSilverMedium16() = medium16().copy(color = LightSilver)
-
-    @Composable
-    fun guppieGreenMedium16() = medium16().copy(color = GuppieGreen)
-
-    @Composable
-    fun fireOpalGreenMedium16() = medium16().copy(color = FireOpal)
 
     @Composable
     fun semiBold16() = textStyle.copy(fontWeight = FontWeight.SemiBold, fontSize = Sp16)

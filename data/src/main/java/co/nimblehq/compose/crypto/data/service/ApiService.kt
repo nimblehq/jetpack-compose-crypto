@@ -1,11 +1,8 @@
 package co.nimblehq.compose.crypto.data.service
 
-import co.nimblehq.compose.crypto.data.model.response.CoinItemResponse
-import co.nimblehq.compose.crypto.data.model.response.CoinPriceResponse
+import co.nimblehq.compose.crypto.data.model.response.*
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 @Suppress("LongParameterList")
 interface ApiService {
@@ -18,6 +15,17 @@ interface ApiService {
         @Query("per_page") itemPerPage: Int,
         @Query("page") page: Int
     ): Response<List<CoinItemResponse>>
+
+    @GET("coins/{id}")
+    suspend fun getCoin(
+        @Path("id") coinId: String,
+        @Query("localization") localization: Boolean,
+        @Query("tickers") tickers: Boolean,
+        @Query("market_data") marketData: Boolean,
+        @Query("community_data") communityData: Boolean,
+        @Query("developer_data") developerData: Boolean,
+        @Query("sparkline") sparkline: Boolean
+    ): Response<CoinDetailResponse>
 
     @GET("coins/{id}/market_chart/range")
     suspend fun getCoinPrices(
