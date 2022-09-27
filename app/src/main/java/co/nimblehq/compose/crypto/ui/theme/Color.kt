@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 object Color {
     val White = Color(0xFFFFFFFF)
+    val Transparent = Color(0x00000000)
     val Guyabano = Color(0xFFF8F8F8)
     val MetallicSeaweed = Color(0xFF028090)
     val TiffanyBlue = Color(0xFF00BFB2)

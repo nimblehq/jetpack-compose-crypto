@@ -140,7 +140,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.KOTLIN_VERSION}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KOTLINX_COROUTINES_VERSION}")
 
-    implementation("io.github.bytebeats:compose-charts:0.1.2")
+    implementation("io.github.bytebeats:compose-charts:${Versions.COMPOSE_CHART_VERSION}")
 
     kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
 
