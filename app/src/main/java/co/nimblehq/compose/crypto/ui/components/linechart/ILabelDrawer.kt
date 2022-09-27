@@ -5,6 +5,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.drawscope.DrawScope
 
+@Suppress("LongParameterList")
 interface ILabelDrawer {
     fun requiredXAxisHeight(drawScope: DrawScope): Float = 0F
     fun requiredAboveBarHeight(drawScope: DrawScope): Float = 0F

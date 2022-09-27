@@ -83,6 +83,7 @@ fun DetailScreen(
     }
 }
 
+@Suppress("MagicNumber")
 @Composable
 private fun DetailScreenContent(
     coinDetailUiModel: CoinDetailUiModel?,

@@ -19,5 +19,4 @@ class EmptyYAxisDrawer: me.bytebeats.views.charts.line.render.yaxis.IYAxisDrawer
     override fun drawAxisLine(drawScope: DrawScope, canvas: Canvas, drawableArea: Rect) {
         // Do nothing
     }
-
 }

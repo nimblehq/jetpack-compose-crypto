@@ -14,6 +14,7 @@ import me.bytebeats.views.charts.toLegacyInt
 
 private const val Y_OFFSET = 20f
 
+@Suppress("MagicNumber")
 data class CoinPriceLabelDrawer(
     val labelTextSize: TextUnit = 12.sp,
     val labelTextColors: Pair<Color, Color> = Color.White to Color.Black,

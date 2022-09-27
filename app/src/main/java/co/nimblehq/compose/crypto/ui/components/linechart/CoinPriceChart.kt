@@ -29,6 +29,7 @@ import me.bytebeats.views.charts.line.render.yaxis.IYAxisDrawer
 import me.bytebeats.views.charts.line.render.yaxis.SimpleYAxisDrawer
 import me.bytebeats.views.charts.simpleChartAnimation
 
+@Suppress("MagicNumber", "LongMethod")
 @Composable
 fun CoinPriceChart(
     lineChartData: LineChartData,
