@@ -35,7 +35,7 @@ import co.nimblehq.compose.crypto.ui.userReadableMessage
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    onMyCoinsItemClick: () -> Unit
+    navigator: (event: NavigationEvent) -> Unit
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -45,11 +45,7 @@ fun HomeScreen(
         }
     }
     LaunchedEffect(viewModel) {
-        viewModel.navigator.collect { event ->
-            when (event) {
-                is NavigationEvent.CoinDetail -> onMyCoinsItemClick()
-            }
-        }
+        viewModel.navigator.collect { event -> navigator(event) }
     }
 
     val showMyCoinsLoading: IsLoading by viewModel.showMyCoinsLoading.collectAsState()

@@ -3,6 +3,7 @@ package co.nimblehq.compose.crypto.ui.screens.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.*
+import co.nimblehq.compose.crypto.ui.base.NavigationEvent
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailViewModel
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
@@ -18,13 +19,16 @@ fun CryptoNavGraph(
     ) {
         composable(route = CryptoScreen.HOME.name) {
             HomeScreen(
-                onMyCoinsItemClick = {
-                    navController.navigate(route = CryptoScreen.COIN_INFORMATION.name)
+                navigator = { event ->
+                    when (event) {
+                        is NavigationEvent.CoinDetail ->
+                            navController.navigate(route = CryptoScreen.COIN_DETAIL.name)
+                    }
                 }
             )
         }
         composable(
-            route = "${CryptoScreen.COIN_INFORMATION.name}/{id}",
+            route = "${CryptoScreen.COIN_DETAIL.name}/{id}",
             arguments = listOf(navArgument("id") {
                 type = NavType.StringType
             })
