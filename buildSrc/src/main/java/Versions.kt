@@ -29,7 +29,8 @@ object Versions {
 
     const val GOOGLE_SERVICE_VERSION = "4.3.13"
 
-    const val HILT_VERSION = "2.38.1"
+    const val HILT_VERSION = "2.43.2"
+    const val HILT_NAVIGATION_COMPOSE_VERSION = "1.0.0"
 
     const val JAVAX_INJECT_VERSION = "1"
     const val JACOCO_VERSION = "0.8.7"

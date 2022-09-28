@@ -16,6 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.NavigationEvent
@@ -33,7 +34,7 @@ import co.nimblehq.compose.crypto.ui.userReadableMessage
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel,
+    viewModel: HomeViewModel = hiltViewModel(),
     onMyCoinsItemClick: () -> Unit
 ) {
     val context = LocalContext.current

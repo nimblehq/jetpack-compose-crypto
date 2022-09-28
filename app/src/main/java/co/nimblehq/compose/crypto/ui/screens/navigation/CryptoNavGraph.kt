@@ -1,18 +1,14 @@
 package co.nimblehq.compose.crypto.ui.screens.navigation
 
-import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.*
-import co.nimblehq.compose.crypto.extension.provideViewModels
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailViewModel
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
-import co.nimblehq.compose.crypto.ui.screens.home.HomeViewModel
 
 @Composable
 fun CryptoNavGraph(
-    componentActivity: ComponentActivity,
     navController: NavHostController = rememberNavController(),
     startDestination: String = CryptoScreen.HOME.name
 ) {
@@ -21,10 +17,10 @@ fun CryptoNavGraph(
         startDestination = startDestination
     ) {
         composable(route = CryptoScreen.HOME.name) {
-            val homeViewModel: HomeViewModel by componentActivity.provideViewModels()
             HomeScreen(
-                navController = navController,
-                viewModel = homeViewModel,
+                onMyCoinsItemClick = {
+                    navController.navigate(route = CryptoScreen.COIN_INFORMATION.name)
+                }
             )
         }
         composable(

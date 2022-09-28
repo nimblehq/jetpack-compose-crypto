@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             ComposeTheme {
-                CryptoNavGraph(this)
+                CryptoNavGraph()
             }
         }
     }
