@@ -7,7 +7,6 @@ plugins {
     id("kotlin-parcelize")
 
     id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs.kotlin")
 
     id("plugins.jacoco-report")
 }
@@ -95,7 +94,6 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         compose = true
     }
 
@@ -103,14 +101,6 @@ android {
         isCheckDependencies = true
         xmlReport = true
         xmlOutput = file("build/reports/lint/lint-result.xml")
-    }
-
-    testOptions {
-        unitTests {
-            // Robolectric resource processing/loading
-            isIncludeAndroidResources = true
-            isReturnDefaultValues = true
-        }
     }
 }
 
@@ -124,23 +114,16 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("androidx.activity:activity-ktx:${Versions.ANDROIDX_ACTIVITY_KTX_VERSION}")
-    implementation("androidx.appcompat:appcompat:${Versions.ANDROIDX_SUPPORT_VERSION}")
-    implementation("androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT_VERSION}")
     implementation("androidx.core:core-ktx:${Versions.ANDROIDX_CORE_KTX_VERSION}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ANDROIDX_LIFECYCLE_VERSION}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.ANDROIDX_LIFECYCLE_VERSION}")
 
-    implementation("androidx.activity:activity-compose:${Versions.COMPOSE_ACTIVITY_VERSION}")
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.COMPOSE_CONSTRAINT_LAYOUT_VERSION}")
     implementation("androidx.compose.ui:ui:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.foundation:foundation:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.material:material:${Versions.COMPOSE_VERSION}")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:${Versions.ANDROIDX_NAVIGATION_VERSION}")
-    implementation("androidx.navigation:navigation-runtime-ktx:${Versions.ANDROIDX_NAVIGATION_VERSION}")
-    implementation("androidx.navigation:navigation-ui-ktx:${Versions.ANDROIDX_NAVIGATION_VERSION}")
     implementation("androidx.navigation:navigation-compose:${Versions.ANDROIDX_NAVIGATION_COMPOSE_VERSION}")
 
     implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
@@ -160,12 +143,10 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
 
     debugImplementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
-    debugImplementation("androidx.fragment:fragment-testing:${Versions.ANDROIDX_FRAGMENT_VERSION}")
 
     // Testing
     testImplementation("io.kotest:kotest-assertions-core:${Versions.TEST_KOTEST_VERSION}")
     testImplementation("junit:junit:${Versions.TEST_JUNIT_VERSION}")
-    testImplementation("org.robolectric:robolectric:${Versions.TEST_ROBOLECTRIC_VERSION}")
     testImplementation("androidx.test:core:${Versions.TEST_ANDROIDX_CORE_VERSION}")
     testImplementation("androidx.test:runner:${Versions.TEST_RUNNER_VERSION}")
     testImplementation("androidx.test:rules:${Versions.TEST_RUNNER_VERSION}")
