@@ -29,8 +29,6 @@ interface Output : BaseOutput {
     val myCoins: StateFlow<List<CoinItemUiModel>>
 
     val trendingCoins: StateFlow<List<CoinItemUiModel>>
-
-    val navigateToDetail: SharedFlow<String>
 }
 
 @HiltViewModel
@@ -58,10 +56,6 @@ class HomeViewModel @Inject constructor(
     private val _trendingCoins = MutableStateFlow<List<CoinItemUiModel>>(emptyList())
     override val trendingCoins: StateFlow<List<CoinItemUiModel>>
         get() = _trendingCoins
-
-    private val _navigateToDetail = MutableSharedFlow<String>()
-    override val navigateToDetail: SharedFlow<String>
-        get() = _navigateToDetail
 
     init {
         getMyCoins()
@@ -110,13 +104,13 @@ class HomeViewModel @Inject constructor(
 
     override fun onMyCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            _navigateToDetail.emit(coin.id)
+            _navigator.emit(NavigationEvent.CoinDetail(coin.id))
         }
     }
 
     override fun onTrendingCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            _navigateToDetail.emit(coin.id)
+            _navigator.emit(NavigationEvent.CoinDetail(coin.id))
         }
     }
 }

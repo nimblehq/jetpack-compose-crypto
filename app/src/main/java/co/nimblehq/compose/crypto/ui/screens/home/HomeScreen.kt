@@ -16,12 +16,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavController
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.lib.IsLoading
+import co.nimblehq.compose.crypto.ui.base.NavigationEvent
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.screens.navigation.CryptoScreen
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
@@ -34,8 +33,8 @@ import co.nimblehq.compose.crypto.ui.userReadableMessage
 
 @Composable
 fun HomeScreen(
-    navController: NavController,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    onMyCoinsItemClick: () -> Unit
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -44,10 +43,11 @@ fun HomeScreen(
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
-
-    LaunchedEffect(Unit) {
-        viewModel.output.navigateToDetail.collect { id ->
-            navController.navigate("${CryptoScreen.COIN_INFORMATION.name}/$id")
+    LaunchedEffect(viewModel) {
+        viewModel.navigator.collect { event ->
+            when (event) {
+                is NavigationEvent.CoinDetail -> onMyCoinsItemClick()
+            }
         }
     }
 

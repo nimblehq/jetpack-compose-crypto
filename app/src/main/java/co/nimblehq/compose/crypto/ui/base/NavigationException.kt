@@ -1,5 +1,6 @@
 package co.nimblehq.compose.crypto.ui.base
 
+@Deprecated("unused")
 sealed class NavigationException(
     cause: Throwable?
 ) : Throwable(cause) {

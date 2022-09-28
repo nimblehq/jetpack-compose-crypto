@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import co.nimblehq.common.extensions.getResourceName
 import timber.log.Timber
 
+@Deprecated("unused")
 interface BaseNavigator {
 
     val navHostFragmentId: Int
