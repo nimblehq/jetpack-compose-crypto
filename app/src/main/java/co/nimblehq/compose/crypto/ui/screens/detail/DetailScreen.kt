@@ -1,5 +1,6 @@
 package co.nimblehq.compose.crypto.ui.screens.detail
 
+import android.content.res.Configuration
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -17,6 +18,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
+import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
@@ -37,13 +39,13 @@ fun DetailScreen(
     id: String,
 ) {
     val coinDetailUiModel: CoinDetailUiModel? by viewModel.output.coinDetailUiModel.collectAsState()
+    val showLoading: IsLoading by viewModel.showLoading.collectAsState()
 
-    coinDetailUiModel?.let {
-        DetailScreenContent(
-            coinDetailUiModel = it,
-            onBackIconClick = { navController.popBackStack() }
-        )
-    }
+    DetailScreenContent(
+        coinDetailUiModel = coinDetailUiModel,
+        onBackIconClick = { navController.popBackStack() },
+        showLoading = showLoading
+    )
 
     LaunchedEffect(Unit) {
         viewModel.input.getCoinId(coinId = id)
@@ -51,9 +53,10 @@ fun DetailScreen(
 }
 
 @Composable
-fun DetailScreenContent(
-    coinDetailUiModel: CoinDetailUiModel,
-    onBackIconClick: () -> Unit
+private fun DetailScreenContent(
+    coinDetailUiModel: CoinDetailUiModel?,
+    onBackIconClick: () -> Unit,
+    showLoading: Boolean
 ) {
     val localDensity = LocalDensity.current
     val sellBuyLayoutHeight = remember { mutableStateOf(Dp0) }
@@ -72,7 +75,8 @@ fun DetailScreenContent(
                 currentPrice,
                 priceChangePercent,
                 graph,
-                coinInfoItem
+                coinInfoItem,
+                progressIndicator
             ) = createRefs()
 
             Appbar(
@@ -81,76 +85,89 @@ fun DetailScreenContent(
                         top.linkTo(parent.top)
                         start.linkTo(parent.start)
                     },
-                title = coinDetailUiModel.coinName,
+                title = coinDetailUiModel?.coinName.orEmpty(),
                 onBackIconClick = onBackIconClick
             )
 
-            Image(
-                modifier = Modifier
-                    .size(Dp60)
-                    .constrainAs(logo) {
-                        top.linkTo(appBar.bottom)
-                        linkTo(start = parent.start, end = parent.end)
-                    }
-                    .padding(top = Dp8),
-                painter = rememberAsyncImagePainter(coinDetailUiModel.image),
-                contentDescription = null
-            )
+            coinDetailUiModel?.let {
+                Image(
+                    modifier = Modifier
+                        .size(Dp60)
+                        .constrainAs(logo) {
+                            top.linkTo(appBar.bottom)
+                            linkTo(start = parent.start, end = parent.end)
+                        }
+                        .padding(top = Dp8),
+                    painter = rememberAsyncImagePainter(coinDetailUiModel.image),
+                    contentDescription = null
+                )
 
-            Text(
-                modifier = Modifier
-                    .constrainAs(currentPrice) {
-                        top.linkTo(logo.bottom)
-                        linkTo(start = parent.start, end = parent.end)
-                    }
-                    .padding(vertical = Dp8),
-                text = stringResource(
-                    R.string.coin_currency,
-                    coinDetailUiModel.currentPrice.toFormattedString()
-                ),
-                color = MaterialTheme.colors.textColor,
-                style = Style.semiBold24()
-            )
+                Text(
+                    modifier = Modifier
+                        .constrainAs(currentPrice) {
+                            top.linkTo(logo.bottom)
+                            linkTo(start = parent.start, end = parent.end)
+                        }
+                        .padding(vertical = Dp8),
+                    text = stringResource(
+                        R.string.coin_currency,
+                        coinDetailUiModel.currentPrice.toFormattedString()
+                    ),
+                    color = MaterialTheme.colors.textColor,
+                    style = Style.semiBold24()
+                )
 
-            PriceChangeButton(
-                modifier = Modifier
-                    .constrainAs(priceChangePercent) {
-                        top.linkTo(currentPrice.bottom)
-                        linkTo(start = parent.start, end = parent.end)
+                PriceChangeButton(
+                    modifier = Modifier
+                        .constrainAs(priceChangePercent) {
+                            top.linkTo(currentPrice.bottom)
+                            linkTo(start = parent.start, end = parent.end)
+                        },
+                    priceChangePercent = coinDetailUiModel.priceChangePercentage24hInCurrency,
+                    displayForDetailPage = true
+                )
+
+                // TODO: Update this section when work create UI for a graph.
+                Spacer(
+                    modifier = Modifier
+                        .height(350.dp)
+                        .constrainAs(graph) {
+                            top.linkTo(priceChangePercent.bottom)
+                        }
+                )
+
+                CoinInfo(
+                    modifier = Modifier.constrainAs(coinInfoItem) {
+                        top.linkTo(graph.bottom)
                     },
-                priceChangePercent = coinDetailUiModel.priceChangePercentage24hInCurrency,
-                displayForDetailPage = true
-            )
+                    sellBuyLayoutHeight = sellBuyLayoutHeight.value,
+                    coinDetailUiModel = coinDetailUiModel
+                )
+            }
 
-            // TODO: Update this section when work create UI for a graph.
-            Spacer(
-                modifier = Modifier
-                    .height(350.dp)
-                    .constrainAs(graph) {
-                        top.linkTo(priceChangePercent.bottom)
-                    }
-            )
-
-            CoinInfo(
-                modifier = Modifier.constrainAs(coinInfoItem) {
-                    top.linkTo(graph.bottom)
-                },
-                sellBuyLayoutHeight = sellBuyLayoutHeight.value,
-                coinDetailUiModel = coinDetailUiModel
-            )
+            if (showLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .constrainAs(progressIndicator) {
+                            linkTo(start = parent.start, end = parent.end, top = parent.top, bottom = parent.bottom)
+                        },
+                )
+            }
         }
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .navigationBarsPadding(),
-            contentAlignment = Alignment.BottomEnd
-        ) {
-            SellBuyGroup(
-                modifier = Modifier.onGloballyPositioned {
-                    sellBuyLayoutHeight.value = with(localDensity) { it.size.height.toDp() }
-                }
-            )
+        coinDetailUiModel?.let {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .navigationBarsPadding(),
+                contentAlignment = Alignment.BottomEnd
+            ) {
+                SellBuyGroup(
+                    modifier = Modifier.onGloballyPositioned {
+                        sellBuyLayoutHeight.value = with(localDensity) { it.size.height.toDp() }
+                    }
+                )
+            }
         }
     }
 }
@@ -193,20 +210,22 @@ fun DetailScreenPreview(
     ComposeTheme {
         DetailScreenContent(
             coinDetailUiModel = params.detail,
-            onBackIconClick = {}
+            onBackIconClick = {},
+            showLoading = params.showLoading
         )
     }
 }
 
 @Composable
-@Preview
+@Preview(showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun DetailScreenPreviewDark(
     @PreviewParameter(DetailScreenPreviewParameterProvider::class) params: DetailScreenParams
 ) {
-    ComposeTheme(darkTheme = true) {
+    ComposeTheme {
         DetailScreenContent(
             coinDetailUiModel = params.detail,
-            onBackIconClick = {}
+            onBackIconClick = {},
+            showLoading = params.showLoading
         )
     }
 }

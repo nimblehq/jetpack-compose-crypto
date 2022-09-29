@@ -37,6 +37,7 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun getCoinDetail(coinId: String) = execute {
+        showLoading()
         getCoinDetailUseCase.execute(coinId = coinId)
             .catch { e ->
                 _error.emit(e)
@@ -44,5 +45,6 @@ class DetailViewModel @Inject constructor(
             .collect { coinDetail ->
                 _coinDetailUiModel.emit(coinDetail.toUiModel())
             }
+        hideLoading()
     }
 }

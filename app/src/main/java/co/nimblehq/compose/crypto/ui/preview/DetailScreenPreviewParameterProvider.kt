@@ -5,10 +5,18 @@ import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 
 class DetailScreenPreviewParameterProvider : PreviewParameterProvider<DetailScreenParams> {
     override val values = sequenceOf(
-        DetailScreenParams(detail = detailPreview)
+        DetailScreenParams(
+            detail = detailPreview,
+            showLoading = false
+        ),
+        DetailScreenParams(
+            detail = null,
+            showLoading = true
+        )
     )
 }
 
 data class DetailScreenParams(
-    val detail: CoinDetailUiModel
+    val detail: CoinDetailUiModel?,
+    val showLoading: Boolean
 )
