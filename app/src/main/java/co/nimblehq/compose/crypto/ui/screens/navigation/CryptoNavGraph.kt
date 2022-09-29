@@ -2,10 +2,8 @@ package co.nimblehq.compose.crypto.ui.screens.navigation
 
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.*
-import androidx.navigation.navArgument
 import co.nimblehq.compose.crypto.extension.provideViewModels
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailViewModel
@@ -39,7 +37,7 @@ fun CryptoNavGraph(
             DetailScreen(
                 navController = navController,
                 viewModel = detailViewModel,
-                id = it.arguments?.getString("id") ?: ""
+                id = it.arguments?.getString("id").orEmpty()
             )
         }
     }
