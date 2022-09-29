@@ -19,7 +19,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.lib.IsLoading
-import co.nimblehq.compose.crypto.ui.base.NavigationEvent
+import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
@@ -35,7 +35,7 @@ import co.nimblehq.compose.crypto.ui.userReadableMessage
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigator: (event: NavigationEvent) -> Unit
+    navigator: (destination: AppDestination) -> Unit
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -45,7 +45,7 @@ fun HomeScreen(
         }
     }
     LaunchedEffect(viewModel) {
-        viewModel.navigator.collect { event -> navigator(event) }
+        viewModel.navigator.collect { destination -> navigator(destination) }
     }
 
     val showMyCoinsLoading: IsLoading by viewModel.showMyCoinsLoading.collectAsState()

@@ -4,6 +4,7 @@ import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.*
+import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import co.nimblehq.compose.crypto.util.DispatchersProvider
@@ -104,13 +105,13 @@ class HomeViewModel @Inject constructor(
 
     override fun onMyCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            _navigator.emit(NavigationEvent.CoinDetail(coin.id))
+            _navigator.emit(AppDestination.CoinDetail(coin.id))
         }
     }
 
     override fun onTrendingCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            _navigator.emit(NavigationEvent.CoinDetail(coin.id))
+            _navigator.emit(AppDestination.CoinDetail(coin.id))
         }
     }
 }

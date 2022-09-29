@@ -3,6 +3,7 @@ package co.nimblehq.compose.crypto.ui.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.nimblehq.compose.crypto.lib.IsLoading
+import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.util.DispatchersProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
@@ -29,8 +30,8 @@ abstract class BaseViewModel(private val dispatchersProvider: DispatchersProvide
     val error: SharedFlow<Throwable>
         get() = _error
 
-    protected val _navigator = MutableSharedFlow<NavigationEvent>()
-    val navigator: SharedFlow<NavigationEvent>
+    protected val _navigator = MutableSharedFlow<AppDestination>()
+    val navigator: SharedFlow<AppDestination>
         get() = _navigator
 
     /**
