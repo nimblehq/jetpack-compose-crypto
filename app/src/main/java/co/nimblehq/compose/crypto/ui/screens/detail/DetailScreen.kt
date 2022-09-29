@@ -85,8 +85,9 @@ private fun DetailScreenContent(
                         top.linkTo(parent.top)
                         start.linkTo(parent.start)
                     },
-                title = coinDetailUiModel?.coinName.orEmpty(),
-                onBackIconClick = onBackIconClick
+                title = coinDetailUiModel?.coinName,
+                onBackIconClick = onBackIconClick,
+                onRightActionClick = coinDetailUiModel?.let { { /*TODO*/ } }
             )
 
             coinDetailUiModel?.let {
