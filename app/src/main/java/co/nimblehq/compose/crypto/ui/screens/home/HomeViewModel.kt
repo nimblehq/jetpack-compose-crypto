@@ -19,9 +19,9 @@ private const val MY_COINS_INITIAL_PAGE = 1
 
 interface Input : BaseInput {
 
-    fun onMyCoinsItemClick(position: Int)
+    fun onMyCoinsItemClick(coin: CoinItemUiModel)
 
-    fun onTrendingCoinsItemClick(position: Int)
+    fun onTrendingCoinsItemClick(coin: CoinItemUiModel)
 }
 
 interface Output : BaseOutput {
@@ -59,7 +59,7 @@ class HomeViewModel @Inject constructor(
     override val trendingCoins: StateFlow<List<CoinItemUiModel>>
         get() = _trendingCoins
 
-    private val _navigateToDetail= MutableSharedFlow<String>()
+    private val _navigateToDetail = MutableSharedFlow<String>()
     override val navigateToDetail: SharedFlow<String>
         get() = _navigateToDetail
 
@@ -108,17 +108,15 @@ class HomeViewModel @Inject constructor(
         _showTrendingCoinsLoading.value = false
     }
 
-    override fun onMyCoinsItemClick(position: Int) {
+    override fun onMyCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            val id = _myCoins.value[position].id
-            _navigateToDetail.emit(id)
+            _navigateToDetail.emit(coin.id)
         }
     }
 
-    override fun onTrendingCoinsItemClick(position: Int) {
+    override fun onTrendingCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            val id = _trendingCoins.value[position].id
-            _navigateToDetail.emit(id)
+            _navigateToDetail.emit(coin.id)
         }
     }
 }

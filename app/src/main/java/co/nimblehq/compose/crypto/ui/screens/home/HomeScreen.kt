@@ -61,12 +61,8 @@ fun HomeScreen(
         showTrendingCoinsLoading = showTrendingCoinsLoading,
         myCoins = myCoins,
         trendingCoins = trendingCoins,
-        onMyCoinsItemClick = { index ->
-            viewModel.input.onMyCoinsItemClick(position = index)
-        },
-        onTrendingItemClick = { index ->
-            viewModel.input.onTrendingCoinsItemClick(position = index)
-        }
+        onMyCoinsItemClick = viewModel.input::onMyCoinsItemClick,
+        onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick
     )
 }
 
@@ -77,8 +73,8 @@ private fun HomeScreenContent(
     showTrendingCoinsLoading: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: (Int) -> Unit,
-    onTrendingItemClick: (Int) -> Unit
+    onMyCoinsItemClick: (CoinItemUiModel) -> Unit,
+    onTrendingItemClick: (CoinItemUiModel) -> Unit
 ) {
     Surface {
         Column(
@@ -142,11 +138,11 @@ private fun HomeScreenContent(
                         )
                     }
                 } else {
-                    itemsIndexed(trendingCoins) { index, coin ->
+                    items(trendingCoins) { coin ->
                         Box(modifier = Modifier.padding(start = Dp16, end = Dp16, bottom = Dp16)) {
                             TrendingItem(
                                 coinItem = coin,
-                                onItemClick = { onTrendingItemClick.invoke(index) }
+                                onItemClick = { onTrendingItemClick.invoke(coin) }
                             )
                         }
                     }
@@ -160,7 +156,7 @@ private fun HomeScreenContent(
 private fun MyCoins(
     showMyCoinsLoading: IsLoading,
     coins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: (Int) -> Unit
+    onMyCoinsItemClick: (CoinItemUiModel) -> Unit
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -214,10 +210,10 @@ private fun MyCoins(
                 contentPadding = PaddingValues(horizontal = Dp16),
                 horizontalArrangement = Arrangement.spacedBy(Dp16)
             ) {
-                itemsIndexed(coins) { index, coin ->
+                items(coins) { coin ->
                     CoinItem(
                         coinItem = coin,
-                        onItemClick = { onMyCoinsItemClick.invoke(index) }
+                        onItemClick = { onMyCoinsItemClick.invoke(coin) }
                     )
                 }
             }
