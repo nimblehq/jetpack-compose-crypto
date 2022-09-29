@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.test.MockUtil
+import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.screens.BaseViewModelTest
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import io.kotest.matchers.shouldBe
@@ -90,6 +91,17 @@ class HomeViewModelTest : BaseViewModelTest() {
             viewModel.output.error.test {
                 testDispatcher.resumeDispatcher()
                 expectMostRecentItem() shouldBe error
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
+
+    @Test
+    fun `When clicking on My Coins item, it navigates to Coin Detail screen`() =
+        runBlockingTest {
+            initViewModel()
+            viewModel.output.navigator.test {
+                viewModel.input.onMyCoinsItemClick()
+                expectMostRecentItem() shouldBe AppDestination.CoinDetail
                 cancelAndIgnoreRemainingEvents()
             }
         }
