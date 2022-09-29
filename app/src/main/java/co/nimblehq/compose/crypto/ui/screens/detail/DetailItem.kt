@@ -20,7 +20,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 @Composable
 fun DetailItem(
     modifier: Modifier,
-    // TODO Update values to Object on Integrate ticket
     title: String,
     price: String,
     pricePercent: Double
@@ -80,7 +79,7 @@ fun DetailItemPreview() {
                 modifier = Modifier,
                 title = "Market Cap",
                 price = "387,992,058,833.42",
-                pricePercent = 7.23
+                pricePercent = 7.2323
             )
         }
     }
@@ -95,7 +94,7 @@ fun DetailItemPreviewDark() {
                 modifier = Modifier,
                 title = "Market Cap",
                 price = "387,992,058,833.42",
-                pricePercent = -7.23
+                pricePercent = -7.2323
             )
         }
     }
