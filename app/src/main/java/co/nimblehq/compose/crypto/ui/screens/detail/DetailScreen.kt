@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.ui.screens.detail
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -8,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +32,7 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
+import co.nimblehq.compose.crypto.ui.userReadableMessage
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
@@ -47,6 +50,13 @@ fun DetailScreen(
         showLoading = showLoading
     )
 
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        viewModel.error.collect { error ->
+            val message = error.userReadableMessage(context)
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
     LaunchedEffect(Unit) {
         viewModel.input.getCoinId(coinId = id)
     }
