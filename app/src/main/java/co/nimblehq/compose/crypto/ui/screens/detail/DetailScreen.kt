@@ -20,7 +20,7 @@ import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.*
+import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
@@ -36,8 +36,6 @@ fun DetailScreen(
     viewModel: DetailViewModel,
     id: String,
 ) {
-    viewModel.input.getCoinId(coinId = id)
-
     val coinDetailUiModel: CoinDetailUiModel? by viewModel.output.coinDetailUiModel.collectAsState()
 
     coinDetailUiModel?.let {
@@ -45,6 +43,10 @@ fun DetailScreen(
             coinDetailUiModel = it,
             onBackIconClick = { navController.popBackStack() }
         )
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.input.getCoinId(coinId = id)
     }
 }
 
