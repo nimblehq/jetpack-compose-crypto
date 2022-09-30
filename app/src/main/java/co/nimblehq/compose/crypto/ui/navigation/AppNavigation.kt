@@ -1,7 +1,7 @@
 package co.nimblehq.compose.crypto.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
+import androidx.navigation.*
 import androidx.navigation.compose.*
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
@@ -9,7 +9,7 @@ import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 @Composable
 fun AppNavigation(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = AppDestination.Home.route
+    startDestination: String = AppDestination.Home.destination
 ) {
     NavHost(
         navController = navController,
@@ -19,13 +19,28 @@ fun AppNavigation(
             route = AppDestination.Home.route
         ) {
             HomeScreen(
-                navigator = { destination -> navController.navigate(route = destination.route) }
+                navigator = { destination -> navController.navigate(destination) }
             )
         }
+
         composable(
-            route = AppDestination.CoinDetail.route
+            // FIXME dummy CoinDetail initialization for routing
+            route = AppDestination.CoinDetail("").route,
+            arguments = listOf(navArgument("coinId") {
+                type = NavType.StringType
+            })
         ) {
-            DetailScreen()
+            DetailScreen(
+                navigator = { destination -> navController.navigate(destination) },
+                coinId = it.arguments?.getString("coinId").orEmpty()
+            )
         }
+    }
+}
+
+private fun NavHostController.navigate(destination: AppDestination) {
+    when (destination) {
+        is AppDestination.Up -> popBackStack()
+        else -> navigate(route = destination.destination)
     }
 }

@@ -39,7 +39,7 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
-        viewModel.error.collect { error ->
+        viewModel.output.error.collect { error ->
             val message = error.userReadableMessage(context)
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
