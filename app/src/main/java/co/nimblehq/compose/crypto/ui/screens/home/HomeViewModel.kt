@@ -105,13 +105,13 @@ class HomeViewModel @Inject constructor(
 
     override fun onMyCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            _navigator.emit(AppDestination.CoinDetail(coin.id))
+            _navigator.emit(AppDestination.CoinDetail.buildDestination(coin.id))
         }
     }
 
     override fun onTrendingCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            _navigator.emit(AppDestination.CoinDetail(coin.id))
+            _navigator.emit(AppDestination.CoinDetail.buildDestination(coin.id))
         }
     }
 }

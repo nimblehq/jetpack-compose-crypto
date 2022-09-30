@@ -1,7 +1,7 @@
 package co.nimblehq.compose.crypto.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.*
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
@@ -16,7 +16,8 @@ fun AppNavigation(
         startDestination = startDestination
     ) {
         composable(
-            route = AppDestination.Home.route
+            route = AppDestination.Home.route,
+            arguments = AppDestination.Home.arguments
         ) {
             HomeScreen(
                 navigator = { destination -> navController.navigate(destination) }
@@ -24,15 +25,12 @@ fun AppNavigation(
         }
 
         composable(
-            // FIXME dummy CoinDetail initialization for routing
-            route = AppDestination.CoinDetail("").route,
-            arguments = listOf(navArgument("coinId") {
-                type = NavType.StringType
-            })
+            route = AppDestination.CoinDetail.route,
+            arguments = AppDestination.CoinDetail.arguments
         ) {
             DetailScreen(
                 navigator = { destination -> navController.navigate(destination) },
-                coinId = it.arguments?.getString("coinId").orEmpty()
+                coinId = it.arguments?.getString(KEY_COIN_ID).orEmpty()
             )
         }
     }

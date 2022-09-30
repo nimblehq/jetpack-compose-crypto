@@ -99,9 +99,22 @@ class HomeViewModelTest : BaseViewModelTest() {
     fun `When clicking on My Coins item, it navigates to Coin Detail screen`() =
         runBlockingTest {
             initViewModel()
+            val coin = MockUtil.myCoins[0].toUiModel()
             viewModel.output.navigator.test {
-                viewModel.input.onMyCoinsItemClick()
-                expectMostRecentItem() shouldBe AppDestination.CoinDetail
+                viewModel.input.onMyCoinsItemClick(coin)
+                expectMostRecentItem() shouldBe AppDestination.CoinDetail.buildDestination(coin.id)
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
+
+    @Test
+    fun `When clicking on Trending Coins item, it navigates to Coin Detail screen`() =
+        runBlockingTest {
+            initViewModel()
+            val coin = MockUtil.myCoins[0].toUiModel()
+            viewModel.output.navigator.test {
+                viewModel.input.onTrendingCoinsItemClick(coin)
+                expectMostRecentItem() shouldBe AppDestination.CoinDetail.buildDestination(coin.id)
                 cancelAndIgnoreRemainingEvents()
             }
         }
