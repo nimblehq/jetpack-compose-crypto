@@ -8,6 +8,10 @@
     <string name="home_trending_title">Trending 🔥</string>
     <string name="home_see_all">see all</string>
 
+    <string name="detail_market_cap_title">Market Cap</string>
+    <string name="detail_all_time_high_title">All Time High</string>
+    <string name="detail_all_time_low_title">All Time Low</string>
+
     <string name="portfolio_card_total_coin_label">Total Coins</string>
     <string name="portfolio_card_today_profit_label">Today\'s Profit</string>
 

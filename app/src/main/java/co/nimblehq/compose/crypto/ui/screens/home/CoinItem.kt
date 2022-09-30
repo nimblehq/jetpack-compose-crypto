@@ -41,13 +41,13 @@ import coil.compose.rememberAsyncImagePainter
 @Composable
 fun CoinItem(
     coinItem: CoinItemUiModel,
-    onMyCoinsItemClick: () -> Unit
+    onItemClick: () -> Unit
 ) {
     ConstraintLayout(
         modifier = Modifier
             .wrapContentWidth()
             .clip(RoundedCornerShape(Dp12))
-            .clickable { onMyCoinsItemClick.invoke() }
+            .clickable { onItemClick.invoke() }
             .background(color = MaterialTheme.colors.coinItemColor)
             .padding(Dp8)
     ) {
@@ -131,7 +131,7 @@ fun CoinItemPreview(
     ComposeTheme {
         CoinItem(
             coinItem = coinItem,
-            onMyCoinsItemClick = {}
+            onItemClick = {}
         )
     }
 }
@@ -144,7 +144,7 @@ fun CoinItemPreviewDark(
     ComposeTheme {
         CoinItem(
             coinItem = coinItem,
-            onMyCoinsItemClick = {}
+            onItemClick = {}
         )
     }
 }

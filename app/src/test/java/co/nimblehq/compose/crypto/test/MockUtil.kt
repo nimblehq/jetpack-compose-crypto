@@ -1,5 +1,6 @@
 package co.nimblehq.compose.crypto.test
 
+import co.nimblehq.compose.crypto.domain.model.CoinDetail
 import co.nimblehq.compose.crypto.domain.model.CoinItem
 import java.math.BigDecimal
 
@@ -42,4 +43,58 @@ object MockUtil {
     )
 
     val trendingCoins = myCoins
+
+    val coinDetail = CoinDetail(
+        id = "bitcoin",
+        symbol = "btc",
+        coinName = "Bitcoin",
+        image = CoinDetail.Image(
+            large = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+            small = "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+            thumb = "https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579"
+        ),
+        marketData = CoinDetail.MarketData(
+            currentPrice = mapOf("usd" to BigDecimal(19112.45)),
+            ath = mapOf("usd" to BigDecimal(69045)),
+            athChangePercentage = mapOf("usd" to -72.30426),
+            athDate = emptyMap(),
+            atl = mapOf("usd" to BigDecimal(67.81)),
+            atlChangePercentage = mapOf("usd" to 28100.4782),
+            atlDate = emptyMap(),
+            marketCap = mapOf("usd" to BigDecimal(366436890217)),
+            marketCapRank = 0,
+            fullyDilutedValuation = emptyMap(),
+            totalVolume = emptyMap(),
+            high24h = emptyMap(),
+            low24h = emptyMap(),
+
+            priceChange24h = BigDecimal.ZERO,
+            priceChangePercentage24h = 0.0,
+            priceChangePercentage7d = 0.0,
+            priceChangePercentage14d = 0.0,
+            priceChangePercentage30d = 0.0,
+            priceChangePercentage60d = 0.0,
+            priceChangePercentage200d = 0.0,
+            priceChangePercentage1y = 0.0,
+            marketCapChange24h = BigDecimal.ZERO,
+            marketCapChangePercentage24h = 1.0166,
+
+            priceChange24hInCurrency = emptyMap(),
+            priceChangePercentage24hInCurrency = mapOf("usd" to 0.74874),
+            priceChangePercentage7dInCurrency = emptyMap(),
+            priceChangePercentage14dInCurrency = emptyMap(),
+            priceChangePercentage30dInCurrency = emptyMap(),
+            priceChangePercentage60dInCurrency = emptyMap(),
+            priceChangePercentage200dInCurrency = emptyMap(),
+            priceChangePercentage1yInCurrency = emptyMap(),
+            marketCapChange24hInCurrency = emptyMap(),
+            marketCapChangePercentage24hInCurrency = emptyMap(),
+
+            totalSupply = BigDecimal.ZERO,
+            maxSupply = BigDecimal.ZERO,
+            circulatingSupply = BigDecimal.ZERO,
+
+            lastUpdated = "lastUpdated"
+        )
+    )
 }
