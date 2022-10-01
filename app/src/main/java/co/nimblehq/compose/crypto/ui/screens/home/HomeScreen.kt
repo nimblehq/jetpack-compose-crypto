@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import co.nimblehq.compose.crypto.R
@@ -22,6 +23,7 @@ import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.screens.navigation.CryptoScreen
+import co.nimblehq.compose.crypto.ui.theme.Color
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
@@ -31,6 +33,7 @@ import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
+import co.nimblehq.compose.crypto.extension.boxShadow
 
 @Composable
 fun HomeScreen(
@@ -97,7 +100,15 @@ private fun HomeScreenContent(
 
                 item {
                     PortfolioCard(
-                        modifier = Modifier.padding(start = Dp16, top = Dp40, end = Dp16)
+                        modifier = Modifier
+                            .padding(start = Dp16, top = Dp40, end = Dp16)
+                            .boxShadow(
+                                borderRadius = 3.dp,
+                                color= Color.TiffanyBlue,
+                                blurRadius = 19.dp,
+                                offsetY = 212.dp,
+                                spread = -2.1f
+                            )
                     )
                 }
 
