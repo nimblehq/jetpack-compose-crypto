@@ -17,11 +17,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
+import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
@@ -37,28 +38,32 @@ import coil.compose.rememberAsyncImagePainter
 
 @Composable
 fun DetailScreen(
-    navController: NavController,
-    viewModel: DetailViewModel,
-    id: String,
+    viewModel: DetailViewModel = hiltViewModel(),
+    navigator: (destination: AppDestination) -> Unit,
+    coinId: String,
 ) {
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        viewModel.output.error.collect { error ->
+            val message = error.userReadableMessage(context)
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+    LaunchedEffect(viewModel) {
+        viewModel.navigator.collect { destination -> navigator(destination) }
+    }
+
     val coinDetailUiModel: CoinDetailUiModel? by viewModel.output.coinDetailUiModel.collectAsState()
     val showLoading: IsLoading by viewModel.showLoading.collectAsState()
 
     DetailScreenContent(
         coinDetailUiModel = coinDetailUiModel,
-        onBackIconClick = { navController.popBackStack() },
+        onBackIconClick = { navigator(AppDestination.Up) },
         showLoading = showLoading
     )
 
-    val context = LocalContext.current
     LaunchedEffect(Unit) {
-        viewModel.error.collect { error ->
-            val message = error.userReadableMessage(context)
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        }
-    }
-    LaunchedEffect(Unit) {
-        viewModel.input.getCoinId(coinId = id)
+        viewModel.input.getCoinId(coinId = coinId)
     }
 }
 

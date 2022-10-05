@@ -4,6 +4,7 @@ import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.*
+import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import co.nimblehq.compose.crypto.util.DispatchersProvider
@@ -29,8 +30,6 @@ interface Output : BaseOutput {
     val myCoins: StateFlow<List<CoinItemUiModel>>
 
     val trendingCoins: StateFlow<List<CoinItemUiModel>>
-
-    val navigateToDetail: SharedFlow<String>
 }
 
 @HiltViewModel
@@ -58,10 +57,6 @@ class HomeViewModel @Inject constructor(
     private val _trendingCoins = MutableStateFlow<List<CoinItemUiModel>>(emptyList())
     override val trendingCoins: StateFlow<List<CoinItemUiModel>>
         get() = _trendingCoins
-
-    private val _navigateToDetail = MutableSharedFlow<String>()
-    override val navigateToDetail: SharedFlow<String>
-        get() = _navigateToDetail
 
     init {
         getMyCoins()
@@ -110,13 +105,13 @@ class HomeViewModel @Inject constructor(
 
     override fun onMyCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            _navigateToDetail.emit(coin.id)
+            _navigator.emit(AppDestination.CoinDetail.buildDestination(coin.id))
         }
     }
 
     override fun onTrendingCoinsItemClick(coin: CoinItemUiModel) {
         execute {
-            _navigateToDetail.emit(coin.id)
+            _navigator.emit(AppDestination.CoinDetail.buildDestination(coin.id))
         }
     }
 }

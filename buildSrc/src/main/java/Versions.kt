@@ -11,25 +11,20 @@ object Versions {
     // Dependencies (Alphabet sorted)
     const val ANDROID_COMMON_KTX_VERSION = "0.1.1"
     const val ANDROID_CRYPTO_VERSION = "1.0.0"
-    const val ANDROIDX_ACTIVITY_KTX_VERSION = "1.2.1"
     const val ANDROIDX_CORE_KTX_VERSION = "1.8.0"
-    const val ANDROIDX_FRAGMENT_VERSION = "1.3.3"
     const val ANDROIDX_LIFECYCLE_VERSION = "2.5.1"
     const val ANDROIDX_NAVIGATION_COMPOSE_VERSION = "2.5.1"
-    const val ANDROIDX_NAVIGATION_VERSION = "2.3.4"
-    const val ANDROIDX_SUPPORT_VERSION = "1.3.0"
 
     const val COMPOSE_VERSION = "1.2.0-rc01"
-    const val COMPOSE_ACTIVITY_VERSION = "1.3.1"
     const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.1"
-    const val CONSTRAINT_LAYOUT_VERSION = "2.0.0-alpha3"
     const val COIL_VERSION = "2.0.0" // API 31
 
     const val FIREBASE_BOM_VERSION = "30.3.0"
 
     const val GOOGLE_SERVICE_VERSION = "4.3.13"
 
-    const val HILT_VERSION = "2.38.1"
+    const val HILT_VERSION = "2.43.2"
+    const val HILT_NAVIGATION_COMPOSE_VERSION = "1.0.0"
 
     const val JAVAX_INJECT_VERSION = "1"
     const val JACOCO_VERSION = "0.8.7"
@@ -55,7 +50,6 @@ object Versions {
     const val TEST_JUNIT_VERSION = "4.13.2"
     const val TEST_KOTEST_VERSION = "4.6.3"
     const val TEST_MOCKK_VERSION = "1.10.6"
-    const val TEST_ROBOLECTRIC_VERSION = "4.3.1"
     const val TEST_RUNNER_VERSION = "1.3.0"
     const val TEST_TURBINE_VERSION = "0.7.0"
 }
