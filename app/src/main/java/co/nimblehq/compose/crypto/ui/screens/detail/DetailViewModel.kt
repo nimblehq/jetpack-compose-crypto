@@ -68,6 +68,7 @@ class DetailViewModel @Inject constructor(
         hideLoading()
     }
 
+    @Suppress("MagicNumber")
     fun getCoinPrices(coinId: String, timeIntervals: TimeIntervals = TimeIntervals.ONE_DAY) =
         execute {
             val calendar = Calendar.getInstance()

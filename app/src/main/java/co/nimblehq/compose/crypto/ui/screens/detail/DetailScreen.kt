@@ -91,6 +91,7 @@ fun DetailScreen(
     }
 }
 
+@Suppress("LongMethod", "LongParameterList")
 @Composable
 private fun DetailScreenContent(
     coinDetailUiModel: CoinDetailUiModel?,
