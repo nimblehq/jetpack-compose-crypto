@@ -4,6 +4,7 @@ import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.*
+import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import co.nimblehq.compose.crypto.util.DispatchersProvider
@@ -11,11 +12,18 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-private const val MY_COINS_CURRENCY = "usd"
+const val FIAT_CURRENCY = "usd"
 private const val MY_COINS_ORDER = "market_cap_desc"
 private const val MY_COINS_PRICE_CHANGE_IN_HOUR = "24h"
 private const val MY_COINS_ITEM_PER_PAGE = 10
 private const val MY_COINS_INITIAL_PAGE = 1
+
+interface Input : BaseInput {
+
+    fun onMyCoinsItemClick(coin: CoinItemUiModel)
+
+    fun onTrendingCoinsItemClick(coin: CoinItemUiModel)
+}
 
 interface Output : BaseOutput {
 
@@ -29,7 +37,7 @@ class HomeViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
     private val getMyCoinsUseCase: GetMyCoinsUseCase,
     private val getTrendingCoinsUseCase: GetTrendingCoinsUseCase
-) : BaseViewModel(dispatchers), BaseInput, Output {
+) : BaseViewModel(dispatchers), Input, Output {
 
     override val input = this
     override val output = this
@@ -59,7 +67,7 @@ class HomeViewModel @Inject constructor(
         _showMyCoinsLoading.value = true
         getMyCoinsUseCase.execute(
             GetMyCoinsUseCase.Input(
-                currency = MY_COINS_CURRENCY,
+                currency = FIAT_CURRENCY,
                 order = MY_COINS_ORDER,
                 priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
                 itemPerPage = MY_COINS_ITEM_PER_PAGE,
@@ -79,7 +87,7 @@ class HomeViewModel @Inject constructor(
         _showTrendingCoinsLoading.value = true
         getTrendingCoinsUseCase.execute(
             GetTrendingCoinsUseCase.Input(
-                currency = MY_COINS_CURRENCY,
+                currency = FIAT_CURRENCY,
                 order = MY_COINS_ORDER,
                 priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
                 itemPerPage = MY_COINS_ITEM_PER_PAGE,
@@ -93,5 +101,17 @@ class HomeViewModel @Inject constructor(
                 _trendingCoins.emit(coins.map { it.toUiModel() })
             }
         _showTrendingCoinsLoading.value = false
+    }
+
+    override fun onMyCoinsItemClick(coin: CoinItemUiModel) {
+        execute {
+            _navigator.emit(AppDestination.CoinDetail.buildDestination(coin.id))
+        }
+    }
+
+    override fun onTrendingCoinsItemClick(coin: CoinItemUiModel) {
+        execute {
+            _navigator.emit(AppDestination.CoinDetail.buildDestination(coin.id))
+        }
     }
 }
