@@ -2,6 +2,7 @@ package co.nimblehq.compose.crypto.ui.screens.detail
 
 import app.cash.turbine.test
 import co.nimblehq.compose.crypto.domain.usecase.GetCoinDetailUseCase
+import co.nimblehq.compose.crypto.domain.usecase.GetCoinPricesUseCase
 import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.ui.screens.BaseViewModelTest
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
@@ -14,17 +15,21 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class DetailViewModelTest : BaseViewModelTest() {
 
     private val mockGetCoinDetailUseCase = mockk<GetCoinDetailUseCase>()
+    private val mockGetCoinPricesUseCase = mockk<GetCoinPricesUseCase>()
     private lateinit var viewModel: DetailViewModel
 
     @Before
     fun setUp() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flowOf(MockUtil.coinDetail)
+        every { mockGetCoinPricesUseCase.execute(any()) } returns flowOf(emptyList())
 
         Dispatchers.setMain(testDispatcher)
     }
@@ -69,7 +74,8 @@ class DetailViewModelTest : BaseViewModelTest() {
     private fun initViewModel() {
         viewModel = DetailViewModel(
             testDispatcherProvider,
-            mockGetCoinDetailUseCase
+            mockGetCoinDetailUseCase,
+            mockGetCoinPricesUseCase
         )
     }
 }

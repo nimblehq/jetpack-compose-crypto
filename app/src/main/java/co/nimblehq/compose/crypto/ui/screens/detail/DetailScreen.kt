@@ -24,10 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.data.extension.orZero
+import co.nimblehq.compose.crypto.domain.model.CoinPrice
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
 import co.nimblehq.compose.crypto.ui.components.chartintervals.ChartIntervalsButtonGroup
+import co.nimblehq.compose.crypto.ui.components.chartintervals.TimeIntervals
 import co.nimblehq.compose.crypto.ui.components.linechart.CoinPriceChart
 import co.nimblehq.compose.crypto.ui.components.linechart.CoinPriceLabelDrawer
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
@@ -51,7 +54,6 @@ import me.bytebeats.views.charts.line.render.line.GradientLineShader
 import me.bytebeats.views.charts.line.render.line.SolidLineDrawer
 import me.bytebeats.views.charts.line.render.point.EmptyPointDrawer
 import me.bytebeats.views.charts.simpleChartAnimation
-import kotlin.random.Random
 
 @Composable
 fun DetailScreen(
@@ -71,11 +73,16 @@ fun DetailScreen(
     }
 
     val coinDetailUiModel: CoinDetailUiModel? by viewModel.output.coinDetailUiModel.collectAsState()
+    val coinPrices: List<CoinPrice> by viewModel.output.coinPrices.collectAsState()
     val showLoading: IsLoading by viewModel.showLoading.collectAsState()
 
     DetailScreenContent(
         coinDetailUiModel = coinDetailUiModel,
+        coinPrices = coinPrices,
         onBackIconClick = { navigator(AppDestination.Up) },
+        onTimeIntervalsChanged = { timeIntervals ->
+            viewModel.getCoinPrices(coinId = coinId, timeIntervals)
+        },
         showLoading = showLoading
     )
 
@@ -84,16 +91,17 @@ fun DetailScreen(
     }
 }
 
-@Suppress("MagicNumber")
+@Suppress("LongMethod", "LongParameterList")
 @Composable
 private fun DetailScreenContent(
     coinDetailUiModel: CoinDetailUiModel?,
+    coinPrices: List<CoinPrice>,
     onBackIconClick: () -> Unit,
+    onTimeIntervalsChanged: (TimeIntervals) -> Unit,
     showLoading: Boolean
 ) {
     val localDensity = LocalDensity.current
     val sellBuyLayoutHeight = remember { mutableStateOf(Dp0) }
-    val context = LocalContext.current
 
     Surface {
         ConstraintLayout(
@@ -163,16 +171,6 @@ private fun DetailScreenContent(
                     displayForDetailPage = true
                 )
 
-                // TODO: Update this section when work create UI for a graph.
-                val mockData = mutableListOf<LineChartData.Point>()
-                for (i in 1..10) {
-                    mockData.add(
-                        LineChartData.Point(
-                            Random.nextInt(18000, 30000).toFloat(),
-                            stringResource(R.string.coin_currency, "3,260.62")
-                        )
-                    )
-                }
                 CoinPriceChart(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -182,7 +180,13 @@ private fun DetailScreenContent(
                             end.linkTo(parent.end)
                         },
                     lineChartData = LineChartData(
-                        points = mockData
+                        points = coinPrices.map { coinPrice ->
+                            val price = stringResource(
+                                R.string.coin_currency,
+                                coinPrice.price.toFormattedString()
+                            )
+                            LineChartData.Point(coinPrice.price.orZero().toFloat(), price)
+                        }
                     ),
                     animation = simpleChartAnimation(),
                     pointDrawer = EmptyPointDrawer,
@@ -205,14 +209,7 @@ private fun DetailScreenContent(
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     },
-                    onIntervalChanged = { timeIntervals ->
-                        // TODO Refresh the chart on time interval changed
-                        Toast.makeText(
-                            context,
-                            "Time interval changed: $timeIntervals",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    onIntervalChanged = onTimeIntervalsChanged::invoke
                 )
 
                 CoinInfo(
@@ -294,7 +291,9 @@ fun DetailScreenPreview(
     ComposeTheme {
         DetailScreenContent(
             coinDetailUiModel = params.detail,
+            coinPrices = emptyList(),
             onBackIconClick = {},
+            onTimeIntervalsChanged = {},
             showLoading = params.showLoading
         )
     }
@@ -308,7 +307,9 @@ fun DetailScreenPreviewDark(
     ComposeTheme {
         DetailScreenContent(
             coinDetailUiModel = params.detail,
+            coinPrices = emptyList(),
             onBackIconClick = {},
+            onTimeIntervalsChanged = {},
             showLoading = params.showLoading
         )
     }
