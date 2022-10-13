@@ -30,15 +30,8 @@ fun ChartIntervalsButtonGroup(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(Dp14)
     ) {
-        val listOfInterval = listOf(
-            TimeIntervals.ONE_DAY,
-            TimeIntervals.ONE_WEEK,
-            TimeIntervals.ONE_MONTH,
-            TimeIntervals.ONE_YEAR,
-            TimeIntervals.FIVE_YEAR
-        )
 
-        listOfInterval.forEachIndexed { index, interval ->
+        TimeIntervals.values().forEachIndexed { index, interval ->
             val backgroundColor = if (selectedColor.value == index) {
                 Color.CaribbeanGreen
             } else {

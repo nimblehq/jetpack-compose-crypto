@@ -27,13 +27,13 @@ import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
-import co.nimblehq.compose.crypto.ui.components.linechart.*
+import co.nimblehq.compose.crypto.ui.components.chartintervals.ChartIntervalsButtonGroup
+import co.nimblehq.compose.crypto.ui.components.linechart.CoinPriceChart
+import co.nimblehq.compose.crypto.ui.components.linechart.CoinPriceLabelDrawer
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.Color
-import co.nimblehq.compose.crypto.ui.theme.Color.CaribbeanGreen
-import co.nimblehq.compose.crypto.ui.theme.Color.CaribbeanGreenAlpha30
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
@@ -47,6 +47,7 @@ import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 import coil.compose.rememberAsyncImagePainter
 import me.bytebeats.views.charts.line.LineChartData
+import me.bytebeats.views.charts.line.render.line.GradientLineShader
 import me.bytebeats.views.charts.line.render.line.SolidLineDrawer
 import me.bytebeats.views.charts.line.render.point.EmptyPointDrawer
 import me.bytebeats.views.charts.simpleChartAnimation
@@ -108,6 +109,7 @@ private fun DetailScreenContent(
                 currentPrice,
                 priceChangePercent,
                 graph,
+                intervals,
                 coinInfoItem,
                 progressIndicator
             ) = createRefs()
@@ -184,20 +186,26 @@ private fun DetailScreenContent(
                     ),
                     animation = simpleChartAnimation(),
                     pointDrawer = EmptyPointDrawer,
-                    lineDrawer = SolidLineDrawer(thickness = 2.dp, color = CaribbeanGreen),
+                    lineDrawer = SolidLineDrawer(thickness = 2.dp, color = Color.CaribbeanGreen),
                     lineShader = GradientLineShader(
                         colors = listOf(
-                            CaribbeanGreenAlpha30,
-                            androidx.compose.ui.graphics.Color.Transparent
+                            Color.CaribbeanGreenAlpha30, Color.Transparent
                         )
                     ),
-                    xAxisDrawer = EmptyXAxisDrawer(),
-                    yAxisDrawer = EmptyYAxisDrawer(),
                     labelDrawer = CoinPriceLabelDrawer(
                         labelTextColors = Color.FireOpal to Color.GuppieGreen
                     ),
-                    horizontalOffset = 0f,
-                    onTimeIntervalChanged = { timeIntervals ->
+                    horizontalOffset = 0f
+                )
+
+                // Chart intervals
+                ChartIntervalsButtonGroup(
+                    modifier = Modifier.constrainAs(intervals) {
+                        top.linkTo(graph.bottom, margin = Dp24)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                    onIntervalChanged = { timeIntervals ->
                         // TODO Refresh the chart on time interval changed
                         Toast.makeText(
                             context,
@@ -209,7 +217,7 @@ private fun DetailScreenContent(
 
                 CoinInfo(
                     modifier = Modifier.constrainAs(coinInfoItem) {
-                        top.linkTo(graph.bottom, margin = Dp40)
+                        top.linkTo(intervals.bottom, margin = Dp40)
                     },
                     sellBuyLayoutHeight = sellBuyLayoutHeight.value,
                     coinDetailUiModel = coinDetailUiModel
