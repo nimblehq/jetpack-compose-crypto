@@ -209,9 +209,7 @@ private fun DetailScreenContent(
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     },
-                    onIntervalChanged = { timeIntervals ->
-                        onTimeIntervalsChanged.invoke(timeIntervals)
-                    }
+                    onIntervalChanged = onTimeIntervalsChanged::invoke
                 )
 
                 CoinInfo(
@@ -221,20 +219,6 @@ private fun DetailScreenContent(
                     sellBuyLayoutHeight = sellBuyLayoutHeight.value,
                     coinDetailUiModel = coinDetailUiModel
                 )
-
-                if (showLoading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .constrainAs(progressIndicator) {
-                                linkTo(
-                                    start = parent.start,
-                                    end = parent.end,
-                                    top = parent.top,
-                                    bottom = parent.bottom
-                                )
-                            },
-                    )
-                }
             }
 
             if (showLoading) {
