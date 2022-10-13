@@ -17,6 +17,7 @@ object Dimension {
     val Dp24 = 24.dp
     val Dp25 = 25.dp
     val Dp40 = 40.dp
+    val Dp45 = 45.dp
     val Dp52 = 52.dp
     val Dp60 = 60.dp
 }
