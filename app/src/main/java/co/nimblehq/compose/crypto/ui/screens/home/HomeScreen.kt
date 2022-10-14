@@ -5,9 +5,17 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -18,15 +26,20 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.extension.boxShadow
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
+import co.nimblehq.compose.crypto.ui.theme.Color
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp52
+import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBlurRadius
+import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBorderRadius
+import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowOffsetY
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
@@ -94,7 +107,15 @@ private fun HomeScreenContent(
 
                 item {
                     PortfolioCard(
-                        modifier = Modifier.padding(start = Dp16, top = Dp40, end = Dp16)
+                        modifier = Modifier
+                            .padding(start = Dp16, top = Dp40, end = Dp16)
+                            .boxShadow(
+                                color = Color.TiffanyBlue,
+                                borderRadius = shadowBorderRadius,
+                                blurRadius = shadowBlurRadius,
+                                offsetY = shadowOffsetY,
+                                spread = -6f
+                            )
                     )
                 }
 
