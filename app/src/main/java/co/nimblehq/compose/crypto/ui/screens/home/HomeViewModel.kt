@@ -3,12 +3,16 @@ package co.nimblehq.compose.crypto.ui.screens.home
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.lib.IsLoading
-import co.nimblehq.compose.crypto.ui.base.*
+import co.nimblehq.compose.crypto.ui.base.BaseInput
+import co.nimblehq.compose.crypto.ui.base.BaseOutput
+import co.nimblehq.compose.crypto.ui.base.BaseViewModel
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import co.nimblehq.compose.crypto.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -45,6 +49,10 @@ class HomeViewModel @Inject constructor(
     private val _showMyCoinsLoading = MutableStateFlow(false)
     val showMyCoinsLoading: StateFlow<IsLoading>
         get() = _showMyCoinsLoading
+
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: SharedFlow<IsLoading>
+        get() = _isRefreshing
 
     private val _showTrendingCoinsLoading = MutableStateFlow(false)
     val showTrendingCoinsLoading: StateFlow<IsLoading>
@@ -101,6 +109,42 @@ class HomeViewModel @Inject constructor(
                 _trendingCoins.emit(coins.map { it.toUiModel() })
             }
         _showTrendingCoinsLoading.value = false
+    }
+
+    @OptIn(FlowPreview::class)
+    fun refresh() = execute {
+        _isRefreshing.value = true
+
+        delay(5000L)
+
+        val getMyCoins = getMyCoinsUseCase.execute(
+            GetMyCoinsUseCase.Input(
+                currency = FIAT_CURRENCY,
+                order = MY_COINS_ORDER,
+                priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
+                itemPerPage = MY_COINS_ITEM_PER_PAGE,
+                page = MY_COINS_INITIAL_PAGE
+            )
+        )
+
+        val getTrendingCoins = getTrendingCoinsUseCase.execute(
+            GetTrendingCoinsUseCase.Input(
+                currency = FIAT_CURRENCY,
+                order = MY_COINS_ORDER,
+                priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
+                itemPerPage = MY_COINS_ITEM_PER_PAGE,
+                page = MY_COINS_INITIAL_PAGE
+            )
+        )
+
+        getMyCoins.zip(getTrendingCoins) { myCoins, trendingCoins ->
+            _myCoins.emit(myCoins.map { it.toUiModel() })
+            _trendingCoins.emit(trendingCoins.map { it.toUiModel() })
+        }.catch { e ->
+            _error.emit(e)
+        }.collect()
+
+        _isRefreshing.value = false
     }
 
     override fun onMyCoinsItemClick(coin: CoinItemUiModel) {
