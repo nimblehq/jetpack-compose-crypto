@@ -46,7 +46,6 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 
-@ExperimentalMaterialApi
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
@@ -85,7 +84,7 @@ fun HomeScreen(
     ) { viewModel.refresh() }
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Suppress("LongParameterList")
 @Composable
 private fun HomeScreenContent(
@@ -276,7 +275,6 @@ private fun MyCoins(
 }
 
 @SuppressLint("UnrememberedMutableState")
-@ExperimentalMaterialApi
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
 fun HomeScreenPreview(
@@ -298,7 +296,6 @@ fun HomeScreenPreview(
 }
 
 @SuppressLint("UnrememberedMutableState")
-@ExperimentalMaterialApi
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 fun HomeScreenPreviewDark(
