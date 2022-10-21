@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 
 /**
  * Original solution: https://github.com/wasim15185/jetpack-compose-crypto/blob/develop/app/src/main/java/co/nimblehq/compose/crypto/extension/BoxShadow.kt
@@ -22,10 +23,10 @@ import androidx.compose.ui.unit.dp
  */
 fun Modifier.boxShadow(
     color: Color = Color.Black,
-    borderRadius: Dp = 0.dp,
-    blurRadius: Dp = 0.dp,
-    offsetY: Dp = 0.dp,
-    offsetX: Dp = 0.dp,
+    borderRadius: Dp = Dp0,
+    blurRadius: Dp = Dp0,
+    offsetY: Dp = Dp0,
+    offsetX: Dp = Dp0,
     spread: Float = 0f,
     modifier: Modifier = Modifier,
 ) = this.then(
@@ -39,7 +40,7 @@ fun Modifier.boxShadow(
             val rightPixel = (this.size.width + spreadPixel)
             val bottomPixel = (this.size.height + spreadPixel)
 
-            if (blurRadius != 0.dp) {
+            if (blurRadius != Dp0) {
                 /* The feature maskFilter used below to apply the blur effect only works
                     with hardware acceleration disabled.
                  */
