@@ -51,7 +51,7 @@ object Style {
 
     val Colors.pullRefreshBackgroundColor: Color
         @Composable
-        get() = if (isLight) DarkJungleGreen else White
+        get() = if (isLight) White else DarkJungleGreen
 
     @Composable
     fun medium12() = textStyle.copy(fontWeight = FontWeight.Medium, fontSize = Sp12)
