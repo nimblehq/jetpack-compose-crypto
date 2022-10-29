@@ -19,4 +19,5 @@ object Color {
     val SonicSilver = Color(0xFF70747C)
     val CaribbeanGreen = Color(0xFF00BDB0)
     val CaribbeanGreenAlpha30 = CaribbeanGreen.copy(alpha = 0.3f)
+    val OsloGray = Color(0xFF8D9096)
 }

@@ -38,6 +38,12 @@ fun ChartIntervalsButtonGroup(
                 Color.Transparent
             }
 
+            val textColor = if (selectedColor.value == index) {
+                Color.White
+            } else {
+                Color.OsloGray
+            }
+
             ChartIntervalsButton(
                 modifier = Modifier
                     .requiredWidth(Dp45)
@@ -45,6 +51,7 @@ fun ChartIntervalsButtonGroup(
                         color = backgroundColor,
                         shape = RoundedCornerShape(Dp12)
                     ),
+                textColor = textColor,
                 interval = interval,
                 onClick = {
                     if (selectedColor.value != index) {
@@ -60,6 +67,7 @@ fun ChartIntervalsButtonGroup(
 @Composable
 fun ChartIntervalsButton(
     modifier: Modifier,
+    textColor: androidx.compose.ui.graphics.Color,
     interval: TimeIntervals,
     onClick: () -> Unit
 ) {
@@ -69,7 +77,7 @@ fun ChartIntervalsButton(
             .padding(vertical = Dp4, horizontal = Dp8),
         textAlign = TextAlign.Center,
         text = interval.text,
-        color = Color.White,
+        color = textColor,
         style = Style.medium14()
     )
 }
