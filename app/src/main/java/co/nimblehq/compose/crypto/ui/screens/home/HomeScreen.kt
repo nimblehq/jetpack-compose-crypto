@@ -110,7 +110,6 @@ private fun HomeScreenContent(
                 modifier = Modifier
                     .fillMaxSize()
                     .systemBarsPadding()
-                    .pullRefresh(refreshingState)
             ) {
                 LazyColumn {
                     item {

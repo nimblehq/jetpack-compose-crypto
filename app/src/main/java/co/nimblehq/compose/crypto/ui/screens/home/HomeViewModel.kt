@@ -11,7 +11,6 @@ import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import co.nimblehq.compose.crypto.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -111,7 +110,6 @@ class HomeViewModel @Inject constructor(
         _showTrendingCoinsLoading.value = false
     }
 
-    @OptIn(FlowPreview::class)
     fun refresh() = execute {
         _isRefreshing.value = true
 
