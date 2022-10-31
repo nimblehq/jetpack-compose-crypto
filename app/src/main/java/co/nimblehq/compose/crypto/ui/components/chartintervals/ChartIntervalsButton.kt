@@ -9,9 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import co.nimblehq.compose.crypto.ui.theme.Color
+import co.nimblehq.compose.crypto.ui.theme.Color.CaribbeanGreen
+import co.nimblehq.compose.crypto.ui.theme.Color.OsloGray
+import co.nimblehq.compose.crypto.ui.theme.Color.Transparent
+import co.nimblehq.compose.crypto.ui.theme.Color.White
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp14
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
@@ -33,9 +37,15 @@ fun ChartIntervalsButtonGroup(
 
         TimeIntervals.values().forEachIndexed { index, interval ->
             val backgroundColor = if (selectedColor.value == index) {
-                Color.CaribbeanGreen
+                CaribbeanGreen
             } else {
-                Color.Transparent
+                Transparent
+            }
+
+            val textColor = if (selectedColor.value == index) {
+                White
+            } else {
+                OsloGray
             }
 
             ChartIntervalsButton(
@@ -45,6 +55,7 @@ fun ChartIntervalsButtonGroup(
                         color = backgroundColor,
                         shape = RoundedCornerShape(Dp12)
                     ),
+                textColor = textColor,
                 interval = interval,
                 onClick = {
                     if (selectedColor.value != index) {
@@ -60,6 +71,7 @@ fun ChartIntervalsButtonGroup(
 @Composable
 fun ChartIntervalsButton(
     modifier: Modifier,
+    textColor: Color,
     interval: TimeIntervals,
     onClick: () -> Unit
 ) {
@@ -69,7 +81,7 @@ fun ChartIntervalsButton(
             .padding(vertical = Dp4, horizontal = Dp8),
         textAlign = TextAlign.Center,
         text = interval.text,
-        color = Color.White,
+        color = textColor,
         style = Style.medium14()
     )
 }

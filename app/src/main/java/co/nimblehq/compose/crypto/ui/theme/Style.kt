@@ -1,8 +1,8 @@
 package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.material.Colors
-import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
