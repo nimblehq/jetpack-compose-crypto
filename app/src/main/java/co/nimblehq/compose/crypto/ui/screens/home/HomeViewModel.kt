@@ -3,9 +3,7 @@ package co.nimblehq.compose.crypto.ui.screens.home
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.lib.IsLoading
-import co.nimblehq.compose.crypto.ui.base.BaseInput
-import co.nimblehq.compose.crypto.ui.base.BaseOutput
-import co.nimblehq.compose.crypto.ui.base.BaseViewModel
+import co.nimblehq.compose.crypto.ui.base.*
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
@@ -35,6 +33,10 @@ interface Input : BaseInput {
 
 interface Output : BaseOutput {
 
+    val showMyCoinsLoading: StateFlow<IsLoading>
+
+    val showTrendingCoinsLoading: StateFlow<LoadingState>
+
     val myCoins: StateFlow<List<CoinItemUiModel>>
 
     val trendingCoins: StateFlow<List<CoinItemUiModel>>
@@ -51,11 +53,11 @@ class HomeViewModel @Inject constructor(
     override val output = this
 
     private val _showMyCoinsLoading = MutableStateFlow(false)
-    val showMyCoinsLoading: StateFlow<IsLoading>
+    override val showMyCoinsLoading: StateFlow<IsLoading>
         get() = _showMyCoinsLoading
 
-    private val _showTrendingCoinsLoading = MutableStateFlow(false)
-    val showTrendingCoinsLoading: StateFlow<IsLoading>
+    private val _showTrendingCoinsLoading = MutableStateFlow<LoadingState>(LoadingState.Idle)
+    override val showTrendingCoinsLoading: StateFlow<LoadingState>
         get() = _showTrendingCoinsLoading
 
     private val _myCoins = MutableStateFlow<List<CoinItemUiModel>>(emptyList())
@@ -98,9 +100,10 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun getTrendingCoins(isRefreshing: Boolean, loadMore: Boolean) {
-        if (_showTrendingCoinsLoading.value) return
+        if (_showTrendingCoinsLoading.value != LoadingState.Idle) return
         execute {
-            if (isRefreshing) showLoading() else if (!loadMore) _showTrendingCoinsLoading.value = true
+            if (isRefreshing) showLoading() else
+                _showTrendingCoinsLoading.value = if (loadMore) LoadingState.LoadingMore else LoadingState.Loading
             getTrendingCoinsUseCase.execute(
                 GetTrendingCoinsUseCase.Input(
                     currency = FIAT_CURRENCY,
@@ -118,7 +121,7 @@ class HomeViewModel @Inject constructor(
                     _trendingCoins.emit(_trendingCoins.value + newList)
                     page++
                 }
-            if (isRefreshing) hideLoading() else if (!loadMore) _showTrendingCoinsLoading.value = false
+            if (isRefreshing) hideLoading() else _showTrendingCoinsLoading.value = LoadingState.Idle
         }
     }
 

@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.boxShadow
 import co.nimblehq.compose.crypto.lib.IsLoading
+import co.nimblehq.compose.crypto.ui.base.LoadingState
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
@@ -66,8 +67,8 @@ fun HomeScreen(
         }
     }
 
-    val showMyCoinsLoading: IsLoading by viewModel.showMyCoinsLoading.collectAsState()
-    val showTrendingCoinsLoading: IsLoading by viewModel.showTrendingCoinsLoading.collectAsState()
+    val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
+    val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
     val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
     val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
 
@@ -89,7 +90,7 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenContent(
     showMyCoinsLoading: IsLoading,
-    showTrendingCoinsLoading: IsLoading,
+    showTrendingCoinsLoading: LoadingState,
     isRefreshing: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
@@ -169,7 +170,8 @@ private fun HomeScreenContent(
                         }
                     }
 
-                    if (showTrendingCoinsLoading) {
+                    // Full section loading
+                if (showTrendingCoinsLoading == LoadingState.Loading) {
                         item {
                             CircularProgressIndicator(
                                 modifier = Modifier
@@ -196,6 +198,17 @@ private fun HomeScreenContent(
                                     onItemClick = { onTrendingItemClick.invoke(coin) }
                                 )
                             }
+                        }
+                    }
+
+                    // Load more loading
+                    if (showTrendingCoinsLoading == LoadingState.LoadingMore) {
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(align = Alignment.CenterHorizontally),
+                            )
                         }
                     }
                 }
@@ -289,8 +302,8 @@ fun HomeScreenPreview(
     with(params) {
         ComposeTheme {
             HomeScreenContent(
-                showMyCoinsLoading = isLoading,
-                showTrendingCoinsLoading = isLoading,
+                showMyCoinsLoading = isMyCoinsLoading,
+                showTrendingCoinsLoading = isTrendingCoinsLoading,
                 isRefreshing = isLoading,
                 myCoins = myCoins,
                 trendingCoins = trendingCoins,
@@ -309,8 +322,8 @@ fun HomeScreenPreviewDark(
     with(params) {
         ComposeTheme {
             HomeScreenContent(
-                showMyCoinsLoading = isLoading,
-                showTrendingCoinsLoading = isLoading,
+                showMyCoinsLoading = isMyCoinsLoading,
+                showTrendingCoinsLoading = isTrendingCoinsLoading,
                 isRefreshing = isLoading,
                 myCoins = myCoins,
                 trendingCoins = trendingCoins,
