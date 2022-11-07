@@ -62,8 +62,8 @@ fun HomeScreen(
     LaunchedEffect(viewModel) {
         viewModel.navigator.collect { destination -> navigator(destination) }
     }
-    LaunchedEffect(viewModel.isRefreshing) {
-        viewModel.isRefreshing.collect { isRefreshing ->
+    LaunchedEffect(viewModel.showLoading) {
+        viewModel.showLoading.collect { isRefreshing ->
             rememberRefreshing = isRefreshing
         }
     }
@@ -81,7 +81,7 @@ fun HomeScreen(
         trendingCoins = trendingCoins,
         onMyCoinsItemClick = viewModel.input::onMyCoinsItemClick,
         onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick
-    ) { viewModel.refresh() }
+    ) { viewModel.loadData(isRefreshing = true) }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
