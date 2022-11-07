@@ -59,7 +59,7 @@ fun HomeScreen(
         }
     }
     LaunchedEffect(viewModel) {
-        viewModel.navigator.collect { destination -> navigator(destination) }
+        viewModel.output.navigator.collect { destination -> navigator(destination) }
     }
     LaunchedEffect(viewModel.showLoading) {
         viewModel.showLoading.collect { isRefreshing ->
@@ -69,8 +69,8 @@ fun HomeScreen(
 
     val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
     val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
-    val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
-    val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
+    val myCoins: List<CoinItemUiModel> by viewModel.output.myCoins.collectAsState()
+    val trendingCoins: List<CoinItemUiModel> by viewModel.output.trendingCoins.collectAsState()
 
     HomeScreenContent(
         showMyCoinsLoading = showMyCoinsLoading,
@@ -94,8 +94,8 @@ private fun HomeScreenContent(
     isRefreshing: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: (CoinItemUiModel) -> Unit,
-    onTrendingItemClick: (CoinItemUiModel) -> Unit,
+    onMyCoinsItemClick: ((CoinItemUiModel) -> Unit)? = null,
+    onTrendingItemClick: ((CoinItemUiModel) -> Unit)? = null,
     onRefresh: () -> Unit = {},
     onTrendingCoinsLoadMore: () -> Unit = {}
 ) {
@@ -195,7 +195,7 @@ private fun HomeScreenContent(
                             ) {
                                 TrendingItem(
                                     coinItem = coin,
-                                    onItemClick = { onTrendingItemClick.invoke(coin) }
+                                    onItemClick = { onTrendingItemClick?.invoke(coin) }
                                 )
                             }
                         }
@@ -229,7 +229,7 @@ private fun HomeScreenContent(
 private fun MyCoins(
     showMyCoinsLoading: IsLoading,
     coins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: (CoinItemUiModel) -> Unit
+    onMyCoinsItemClick: ((CoinItemUiModel) -> Unit)? = null
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -286,7 +286,7 @@ private fun MyCoins(
                 items(coins) { coin ->
                     CoinItem(
                         coinItem = coin,
-                        onItemClick = { onMyCoinsItemClick.invoke(coin) }
+                        onItemClick = { onMyCoinsItemClick?.invoke(coin) }
                     )
                 }
             }
@@ -306,9 +306,7 @@ fun HomeScreenPreview(
                 showTrendingCoinsLoading = isTrendingCoinsLoading,
                 isRefreshing = isLoading,
                 myCoins = myCoins,
-                trendingCoins = trendingCoins,
-                onTrendingItemClick = {},
-                onMyCoinsItemClick = {}
+                trendingCoins = trendingCoins
             )
         }
     }
@@ -326,9 +324,7 @@ fun HomeScreenPreviewDark(
                 showTrendingCoinsLoading = isTrendingCoinsLoading,
                 isRefreshing = isLoading,
                 myCoins = myCoins,
-                trendingCoins = trendingCoins,
-                onTrendingItemClick = {},
-                onMyCoinsItemClick = {}
+                trendingCoins = trendingCoins
             )
         }
     }
