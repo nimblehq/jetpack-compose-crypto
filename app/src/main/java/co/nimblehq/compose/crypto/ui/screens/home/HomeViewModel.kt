@@ -24,7 +24,9 @@ private const val MY_COINS_INITIAL_PAGE = 1
 
 interface Input : BaseInput {
 
-    fun loadData(isRefreshing: Boolean)
+    fun loadData(isRefreshing: Boolean = false)
+
+    fun getTrendingCoins(isRefreshing: Boolean = false, loadMore: Boolean = false)
 
     fun onMyCoinsItemClick(coin: CoinItemUiModel)
 
@@ -64,13 +66,15 @@ class HomeViewModel @Inject constructor(
     override val trendingCoins: StateFlow<List<CoinItemUiModel>>
         get() = _trendingCoins
 
+    private var page = MY_COINS_INITIAL_PAGE
+
     init {
-        loadData(isRefreshing = false)
+        loadData()
     }
 
     override fun loadData(isRefreshing: Boolean) {
-        getMyCoins(isRefreshing)
-        getTrendingCoins(isRefreshing)
+        getMyCoins(isRefreshing = isRefreshing)
+        getTrendingCoins(isRefreshing = isRefreshing)
     }
 
     private fun getMyCoins(isRefreshing: Boolean) = execute {
@@ -93,24 +97,29 @@ class HomeViewModel @Inject constructor(
         if (isRefreshing) hideLoading() else _showMyCoinsLoading.value = false
     }
 
-    private fun getTrendingCoins(isRefreshing: Boolean) = execute {
-        if (isRefreshing) showLoading() else _showTrendingCoinsLoading.value = true
-        getTrendingCoinsUseCase.execute(
-            GetTrendingCoinsUseCase.Input(
-                currency = FIAT_CURRENCY,
-                order = MY_COINS_ORDER,
-                priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
-                itemPerPage = MY_COINS_ITEM_PER_PAGE,
-                page = MY_COINS_INITIAL_PAGE
+    override fun getTrendingCoins(isRefreshing: Boolean, loadMore: Boolean) {
+        if (_showTrendingCoinsLoading.value) return
+        execute {
+            if (isRefreshing) showLoading() else if (!loadMore) _showTrendingCoinsLoading.value = true
+            getTrendingCoinsUseCase.execute(
+                GetTrendingCoinsUseCase.Input(
+                    currency = FIAT_CURRENCY,
+                    order = MY_COINS_ORDER,
+                    priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
+                    itemPerPage = MY_COINS_ITEM_PER_PAGE,
+                    page = page
+                )
             )
-        )
-            .catch { e ->
-                _error.emit(e)
-            }
-            .collect { coins ->
-                _trendingCoins.emit(coins.map { it.toUiModel() })
-            }
-        if (isRefreshing) hideLoading() else _showTrendingCoinsLoading.value = false
+                .catch { e ->
+                    _error.emit(e)
+                }
+                .collect { coins ->
+                    val newList = coins.map { it.toUiModel() }
+                    _trendingCoins.emit(_trendingCoins.value + newList)
+                    page++
+                }
+            if (isRefreshing) hideLoading() else if (!loadMore) _showTrendingCoinsLoading.value = false
+        }
     }
 
     override fun onMyCoinsItemClick(coin: CoinItemUiModel) {

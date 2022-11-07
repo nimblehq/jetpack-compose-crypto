@@ -5,9 +5,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
 import androidx.compose.material.pullrefresh.PullRefreshDefaults
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
@@ -44,6 +42,7 @@ import co.nimblehq.compose.crypto.ui.theme.Style.pullRefreshBackgroundColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
+import timber.log.Timber
 
 @Composable
 fun HomeScreen(
@@ -79,8 +78,10 @@ fun HomeScreen(
         myCoins = myCoins,
         trendingCoins = trendingCoins,
         onMyCoinsItemClick = viewModel.input::onMyCoinsItemClick,
-        onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick
-    ) { viewModel.input.loadData(isRefreshing = true) }
+        onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick,
+        onRefresh = { viewModel.input.loadData(isRefreshing = true) },
+        onTrendingCoinsLoadMore = { viewModel.input.getTrendingCoins(loadMore = true) }
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -94,7 +95,8 @@ private fun HomeScreenContent(
     trendingCoins: List<CoinItemUiModel>,
     onMyCoinsItemClick: (CoinItemUiModel) -> Unit,
     onTrendingItemClick: (CoinItemUiModel) -> Unit,
-    onRefresh: () -> Unit
+    onRefresh: () -> Unit = {},
+    onTrendingCoinsLoadMore: () -> Unit = {}
 ) {
     val refreshingState = rememberPullRefreshState(
         refreshing = isRefreshing,
@@ -102,6 +104,8 @@ private fun HomeScreenContent(
         refreshThreshold = PullRefreshDefaults.RefreshThreshold,
         refreshingOffset = PullRefreshDefaults.RefreshThreshold
     )
+    val trendingCoinsLastIndex = trendingCoins.lastIndex
+    val trendingCoinsState = rememberLazyListState()
 
     Surface {
         Box(modifier = Modifier.pullRefresh(refreshingState)) {
@@ -110,7 +114,7 @@ private fun HomeScreenContent(
                     .fillMaxSize()
                     .systemBarsPadding()
             ) {
-                LazyColumn {
+                LazyColumn(state = trendingCoinsState) {
                     item {
                         Text(
                             modifier = Modifier
@@ -174,12 +178,17 @@ private fun HomeScreenContent(
                             )
                         }
                     } else {
-                        items(trendingCoins) { coin ->
+                        itemsIndexed(trendingCoins) { index, coin ->
+                            if (index >= trendingCoinsLastIndex) {
+                                SideEffect {
+                                    Timber.d("onTrendingCoinsLoadMore at index: $index, lastIndex: $trendingCoinsLastIndex")
+                                    onTrendingCoinsLoadMore.invoke()
+                                }
+                            }
+
                             Box(
                                 modifier = Modifier.padding(
-                                    start = Dp16,
-                                    end = Dp16,
-                                    bottom = Dp16
+                                    start = Dp16, end = Dp16, bottom = Dp16
                                 )
                             ) {
                                 TrendingItem(
@@ -287,7 +296,7 @@ fun HomeScreenPreview(
                 trendingCoins = trendingCoins,
                 onTrendingItemClick = {},
                 onMyCoinsItemClick = {}
-            ) {}
+            )
         }
     }
 }
@@ -307,7 +316,7 @@ fun HomeScreenPreviewDark(
                 trendingCoins = trendingCoins,
                 onTrendingItemClick = {},
                 onMyCoinsItemClick = {}
-            ) {}
+            )
         }
     }
 }
