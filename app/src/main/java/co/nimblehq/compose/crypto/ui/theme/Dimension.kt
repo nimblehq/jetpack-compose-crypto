@@ -25,4 +25,5 @@ object Dimension {
     val shadowBorderRadius = 12.dp
     val shadowBlurRadius = 24.dp
     val shadowOffsetY = 212.dp
+    val shadowSpread = (-6).dp
 }

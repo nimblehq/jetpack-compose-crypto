@@ -8,7 +8,6 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 
 /**
@@ -27,14 +26,14 @@ fun Modifier.boxShadow(
     blurRadius: Dp = Dp0,
     offsetY: Dp = Dp0,
     offsetX: Dp = Dp0,
-    spread: Float = 0f,
+    spread: Dp = Dp0,
     modifier: Modifier = Modifier,
 ) = this.then(
     modifier.drawBehind {
         this.drawIntoCanvas {
             val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
-            val spreadPixel = spread.dp.toPx()
+            val spreadPixel = spread.toPx()
             val leftPixel = (0f - spreadPixel) + offsetX.toPx()
             val topPixel = (0f - spreadPixel) + offsetY.toPx()
             val rightPixel = (this.size.width + spreadPixel)

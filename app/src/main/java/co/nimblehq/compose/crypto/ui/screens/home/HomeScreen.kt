@@ -40,6 +40,7 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp52
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBlurRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBorderRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowOffsetY
+import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowSpread
 import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
@@ -114,7 +115,7 @@ private fun HomeScreenContent(
                                 borderRadius = shadowBorderRadius,
                                 blurRadius = shadowBlurRadius,
                                 offsetY = shadowOffsetY,
-                                spread = -6f
+                                spread = shadowSpread
                             )
                     )
                 }
