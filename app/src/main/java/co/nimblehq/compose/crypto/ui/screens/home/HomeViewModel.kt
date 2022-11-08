@@ -66,13 +66,16 @@ class HomeViewModel @Inject constructor(
     override val trendingCoins: StateFlow<List<CoinItemUiModel>>
         get() = _trendingCoins
 
-    private var page = MY_COINS_INITIAL_PAGE
+    private var trendingCoinsPage = MY_COINS_INITIAL_PAGE
 
     init {
         loadData()
     }
 
     override fun loadData(isRefreshing: Boolean) {
+        if (isRefreshing) {
+            trendingCoinsPage = MY_COINS_INITIAL_PAGE
+        }
         getMyCoins(isRefreshing = isRefreshing)
         getTrendingCoins(isRefreshing = isRefreshing)
     }
@@ -108,7 +111,7 @@ class HomeViewModel @Inject constructor(
                     order = MY_COINS_ORDER,
                     priceChangeInHour = MY_COINS_PRICE_CHANGE_IN_HOUR,
                     itemPerPage = MY_COINS_ITEM_PER_PAGE,
-                    page = page
+                    page = trendingCoinsPage
                 )
             )
                 .catch { e ->
@@ -116,8 +119,12 @@ class HomeViewModel @Inject constructor(
                 }
                 .collect { coins ->
                     val newCoinList = coins.map { it.toUiModel() }
-                    _trendingCoins.emit(_trendingCoins.value + newCoinList)
-                    page++
+                    if (isRefreshing) {
+                        _trendingCoins.emit(newCoinList)
+                    } else {
+                        _trendingCoins.emit(_trendingCoins.value + newCoinList)
+                    }
+                    trendingCoinsPage++
                 }
             if (isRefreshing) hideLoading() else
                 _showTrendingCoinsLoading.value = LoadingState.Idle
