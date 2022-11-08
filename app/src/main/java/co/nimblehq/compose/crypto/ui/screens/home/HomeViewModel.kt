@@ -9,9 +9,7 @@ import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import co.nimblehq.compose.crypto.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 const val FIAT_CURRENCY = "usd"
@@ -117,11 +115,12 @@ class HomeViewModel @Inject constructor(
                     _error.emit(e)
                 }
                 .collect { coins ->
-                    val newList = coins.map { it.toUiModel() }
-                    _trendingCoins.emit(_trendingCoins.value + newList)
+                    val newCoinList = coins.map { it.toUiModel() }
+                    _trendingCoins.emit(_trendingCoins.value + newCoinList)
                     page++
                 }
-            if (isRefreshing) hideLoading() else _showTrendingCoinsLoading.value = LoadingState.Idle
+            if (isRefreshing) hideLoading() else
+                _showTrendingCoinsLoading.value = LoadingState.Idle
         }
     }
 

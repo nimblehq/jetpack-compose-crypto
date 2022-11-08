@@ -7,10 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
-import androidx.compose.material.pullrefresh.PullRefreshDefaults
-import androidx.compose.material.pullrefresh.PullRefreshIndicator
-import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material.pullrefresh.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,8 +25,7 @@ import co.nimblehq.compose.crypto.ui.base.LoadingState
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.Color
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
@@ -38,12 +34,13 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBlurRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBorderRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowOffsetY
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowSpread
-import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.pullRefreshBackgroundColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 import timber.log.Timber
+
+private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0
 
 @Composable
 fun HomeScreen(
@@ -94,8 +91,8 @@ private fun HomeScreenContent(
     isRefreshing: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: ((CoinItemUiModel) -> Unit)? = null,
-    onTrendingItemClick: ((CoinItemUiModel) -> Unit)? = null,
+    onMyCoinsItemClick: (CoinItemUiModel) -> Unit = {},
+    onTrendingItemClick: (CoinItemUiModel) -> Unit = {},
     onRefresh: () -> Unit = {},
     onTrendingCoinsLoadMore: () -> Unit = {}
 ) {
@@ -171,7 +168,7 @@ private fun HomeScreenContent(
                     }
 
                     // Full section loading
-                if (showTrendingCoinsLoading == LoadingState.Loading) {
+                    if (showTrendingCoinsLoading == LoadingState.Loading) {
                         item {
                             CircularProgressIndicator(
                                 modifier = Modifier
@@ -181,7 +178,7 @@ private fun HomeScreenContent(
                         }
                     } else {
                         itemsIndexed(trendingCoins) { index, coin ->
-                            if (index >= trendingCoinsLastIndex) {
+                            if (index + LIST_ITEM_LOAD_MORE_THRESHOLD >= trendingCoinsLastIndex) {
                                 SideEffect {
                                     Timber.d("onTrendingCoinsLoadMore at index: $index, lastIndex: $trendingCoinsLastIndex")
                                     onTrendingCoinsLoadMore.invoke()
@@ -195,7 +192,7 @@ private fun HomeScreenContent(
                             ) {
                                 TrendingItem(
                                     coinItem = coin,
-                                    onItemClick = { onTrendingItemClick?.invoke(coin) }
+                                    onItemClick = { onTrendingItemClick.invoke(coin) }
                                 )
                             }
                         }
@@ -229,7 +226,7 @@ private fun HomeScreenContent(
 private fun MyCoins(
     showMyCoinsLoading: IsLoading,
     coins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: ((CoinItemUiModel) -> Unit)? = null
+    onMyCoinsItemClick: (CoinItemUiModel) -> Unit
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -286,7 +283,7 @@ private fun MyCoins(
                 items(coins) { coin ->
                     CoinItem(
                         coinItem = coin,
-                        onItemClick = { onMyCoinsItemClick?.invoke(coin) }
+                        onItemClick = { onMyCoinsItemClick.invoke(coin) }
                     )
                 }
             }
@@ -304,7 +301,7 @@ fun HomeScreenPreview(
             HomeScreenContent(
                 showMyCoinsLoading = isMyCoinsLoading,
                 showTrendingCoinsLoading = isTrendingCoinsLoading,
-                isRefreshing = isLoading,
+                isRefreshing = isMyCoinsLoading,
                 myCoins = myCoins,
                 trendingCoins = trendingCoins
             )
@@ -322,7 +319,7 @@ fun HomeScreenPreviewDark(
             HomeScreenContent(
                 showMyCoinsLoading = isMyCoinsLoading,
                 showTrendingCoinsLoading = isTrendingCoinsLoading,
-                isRefreshing = isLoading,
+                isRefreshing = isMyCoinsLoading,
                 myCoins = myCoins,
                 trendingCoins = trendingCoins
             )
