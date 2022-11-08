@@ -5,14 +5,9 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
-import androidx.compose.material.pullrefresh.PullRefreshDefaults
-import androidx.compose.material.pullrefresh.PullRefreshIndicator
-import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material.pullrefresh.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,11 +21,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.boxShadow
 import co.nimblehq.compose.crypto.lib.IsLoading
+import co.nimblehq.compose.crypto.ui.base.LoadingState
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.Color
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
@@ -39,11 +34,13 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBlurRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBorderRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowOffsetY
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowSpread
-import co.nimblehq.compose.crypto.ui.theme.Style
 import co.nimblehq.compose.crypto.ui.theme.Style.pullRefreshBackgroundColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
+import timber.log.Timber
+
+private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0
 
 @Composable
 fun HomeScreen(
@@ -59,7 +56,7 @@ fun HomeScreen(
         }
     }
     LaunchedEffect(viewModel) {
-        viewModel.navigator.collect { destination -> navigator(destination) }
+        viewModel.output.navigator.collect { destination -> navigator(destination) }
     }
     LaunchedEffect(viewModel.showLoading) {
         viewModel.showLoading.collect { isRefreshing ->
@@ -67,10 +64,10 @@ fun HomeScreen(
         }
     }
 
-    val showMyCoinsLoading: IsLoading by viewModel.showMyCoinsLoading.collectAsState()
-    val showTrendingCoinsLoading: IsLoading by viewModel.showTrendingCoinsLoading.collectAsState()
-    val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
-    val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
+    val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
+    val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
+    val myCoins: List<CoinItemUiModel> by viewModel.output.myCoins.collectAsState()
+    val trendingCoins: List<CoinItemUiModel> by viewModel.output.trendingCoins.collectAsState()
 
     HomeScreenContent(
         showMyCoinsLoading = showMyCoinsLoading,
@@ -79,8 +76,10 @@ fun HomeScreen(
         myCoins = myCoins,
         trendingCoins = trendingCoins,
         onMyCoinsItemClick = viewModel.input::onMyCoinsItemClick,
-        onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick
-    ) { viewModel.input.loadData(isRefreshing = true) }
+        onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick,
+        onRefresh = { viewModel.input.loadData(isRefreshing = true) },
+        onTrendingCoinsLoadMore = { viewModel.input.getTrendingCoins(loadMore = true) }
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -88,13 +87,14 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenContent(
     showMyCoinsLoading: IsLoading,
-    showTrendingCoinsLoading: IsLoading,
+    showTrendingCoinsLoading: LoadingState,
     isRefreshing: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: (CoinItemUiModel) -> Unit,
-    onTrendingItemClick: (CoinItemUiModel) -> Unit,
-    onRefresh: () -> Unit
+    onMyCoinsItemClick: (CoinItemUiModel) -> Unit = {},
+    onTrendingItemClick: (CoinItemUiModel) -> Unit = {},
+    onRefresh: () -> Unit = {},
+    onTrendingCoinsLoadMore: () -> Unit = {}
 ) {
     val refreshingState = rememberPullRefreshState(
         refreshing = isRefreshing,
@@ -102,6 +102,8 @@ private fun HomeScreenContent(
         refreshThreshold = PullRefreshDefaults.RefreshThreshold,
         refreshingOffset = PullRefreshDefaults.RefreshThreshold
     )
+    val trendingCoinsLastIndex = trendingCoins.lastIndex
+    val trendingCoinsState = rememberLazyListState()
 
     Surface {
         Box(modifier = Modifier.pullRefresh(refreshingState)) {
@@ -110,7 +112,7 @@ private fun HomeScreenContent(
                     .fillMaxSize()
                     .systemBarsPadding()
             ) {
-                LazyColumn {
+                LazyColumn(state = trendingCoinsState) {
                     item {
                         Text(
                             modifier = Modifier
@@ -165,7 +167,8 @@ private fun HomeScreenContent(
                         }
                     }
 
-                    if (showTrendingCoinsLoading) {
+                    // Full section loading
+                    if (showTrendingCoinsLoading == LoadingState.Loading) {
                         item {
                             CircularProgressIndicator(
                                 modifier = Modifier
@@ -174,12 +177,17 @@ private fun HomeScreenContent(
                             )
                         }
                     } else {
-                        items(trendingCoins) { coin ->
+                        itemsIndexed(trendingCoins) { index, coin ->
+                            if (index + LIST_ITEM_LOAD_MORE_THRESHOLD >= trendingCoinsLastIndex) {
+                                SideEffect {
+                                    Timber.d("onTrendingCoinsLoadMore at index: $index, lastIndex: $trendingCoinsLastIndex")
+                                    onTrendingCoinsLoadMore.invoke()
+                                }
+                            }
+
                             Box(
                                 modifier = Modifier.padding(
-                                    start = Dp16,
-                                    end = Dp16,
-                                    bottom = Dp16
+                                    start = Dp16, end = Dp16, bottom = Dp16
                                 )
                             ) {
                                 TrendingItem(
@@ -187,6 +195,18 @@ private fun HomeScreenContent(
                                     onItemClick = { onTrendingItemClick.invoke(coin) }
                                 )
                             }
+                        }
+                    }
+
+                    // Load more loading
+                    if (showTrendingCoinsLoading == LoadingState.LoadingMore) {
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(align = Alignment.CenterHorizontally)
+                                    .padding(bottom = Dp16)
+                            )
                         }
                     }
                 }
@@ -280,14 +300,12 @@ fun HomeScreenPreview(
     with(params) {
         ComposeTheme {
             HomeScreenContent(
-                showMyCoinsLoading = isLoading,
-                showTrendingCoinsLoading = isLoading,
-                isRefreshing = isLoading,
+                showMyCoinsLoading = isMyCoinsLoading,
+                showTrendingCoinsLoading = isTrendingCoinsLoading,
+                isRefreshing = isMyCoinsLoading,
                 myCoins = myCoins,
-                trendingCoins = trendingCoins,
-                onTrendingItemClick = {},
-                onMyCoinsItemClick = {}
-            ) {}
+                trendingCoins = trendingCoins
+            )
         }
     }
 }
@@ -300,14 +318,12 @@ fun HomeScreenPreviewDark(
     with(params) {
         ComposeTheme {
             HomeScreenContent(
-                showMyCoinsLoading = isLoading,
-                showTrendingCoinsLoading = isLoading,
-                isRefreshing = isLoading,
+                showMyCoinsLoading = isMyCoinsLoading,
+                showTrendingCoinsLoading = isTrendingCoinsLoading,
+                isRefreshing = isMyCoinsLoading,
                 myCoins = myCoins,
-                trendingCoins = trendingCoins,
-                onTrendingItemClick = {},
-                onMyCoinsItemClick = {}
-            ) {}
+                trendingCoins = trendingCoins
+            )
         }
     }
 }
