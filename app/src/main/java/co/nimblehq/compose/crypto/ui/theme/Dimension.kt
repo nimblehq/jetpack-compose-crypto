@@ -20,4 +20,10 @@ object Dimension {
     val Dp45 = 45.dp
     val Dp52 = 52.dp
     val Dp60 = 60.dp
+
+    // Card shadow
+    val shadowBorderRadius = 12.dp
+    val shadowBlurRadius = 24.dp
+    val shadowOffsetY = 212.dp
+    val shadowSpread = (-6).dp
 }
