@@ -1,12 +1,12 @@
 object Versions {
     const val BUILD_GRADLE_VERSION = "7.0.4"
 
-    const val ANDROID_COMPILE_SDK_VERSION = 32
+    const val ANDROID_COMPILE_SDK_VERSION = 33
     const val ANDROID_MIN_SDK_VERSION = 23
     const val ANDROID_TARGET_SDK_VERSION = 32
 
-    const val ANDROID_VERSION_CODE = 5
-    const val ANDROID_VERSION_NAME = "0.5.0"
+    const val ANDROID_VERSION_CODE = 6
+    const val ANDROID_VERSION_NAME = "0.6.0"
 
     // Dependencies (Alphabet sorted)
     const val ANDROID_COMMON_KTX_VERSION = "0.1.1"
@@ -15,7 +15,7 @@ object Versions {
     const val ANDROIDX_LIFECYCLE_VERSION = "2.5.1"
     const val ANDROIDX_NAVIGATION_COMPOSE_VERSION = "2.5.1"
 
-    const val COMPOSE_VERSION = "1.2.0-rc01"
+    const val COMPOSE_VERSION = "1.3.0-rc01"
     const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.1"
     const val COMPOSE_CHART_VERSION = "0.1.2"
     const val COIL_VERSION = "2.0.0" // API 31
@@ -30,8 +30,8 @@ object Versions {
     const val JAVAX_INJECT_VERSION = "1"
     const val JACOCO_VERSION = "0.8.7"
 
-    const val KOTLIN_REFLECT_VERSION = "1.6.21"
-    const val KOTLIN_VERSION = "1.6.21"
+    const val KOTLIN_REFLECT_VERSION = "1.7.10"
+    const val KOTLIN_VERSION = "1.7.10"
     const val KOTLINX_COROUTINES_VERSION = "1.6.4"
 
     const val MOSHI_VERSION = "1.12.0"

@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
+import androidx.compose.material.pullrefresh.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,19 +19,28 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.extension.boxShadow
 import co.nimblehq.compose.crypto.lib.IsLoading
+import co.nimblehq.compose.crypto.ui.base.LoadingState
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp52
-import co.nimblehq.compose.crypto.ui.theme.Style
+import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBlurRadius
+import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBorderRadius
+import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowOffsetY
+import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowSpread
+import co.nimblehq.compose.crypto.ui.theme.Style.pullRefreshBackgroundColor
 import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
+import timber.log.Timber
+
+private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0
 
 @Composable
 fun HomeScreen(
@@ -38,6 +48,7 @@ fun HomeScreen(
     navigator: (destination: AppDestination) -> Unit
 ) {
     val context = LocalContext.current
+    var rememberRefreshing by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         viewModel.output.error.collect { error ->
             val message = error.userReadableMessage(context)
@@ -45,106 +56,169 @@ fun HomeScreen(
         }
     }
     LaunchedEffect(viewModel) {
-        viewModel.navigator.collect { destination -> navigator(destination) }
+        viewModel.output.navigator.collect { destination -> navigator(destination) }
+    }
+    LaunchedEffect(viewModel.showLoading) {
+        viewModel.showLoading.collect { isRefreshing ->
+            rememberRefreshing = isRefreshing
+        }
     }
 
-    val showMyCoinsLoading: IsLoading by viewModel.showMyCoinsLoading.collectAsState()
-    val showTrendingCoinsLoading: IsLoading by viewModel.showTrendingCoinsLoading.collectAsState()
-    val myCoins: List<CoinItemUiModel> by viewModel.myCoins.collectAsState()
-    val trendingCoins: List<CoinItemUiModel> by viewModel.trendingCoins.collectAsState()
+    val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
+    val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
+    val myCoins: List<CoinItemUiModel> by viewModel.output.myCoins.collectAsState()
+    val trendingCoins: List<CoinItemUiModel> by viewModel.output.trendingCoins.collectAsState()
 
     HomeScreenContent(
         showMyCoinsLoading = showMyCoinsLoading,
         showTrendingCoinsLoading = showTrendingCoinsLoading,
+        isRefreshing = rememberRefreshing,
         myCoins = myCoins,
         trendingCoins = trendingCoins,
         onMyCoinsItemClick = viewModel.input::onMyCoinsItemClick,
-        onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick
+        onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick,
+        onRefresh = { viewModel.input.loadData(isRefreshing = true) },
+        onTrendingCoinsLoadMore = { viewModel.input.getTrendingCoins(loadMore = true) }
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Suppress("LongParameterList")
 @Composable
 private fun HomeScreenContent(
     showMyCoinsLoading: IsLoading,
-    showTrendingCoinsLoading: IsLoading,
+    showTrendingCoinsLoading: LoadingState,
+    isRefreshing: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
-    onMyCoinsItemClick: (CoinItemUiModel) -> Unit,
-    onTrendingItemClick: (CoinItemUiModel) -> Unit
+    onMyCoinsItemClick: (CoinItemUiModel) -> Unit = {},
+    onTrendingItemClick: (CoinItemUiModel) -> Unit = {},
+    onRefresh: () -> Unit = {},
+    onTrendingCoinsLoadMore: () -> Unit = {}
 ) {
+    val refreshingState = rememberPullRefreshState(
+        refreshing = isRefreshing,
+        onRefresh = onRefresh,
+        refreshThreshold = PullRefreshDefaults.RefreshThreshold,
+        refreshingOffset = PullRefreshDefaults.RefreshThreshold
+    )
+    val trendingCoinsLastIndex = trendingCoins.lastIndex
+    val trendingCoinsState = rememberLazyListState()
+
     Surface {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
-        ) {
-            LazyColumn {
-                item {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = Dp16),
-                        text = stringResource(id = R.string.home_title),
-                        textAlign = TextAlign.Center,
-                        style = Style.semiBold24(),
-                        color = MaterialTheme.colors.textColor
-                    )
-                }
-
-                item {
-                    PortfolioCard(
-                        modifier = Modifier.padding(start = Dp16, top = Dp40, end = Dp16)
-                    )
-                }
-
-                item {
-                    MyCoins(
-                        showMyCoinsLoading = showMyCoinsLoading,
-                        coins = myCoins,
-                        onMyCoinsItemClick = onMyCoinsItemClick
-                    )
-                }
-
-                item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = Dp16, top = Dp24, end = Dp16, bottom = Dp16)
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.home_trending_title),
-                            style = Style.medium16(),
-                            color = MaterialTheme.colors.textColor
-                        )
-
-                        SeeAll(
-                            modifier = Modifier
-                                .align(alignment = Alignment.CenterEnd)
-                                .clickable(onClick = { /* TODO: Update on Integrate ticket */ })
-                        )
-                    }
-                }
-
-                if (showTrendingCoinsLoading) {
+        Box(modifier = Modifier.pullRefresh(refreshingState)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+            ) {
+                LazyColumn(state = trendingCoinsState) {
                     item {
-                        CircularProgressIndicator(
+                        Text(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .wrapContentWidth(align = Alignment.CenterHorizontally),
+                                .padding(top = Dp16),
+                            text = stringResource(id = R.string.home_title),
+                            textAlign = TextAlign.Center,
+                            style = Style.semiBold24(),
+                            color = MaterialTheme.colors.textColor
                         )
                     }
-                } else {
-                    items(trendingCoins) { coin ->
-                        Box(modifier = Modifier.padding(start = Dp16, end = Dp16, bottom = Dp16)) {
-                            TrendingItem(
-                                coinItem = coin,
-                                onItemClick = { onTrendingItemClick.invoke(coin) }
+
+                    item {
+                        PortfolioCard(
+                            modifier = Modifier
+                                .padding(start = Dp16, top = Dp40, end = Dp16)
+                                .boxShadow(
+                                    color = Color.TiffanyBlue,
+                                    borderRadius = shadowBorderRadius,
+                                    blurRadius = shadowBlurRadius,
+                                    offsetY = shadowOffsetY,
+                                    spread = shadowSpread
+                                )
+                        )
+                    }
+
+                    item {
+                        MyCoins(
+                            showMyCoinsLoading = showMyCoinsLoading,
+                            coins = myCoins,
+                            onMyCoinsItemClick = onMyCoinsItemClick
+                        )
+                    }
+
+                    item {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = Dp16, top = Dp24, end = Dp16, bottom = Dp16)
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.home_trending_title),
+                                style = Style.medium16(),
+                                color = MaterialTheme.colors.textColor
+                            )
+
+                            SeeAll(
+                                modifier = Modifier
+                                    .align(alignment = Alignment.CenterEnd)
+                                    .clickable(onClick = { /* TODO: Update on Integrate ticket */ })
+                            )
+                        }
+                    }
+
+                    // Full section loading
+                    if (showTrendingCoinsLoading == LoadingState.Loading) {
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(align = Alignment.CenterHorizontally),
+                            )
+                        }
+                    } else {
+                        itemsIndexed(trendingCoins) { index, coin ->
+                            if (index + LIST_ITEM_LOAD_MORE_THRESHOLD >= trendingCoinsLastIndex) {
+                                SideEffect {
+                                    Timber.d("onTrendingCoinsLoadMore at index: $index, lastIndex: $trendingCoinsLastIndex")
+                                    onTrendingCoinsLoadMore.invoke()
+                                }
+                            }
+
+                            Box(
+                                modifier = Modifier.padding(
+                                    start = Dp16, end = Dp16, bottom = Dp16
+                                )
+                            ) {
+                                TrendingItem(
+                                    coinItem = coin,
+                                    onItemClick = { onTrendingItemClick.invoke(coin) }
+                                )
+                            }
+                        }
+                    }
+
+                    // Load more loading
+                    if (showTrendingCoinsLoading == LoadingState.LoadingMore) {
+                        item {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentWidth(align = Alignment.CenterHorizontally)
+                                    .padding(bottom = Dp16)
                             )
                         }
                     }
                 }
             }
+
+            PullRefreshIndicator(
+                refreshing = isRefreshing,
+                state = refreshingState,
+                modifier = Modifier.align(alignment = Alignment.TopCenter),
+                backgroundColor = MaterialTheme.colors.pullRefreshBackgroundColor,
+                contentColor = Color.CaribbeanGreen
+            )
         }
     }
 }
@@ -226,12 +300,11 @@ fun HomeScreenPreview(
     with(params) {
         ComposeTheme {
             HomeScreenContent(
-                showMyCoinsLoading = isLoading,
-                showTrendingCoinsLoading = isLoading,
+                showMyCoinsLoading = isMyCoinsLoading,
+                showTrendingCoinsLoading = isTrendingCoinsLoading,
+                isRefreshing = isMyCoinsLoading,
                 myCoins = myCoins,
-                trendingCoins = trendingCoins,
-                onTrendingItemClick = {},
-                onMyCoinsItemClick = {}
+                trendingCoins = trendingCoins
             )
         }
     }
@@ -245,12 +318,11 @@ fun HomeScreenPreviewDark(
     with(params) {
         ComposeTheme {
             HomeScreenContent(
-                showMyCoinsLoading = isLoading,
-                showTrendingCoinsLoading = isLoading,
+                showMyCoinsLoading = isMyCoinsLoading,
+                showTrendingCoinsLoading = isTrendingCoinsLoading,
+                isRefreshing = isMyCoinsLoading,
                 myCoins = myCoins,
-                trendingCoins = trendingCoins,
-                onTrendingItemClick = {},
-                onMyCoinsItemClick = {}
+                trendingCoins = trendingCoins
             )
         }
     }
