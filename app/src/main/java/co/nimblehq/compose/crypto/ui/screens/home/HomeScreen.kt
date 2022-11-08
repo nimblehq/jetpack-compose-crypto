@@ -204,7 +204,8 @@ private fun HomeScreenContent(
                             CircularProgressIndicator(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .wrapContentWidth(align = Alignment.CenterHorizontally),
+                                    .wrapContentWidth(align = Alignment.CenterHorizontally)
+                                    .padding(bottom = Dp16)
                             )
                         }
                     }
