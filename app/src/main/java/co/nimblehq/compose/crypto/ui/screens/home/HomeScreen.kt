@@ -1,6 +1,5 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.widget.Toast
@@ -81,7 +80,7 @@ fun HomeScreen(
         trendingCoins = trendingCoins,
         onMyCoinsItemClick = viewModel.input::onMyCoinsItemClick,
         onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick
-    ) { viewModel.loadData(isRefreshing = true) }
+    ) { viewModel.input.loadData(isRefreshing = true) }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -95,11 +94,11 @@ private fun HomeScreenContent(
     trendingCoins: List<CoinItemUiModel>,
     onMyCoinsItemClick: (CoinItemUiModel) -> Unit,
     onTrendingItemClick: (CoinItemUiModel) -> Unit,
-    onRefreshing: () -> Unit
+    onRefresh: () -> Unit
 ) {
     val refreshingState = rememberPullRefreshState(
         refreshing = isRefreshing,
-        onRefresh = onRefreshing,
+        onRefresh = onRefresh,
         refreshThreshold = PullRefreshDefaults.RefreshThreshold,
         refreshingOffset = PullRefreshDefaults.RefreshThreshold
     )
@@ -273,7 +272,6 @@ private fun MyCoins(
     }
 }
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
 fun HomeScreenPreview(
@@ -294,7 +292,6 @@ fun HomeScreenPreview(
     }
 }
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 @Preview(showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
 fun HomeScreenPreviewDark(

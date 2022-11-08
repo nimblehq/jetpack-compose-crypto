@@ -24,6 +24,8 @@ private const val MY_COINS_INITIAL_PAGE = 1
 
 interface Input : BaseInput {
 
+    fun loadData(isRefreshing: Boolean)
+
     fun onMyCoinsItemClick(coin: CoinItemUiModel)
 
     fun onTrendingCoinsItemClick(coin: CoinItemUiModel)
@@ -63,10 +65,10 @@ class HomeViewModel @Inject constructor(
         get() = _trendingCoins
 
     init {
-        loadData()
+        loadData(isRefreshing = false)
     }
 
-    fun loadData(isRefreshing: Boolean = false) {
+    override fun loadData(isRefreshing: Boolean) {
         getMyCoins(isRefreshing)
         getTrendingCoins(isRefreshing)
     }
