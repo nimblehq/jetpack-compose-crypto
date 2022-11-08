@@ -3,13 +3,17 @@ package co.nimblehq.compose.crypto.ui.screens.home
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.lib.IsLoading
-import co.nimblehq.compose.crypto.ui.base.*
+import co.nimblehq.compose.crypto.ui.base.BaseInput
+import co.nimblehq.compose.crypto.ui.base.BaseOutput
+import co.nimblehq.compose.crypto.ui.base.BaseViewModel
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import co.nimblehq.compose.crypto.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 
 const val FIAT_CURRENCY = "usd"
@@ -19,6 +23,8 @@ private const val MY_COINS_ITEM_PER_PAGE = 10
 private const val MY_COINS_INITIAL_PAGE = 1
 
 interface Input : BaseInput {
+
+    fun loadData(isRefreshing: Boolean)
 
     fun onMyCoinsItemClick(coin: CoinItemUiModel)
 
@@ -59,12 +65,16 @@ class HomeViewModel @Inject constructor(
         get() = _trendingCoins
 
     init {
-        getMyCoins()
-        getTrendingCoins()
+        loadData(isRefreshing = false)
     }
 
-    private fun getMyCoins() = execute {
-        _showMyCoinsLoading.value = true
+    override fun loadData(isRefreshing: Boolean) {
+        getMyCoins(isRefreshing)
+        getTrendingCoins(isRefreshing)
+    }
+
+    private fun getMyCoins(isRefreshing: Boolean) = execute {
+        if (isRefreshing) showLoading() else _showMyCoinsLoading.value = true
         getMyCoinsUseCase.execute(
             GetMyCoinsUseCase.Input(
                 currency = FIAT_CURRENCY,
@@ -80,11 +90,11 @@ class HomeViewModel @Inject constructor(
             .collect { coins ->
                 _myCoins.emit(coins.map { it.toUiModel() })
             }
-        _showMyCoinsLoading.value = false
+        if (isRefreshing) hideLoading() else _showMyCoinsLoading.value = false
     }
 
-    private fun getTrendingCoins() = execute {
-        _showTrendingCoinsLoading.value = true
+    private fun getTrendingCoins(isRefreshing: Boolean) = execute {
+        if (isRefreshing) showLoading() else _showTrendingCoinsLoading.value = true
         getTrendingCoinsUseCase.execute(
             GetTrendingCoinsUseCase.Input(
                 currency = FIAT_CURRENCY,
@@ -100,7 +110,7 @@ class HomeViewModel @Inject constructor(
             .collect { coins ->
                 _trendingCoins.emit(coins.map { it.toUiModel() })
             }
-        _showTrendingCoinsLoading.value = false
+        if (isRefreshing) hideLoading() else _showTrendingCoinsLoading.value = false
     }
 
     override fun onMyCoinsItemClick(coin: CoinItemUiModel) {
