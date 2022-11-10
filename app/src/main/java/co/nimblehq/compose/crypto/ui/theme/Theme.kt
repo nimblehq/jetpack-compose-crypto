@@ -23,7 +23,7 @@ fun ComposeTheme(
     ) {
         MaterialTheme(
             colors = colors.themeColors,
-            shapes = Shape.ComposeShapes,
+            shapes = ComposeShapes,
             content = content
         )
     }
