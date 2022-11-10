@@ -13,10 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.theme.Color.FireOpal
-import co.nimblehq.compose.crypto.ui.theme.Color.GuppieGreen
-import co.nimblehq.compose.crypto.ui.theme.Color.Water
-import co.nimblehq.compose.crypto.ui.theme.Color.WhiteIce
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9

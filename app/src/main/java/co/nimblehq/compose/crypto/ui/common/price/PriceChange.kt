@@ -38,7 +38,7 @@ fun PriceChange(
             } else {
                 painterResource(id = R.drawable.ic_fire_opal_arrow_down)
             },
-            tint = if (isPositiveNumber) Color.GuppieGreen else Color.FireOpal,
+            tint = if (isPositiveNumber) GuppieGreen else FireOpal,
             contentDescription = null
         )
 
@@ -48,7 +48,7 @@ fun PriceChange(
                 abs(priceChangePercentage24hInCurrency).toFormattedString()
             ),
             style = if (displayForDetailPage) Style.medium14() else Style.medium16(),
-            color = if (isPositiveNumber) Color.GuppieGreen else Color.FireOpal
+            color = if (isPositiveNumber) GuppieGreen else FireOpal
         )
     }
 }

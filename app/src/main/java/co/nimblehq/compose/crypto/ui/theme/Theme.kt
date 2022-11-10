@@ -4,8 +4,6 @@ package co.nimblehq.compose.crypto.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import co.nimblehq.compose.crypto.ui.theme.Color.DarkJungleGreen
-import co.nimblehq.compose.crypto.ui.theme.Color.Guyabano
 
 object Palette {
     val ComposeLightPalette = lightColors(

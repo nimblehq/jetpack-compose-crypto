@@ -130,7 +130,7 @@ private fun HomeScreenContent(
                             modifier = Modifier
                                 .padding(start = Dp16, top = Dp40, end = Dp16)
                                 .boxShadow(
-                                    color = Color.TiffanyBlue,
+                                    color = TiffanyBlue,
                                     borderRadius = shadowBorderRadius,
                                     blurRadius = shadowBlurRadius,
                                     offsetY = shadowOffsetY,
@@ -217,7 +217,7 @@ private fun HomeScreenContent(
                 state = refreshingState,
                 modifier = Modifier.align(alignment = Alignment.TopCenter),
                 backgroundColor = MaterialTheme.colors.pullRefreshBackgroundColor,
-                contentColor = Color.CaribbeanGreen
+                contentColor = CaribbeanGreen
             )
         }
     }
