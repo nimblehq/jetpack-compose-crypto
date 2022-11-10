@@ -13,9 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9
 import kotlin.math.abs
 
 @Composable
@@ -34,8 +31,8 @@ fun PriceChangeButton(
             contentColor = if (isPositiveNumber)
                 AppTheme.colors.priceTextPositive else AppTheme.colors.priceTextNegative
         ),
-        shape = RoundedCornerShape(Dimension.Dp20),
-        contentPadding = PaddingValues(start = Dp13, end = Dimension.Dp8),
+        shape = RoundedCornerShape(Dp20),
+        contentPadding = PaddingValues(start = Dp13, end = Dp8),
         elevation = ButtonDefaults.elevation(defaultElevation = Dp0, pressedElevation = Dp0),
         onClick = { /* TODO */ },
     ) {

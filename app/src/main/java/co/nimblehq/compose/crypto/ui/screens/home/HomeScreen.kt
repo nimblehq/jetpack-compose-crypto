@@ -26,10 +26,6 @@ import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp52
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBlurRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBorderRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowOffsetY

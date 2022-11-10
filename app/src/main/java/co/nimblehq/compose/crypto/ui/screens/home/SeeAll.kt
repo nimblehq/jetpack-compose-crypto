@@ -12,8 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp14
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 
 @Composable
 fun SeeAll(
