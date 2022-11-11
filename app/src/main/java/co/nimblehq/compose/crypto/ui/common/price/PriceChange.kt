@@ -45,7 +45,7 @@ fun PriceChange(
                 R.string.coin_profit_percent,
                 abs(priceChangePercentage24hInCurrency).toFormattedString()
             ),
-            style = if (displayForDetailPage) Style.medium14() else Style.medium16(),
+            style = if (displayForDetailPage) AppTheme.styles.medium14 else AppTheme.styles.medium16,
             color = if (isPositiveNumber) AppTheme.colors.priceTextPositive else AppTheme.colors.priceTextNegative
         )
     }

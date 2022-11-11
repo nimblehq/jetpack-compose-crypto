@@ -65,7 +65,7 @@ fun TrendingItem(
                 },
             text = coinItem.symbol.uppercase(),
             color = AppTheme.colors.text,
-            style = Style.semiBold16()
+            style = AppTheme.styles.semiBold16
         )
 
         Text(
@@ -78,7 +78,7 @@ fun TrendingItem(
                 },
             text = coinItem.coinName,
             color = AppTheme.colors.coinNameText,
-            style = Style.medium14()
+            style = AppTheme.styles.medium14
         )
 
         PriceChange(

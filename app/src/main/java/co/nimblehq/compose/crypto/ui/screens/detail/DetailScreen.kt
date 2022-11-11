@@ -144,7 +144,7 @@ private fun DetailScreenContent(
                         coinDetailUiModel.currentPrice.toFormattedString()
                     ),
                     color = AppTheme.colors.text,
-                    style = Style.semiBold24()
+                    style = AppTheme.styles.semiBold24
                 )
 
                 PriceChangeButton(

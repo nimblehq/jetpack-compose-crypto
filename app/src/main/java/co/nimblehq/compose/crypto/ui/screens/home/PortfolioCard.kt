@@ -45,7 +45,7 @@ fun PortfolioCard(
                     start.linkTo(parent.start)
                 },
             text = stringResource(R.string.portfolio_card_total_coin_label),
-            style = Style.lightSilverMedium16()
+            style = AppTheme.styles.lightSilverMedium16
         )
 
         Text(
@@ -55,7 +55,7 @@ fun PortfolioCard(
                 },
             // TODO: Remove dummy value when work on Integrate.
             text = stringResource(R.string.coin_currency, "7,273,291"),
-            style = Style.whiteSemiBold24()
+            style = AppTheme.styles.whiteSemiBold24
         )
 
         Text(
@@ -64,7 +64,7 @@ fun PortfolioCard(
                     top.linkTo(totalCoins.bottom, margin = Dp40)
                 },
             text = stringResource(R.string.portfolio_card_today_profit_label),
-            style = Style.lightSilverMedium16()
+            style = AppTheme.styles.lightSilverMedium16
         )
 
         Text(
@@ -74,7 +74,7 @@ fun PortfolioCard(
                 },
             // TODO: Remove dummy value when work on Integrate.
             text = stringResource(R.string.coin_currency, "193,280"),
-            style = Style.whiteSemiBold24()
+            style = AppTheme.styles.whiteSemiBold24
         )
 
         PriceChangeButton(

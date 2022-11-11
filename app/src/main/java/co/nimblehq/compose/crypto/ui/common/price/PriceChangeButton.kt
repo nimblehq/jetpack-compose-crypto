@@ -53,7 +53,7 @@ fun PriceChangeButton(
                 R.string.coin_profit_percent,
                 abs(priceChangePercent).toFormattedString()
             ),
-            style = Style.medium16()
+            style = AppTheme.styles.medium16
         )
     }
 }

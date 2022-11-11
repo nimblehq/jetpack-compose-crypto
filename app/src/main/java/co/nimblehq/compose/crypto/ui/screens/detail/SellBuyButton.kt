@@ -32,7 +32,7 @@ fun SellBuyButton(
     ) {
         Text(
             text = text,
-            style = Style.medium14()
+            style = AppTheme.styles.medium14
         )
     }
 }

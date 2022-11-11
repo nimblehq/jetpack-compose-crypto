@@ -21,7 +21,7 @@ fun SeeAll(
         Text(
             modifier = Modifier.padding(end = Dp8),
             text = stringResource(id = R.string.home_see_all),
-            style = Style.tiffanyBlueMedium14()
+            style = AppTheme.styles.tiffanyBlueMedium14
         )
         Icon(
             modifier = Modifier

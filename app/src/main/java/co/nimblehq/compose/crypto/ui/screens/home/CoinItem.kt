@@ -63,7 +63,7 @@ fun CoinItem(
                 },
             text = coinItem.symbol.uppercase(),
             color = AppTheme.colors.text,
-            style = Style.semiBold16()
+            style = AppTheme.styles.semiBold16
         )
 
         Text(
@@ -76,7 +76,7 @@ fun CoinItem(
                 },
             text = coinItem.coinName,
             color = AppTheme.colors.coinNameText,
-            style = Style.medium14()
+            style = AppTheme.styles.medium14
         )
 
         Text(
@@ -91,7 +91,7 @@ fun CoinItem(
                 coinItem.currentPrice.toFormattedString()
             ),
             color = AppTheme.colors.text,
-            style = Style.semiBold16()
+            style = AppTheme.styles.semiBold16
         )
 
         PriceChange(

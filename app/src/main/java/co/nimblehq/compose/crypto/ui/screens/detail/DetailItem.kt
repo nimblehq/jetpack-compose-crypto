@@ -38,7 +38,7 @@ fun DetailItem(
                 },
             text = title,
             color = AppTheme.colors.coinNameText,
-            style = Style.medium12()
+            style = AppTheme.styles.medium12
         )
 
         Text(
@@ -51,7 +51,7 @@ fun DetailItem(
                 },
             text = stringResource(R.string.coin_currency, price),
             color = AppTheme.colors.text,
-            style = Style.medium16()
+            style = AppTheme.styles.medium16
         )
 
         PriceChange(
