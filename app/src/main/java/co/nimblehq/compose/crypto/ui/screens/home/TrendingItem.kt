@@ -2,14 +2,9 @@ package co.nimblehq.compose.crypto.ui.screens.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,16 +15,12 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp6
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
-import co.nimblehq.compose.crypto.ui.theme.Style
-import co.nimblehq.compose.crypto.ui.theme.Style.coinItemColor
-import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
-import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
 
@@ -44,7 +35,7 @@ fun TrendingItem(
             .fillMaxWidth()
             .clip(RoundedCornerShape(Dp12))
             .clickable { onItemClick.invoke() }
-            .background(color = MaterialTheme.colors.coinItemColor)
+            .background(color = AppTheme.colors.coinItemColor)
             .padding(Dp8)
     ) {
         val (
@@ -78,7 +69,7 @@ fun TrendingItem(
                     start.linkTo(anchor = logo.end, margin = Dp16)
                 },
             text = coinItem.symbol.uppercase(),
-            color = MaterialTheme.colors.textColor,
+            color = AppTheme.colors.textColor,
             style = Style.semiBold16()
         )
 
@@ -91,7 +82,7 @@ fun TrendingItem(
                     width = Dimension.preferredWrapContent
                 },
             text = coinItem.coinName,
-            color = MaterialTheme.colors.coinNameColor,
+            color = AppTheme.colors.coinNameColor,
             style = Style.medium14()
         )
 

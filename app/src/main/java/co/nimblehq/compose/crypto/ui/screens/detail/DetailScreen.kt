@@ -38,7 +38,6 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
-import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 import coil.compose.rememberAsyncImagePainter
@@ -150,7 +149,7 @@ private fun DetailScreenContent(
                         R.string.coin_currency,
                         coinDetailUiModel.currentPrice.toFormattedString()
                     ),
-                    color = MaterialTheme.colors.textColor,
+                    color = AppTheme.colors.textColor,
                     style = Style.semiBold24()
                 )
 

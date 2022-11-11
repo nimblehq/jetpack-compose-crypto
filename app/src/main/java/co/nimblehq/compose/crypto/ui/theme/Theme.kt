@@ -3,17 +3,7 @@ package co.nimblehq.compose.crypto.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-
-object Palette {
-    val ComposeLightPalette = lightColors(
-        surface = Guyabano,
-    )
-
-    val ComposeDarkPalette = darkColors(
-        surface = DarkJungleGreen
-    )
-}
+import androidx.compose.runtime.*
 
 @Composable
 fun ComposeTheme(
@@ -21,14 +11,38 @@ fun ComposeTheme(
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
-        Palette.ComposeDarkPalette
+        DarkColorPalette
     } else {
-        Palette.ComposeLightPalette
+        LightColorPalette
     }
 
-    MaterialTheme(
-        colors = colors,
-        shapes = Shape.ComposeShapes,
-        content = content
-    )
+    CompositionLocalProvider(LocalColors provides colors) {
+        MaterialTheme(
+            colors = colors.themeColors,
+            shapes = Shape.ComposeShapes,
+            content = content
+        )
+    }
+}
+
+/**
+ * Alternate to [MaterialTheme] allowing us to add our own theme systems
+ * or to extend [MaterialTheme]'s types e.g. return our own [Colors] extension.
+ */
+object AppTheme {
+
+    val colors: AppColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalColors.current
+
+    val typography: Typography
+        @Composable
+        @ReadOnlyComposable
+        get() = MaterialTheme.typography
+
+    val shapes: Shapes
+        @Composable
+        @ReadOnlyComposable
+        get() = MaterialTheme.shapes
 }
