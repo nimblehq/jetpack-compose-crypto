@@ -24,11 +24,3 @@ val Sp12 = 12.sp
 val Sp14 = 14.sp
 val Sp16 = 16.sp
 val Sp24 = 24.sp
-
-object Dimension {
-    // Card shadow
-    val shadowBorderRadius = 12.dp
-    val shadowBlurRadius = 24.dp
-    val shadowOffsetY = 212.dp
-    val shadowSpread = (-6).dp
-}
