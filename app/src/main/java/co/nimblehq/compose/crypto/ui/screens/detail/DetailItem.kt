@@ -38,7 +38,7 @@ fun DetailItem(
                     start.linkTo(parent.start)
                 },
             text = title,
-            color = AppTheme.colors.coinNameColor,
+            color = AppTheme.colors.coinNameText,
             style = Style.medium12()
         )
 
@@ -51,7 +51,7 @@ fun DetailItem(
                     width = Dimension.preferredWrapContent
                 },
             text = stringResource(R.string.coin_currency, price),
-            color = AppTheme.colors.textColor,
+            color = AppTheme.colors.text,
             style = Style.medium16()
         )
 

@@ -3,10 +3,8 @@ package co.nimblehq.compose.crypto.ui.components.linechart
 import android.graphics.Paint
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.graphics.Canvas
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import me.bytebeats.views.charts.AxisLabelFormatter
@@ -17,7 +15,8 @@ private const val Y_OFFSET = 20f
 @Suppress("MagicNumber")
 data class CoinPriceLabelDrawer(
     val labelTextSize: TextUnit = 12.sp,
-    val labelTextColors: Pair<Color, Color> = Color.White to Color.Black,
+    val labelTextColorLowest: Color = Color.White,
+    val labelTextColorHighest: Color = Color.Black,
     val axisLabelFormatter: AxisLabelFormatter = { value -> "$value" }
 ) : ILabelDrawer {
     private val mLabelTextArea: Float? = null
@@ -25,14 +24,14 @@ data class CoinPriceLabelDrawer(
     private val mPaintLowest by lazy {
         Paint().apply {
             textAlign = Paint.Align.CENTER
-            color = labelTextColors.first.toLegacyInt()
+            color = labelTextColorLowest.toLegacyInt()
         }
     }
 
     private val mPaintHighest by lazy {
         Paint().apply {
             textAlign = Paint.Align.CENTER
-            color = labelTextColors.second.toLegacyInt()
+            color = labelTextColorHighest.toLegacyInt()
         }
     }
 

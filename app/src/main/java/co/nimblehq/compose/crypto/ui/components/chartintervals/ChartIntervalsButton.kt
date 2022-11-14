@@ -10,12 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import co.nimblehq.compose.crypto.ui.theme.*
+import co.nimblehq.compose.crypto.ui.theme.AppTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp14
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp45
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
+import co.nimblehq.compose.crypto.ui.theme.Style
 
 @Composable
 fun ChartIntervalsButtonGroup(
@@ -31,15 +32,15 @@ fun ChartIntervalsButtonGroup(
 
         TimeIntervals.values().forEachIndexed { index, interval ->
             val backgroundColor = if (selectedColor.value == index) {
-                CaribbeanGreen
+                AppTheme.colors.coinChartTimeIntervalBackgroundSelected
             } else {
-                Transparent
+                AppTheme.colors.coinChartTimeIntervalBackground
             }
 
             val textColor = if (selectedColor.value == index) {
-                White
+                AppTheme.colors.coinChartTimeIntervalTextSelected
             } else {
-                OsloGray
+                AppTheme.colors.coinChartTimeIntervalText
             }
 
             ChartIntervalsButton(

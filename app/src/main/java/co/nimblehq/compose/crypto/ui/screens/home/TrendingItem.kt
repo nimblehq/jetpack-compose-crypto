@@ -35,7 +35,7 @@ fun TrendingItem(
             .fillMaxWidth()
             .clip(RoundedCornerShape(Dp12))
             .clickable { onItemClick.invoke() }
-            .background(color = AppTheme.colors.coinItemColor)
+            .background(color = AppTheme.colors.coinItemBackground)
             .padding(Dp8)
     ) {
         val (
@@ -69,7 +69,7 @@ fun TrendingItem(
                     start.linkTo(anchor = logo.end, margin = Dp16)
                 },
             text = coinItem.symbol.uppercase(),
-            color = AppTheme.colors.textColor,
+            color = AppTheme.colors.text,
             style = Style.semiBold16()
         )
 
@@ -82,7 +82,7 @@ fun TrendingItem(
                     width = Dimension.preferredWrapContent
                 },
             text = coinItem.coinName,
-            color = AppTheme.colors.coinNameColor,
+            color = AppTheme.colors.coinNameText,
             style = Style.medium14()
         )
 

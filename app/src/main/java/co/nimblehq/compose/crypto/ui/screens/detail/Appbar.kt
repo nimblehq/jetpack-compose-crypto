@@ -25,7 +25,7 @@ fun Appbar(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
-                tint = AppTheme.colors.coinInfoAppBarIconColor,
+                tint = AppTheme.colors.coinInfoAppBarIconTint,
                 contentDescription = null
             )
         }
@@ -34,7 +34,7 @@ fun Appbar(
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = title,
-                color = AppTheme.colors.textColor,
+                color = AppTheme.colors.text,
                 style = Style.medium16()
             )
         }
@@ -46,7 +46,7 @@ fun Appbar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_heart),
-                    tint = AppTheme.colors.coinInfoAppBarIconColor,
+                    tint = AppTheme.colors.coinInfoAppBarIconTint,
                     contentDescription = null
                 )
             }

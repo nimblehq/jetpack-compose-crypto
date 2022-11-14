@@ -23,7 +23,7 @@ fun SellBuyButton(
         modifier = modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,
-            contentColor = White
+            contentColor = AppTheme.colors.coinInfoSellBuyText
         ),
         shape = RoundedCornerShape(Dp12),
         elevation = ButtonDefaults.elevation(
@@ -46,7 +46,7 @@ fun SellBuyButtonPreview() {
     ComposeTheme {
         SellBuyButton(
             modifier = Modifier,
-            backgroundColor = FireOpal,
+            backgroundColor = AppTheme.colors.buttonRedBackground,
             text = "Sell"
         )
     }

@@ -10,36 +10,56 @@ import androidx.compose.ui.graphics.Color
 data class AppColors(
     val themeColors: Colors,
 
-    val textColor: Color,
-    val coinItemColor: Color,
-    val coinNameColor: Color,
+    val coinChartLineDrawer: Color = CaribbeanGreen,
+    val coinChartLineShaderGradient: List<Color> = listOf(CaribbeanGreenAlpha30, Transparent),
+    val coinChartTimeIntervalBackground: Color = Transparent,
+    val coinChartTimeIntervalBackgroundSelected: Color = CaribbeanGreen,
+    val coinChartTimeIntervalText: Color = OsloGray,
+    val coinChartTimeIntervalTextSelected: Color = White,
+    val coinInfoAppBarIconTint: Color,
     val coinInfoSellBuyBackground: Color,
-    val coinInfoAppBarIconColor: Color,
-    val pullRefreshBackgroundColor: Color
+    val coinInfoSellBuyText: Color = White,
+    val coinItemBackground: Color,
+    val coinNameText: Color,
+
+    val buttonBlueBackground: Color = TiffanyBlue,
+    val buttonRedBackground: Color = FireOpal,
+
+    val portfolioCardBackgroundGradient: List<Color> = listOf(MetallicSeaweed, TiffanyBlue),
+    val portfolioCardShadow: Color = TiffanyBlue,
+    val priceChangeButtonBackground: Color = Water,
+    val priceChangeButtonBackgroundInDetail: Color = WhiteIce,
+    val priceTextNegative: Color = FireOpal,
+    val priceTextPositive: Color = GuppieGreen,
+    val pullRefreshBackground: Color,
+    val pullRefreshContent: Color = CaribbeanGreen,
+
+    val text: Color,
+    val textSectionLink: Color = TiffanyBlue,
 )
 
 internal val LightColorPalette = AppColors(
     themeColors = lightColors(
         surface = Guyabano,
     ),
-    textColor = DarkJungleGreen,
-    coinItemColor = White,
-    coinNameColor = SonicSilver,
+    coinInfoAppBarIconTint = Quartz,
     coinInfoSellBuyBackground = White,
-    coinInfoAppBarIconColor = Quartz,
-    pullRefreshBackgroundColor = White
+    coinItemBackground = White,
+    coinNameText = SonicSilver,
+    pullRefreshBackground = White,
+    text = DarkJungleGreen
 )
 
 internal val DarkColorPalette = AppColors(
     themeColors = darkColors(
         surface = DarkJungleGreen
     ),
-    textColor = White,
-    coinItemColor = QuartzAlpha20,
-    coinNameColor = LightSilver,
+    coinInfoAppBarIconTint = White,
     coinInfoSellBuyBackground = DarkJungleGreen,
-    coinInfoAppBarIconColor = White,
-    pullRefreshBackgroundColor = DarkJungleGreen
+    coinItemBackground = QuartzAlpha20,
+    coinNameText = LightSilver,
+    pullRefreshBackground = DarkJungleGreen,
+    text = White
 )
 
 internal val LocalColors = staticCompositionLocalOf { LightColorPalette }

@@ -119,7 +119,7 @@ private fun HomeScreenContent(
                             text = stringResource(id = R.string.home_title),
                             textAlign = TextAlign.Center,
                             style = Style.semiBold24(),
-                            color = AppTheme.colors.textColor
+                            color = AppTheme.colors.text
                         )
                     }
 
@@ -128,7 +128,7 @@ private fun HomeScreenContent(
                             modifier = Modifier
                                 .padding(start = Dp16, top = Dp40, end = Dp16)
                                 .boxShadow(
-                                    color = TiffanyBlue,
+                                    color = AppTheme.colors.portfolioCardShadow,
                                     borderRadius = shadowBorderRadius,
                                     blurRadius = shadowBlurRadius,
                                     offsetY = shadowOffsetY,
@@ -154,7 +154,7 @@ private fun HomeScreenContent(
                             Text(
                                 text = stringResource(id = R.string.home_trending_title),
                                 style = Style.medium16(),
-                                color = AppTheme.colors.textColor
+                                color = AppTheme.colors.text
                             )
 
                             SeeAll(
@@ -214,8 +214,8 @@ private fun HomeScreenContent(
                 refreshing = isRefreshing,
                 state = refreshingState,
                 modifier = Modifier.align(alignment = Alignment.TopCenter),
-                backgroundColor = AppTheme.colors.pullRefreshBackgroundColor,
-                contentColor = CaribbeanGreen
+                backgroundColor = AppTheme.colors.pullRefreshBackground,
+                contentColor = AppTheme.colors.pullRefreshContent
             )
         }
     }
@@ -248,7 +248,7 @@ private fun MyCoins(
                 .padding(start = Dp16),
             text = stringResource(id = R.string.home_my_coins_title),
             style = Style.medium16(),
-            color = AppTheme.colors.textColor
+            color = AppTheme.colors.text
         )
 
         SeeAll(

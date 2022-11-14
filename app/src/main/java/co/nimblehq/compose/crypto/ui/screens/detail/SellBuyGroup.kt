@@ -7,7 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.theme.*
+import co.nimblehq.compose.crypto.ui.theme.AppTheme
+import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp20
@@ -27,7 +28,7 @@ fun SellBuyGroup(
             modifier = Modifier
                 .weight(1f)
                 .padding(end = Dp12),
-            backgroundColor = FireOpal,
+            backgroundColor = AppTheme.colors.buttonRedBackground,
             text = stringResource(id = R.string.coin_info_sell_button)
         )
 
@@ -35,7 +36,7 @@ fun SellBuyGroup(
             modifier = Modifier
                 .weight(1f)
                 .padding(start = Dp12),
-            backgroundColor = TiffanyBlue,
+            backgroundColor = AppTheme.colors.buttonBlueBackground,
             text = stringResource(id = R.string.coin_info_buy_button)
         )
     }

@@ -149,7 +149,7 @@ private fun DetailScreenContent(
                         R.string.coin_currency,
                         coinDetailUiModel.currentPrice.toFormattedString()
                     ),
-                    color = AppTheme.colors.textColor,
+                    color = AppTheme.colors.text,
                     style = Style.semiBold24()
                 )
 
@@ -182,14 +182,13 @@ private fun DetailScreenContent(
                     ),
                     animation = simpleChartAnimation(),
                     pointDrawer = EmptyPointDrawer,
-                    lineDrawer = SolidLineDrawer(thickness = 2.dp, color = CaribbeanGreen),
+                    lineDrawer = SolidLineDrawer(thickness = 2.dp, color = AppTheme.colors.coinChartLineDrawer),
                     lineShader = GradientLineShader(
-                        colors = listOf(
-                            CaribbeanGreenAlpha30, Transparent
-                        )
+                        colors = AppTheme.colors.coinChartLineShaderGradient
                     ),
                     labelDrawer = CoinPriceLabelDrawer(
-                        labelTextColors = FireOpal to GuppieGreen
+                        labelTextColorLowest = AppTheme.colors.priceTextNegative,
+                        labelTextColorHighest = AppTheme.colors.priceTextPositive
                     ),
                     horizontalOffset = 0f
                 )

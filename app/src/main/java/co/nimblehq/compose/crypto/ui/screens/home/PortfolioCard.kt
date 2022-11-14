@@ -30,7 +30,7 @@ fun PortfolioCard(
             .clip(RoundedCornerShape(Dp12))
             .background(
                 brush = Brush.linearGradient(
-                    colors = listOf(MetallicSeaweed, TiffanyBlue),
+                    colors = AppTheme.colors.portfolioCardBackgroundGradient,
                 )
             )
             .padding(horizontal = Dp16, vertical = Dp16)

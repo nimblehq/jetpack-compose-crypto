@@ -30,7 +30,7 @@ fun SeeAll(
                 .size(Dp14)
                 .align(Alignment.CenterVertically),
             imageVector = Icons.Filled.ArrowForward,
-            tint = TiffanyBlue,
+            tint = AppTheme.colors.textSectionLink,
             contentDescription = null
         )
     }
