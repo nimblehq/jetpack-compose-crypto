@@ -2,7 +2,8 @@ package co.nimblehq.compose.crypto.ui.screens.detail
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -11,11 +12,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.common.price.PriceChange
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
-import co.nimblehq.compose.crypto.ui.theme.Style
-import co.nimblehq.compose.crypto.ui.theme.Style.coinNameColor
-import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 
 @Composable
 fun DetailItem(
@@ -40,7 +38,7 @@ fun DetailItem(
                     start.linkTo(parent.start)
                 },
             text = title,
-            color = MaterialTheme.colors.coinNameColor,
+            color = AppTheme.colors.coinNameText,
             style = Style.medium12()
         )
 
@@ -53,7 +51,7 @@ fun DetailItem(
                     width = Dimension.preferredWrapContent
                 },
             text = stringResource(R.string.coin_currency, price),
-            color = MaterialTheme.colors.textColor,
+            color = AppTheme.colors.text,
             style = Style.medium16()
         )
 

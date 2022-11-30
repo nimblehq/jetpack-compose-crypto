@@ -9,10 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
-import co.nimblehq.compose.crypto.ui.theme.Style
-import co.nimblehq.compose.crypto.ui.theme.Style.coinInfoAppBarIconColor
-import co.nimblehq.compose.crypto.ui.theme.Style.textColor
+import co.nimblehq.compose.crypto.ui.theme.*
 
 @Composable
 fun Appbar(
@@ -28,7 +25,7 @@ fun Appbar(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
-                tint = MaterialTheme.colors.coinInfoAppBarIconColor,
+                tint = AppTheme.colors.coinInfoAppBarIconTint,
                 contentDescription = null
             )
         }
@@ -37,7 +34,7 @@ fun Appbar(
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = title,
-                color = MaterialTheme.colors.textColor,
+                color = AppTheme.colors.text,
                 style = Style.medium16()
             )
         }
@@ -49,7 +46,7 @@ fun Appbar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_heart),
-                    tint = MaterialTheme.colors.coinInfoAppBarIconColor,
+                    tint = AppTheme.colors.coinInfoAppBarIconTint,
                     contentDescription = null
                 )
             }

@@ -34,8 +34,6 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBlurRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowBorderRadius
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowOffsetY
 import co.nimblehq.compose.crypto.ui.theme.Dimension.shadowSpread
-import co.nimblehq.compose.crypto.ui.theme.Style.pullRefreshBackgroundColor
-import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 import timber.log.Timber
@@ -121,7 +119,7 @@ private fun HomeScreenContent(
                             text = stringResource(id = R.string.home_title),
                             textAlign = TextAlign.Center,
                             style = Style.semiBold24(),
-                            color = MaterialTheme.colors.textColor
+                            color = AppTheme.colors.text
                         )
                     }
 
@@ -130,7 +128,7 @@ private fun HomeScreenContent(
                             modifier = Modifier
                                 .padding(start = Dp16, top = Dp40, end = Dp16)
                                 .boxShadow(
-                                    color = Color.TiffanyBlue,
+                                    color = AppTheme.colors.portfolioCardShadow,
                                     borderRadius = shadowBorderRadius,
                                     blurRadius = shadowBlurRadius,
                                     offsetY = shadowOffsetY,
@@ -156,7 +154,7 @@ private fun HomeScreenContent(
                             Text(
                                 text = stringResource(id = R.string.home_trending_title),
                                 style = Style.medium16(),
-                                color = MaterialTheme.colors.textColor
+                                color = AppTheme.colors.text
                             )
 
                             SeeAll(
@@ -216,8 +214,8 @@ private fun HomeScreenContent(
                 refreshing = isRefreshing,
                 state = refreshingState,
                 modifier = Modifier.align(alignment = Alignment.TopCenter),
-                backgroundColor = MaterialTheme.colors.pullRefreshBackgroundColor,
-                contentColor = Color.CaribbeanGreen
+                backgroundColor = AppTheme.colors.pullRefreshBackground,
+                contentColor = AppTheme.colors.pullRefreshContent
             )
         }
     }
@@ -250,7 +248,7 @@ private fun MyCoins(
                 .padding(start = Dp16),
             text = stringResource(id = R.string.home_my_coins_title),
             style = Style.medium16(),
-            color = MaterialTheme.colors.textColor
+            color = AppTheme.colors.text
         )
 
         SeeAll(

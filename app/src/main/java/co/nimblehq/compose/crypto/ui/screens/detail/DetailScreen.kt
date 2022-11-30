@@ -2,14 +2,9 @@ package co.nimblehq.compose.crypto.ui.screens.detail
 
 import android.content.res.Configuration
 import android.widget.Toast
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,16 +31,13 @@ import co.nimblehq.compose.crypto.ui.components.linechart.CoinPriceLabelDrawer
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.Color
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
-import co.nimblehq.compose.crypto.ui.theme.Style
-import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 import coil.compose.rememberAsyncImagePainter
@@ -157,7 +149,7 @@ private fun DetailScreenContent(
                         R.string.coin_currency,
                         coinDetailUiModel.currentPrice.toFormattedString()
                     ),
-                    color = MaterialTheme.colors.textColor,
+                    color = AppTheme.colors.text,
                     style = Style.semiBold24()
                 )
 
@@ -190,14 +182,13 @@ private fun DetailScreenContent(
                     ),
                     animation = simpleChartAnimation(),
                     pointDrawer = EmptyPointDrawer,
-                    lineDrawer = SolidLineDrawer(thickness = 2.dp, color = Color.CaribbeanGreen),
+                    lineDrawer = SolidLineDrawer(thickness = 2.dp, color = AppTheme.colors.coinChartLineDrawer),
                     lineShader = GradientLineShader(
-                        colors = listOf(
-                            Color.CaribbeanGreenAlpha30, Color.Transparent
-                        )
+                        colors = AppTheme.colors.coinChartLineShaderGradient
                     ),
                     labelDrawer = CoinPriceLabelDrawer(
-                        labelTextColors = Color.FireOpal to Color.GuppieGreen
+                        labelTextColorLowest = AppTheme.colors.priceTextNegative,
+                        labelTextColorHighest = AppTheme.colors.priceTextPositive
                     ),
                     horizontalOffset = 0f
                 )

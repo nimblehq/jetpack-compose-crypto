@@ -13,10 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.theme.Color.FireOpal
-import co.nimblehq.compose.crypto.ui.theme.Color.GuppieGreen
-import co.nimblehq.compose.crypto.ui.theme.Color.Water
-import co.nimblehq.compose.crypto.ui.theme.Color.WhiteIce
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp13
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp9
@@ -33,8 +29,10 @@ fun PriceChangeButton(
     Button(
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (displayForDetailPage) WhiteIce else Water,
-            contentColor = if (isPositiveNumber) GuppieGreen else FireOpal
+            backgroundColor = if (displayForDetailPage)
+                AppTheme.colors.priceChangeButtonBackgroundInDetail else AppTheme.colors.priceChangeButtonBackground,
+            contentColor = if (isPositiveNumber)
+                AppTheme.colors.priceTextPositive else AppTheme.colors.priceTextNegative
         ),
         shape = RoundedCornerShape(Dimension.Dp20),
         contentPadding = PaddingValues(start = Dp13, end = Dimension.Dp8),
