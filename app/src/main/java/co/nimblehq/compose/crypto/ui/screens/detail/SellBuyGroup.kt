@@ -7,11 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.theme.AppTheme
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp20
+import co.nimblehq.compose.crypto.ui.theme.*
 
 @Composable
 fun SellBuyGroup(

@@ -4,10 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.*
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp12
-import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp14
-import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp16
-import co.nimblehq.compose.crypto.ui.theme.TextDimension.Sp24
 
 object Style {
 

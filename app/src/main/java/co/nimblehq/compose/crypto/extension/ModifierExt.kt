@@ -3,12 +3,10 @@ package co.nimblehq.compose.crypto.extension
 import android.graphics.BlurMaskFilter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
+import co.nimblehq.compose.crypto.ui.theme.Dp0
 
 /**
  * Original solution: https://github.com/wasim15185/jetpack-compose-crypto/blob/develop/app/src/main/java/co/nimblehq/compose/crypto/extension/BoxShadow.kt

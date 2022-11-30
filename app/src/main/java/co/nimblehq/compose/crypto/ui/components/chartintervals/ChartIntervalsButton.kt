@@ -10,13 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import co.nimblehq.compose.crypto.ui.theme.AppTheme
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp14
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp4
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp45
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
-import co.nimblehq.compose.crypto.ui.theme.Style
+import co.nimblehq.compose.crypto.ui.theme.*
 
 @Composable
 fun ChartIntervalsButtonGroup(

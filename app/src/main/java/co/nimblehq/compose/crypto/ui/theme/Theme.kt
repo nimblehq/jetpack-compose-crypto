@@ -15,8 +15,12 @@ fun ComposeTheme(
     } else {
         LightColorPalette
     }
+    val dimensions = LocalAppDimensions.current
 
-    CompositionLocalProvider(LocalColors provides colors) {
+    CompositionLocalProvider(
+        LocalColors provides colors,
+        LocalAppDimensions provides dimensions
+    ) {
         MaterialTheme(
             colors = colors.themeColors,
             shapes = Shape.ComposeShapes,
@@ -45,4 +49,9 @@ object AppTheme {
         @Composable
         @ReadOnlyComposable
         get() = MaterialTheme.shapes
+
+    val dimensions: AppDimensions
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalAppDimensions.current
 }

@@ -32,12 +32,6 @@ import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp0
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp24
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp60
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
 import coil.compose.rememberAsyncImagePainter

@@ -16,11 +16,6 @@ import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp6
-import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
 
