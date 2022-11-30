@@ -110,7 +110,7 @@ private fun HomeScreenContent(
                                 .padding(top = Dp16),
                             text = stringResource(id = R.string.home_title),
                             textAlign = TextAlign.Center,
-                            style = Style.semiBold24(),
+                            style = AppTheme.styles.semiBold24,
                             color = AppTheme.colors.text
                         )
                     }
@@ -145,7 +145,7 @@ private fun HomeScreenContent(
                         ) {
                             Text(
                                 text = stringResource(id = R.string.home_trending_title),
-                                style = Style.medium16(),
+                                style = AppTheme.styles.medium16,
                                 color = AppTheme.colors.text
                             )
 
@@ -239,7 +239,7 @@ private fun MyCoins(
                 }
                 .padding(start = Dp16),
             text = stringResource(id = R.string.home_my_coins_title),
-            style = Style.medium16(),
+            style = AppTheme.styles.medium16,
             color = AppTheme.colors.text
         )
 

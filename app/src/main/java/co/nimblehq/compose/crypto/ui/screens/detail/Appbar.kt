@@ -9,7 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.theme.*
+import co.nimblehq.compose.crypto.ui.theme.AppTheme
+import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
 
 @Composable
 fun Appbar(
@@ -35,7 +36,7 @@ fun Appbar(
                 modifier = Modifier.align(Alignment.Center),
                 text = title,
                 color = AppTheme.colors.text,
-                style = Style.medium16()
+                style = AppTheme.styles.medium16
             )
         }
 

@@ -71,7 +71,7 @@ fun ChartIntervalsButton(
         textAlign = TextAlign.Center,
         text = interval.text,
         color = textColor,
-        style = Style.medium14()
+        style = AppTheme.styles.medium14
     )
 }
 
