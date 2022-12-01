@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -19,6 +20,9 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp12
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
+
+const val TestTagCardTotalCoins = "CardTotalCoins"
+const val TestTagCardTodayProfit = "CardTodayProfit"
 
 @Composable
 fun PortfolioCard(
@@ -47,7 +51,8 @@ fun PortfolioCard(
             modifier = Modifier
                 .constrainAs(totalCoinsLabel) {
                     start.linkTo(parent.start)
-                },
+                }
+                .testTag(tag = stringResource(R.string.portfolio_card_total_coin_label)),
             text = stringResource(R.string.portfolio_card_total_coin_label),
             style = Style.lightSilverMedium16()
         )
@@ -56,7 +61,8 @@ fun PortfolioCard(
             modifier = Modifier
                 .constrainAs(totalCoins) {
                     top.linkTo(totalCoinsLabel.bottom, margin = Dp8)
-                },
+                }
+                .testTag(tag = TestTagCardTotalCoins),
             // TODO: Remove dummy value when work on Integrate.
             text = stringResource(R.string.coin_currency, "7,273,291"),
             style = Style.whiteSemiBold24()
@@ -66,7 +72,8 @@ fun PortfolioCard(
             modifier = Modifier
                 .constrainAs(todayProfitLabel) {
                     top.linkTo(totalCoins.bottom, margin = Dp40)
-                },
+                }
+                .testTag(tag = stringResource(R.string.portfolio_card_today_profit_label)),
             text = stringResource(R.string.portfolio_card_today_profit_label),
             style = Style.lightSilverMedium16()
         )
@@ -75,7 +82,8 @@ fun PortfolioCard(
             modifier = Modifier
                 .constrainAs(todayProfit) {
                     top.linkTo(todayProfitLabel.bottom, margin = Dp8)
-                },
+                }
+                .testTag(tag = TestTagCardTodayProfit),
             // TODO: Remove dummy value when work on Integrate.
             text = stringResource(R.string.coin_currency, "193,280"),
             style = Style.whiteSemiBold24()
@@ -95,7 +103,7 @@ fun PortfolioCard(
 
 @Composable
 @Preview
-fun PortfolioCardPreview() {
+private fun PortfolioCardPreview() {
     ComposeTheme {
         PortfolioCard(
             modifier = Modifier

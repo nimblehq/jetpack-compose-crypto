@@ -14,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -38,13 +39,19 @@ import co.nimblehq.compose.crypto.ui.theme.Style.textColor
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
 
+const val TestTagCoinItemSymbol = "CoinItemCoinSymbol"
+const val TestTagCoinItemCoinName = "CoinItemCoinName"
+const val TestTagCoinItemPrice = "CoinItemPrice"
+const val TestTagCoinItemPriceChange = "CoinItemPriceChange"
+
 @Composable
 fun CoinItem(
+    modifier: Modifier,
     coinItem: CoinItemUiModel,
     onItemClick: () -> Unit
 ) {
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .wrapContentWidth()
             .clip(RoundedCornerShape(Dp12))
             .clickable { onItemClick.invoke() }
@@ -76,7 +83,8 @@ fun CoinItem(
                 .constrainAs(coinSymbol) {
                     top.linkTo(parent.top)
                     start.linkTo(anchor = logo.end, margin = Dp16)
-                },
+                }
+                .testTag(tag = TestTagCoinItemSymbol),
             text = coinItem.symbol.uppercase(),
             color = MaterialTheme.colors.textColor,
             style = Style.semiBold16()
@@ -89,7 +97,8 @@ fun CoinItem(
                     start.linkTo(coinSymbol.start)
                     top.linkTo(coinSymbol.bottom)
                     width = Dimension.preferredWrapContent
-                },
+                }
+                .testTag(tag = TestTagCoinItemCoinName),
             text = coinItem.coinName,
             color = MaterialTheme.colors.coinNameColor,
             style = Style.medium14()
@@ -101,7 +110,8 @@ fun CoinItem(
                     start.linkTo(logo.start)
                     top.linkTo(anchor = coinName.bottom, margin = Dp14)
                     width = Dimension.preferredWrapContent
-                },
+                }
+                .testTag(tag = TestTagCoinItemPrice),
             text = stringResource(
                 R.string.coin_currency,
                 coinItem.currentPrice.toFormattedString()
@@ -119,6 +129,7 @@ fun CoinItem(
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
                 }
+                .testTag(tag = TestTagCoinItemPriceChange)
         )
     }
 }
@@ -130,6 +141,7 @@ fun CoinItemPreview(
 ) {
     ComposeTheme {
         CoinItem(
+            modifier = Modifier,
             coinItem = coinItem,
             onItemClick = {}
         )
@@ -143,6 +155,7 @@ fun CoinItemPreviewDark(
 ) {
     ComposeTheme {
         CoinItem(
+            modifier = Modifier,
             coinItem = coinItem,
             onItemClick = {}
         )
