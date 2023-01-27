@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.*
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
-import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
+import co.nimblehq.compose.crypto.feature.home.HomeScreen
 
 @Composable
 fun AppNavigation(

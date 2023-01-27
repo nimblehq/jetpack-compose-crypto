@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.home
+package co.nimblehq.compose.crypto.feature.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -25,6 +25,7 @@ import co.nimblehq.compose.crypto.ui.base.LoadingState
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
+import co.nimblehq.compose.crypto.ui.screens.home.*
 import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage

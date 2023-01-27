@@ -7,7 +7,7 @@ import co.nimblehq.compose.crypto.ui.base.BaseInput
 import co.nimblehq.compose.crypto.ui.base.BaseOutput
 import co.nimblehq.compose.crypto.ui.base.BaseViewModel
 import co.nimblehq.compose.crypto.ui.components.chartintervals.TimeIntervals
-import co.nimblehq.compose.crypto.ui.screens.home.FIAT_CURRENCY
+import co.nimblehq.compose.crypto.feature.home.FIAT_CURRENCY
 import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import co.nimblehq.compose.crypto.util.DispatchersProvider
