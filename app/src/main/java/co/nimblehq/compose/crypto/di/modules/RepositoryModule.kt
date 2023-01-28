@@ -13,6 +13,6 @@ import dagger.hilt.android.components.ViewModelComponent
 class RepositoryModule {
 
     @Provides
-    fun provideRepository(apiService: ApiService): CoinRepository =
+    fun provideCoinRepository(apiService: ApiService): CoinRepository =
         CoinRepositoryImpl(apiService)
 }

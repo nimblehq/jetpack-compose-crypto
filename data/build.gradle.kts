@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 
     id("plugins.jacoco-report")
 }
@@ -73,9 +75,16 @@ dependencies {
     api("com.squareup.okhttp3:okhttp:${Versions.OKHTTP_VERSION}")
     api("com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP_VERSION}")
 
+    implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
+    kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
+
     // Testing
+    kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
+
     testImplementation("junit:junit:${Versions.TEST_JUNIT_VERSION}")
     testImplementation("io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
     testImplementation("io.kotest:kotest-assertions-core:${Versions.TEST_KOTEST_VERSION}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.KOTLINX_COROUTINES_VERSION}")
+    testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_VERSION}")
+    testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
 }

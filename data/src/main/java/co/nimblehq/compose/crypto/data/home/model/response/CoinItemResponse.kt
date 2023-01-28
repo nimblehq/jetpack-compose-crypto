@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.data.model.response
+package co.nimblehq.compose.crypto.data.home.model.response
 
 import co.nimblehq.compose.crypto.data.extension.orZero
 import co.nimblehq.compose.crypto.domain.model.CoinItem

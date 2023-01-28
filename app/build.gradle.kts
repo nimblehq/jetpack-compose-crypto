@@ -2,11 +2,11 @@ plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
 
+    id("dagger.hilt.android.plugin")
+
     id("kotlin-android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
-
-    id("dagger.hilt.android.plugin")
 
     id("plugins.jacoco-report")
 }
@@ -126,7 +126,6 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:${Versions.ANDROIDX_NAVIGATION_COMPOSE_VERSION}")
 
-    implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
     implementation("androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION_COMPOSE_VERSION}")
 
     implementation("com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM_VERSION}")
@@ -142,6 +141,7 @@ dependencies {
 
     implementation("io.github.bytebeats:compose-charts:${Versions.COMPOSE_CHART_VERSION}")
 
+    implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
     kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
 
     debugImplementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
@@ -153,12 +153,8 @@ dependencies {
     testImplementation("androidx.test:runner:${Versions.TEST_RUNNER_VERSION}")
     testImplementation("androidx.test:rules:${Versions.TEST_RUNNER_VERSION}")
     testImplementation("androidx.test.ext:junit-ktx:${Versions.TEST_JUNIT_ANDROIDX_EXT_VERSION}")
-    testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_VERSION}")
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.KOTLIN_REFLECT_VERSION}")
     testImplementation("io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.TEST_COROUTINES_VERSION}")
     testImplementation("app.cash.turbine:turbine:${Versions.TEST_TURBINE_VERSION}")
-
-    kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
-    testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
 }
