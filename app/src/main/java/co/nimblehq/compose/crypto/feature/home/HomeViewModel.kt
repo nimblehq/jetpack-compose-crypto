@@ -1,7 +1,7 @@
 package co.nimblehq.compose.crypto.feature.home
 
-import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
-import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
+import co.nimblehq.compose.crypto.domain.home.usecase.GetMyCoinsUseCase
+import co.nimblehq.compose.crypto.domain.home.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.*
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination

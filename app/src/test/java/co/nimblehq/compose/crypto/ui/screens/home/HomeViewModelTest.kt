@@ -1,8 +1,8 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
 import app.cash.turbine.test
-import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
-import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
+import co.nimblehq.compose.crypto.domain.home.usecase.GetMyCoinsUseCase
+import co.nimblehq.compose.crypto.domain.home.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.feature.home.HomeViewModel
 import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination

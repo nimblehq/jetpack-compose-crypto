@@ -4,7 +4,7 @@ import co.nimblehq.compose.crypto.data.flowTransform
 import co.nimblehq.compose.crypto.data.home.model.response.toModel
 import co.nimblehq.compose.crypto.data.home.service.HomeApiService
 import co.nimblehq.compose.crypto.domain.home.HomeRepository
-import co.nimblehq.compose.crypto.domain.model.CoinItem
+import co.nimblehq.compose.crypto.domain.home.model.CoinItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
