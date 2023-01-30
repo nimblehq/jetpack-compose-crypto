@@ -14,12 +14,12 @@ import kotlinx.coroutines.flow.*
 import java.util.*
 import javax.inject.Inject
 
-interface Input : BaseInput {
+interface Input : co.nimblehq.compose.crypto.core.BaseInput {
 
     fun getCoinId(coinId: String)
 }
 
-interface Output : BaseOutput {
+interface Output : co.nimblehq.compose.crypto.core.BaseOutput {
 
     val coinDetailUiModel: StateFlow<CoinDetailUiModel?>
     val coinPrices: StateFlow<List<CoinPrice>>
@@ -27,10 +27,10 @@ interface Output : BaseOutput {
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    dispatchers: DispatchersProvider,
+    dispatchers: co.nimblehq.compose.crypto.core.util.DispatchersProvider,
     private val getCoinDetailUseCase: GetCoinDetailUseCase,
     private val getCoinPricesUseCase: GetCoinPricesUseCase
-) : BaseViewModel(dispatchers), Input, Output {
+) : co.nimblehq.compose.crypto.core.BaseViewModel(dispatchers), Input, Output {
 
     override val input = this
     override val output = this
@@ -61,15 +61,15 @@ class DetailViewModel @Inject constructor(
     }
 
     @Suppress("MagicNumber")
-    fun getCoinPrices(coinId: String, timeIntervals: TimeIntervals = TimeIntervals.ONE_DAY) =
+    fun getCoinPrices(coinId: String, timeIntervals: co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals = co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_DAY) =
         execute {
             val fromTimestamp = Calendar.getInstance().apply {
                 when (timeIntervals) {
-                    TimeIntervals.ONE_DAY -> add(Calendar.DAY_OF_YEAR, -1)
-                    TimeIntervals.ONE_WEEK -> add(Calendar.DAY_OF_YEAR, -7)
-                    TimeIntervals.ONE_MONTH -> add(Calendar.MONTH, -1)
-                    TimeIntervals.ONE_YEAR -> add(Calendar.YEAR, -1)
-                    TimeIntervals.FIVE_YEAR -> add(Calendar.YEAR, -5)
+                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_DAY -> add(Calendar.DAY_OF_YEAR, -1)
+                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_WEEK -> add(Calendar.DAY_OF_YEAR, -7)
+                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_MONTH -> add(Calendar.MONTH, -1)
+                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_YEAR -> add(Calendar.YEAR, -1)
+                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.FIVE_YEAR -> add(Calendar.YEAR, -5)
                 }
             }
 
