@@ -9,38 +9,30 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.extension.toFormattedString
-import co.nimblehq.compose.crypto.ui.common.price.PriceChange
-import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
+import co.nimblehq.compose.crypto.core.extension.toFormattedString
+import co.nimblehq.compose.crypto.core.preview.CoinItemPreviewParameterProvider
+import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
+import co.nimblehq.compose.crypto.domain.model.CoinItem
 import coil.compose.rememberAsyncImagePainter
-
-const val TestTagCoinItemSymbol = "CoinItemCoinSymbol"
-const val TestTagCoinItemCoinName = "CoinItemCoinName"
-const val TestTagCoinItemPrice = "CoinItemPrice"
-const val TestTagCoinItemPriceChange = "CoinItemPriceChange"
 
 @Composable
 fun CoinItem(
-    modifier: Modifier = Modifier,
     coinItem: CoinItemUiModel,
     onItemClick: () -> Unit
 ) {
     ConstraintLayout(
-        modifier = modifier
+        modifier = Modifier
             .wrapContentWidth()
-            .clip(RoundedCornerShape(Dp12))
+            .clip(RoundedCornerShape(co.nimblehq.compose.crypto.core.theme.Dp12))
             .clickable { onItemClick.invoke() }
-            .background(color = AppTheme.colors.coinItemBackground)
-            .padding(Dp8)
+            .background(color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinItemBackground)
+            .padding(co.nimblehq.compose.crypto.core.theme.Dp8)
     ) {
         val (
             logo,
@@ -52,10 +44,10 @@ fun CoinItem(
 
         Image(
             modifier = Modifier
-                .size(Dp40)
+                .size(co.nimblehq.compose.crypto.core.theme.Dp40)
                 .constrainAs(logo) {
-                    top.linkTo(anchor = coinSymbol.top, margin = Dp8)
-                    bottom.linkTo(anchor = coinName.bottom, margin = Dp8)
+                    top.linkTo(anchor = coinSymbol.top, margin = co.nimblehq.compose.crypto.core.theme.Dp8)
+                    bottom.linkTo(anchor = coinName.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp8)
                     start.linkTo(parent.start)
                 },
             painter = rememberAsyncImagePainter(coinItem.image),
@@ -66,54 +58,50 @@ fun CoinItem(
             modifier = Modifier
                 .constrainAs(coinSymbol) {
                     top.linkTo(parent.top)
-                    start.linkTo(anchor = logo.end, margin = Dp16)
-                }
-                .testTag(tag = TestTagCoinItemSymbol),
+                    start.linkTo(anchor = logo.end, margin = co.nimblehq.compose.crypto.core.theme.Dp16)
+                },
             text = coinItem.symbol.uppercase(),
-            color = AppTheme.colors.text,
-            style = AppTheme.styles.semiBold16
+            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text,
+            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.semiBold16
         )
 
         Text(
             modifier = Modifier
-                .padding(top = Dp4)
+                .padding(top = co.nimblehq.compose.crypto.core.theme.Dp4)
                 .constrainAs(coinName) {
                     start.linkTo(coinSymbol.start)
                     top.linkTo(coinSymbol.bottom)
                     width = Dimension.preferredWrapContent
-                }
-                .testTag(tag = TestTagCoinItemCoinName),
+                },
             text = coinItem.coinName,
-            color = AppTheme.colors.coinNameText,
-            style = AppTheme.styles.medium14
+            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinNameText,
+            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.medium14
         )
 
         Text(
             modifier = Modifier
                 .constrainAs(price) {
                     start.linkTo(logo.start)
-                    top.linkTo(anchor = coinName.bottom, margin = Dp14)
+                    top.linkTo(anchor = coinName.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp14)
                     width = Dimension.preferredWrapContent
-                }
-                .testTag(tag = TestTagCoinItemPrice),
+                },
             text = stringResource(
                 R.string.coin_currency,
                 coinItem.currentPrice.toFormattedString()
             ),
-            color = AppTheme.colors.text,
-            style = AppTheme.styles.semiBold16
+            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text,
+            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.semiBold16
         )
 
-        PriceChange(
+        co.nimblehq.compose.crypto.core.common.price.PriceChange(
             priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
             modifier = Modifier
-                .padding(start = Dp25)
+                .padding(start = co.nimblehq.compose.crypto.core.theme.Dp25)
                 .constrainAs(priceChange) {
                     start.linkTo(price.end)
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
                 }
-                .testTag(tag = TestTagCoinItemPriceChange)
         )
     }
 }
@@ -123,7 +111,7 @@ fun CoinItem(
 fun CoinItemPreview(
     @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
 ) {
-    ComposeTheme {
+    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
         CoinItem(
             coinItem = coinItem,
             onItemClick = {}
@@ -136,10 +124,19 @@ fun CoinItemPreview(
 fun CoinItemPreviewDark(
     @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
 ) {
-    ComposeTheme {
+    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
         CoinItem(
             coinItem = coinItem,
             onItemClick = {}
         )
     }
 }
+
+fun CoinItem.toUiModel() = CoinItemUiModel(
+    id = id,
+    symbol = symbol,
+    coinName = coinName,
+    image = image,
+    currentPrice = currentPrice,
+    priceChangePercentage24hInCurrency = priceChangePercentage24hInCurrency
+)

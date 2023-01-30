@@ -1,9 +1,8 @@
 package co.nimblehq.compose.crypto.ui.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import co.nimblehq.compose.crypto.lib.IsLoading
-import co.nimblehq.compose.crypto.ui.base.LoadingState
-import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
+import co.nimblehq.compose.crypto.core.lib.IsLoading
+import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
 
 class HomeScreenPreviewParameterProvider : PreviewParameterProvider<HomeScreenParams> {
     override val values = sequenceOf(
@@ -11,13 +10,13 @@ class HomeScreenPreviewParameterProvider : PreviewParameterProvider<HomeScreenPa
             listOf(coinItemPreview),
             listOf(coinItemPreview),
             false,
-            LoadingState.Idle
+            co.nimblehq.compose.crypto.core.LoadingState.Idle
         ),
         HomeScreenParams(
             listOf(coinItemPreview),
             listOf(coinItemPreview),
             true,
-            LoadingState.Loading
+            co.nimblehq.compose.crypto.core.LoadingState.Loading
         ),
     )
 }
@@ -26,5 +25,5 @@ data class HomeScreenParams(
     val myCoins: List<CoinItemUiModel>,
     val trendingCoins: List<CoinItemUiModel>,
     val isMyCoinsLoading: IsLoading,
-    val isTrendingCoinsLoading: LoadingState
+    val isTrendingCoinsLoading: co.nimblehq.compose.crypto.core.LoadingState
 )

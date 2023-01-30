@@ -1,10 +1,10 @@
 package co.nimblehq.compose.crypto.di.modules
 
-import co.nimblehq.compose.crypto.BuildConfig
+import co.nimblehq.compose.crypto.BuildConfig.BASE_API_URL
+import co.nimblehq.compose.crypto.core.providers.ConverterFactoryProvider
+import co.nimblehq.compose.crypto.core.providers.RetrofitProvider
+import co.nimblehq.compose.crypto.data.ApiServiceProvider
 import co.nimblehq.compose.crypto.data.service.ApiService
-import co.nimblehq.compose.crypto.data.service.providers.ApiServiceProvider
-import co.nimblehq.compose.crypto.data.service.providers.ConverterFactoryProvider
-import co.nimblehq.compose.crypto.data.service.providers.RetrofitProvider
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -19,7 +19,7 @@ import retrofit2.Retrofit
 class RetrofitModule {
 
     @Provides
-    fun provideBaseApiUrl() = BuildConfig.BASE_API_URL
+    fun provideBaseApiUrl() = BASE_API_URL
 
     @Provides
     fun provideMoshiConverterFactory(moshi: Moshi): Converter.Factory =

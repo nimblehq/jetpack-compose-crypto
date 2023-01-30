@@ -115,6 +115,7 @@ kapt {
 }
 
 dependencies {
+    implementation(project(Module.CORE))
     implementation(project(Module.DATA))
     implementation(project(Module.DOMAIN))
 
@@ -126,7 +127,6 @@ dependencies {
 
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.COMPOSE_CONSTRAINT_LAYOUT_VERSION}")
     implementation("androidx.compose.ui:ui:${Versions.COMPOSE_VERSION}")
-    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.foundation:foundation:${Versions.COMPOSE_VERSION}")
     implementation("androidx.compose.material:material:${Versions.COMPOSE_VERSION}")
 

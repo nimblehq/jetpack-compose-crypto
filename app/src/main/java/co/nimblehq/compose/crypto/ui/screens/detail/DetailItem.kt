@@ -11,8 +11,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.common.price.PriceChange
-import co.nimblehq.compose.crypto.ui.theme.*
 
 @Composable
 fun DetailItem(
@@ -37,24 +35,24 @@ fun DetailItem(
                     start.linkTo(parent.start)
                 },
             text = title,
-            color = AppTheme.colors.coinNameText,
-            style = AppTheme.styles.medium12
+            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinNameText,
+            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.medium12
         )
 
         Text(
             modifier = Modifier
-                .padding(top = Dp4)
+                .padding(top = co.nimblehq.compose.crypto.core.theme.Dp4)
                 .constrainAs(itemPrice) {
                     start.linkTo(itemTitle.start)
                     top.linkTo(itemTitle.bottom)
                     width = Dimension.preferredWrapContent
                 },
             text = stringResource(R.string.coin_currency, price),
-            color = AppTheme.colors.text,
-            style = AppTheme.styles.medium16
+            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text,
+            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.medium16
         )
 
-        PriceChange(
+        co.nimblehq.compose.crypto.core.common.price.PriceChange(
             priceChangePercentage24hInCurrency = pricePercent,
             modifier = Modifier
                 .constrainAs(itemPriceChange) {
@@ -70,7 +68,7 @@ fun DetailItem(
 @Composable
 @Preview
 fun DetailItemPreview() {
-    ComposeTheme {
+    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
         Surface {
             DetailItem(
                 modifier = Modifier,
@@ -85,7 +83,7 @@ fun DetailItemPreview() {
 @Composable
 @Preview
 fun DetailItemPreviewDark() {
-    ComposeTheme(darkTheme = true) {
+    co.nimblehq.compose.crypto.core.theme.ComposeTheme(darkTheme = true) {
         Surface {
             DetailItem(
                 modifier = Modifier,

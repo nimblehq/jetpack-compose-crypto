@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import co.nimblehq.compose.crypto.ui.theme.*
 
 @Composable
 fun SellBuyButton(
@@ -20,19 +19,19 @@ fun SellBuyButton(
         modifier = modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,
-            contentColor = AppTheme.colors.coinInfoSellBuyText
+            contentColor = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinInfoSellBuyText
         ),
-        shape = RoundedCornerShape(Dp12),
+        shape = RoundedCornerShape(co.nimblehq.compose.crypto.core.theme.Dp12),
         elevation = ButtonDefaults.elevation(
-            defaultElevation = Dp0,
-            pressedElevation = Dp0
+            defaultElevation = co.nimblehq.compose.crypto.core.theme.Dp0,
+            pressedElevation = co.nimblehq.compose.crypto.core.theme.Dp0
         ),
-        contentPadding = PaddingValues(vertical = Dp16),
+        contentPadding = PaddingValues(vertical = co.nimblehq.compose.crypto.core.theme.Dp16),
         onClick = { /* TODO */ },
     ) {
         Text(
             text = text,
-            style = AppTheme.styles.medium14
+            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.medium14
         )
     }
 }
@@ -40,10 +39,10 @@ fun SellBuyButton(
 @Composable
 @Preview
 fun SellBuyButtonPreview() {
-    ComposeTheme {
+    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
         SellBuyButton(
             modifier = Modifier,
-            backgroundColor = AppTheme.colors.buttonRedBackground,
+            backgroundColor = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.buttonRedBackground,
             text = "Sell"
         )
     }

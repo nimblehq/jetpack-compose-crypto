@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.ui.theme.AppTheme
-import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
+import co.nimblehq.compose.crypto.core.theme.AppTheme
+import co.nimblehq.compose.crypto.core.theme.ComposeTheme
 
 @Composable
 fun Appbar(
@@ -26,7 +26,7 @@ fun Appbar(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
-                tint = AppTheme.colors.coinInfoAppBarIconTint,
+                tint = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinInfoAppBarIconTint,
                 contentDescription = null
             )
         }
@@ -35,8 +35,8 @@ fun Appbar(
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = title,
-                color = AppTheme.colors.text,
-                style = AppTheme.styles.medium16
+                color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text,
+                style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.medium16
             )
         }
 
@@ -47,7 +47,7 @@ fun Appbar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_heart),
-                    tint = AppTheme.colors.coinInfoAppBarIconTint,
+                    tint = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinInfoAppBarIconTint,
                     contentDescription = null
                 )
             }
@@ -58,7 +58,7 @@ fun Appbar(
 @Preview
 @Composable
 fun AppbarPreview() {
-    ComposeTheme {
+    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
         Surface {
             Appbar(
                 modifier = Modifier,
@@ -72,7 +72,7 @@ fun AppbarPreview() {
 @Preview
 @Composable
 fun AppbarPreviewDark() {
-    ComposeTheme(darkTheme = true) {
+    co.nimblehq.compose.crypto.core.theme.ComposeTheme(darkTheme = true) {
         Surface {
             Appbar(
                 modifier = Modifier,

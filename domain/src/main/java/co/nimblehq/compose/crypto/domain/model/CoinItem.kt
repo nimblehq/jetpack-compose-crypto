@@ -38,3 +38,5 @@ data class CoinItem(
         val percentage: Double
     )
 }
+
+

@@ -21,19 +21,18 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.data.extension.orZero
 import co.nimblehq.compose.crypto.domain.model.CoinPrice
-import co.nimblehq.compose.crypto.extension.toFormattedString
-import co.nimblehq.compose.crypto.lib.IsLoading
-import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
-import co.nimblehq.compose.crypto.ui.components.chartintervals.ChartIntervalsButtonGroup
-import co.nimblehq.compose.crypto.ui.components.chartintervals.TimeIntervals
-import co.nimblehq.compose.crypto.ui.components.linechart.CoinPriceChart
-import co.nimblehq.compose.crypto.ui.components.linechart.CoinPriceLabelDrawer
-import co.nimblehq.compose.crypto.ui.navigation.AppDestination
+import co.nimblehq.compose.crypto.core.extension.toFormattedString
+import co.nimblehq.compose.crypto.core.lib.IsLoading
+import co.nimblehq.compose.crypto.core.common.price.PriceChangeButton
+import co.nimblehq.compose.crypto.core.components.chartintervals.ChartIntervalsButtonGroup
+import co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals
+import co.nimblehq.compose.crypto.core.components.linechart.CoinPriceChart
+import co.nimblehq.compose.crypto.core.components.linechart.CoinPriceLabelDrawer
+import co.nimblehq.compose.crypto.core.navigation.AppDestination
+import co.nimblehq.compose.crypto.core.userReadableMessage
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
-import co.nimblehq.compose.crypto.ui.userReadableMessage
 import coil.compose.rememberAsyncImagePainter
 import me.bytebeats.views.charts.line.LineChartData
 import me.bytebeats.views.charts.line.render.line.GradientLineShader
@@ -83,11 +82,11 @@ private fun DetailScreenContent(
     coinDetailUiModel: CoinDetailUiModel?,
     coinPrices: List<CoinPrice>,
     onBackIconClick: () -> Unit,
-    onTimeIntervalsChanged: (TimeIntervals) -> Unit,
+    onTimeIntervalsChanged: (co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals) -> Unit,
     showLoading: Boolean
 ) {
     val localDensity = LocalDensity.current
-    val sellBuyLayoutHeight = remember { mutableStateOf(Dp0) }
+    val sellBuyLayoutHeight = remember { mutableStateOf(co.nimblehq.compose.crypto.core.theme.Dp0) }
 
     Surface {
         ConstraintLayout(
@@ -122,12 +121,12 @@ private fun DetailScreenContent(
             coinDetailUiModel?.let {
                 Image(
                     modifier = Modifier
-                        .size(Dp60)
+                        .size(co.nimblehq.compose.crypto.core.theme.Dp60)
                         .constrainAs(logo) {
                             top.linkTo(appBar.bottom)
                             linkTo(start = parent.start, end = parent.end)
                         }
-                        .padding(top = Dp8),
+                        .padding(top = co.nimblehq.compose.crypto.core.theme.Dp8),
                     painter = rememberAsyncImagePainter(coinDetailUiModel.image),
                     contentDescription = null
                 )
@@ -138,16 +137,16 @@ private fun DetailScreenContent(
                             top.linkTo(logo.bottom)
                             linkTo(start = parent.start, end = parent.end)
                         }
-                        .padding(vertical = Dp8),
+                        .padding(vertical = co.nimblehq.compose.crypto.core.theme.Dp8),
                     text = stringResource(
                         R.string.coin_currency,
                         coinDetailUiModel.currentPrice.toFormattedString()
                     ),
-                    color = AppTheme.colors.text,
-                    style = AppTheme.styles.semiBold24
+                    color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text,
+                    style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.semiBold24
                 )
 
-                PriceChangeButton(
+                co.nimblehq.compose.crypto.core.common.price.PriceChangeButton(
                     modifier = Modifier
                         .constrainAs(priceChangePercent) {
                             top.linkTo(currentPrice.bottom)
@@ -157,11 +156,11 @@ private fun DetailScreenContent(
                     displayForDetailPage = true
                 )
 
-                CoinPriceChart(
+                co.nimblehq.compose.crypto.core.components.linechart.CoinPriceChart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .constrainAs(graph) {
-                            top.linkTo(priceChangePercent.bottom, margin = Dp24)
+                            top.linkTo(priceChangePercent.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp24)
                             start.linkTo(parent.start)
                             end.linkTo(parent.end)
                         },
@@ -176,21 +175,21 @@ private fun DetailScreenContent(
                     ),
                     animation = simpleChartAnimation(),
                     pointDrawer = EmptyPointDrawer,
-                    lineDrawer = SolidLineDrawer(thickness = 2.dp, color = AppTheme.colors.coinChartLineDrawer),
+                    lineDrawer = SolidLineDrawer(thickness = 2.dp, color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinChartLineDrawer),
                     lineShader = GradientLineShader(
-                        colors = AppTheme.colors.coinChartLineShaderGradient
+                        colors = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinChartLineShaderGradient
                     ),
-                    labelDrawer = CoinPriceLabelDrawer(
-                        labelTextColorLowest = AppTheme.colors.priceTextNegative,
-                        labelTextColorHighest = AppTheme.colors.priceTextPositive
+                    labelDrawer = co.nimblehq.compose.crypto.core.components.linechart.CoinPriceLabelDrawer(
+                        labelTextColorLowest = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.priceTextNegative,
+                        labelTextColorHighest = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.priceTextPositive
                     ),
                     horizontalOffset = 0f
                 )
 
                 // Chart intervals
-                ChartIntervalsButtonGroup(
+                co.nimblehq.compose.crypto.core.components.chartintervals.ChartIntervalsButtonGroup(
                     modifier = Modifier.constrainAs(intervals) {
-                        top.linkTo(graph.bottom, margin = Dp24)
+                        top.linkTo(graph.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp24)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     },
@@ -199,7 +198,7 @@ private fun DetailScreenContent(
 
                 CoinInfo(
                     modifier = Modifier.constrainAs(coinInfoItem) {
-                        top.linkTo(intervals.bottom, margin = Dp40)
+                        top.linkTo(intervals.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp40)
                     },
                     sellBuyLayoutHeight = sellBuyLayoutHeight.value,
                     coinDetailUiModel = coinDetailUiModel
@@ -244,7 +243,7 @@ private fun CoinInfo(
     sellBuyLayoutHeight: Dp,
     coinDetailUiModel: CoinDetailUiModel
 ) {
-    Column(modifier = modifier.padding(start = Dp16, end = Dp16, bottom = sellBuyLayoutHeight)) {
+    Column(modifier = modifier.padding(start = co.nimblehq.compose.crypto.core.theme.Dp16, end = co.nimblehq.compose.crypto.core.theme.Dp16, bottom = sellBuyLayoutHeight)) {
         DetailItem(
             modifier = Modifier,
             title = stringResource(id = R.string.detail_market_cap_title),
@@ -253,14 +252,14 @@ private fun CoinInfo(
         )
 
         DetailItem(
-            modifier = Modifier.padding(top = Dp16),
+            modifier = Modifier.padding(top = co.nimblehq.compose.crypto.core.theme.Dp16),
             title = stringResource(id = R.string.detail_all_time_high_title),
             price = coinDetailUiModel.ath.toFormattedString(),
             pricePercent = coinDetailUiModel.athChangePercentage
         )
 
         DetailItem(
-            modifier = Modifier.padding(vertical = Dp16),
+            modifier = Modifier.padding(vertical = co.nimblehq.compose.crypto.core.theme.Dp16),
             title = stringResource(id = R.string.detail_all_time_low_title),
             price = coinDetailUiModel.atl.toFormattedString(),
             pricePercent = coinDetailUiModel.atlChangePercentage
@@ -273,7 +272,7 @@ private fun CoinInfo(
 fun DetailScreenPreview(
     @PreviewParameter(DetailScreenPreviewParameterProvider::class) params: DetailScreenParams
 ) {
-    ComposeTheme {
+    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
         DetailScreenContent(
             coinDetailUiModel = params.detail,
             coinPrices = emptyList(),
@@ -289,7 +288,7 @@ fun DetailScreenPreview(
 fun DetailScreenPreviewDark(
     @PreviewParameter(DetailScreenPreviewParameterProvider::class) params: DetailScreenParams
 ) {
-    ComposeTheme {
+    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
         DetailScreenContent(
             coinDetailUiModel = params.detail,
             coinPrices = emptyList(),
