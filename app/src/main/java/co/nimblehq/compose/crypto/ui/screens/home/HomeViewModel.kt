@@ -39,9 +39,9 @@ interface Output : BaseOutput {
 
     val trendingCoins: StateFlow<List<CoinItemUiModel>>
 
-    val myCoinsError: SharedFlow<Throwable?>
+    val myCoinsError: StateFlow<Throwable?>
 
-    val trendingCoinsError: SharedFlow<Throwable?>
+    val trendingCoinsError: StateFlow<Throwable?>
 }
 
 @HiltViewModel

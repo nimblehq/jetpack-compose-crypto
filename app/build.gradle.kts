@@ -38,6 +38,7 @@ android {
         targetSdk = Versions.ANDROID_TARGET_SDK_VERSION
         versionCode = Versions.ANDROID_VERSION_CODE
         versionName = Versions.ANDROID_VERSION_NAME
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -103,6 +104,12 @@ android {
         xmlOutput = file("build/reports/lint/lint-result.xml")
     }
 
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
     testOptions {
         unitTests { 
             isIncludeAndroidResources = true
@@ -153,6 +160,11 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
 
     // Testing
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE_VERSION}")
+    androidTestImplementation("io.mockk:mockk-android:${Versions.TEST_MOCKK_VERSION}")
+    androidTestImplementation("io.mockk:mockk-agent-android:${Versions.TEST_MOCKK_VERSION}")
+    androidTestImplementation("io.kotest:kotest-assertions-core:${Versions.TEST_KOTEST_VERSION}")
+
     testImplementation("io.kotest:kotest-assertions-core:${Versions.TEST_KOTEST_VERSION}")
     testImplementation("junit:junit:${Versions.TEST_JUNIT_VERSION}")
     testImplementation("androidx.test:core:${Versions.TEST_ANDROIDX_CORE_VERSION}")
@@ -164,8 +176,8 @@ dependencies {
     testImplementation("io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.TEST_COROUTINES_VERSION}")
     testImplementation("app.cash.turbine:turbine:${Versions.TEST_TURBINE_VERSION}")
-    testImplementation ("androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE_VERSION}")
-    testImplementation ("org.robolectric:robolectric:${Versions.TEST_ROBOLECTRIC_VERSION}")
+    testImplementation("androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE_VERSION}")
+    testImplementation("org.robolectric:robolectric:${Versions.TEST_ROBOLECTRIC_VERSION}")
 
     kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
