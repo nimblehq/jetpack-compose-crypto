@@ -22,7 +22,7 @@ class CoroutineTestRule : TestWatcher() {
         testDispatcher.cleanupTestCoroutines()
     }
 
-    val testDispatcherProvider = object : DispatchersProvider {
+    val testDispatcherProvider = object : co.nimblehq.compose.crypto.core.util.DispatchersProvider {
         override val io: CoroutineDispatcher
             get() = testDispatcher
         override val main: CoroutineDispatcher
