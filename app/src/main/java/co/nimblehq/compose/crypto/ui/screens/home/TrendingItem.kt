@@ -41,7 +41,7 @@ const val TestTagTrendingItemPriceChange = "TrendingItemPriceChange"
 @Suppress("LongMethod")
 @Composable
 fun TrendingItem(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     coinItem: CoinItemUiModel,
     onItemClick: () -> Unit
 ) {
@@ -125,7 +125,6 @@ fun TrendingItemPreview(
 ) {
     ComposeTheme {
         TrendingItem(
-            modifier = Modifier,
             coinItem = coinItem,
             onItemClick = {}
         )
@@ -139,7 +138,6 @@ fun TrendingItemPreviewDark(
 ) {
     ComposeTheme(darkTheme = true) {
         TrendingItem(
-            modifier = Modifier,
             coinItem = coinItem,
             onItemClick = {}
         )

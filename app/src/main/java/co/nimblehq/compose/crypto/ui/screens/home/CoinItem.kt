@@ -46,7 +46,7 @@ const val TestTagCoinItemPriceChange = "CoinItemPriceChange"
 
 @Composable
 fun CoinItem(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     coinItem: CoinItemUiModel,
     onItemClick: () -> Unit
 ) {
@@ -141,7 +141,6 @@ fun CoinItemPreview(
 ) {
     ComposeTheme {
         CoinItem(
-            modifier = Modifier,
             coinItem = coinItem,
             onItemClick = {}
         )
@@ -155,7 +154,6 @@ fun CoinItemPreviewDark(
 ) {
     ComposeTheme {
         CoinItem(
-            modifier = Modifier,
             coinItem = coinItem,
             onItemClick = {}
         )

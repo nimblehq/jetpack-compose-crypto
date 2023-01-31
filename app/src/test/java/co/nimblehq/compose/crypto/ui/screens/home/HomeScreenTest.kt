@@ -46,15 +46,18 @@ class HomeScreenTest : BaseViewModelTest() {
     private val errorGeneric: String
         get() = composeAndroidTestRule.activity.getString(R.string.error_generic)
 
+    private val expectedPriceChange: String
+        get() = composeAndroidTestRule.activity.getString(
+            R.string.coin_profit_percent,
+            MockUtil.trendingCoins.first().priceChangePercentage24hInCurrency.toFormattedString()
+        )
+
     private val mockGetMyCoinsUseCase = mockk<GetMyCoinsUseCase>()
     private val mockGetTrendingCoinsUseCase = mockk<GetTrendingCoinsUseCase>()
 
     private lateinit var viewModel: HomeViewModel
 
     private var appDestination: AppDestination? = null
-
-    private val totalCoin = "7,273,291"
-    private val todayProfit = "193,280"
 
     @Before
     fun setUp() {
@@ -71,15 +74,11 @@ class HomeScreenTest : BaseViewModelTest() {
         initViewModel()
 
         with(composeAndroidTestRule) {
-            onNodeWithTag(testTag = homeTitle).assertTextEquals(homeTitle)
-            onNodeWithTag(testTag = totalCoinsLabel).assertTextEquals(totalCoinsLabel)
-            onNodeWithTag(testTag = todayProfitLabel).assertTextEquals(todayProfitLabel)
-            onNodeWithTag(testTag = TestTagCardTotalCoins).assertTextEquals(
-                activity.getString(R.string.coin_currency, totalCoin)
-            )
-            onNodeWithTag(testTag = TestTagCardTodayProfit).assertTextEquals(
-                activity.getString(R.string.coin_currency, todayProfit)
-            )
+            onNodeWithTag(testTag = TestTagHomeTitle).assertTextEquals(homeTitle)
+            onNodeWithTag(testTag = TestTagTotalCoinsLabel).assertTextEquals(totalCoinsLabel)
+            onNodeWithTag(testTag = TestTagTodayCoinProfitLabel).assertTextEquals(todayProfitLabel)
+            onNodeWithTag(testTag = TestTagCardTotalCoins).assertTextEquals("$7,273,291")
+            onNodeWithTag(testTag = TestTagCardTodayProfit).assertTextEquals("$193,280")
         }
     }
 
@@ -97,20 +96,16 @@ class HomeScreenTest : BaseViewModelTest() {
                     testTag = TestTagCoinItemSymbol,
                     useUnmergedTree = true
                 ).onFirst().assertTextEquals(symbol.uppercase())
+
                 onAllNodesWithTag(
                     testTag = TestTagCoinItemCoinName,
                     useUnmergedTree = true
                 ).onFirst().assertTextEquals(coinName)
+
                 onAllNodesWithTag(
                     testTag = TestTagCoinItemPriceChange,
                     useUnmergedTree = true
-                ).onFirst().onChild()
-                    .assertTextEquals(
-                        activity.getString(
-                            R.string.coin_profit_percent,
-                            priceChangePercentage24hInCurrency.toFormattedString()
-                        )
-                    )
+                ).onFirst().onChild().assertTextEquals(expectedPriceChange)
             }
         }
     }
@@ -129,20 +124,16 @@ class HomeScreenTest : BaseViewModelTest() {
                     testTag = TestTagTrendingItemSymbol,
                     useUnmergedTree = true
                 ).onFirst().assertTextEquals(symbol.uppercase())
+
                 onAllNodesWithTag(
                     testTag = TestTagTrendingItemCoinName,
                     useUnmergedTree = true
                 ).onFirst().assertTextEquals(coinName)
+
                 onAllNodesWithTag(
                     testTag = TestTagTrendingItemPriceChange,
                     useUnmergedTree = true
-                ).onFirst().onChild()
-                    .assertTextEquals(
-                        activity.getString(
-                            R.string.coin_profit_percent,
-                            priceChangePercentage24hInCurrency.toFormattedString()
-                        )
-                    )
+                ).onFirst().onChild().assertTextEquals(expectedPriceChange)
             }
         }
     }
@@ -210,28 +201,24 @@ class HomeScreenTest : BaseViewModelTest() {
         initViewModel()
 
         with(composeAndroidTestRule) {
-            onRoot().performTouchInput { swipeDown() }
-
             with(MockUtil.myCoins.first()) {
                 onAllNodesWithTag(
                     testTag = TestTagCoinItemSymbol,
                     useUnmergedTree = true
                 ).onFirst().assertTextEquals(symbol.uppercase())
+
                 onAllNodesWithTag(
                     testTag = TestTagCoinItemCoinName,
                     useUnmergedTree = true
                 ).onFirst().assertTextEquals(coinName)
+
                 onAllNodesWithTag(
                     testTag = TestTagCoinItemPriceChange,
                     useUnmergedTree = true
-                ).onFirst().onChild()
-                    .assertTextEquals(
-                        activity.getString(
-                            R.string.coin_profit_percent,
-                            priceChangePercentage24hInCurrency.toFormattedString()
-                        )
-                    )
+                ).onFirst().onChild().assertTextEquals(expectedPriceChange)
             }
+
+            onRoot().performTouchInput { swipeDown() }
         }
 
         verify(exactly = 2) { mockGetMyCoinsUseCase.execute(any()) }
@@ -251,20 +238,16 @@ class HomeScreenTest : BaseViewModelTest() {
                     testTag = TestTagTrendingItemSymbol,
                     useUnmergedTree = true
                 ).onFirst().assertTextEquals(symbol.uppercase())
+
                 onAllNodesWithTag(
                     testTag = TestTagTrendingItemCoinName,
                     useUnmergedTree = true
                 ).onFirst().assertTextEquals(coinName)
+
                 onAllNodesWithTag(
                     testTag = TestTagTrendingItemPriceChange,
                     useUnmergedTree = true
-                ).onFirst().onChild()
-                    .assertTextEquals(
-                        activity.getString(
-                            R.string.coin_profit_percent,
-                            priceChangePercentage24hInCurrency.toFormattedString()
-                        )
-                    )
+                ).onFirst().onChild().assertTextEquals(expectedPriceChange)
             }
 
             onRoot().performTouchInput { swipeDown() }

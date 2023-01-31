@@ -21,6 +21,8 @@ import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp16
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp40
 import co.nimblehq.compose.crypto.ui.theme.Dimension.Dp8
 
+const val TestTagTotalCoinsLabel = "CardTotalCoinsLabel"
+const val TestTagTodayCoinProfitLabel = "todayProfitLabel"
 const val TestTagCardTotalCoins = "CardTotalCoins"
 const val TestTagCardTodayProfit = "CardTodayProfit"
 
@@ -52,7 +54,7 @@ fun PortfolioCard(
                 .constrainAs(totalCoinsLabel) {
                     start.linkTo(parent.start)
                 }
-                .testTag(tag = stringResource(R.string.portfolio_card_total_coin_label)),
+                .testTag(TestTagTotalCoinsLabel),
             text = stringResource(R.string.portfolio_card_total_coin_label),
             style = Style.lightSilverMedium16()
         )
@@ -73,7 +75,7 @@ fun PortfolioCard(
                 .constrainAs(todayProfitLabel) {
                     top.linkTo(totalCoins.bottom, margin = Dp40)
                 }
-                .testTag(tag = stringResource(R.string.portfolio_card_today_profit_label)),
+                .testTag(tag = TestTagTodayCoinProfitLabel),
             text = stringResource(R.string.portfolio_card_today_profit_label),
             style = Style.lightSilverMedium16()
         )

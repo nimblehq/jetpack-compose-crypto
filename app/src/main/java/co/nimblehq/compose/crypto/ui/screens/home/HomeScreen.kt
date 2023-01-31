@@ -43,6 +43,7 @@ import timber.log.Timber
 
 private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0
 
+const val TestTagHomeTitle = "HomeTitle"
 const val TestTagTrendingItem = "TrendingItem"
 const val TestTagCoinItem = "CoinItem"
 const val TestTagCoinsLoader = "CoinsLoader"
@@ -130,7 +131,7 @@ private fun HomeScreenContent(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = Dp16)
-                                .testTag(tag = stringResource(id = R.string.home_title)),
+                                .testTag(TestTagHomeTitle),
                             text = stringResource(id = R.string.home_title),
                             textAlign = TextAlign.Center,
                             style = Style.semiBold24(),
