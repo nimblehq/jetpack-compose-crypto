@@ -44,10 +44,6 @@ android {
         kotlinCompilerVersion = Versions.KOTLIN_VERSION
         kotlinCompilerExtensionVersion = Versions.COMPOSE_VERSION
     }
-
-    buildFeatures {
-        compose = true
-    }
 }
 
 kapt {
