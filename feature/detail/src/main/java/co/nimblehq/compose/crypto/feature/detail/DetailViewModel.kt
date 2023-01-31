@@ -77,7 +77,7 @@ class DetailViewModel @Inject constructor(
             getCoinPricesUseCase.execute(
                 GetCoinPricesUseCase.Input(
                     coinId = coinId,
-                    currency = FIAT_CURRENCY,
+                    currency = co.nimblehq.compose.crypto.feature.home.FIAT_CURRENCY,
                     fromTimestamp = fromTimestamp.timeInMillis.div(1000),
                     toTimestamp = Calendar.getInstance().timeInMillis.div(1000)
                 )
