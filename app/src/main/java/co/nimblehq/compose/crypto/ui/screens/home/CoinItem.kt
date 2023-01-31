@@ -17,6 +17,7 @@ import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.core.extension.toFormattedString
 import co.nimblehq.compose.crypto.core.preview.CoinItemPreviewParameterProvider
+import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.domain.model.CoinItem
 import coil.compose.rememberAsyncImagePainter
@@ -29,10 +30,10 @@ fun CoinItem(
     ConstraintLayout(
         modifier = Modifier
             .wrapContentWidth()
-            .clip(RoundedCornerShape(co.nimblehq.compose.crypto.core.theme.Dp12))
+            .clip(RoundedCornerShape(Dp12))
             .clickable { onItemClick.invoke() }
-            .background(color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinItemBackground)
-            .padding(co.nimblehq.compose.crypto.core.theme.Dp8)
+            .background(color = AppTheme.colors.coinItemBackground)
+            .padding(Dp8)
     ) {
         val (
             logo,
@@ -44,10 +45,10 @@ fun CoinItem(
 
         Image(
             modifier = Modifier
-                .size(co.nimblehq.compose.crypto.core.theme.Dp40)
+                .size(Dp40)
                 .constrainAs(logo) {
-                    top.linkTo(anchor = coinSymbol.top, margin = co.nimblehq.compose.crypto.core.theme.Dp8)
-                    bottom.linkTo(anchor = coinName.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp8)
+                    top.linkTo(anchor = coinSymbol.top, margin = Dp8)
+                    bottom.linkTo(anchor = coinName.bottom, margin = Dp8)
                     start.linkTo(parent.start)
                 },
             painter = rememberAsyncImagePainter(coinItem.image),
@@ -58,45 +59,45 @@ fun CoinItem(
             modifier = Modifier
                 .constrainAs(coinSymbol) {
                     top.linkTo(parent.top)
-                    start.linkTo(anchor = logo.end, margin = co.nimblehq.compose.crypto.core.theme.Dp16)
+                    start.linkTo(anchor = logo.end, margin = Dp16)
                 },
             text = coinItem.symbol.uppercase(),
-            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text,
-            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.semiBold16
+            color = AppTheme.colors.text,
+            style = AppTheme.styles.semiBold16
         )
 
         Text(
             modifier = Modifier
-                .padding(top = co.nimblehq.compose.crypto.core.theme.Dp4)
+                .padding(top = Dp4)
                 .constrainAs(coinName) {
                     start.linkTo(coinSymbol.start)
                     top.linkTo(coinSymbol.bottom)
                     width = Dimension.preferredWrapContent
                 },
             text = coinItem.coinName,
-            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinNameText,
-            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.medium14
+            color = AppTheme.colors.coinNameText,
+            style = AppTheme.styles.medium14
         )
 
         Text(
             modifier = Modifier
                 .constrainAs(price) {
                     start.linkTo(logo.start)
-                    top.linkTo(anchor = coinName.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp14)
+                    top.linkTo(anchor = coinName.bottom, margin = Dp14)
                     width = Dimension.preferredWrapContent
                 },
             text = stringResource(
                 R.string.coin_currency,
                 coinItem.currentPrice.toFormattedString()
             ),
-            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text,
-            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.semiBold16
+            color = AppTheme.colors.text,
+            style = AppTheme.styles.semiBold16
         )
 
         co.nimblehq.compose.crypto.core.common.price.PriceChange(
             priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
             modifier = Modifier
-                .padding(start = co.nimblehq.compose.crypto.core.theme.Dp25)
+                .padding(start = Dp25)
                 .constrainAs(priceChange) {
                     start.linkTo(price.end)
                     bottom.linkTo(parent.bottom)
@@ -111,7 +112,7 @@ fun CoinItem(
 fun CoinItemPreview(
     @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
 ) {
-    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
+    ComposeTheme {
         CoinItem(
             coinItem = coinItem,
             onItemClick = {}
@@ -124,7 +125,7 @@ fun CoinItemPreview(
 fun CoinItemPreviewDark(
     @PreviewParameter(CoinItemPreviewParameterProvider::class) coinItem: CoinItemUiModel
 ) {
-    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
+    ComposeTheme {
         CoinItem(
             coinItem = coinItem,
             onItemClick = {}

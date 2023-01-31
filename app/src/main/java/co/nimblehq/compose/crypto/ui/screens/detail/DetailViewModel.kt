@@ -1,5 +1,8 @@
 package co.nimblehq.compose.crypto.ui.screens.detail
 
+import co.nimblehq.compose.crypto.core.*
+import co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals
+import co.nimblehq.compose.crypto.core.util.DispatchersProvider
 import co.nimblehq.compose.crypto.domain.model.CoinPrice
 import co.nimblehq.compose.crypto.domain.usecase.GetCoinDetailUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetCoinPricesUseCase
@@ -7,19 +10,16 @@ import co.nimblehq.compose.crypto.ui.screens.home.FIAT_CURRENCY
 import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.filterNot
+import kotlinx.coroutines.flow.*
 import java.util.*
 import javax.inject.Inject
 
-interface Input : co.nimblehq.compose.crypto.core.BaseInput {
+interface Input : BaseInput {
 
     fun getCoinId(coinId: String)
 }
 
-interface Output : co.nimblehq.compose.crypto.core.BaseOutput {
+interface Output : BaseOutput {
 
     val coinDetailUiModel: StateFlow<CoinDetailUiModel?>
     val coinPrices: StateFlow<List<CoinPrice>>
@@ -27,10 +27,10 @@ interface Output : co.nimblehq.compose.crypto.core.BaseOutput {
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    dispatchers: co.nimblehq.compose.crypto.core.util.DispatchersProvider,
+    dispatchers: DispatchersProvider,
     private val getCoinDetailUseCase: GetCoinDetailUseCase,
     private val getCoinPricesUseCase: GetCoinPricesUseCase
-) : co.nimblehq.compose.crypto.core.BaseViewModel(dispatchers), Input, Output {
+) : BaseViewModel(dispatchers), Input, Output {
 
     override val input = this
     override val output = this
@@ -61,15 +61,15 @@ class DetailViewModel @Inject constructor(
     }
 
     @Suppress("MagicNumber")
-    fun getCoinPrices(coinId: String, timeIntervals: co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals = co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_DAY) =
+    fun getCoinPrices(coinId: String, timeIntervals: TimeIntervals = TimeIntervals.ONE_DAY) =
         execute {
             val fromTimestamp = Calendar.getInstance().apply {
                 when (timeIntervals) {
-                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_DAY -> add(Calendar.DAY_OF_YEAR, -1)
-                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_WEEK -> add(Calendar.DAY_OF_YEAR, -7)
-                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_MONTH -> add(Calendar.MONTH, -1)
-                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.ONE_YEAR -> add(Calendar.YEAR, -1)
-                    co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals.FIVE_YEAR -> add(Calendar.YEAR, -5)
+                    TimeIntervals.ONE_DAY -> add(Calendar.DAY_OF_YEAR, -1)
+                    TimeIntervals.ONE_WEEK -> add(Calendar.DAY_OF_YEAR, -7)
+                    TimeIntervals.ONE_MONTH -> add(Calendar.MONTH, -1)
+                    TimeIntervals.ONE_YEAR -> add(Calendar.YEAR, -1)
+                    TimeIntervals.FIVE_YEAR -> add(Calendar.YEAR, -5)
                 }
             }
 

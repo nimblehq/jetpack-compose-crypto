@@ -13,6 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.core.common.price.PriceChangeButton
+import co.nimblehq.compose.crypto.core.theme.*
 
 @Composable
 fun PortfolioCard(
@@ -21,13 +23,13 @@ fun PortfolioCard(
     ConstraintLayout(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(co.nimblehq.compose.crypto.core.theme.Dp12))
+            .clip(RoundedCornerShape(Dp12))
             .background(
                 brush = Brush.linearGradient(
-                    colors = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.portfolioCardBackgroundGradient,
+                    colors = AppTheme.colors.portfolioCardBackgroundGradient,
                 )
             )
-            .padding(horizontal = co.nimblehq.compose.crypto.core.theme.Dp16, vertical = co.nimblehq.compose.crypto.core.theme.Dp16)
+            .padding(horizontal = Dp16, vertical = Dp16)
     ) {
         val (
             totalCoinsLabel,
@@ -43,39 +45,39 @@ fun PortfolioCard(
                     start.linkTo(parent.start)
                 },
             text = stringResource(R.string.portfolio_card_total_coin_label),
-            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.lightSilverMedium16
+            style = AppTheme.styles.lightSilverMedium16
         )
 
         Text(
             modifier = Modifier
                 .constrainAs(totalCoins) {
-                    top.linkTo(totalCoinsLabel.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp8)
+                    top.linkTo(totalCoinsLabel.bottom, margin = Dp8)
                 },
             // TODO: Remove dummy value when work on Integrate.
             text = stringResource(R.string.coin_currency, "7,273,291"),
-            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.whiteSemiBold24
+            style = AppTheme.styles.whiteSemiBold24
         )
 
         Text(
             modifier = Modifier
                 .constrainAs(todayProfitLabel) {
-                    top.linkTo(totalCoins.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp40)
+                    top.linkTo(totalCoins.bottom, margin = Dp40)
                 },
             text = stringResource(R.string.portfolio_card_today_profit_label),
-            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.lightSilverMedium16
+            style = AppTheme.styles.lightSilverMedium16
         )
 
         Text(
             modifier = Modifier
                 .constrainAs(todayProfit) {
-                    top.linkTo(todayProfitLabel.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp8)
+                    top.linkTo(todayProfitLabel.bottom, margin = Dp8)
                 },
             // TODO: Remove dummy value when work on Integrate.
             text = stringResource(R.string.coin_currency, "193,280"),
-            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.whiteSemiBold24
+            style = AppTheme.styles.whiteSemiBold24
         )
 
-        co.nimblehq.compose.crypto.core.common.price.PriceChangeButton(
+        PriceChangeButton(
             modifier = Modifier
                 .constrainAs(profitPercent) {
                     linkTo(top = todayProfitLabel.top, bottom = todayProfit.bottom)
@@ -90,7 +92,7 @@ fun PortfolioCard(
 @Composable
 @Preview
 fun PortfolioCardPreview() {
-    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
+    ComposeTheme {
         PortfolioCard(
             modifier = Modifier
         )

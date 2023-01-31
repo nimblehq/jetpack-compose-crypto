@@ -19,13 +19,15 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.core.LoadingState
 import co.nimblehq.compose.crypto.core.extension.boxShadow
 import co.nimblehq.compose.crypto.core.lib.IsLoading
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
-import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
-import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
+import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.core.userReadableMessage
+import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
+import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
 import timber.log.Timber
 
 private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0
@@ -53,7 +55,7 @@ fun HomeScreen(
     }
 
     val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
-    val showTrendingCoinsLoading: co.nimblehq.compose.crypto.core.LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
+    val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
     val myCoins: List<CoinItemUiModel> by viewModel.output.myCoins.collectAsState()
     val trendingCoins: List<CoinItemUiModel> by viewModel.output.trendingCoins.collectAsState()
 
@@ -75,7 +77,7 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenContent(
     showMyCoinsLoading: IsLoading,
-    showTrendingCoinsLoading: co.nimblehq.compose.crypto.core.LoadingState,
+    showTrendingCoinsLoading: LoadingState,
     isRefreshing: IsLoading,
     myCoins: List<CoinItemUiModel>,
     trendingCoins: List<CoinItemUiModel>,
@@ -105,24 +107,24 @@ private fun HomeScreenContent(
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = co.nimblehq.compose.crypto.core.theme.Dp16),
+                                .padding(top = Dp16),
                             text = stringResource(id = R.string.home_title),
                             textAlign = TextAlign.Center,
-                            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.semiBold24,
-                            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text
+                            style = AppTheme.styles.semiBold24,
+                            color = AppTheme.colors.text
                         )
                     }
 
                     item {
                         PortfolioCard(
                             modifier = Modifier
-                                .padding(start = co.nimblehq.compose.crypto.core.theme.Dp16, top = co.nimblehq.compose.crypto.core.theme.Dp40, end = co.nimblehq.compose.crypto.core.theme.Dp16)
+                                .padding(start = Dp16, top = Dp40, end = Dp16)
                                 .boxShadow(
-                                    color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.portfolioCardShadow,
-                                    borderRadius = co.nimblehq.compose.crypto.core.theme.AppTheme.dimensions.shadowBorderRadius,
-                                    blurRadius = co.nimblehq.compose.crypto.core.theme.AppTheme.dimensions.shadowBlurRadius,
-                                    offsetY = co.nimblehq.compose.crypto.core.theme.AppTheme.dimensions.shadowOffsetY,
-                                    spread = co.nimblehq.compose.crypto.core.theme.AppTheme.dimensions.shadowSpread
+                                    color = AppTheme.colors.portfolioCardShadow,
+                                    borderRadius = AppTheme.dimensions.shadowBorderRadius,
+                                    blurRadius = AppTheme.dimensions.shadowBlurRadius,
+                                    offsetY = AppTheme.dimensions.shadowOffsetY,
+                                    spread = AppTheme.dimensions.shadowSpread
                                 )
                         )
                     }
@@ -139,12 +141,12 @@ private fun HomeScreenContent(
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = co.nimblehq.compose.crypto.core.theme.Dp16, top = co.nimblehq.compose.crypto.core.theme.Dp24, end = co.nimblehq.compose.crypto.core.theme.Dp16, bottom = co.nimblehq.compose.crypto.core.theme.Dp16)
+                                .padding(start = Dp16, top = Dp24, end = Dp16, bottom = Dp16)
                         ) {
                             Text(
                                 text = stringResource(id = R.string.home_trending_title),
-                                style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.medium16,
-                                color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text
+                                style = AppTheme.styles.medium16,
+                                color = AppTheme.colors.text
                             )
 
                             SeeAll(
@@ -156,7 +158,7 @@ private fun HomeScreenContent(
                     }
 
                     // Full section loading
-                    if (showTrendingCoinsLoading == co.nimblehq.compose.crypto.core.LoadingState.Loading) {
+                    if (showTrendingCoinsLoading == LoadingState.Loading) {
                         item {
                             CircularProgressIndicator(
                                 modifier = Modifier
@@ -175,7 +177,7 @@ private fun HomeScreenContent(
 
                             Box(
                                 modifier = Modifier.padding(
-                                    start = co.nimblehq.compose.crypto.core.theme.Dp16, end = co.nimblehq.compose.crypto.core.theme.Dp16, bottom = co.nimblehq.compose.crypto.core.theme.Dp16
+                                    start = Dp16, end = Dp16, bottom = Dp16
                                 )
                             ) {
                                 TrendingItem(
@@ -187,13 +189,13 @@ private fun HomeScreenContent(
                     }
 
                     // Load more loading
-                    if (showTrendingCoinsLoading == co.nimblehq.compose.crypto.core.LoadingState.LoadingMore) {
+                    if (showTrendingCoinsLoading == LoadingState.LoadingMore) {
                         item {
                             CircularProgressIndicator(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .wrapContentWidth(align = Alignment.CenterHorizontally)
-                                    .padding(bottom = co.nimblehq.compose.crypto.core.theme.Dp16)
+                                    .padding(bottom = Dp16)
                             )
                         }
                     }
@@ -204,8 +206,8 @@ private fun HomeScreenContent(
                 refreshing = isRefreshing,
                 state = refreshingState,
                 modifier = Modifier.align(alignment = Alignment.TopCenter),
-                backgroundColor = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.pullRefreshBackground,
-                contentColor = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.pullRefreshContent
+                backgroundColor = AppTheme.colors.pullRefreshBackground,
+                contentColor = AppTheme.colors.pullRefreshContent
             )
         }
     }
@@ -220,7 +222,7 @@ private fun MyCoins(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = co.nimblehq.compose.crypto.core.theme.Dp52)
+            .padding(top = Dp52)
     ) {
 
         val (
@@ -235,10 +237,10 @@ private fun MyCoins(
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                 }
-                .padding(start = co.nimblehq.compose.crypto.core.theme.Dp16),
+                .padding(start = Dp16),
             text = stringResource(id = R.string.home_my_coins_title),
-            style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.medium16,
-            color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text
+            style = AppTheme.styles.medium16,
+            color = AppTheme.colors.text
         )
 
         SeeAll(
@@ -248,14 +250,14 @@ private fun MyCoins(
                     top.linkTo(myCoinsTitle.top)
                     end.linkTo(parent.end)
                 }
-                .padding(end = co.nimblehq.compose.crypto.core.theme.Dp16)
+                .padding(end = Dp16)
         )
 
         if (showMyCoinsLoading) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .constrainAs(myCoins) {
-                        top.linkTo(myCoinsTitle.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp16)
+                        top.linkTo(myCoinsTitle.bottom, margin = Dp16)
                         linkTo(start = parent.start, end = parent.end)
                     },
             )
@@ -263,11 +265,11 @@ private fun MyCoins(
             LazyRow(
                 modifier = Modifier
                     .constrainAs(myCoins) {
-                        top.linkTo(myCoinsTitle.bottom, margin = co.nimblehq.compose.crypto.core.theme.Dp16)
+                        top.linkTo(myCoinsTitle.bottom, margin = Dp16)
                         start.linkTo(parent.start)
                     },
-                contentPadding = PaddingValues(horizontal = co.nimblehq.compose.crypto.core.theme.Dp16),
-                horizontalArrangement = Arrangement.spacedBy(co.nimblehq.compose.crypto.core.theme.Dp16)
+                contentPadding = PaddingValues(horizontal = Dp16),
+                horizontalArrangement = Arrangement.spacedBy(Dp16)
             ) {
                 items(coins) { coin ->
                     CoinItem(
@@ -286,7 +288,7 @@ fun HomeScreenPreview(
     @PreviewParameter(HomeScreenPreviewParameterProvider::class) params: HomeScreenParams
 ) {
     with(params) {
-        co.nimblehq.compose.crypto.core.theme.ComposeTheme {
+        ComposeTheme {
             HomeScreenContent(
                 showMyCoinsLoading = isMyCoinsLoading,
                 showTrendingCoinsLoading = isTrendingCoinsLoading,
@@ -304,7 +306,7 @@ fun HomeScreenPreviewDark(
     @PreviewParameter(HomeScreenPreviewParameterProvider::class) params: HomeScreenParams
 ) {
     with(params) {
-        co.nimblehq.compose.crypto.core.theme.ComposeTheme {
+        ComposeTheme {
             HomeScreenContent(
                 showMyCoinsLoading = isMyCoinsLoading,
                 showTrendingCoinsLoading = isTrendingCoinsLoading,

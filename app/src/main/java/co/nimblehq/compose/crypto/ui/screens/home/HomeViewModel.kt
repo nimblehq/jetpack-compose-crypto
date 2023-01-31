@@ -1,10 +1,12 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
-import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
-import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
+import co.nimblehq.compose.crypto.core.*
 import co.nimblehq.compose.crypto.core.lib.IsLoading
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
+import co.nimblehq.compose.crypto.core.util.DispatchersProvider
+import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
+import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -15,7 +17,7 @@ private const val MY_COINS_PRICE_CHANGE_IN_HOUR = "24h"
 private const val MY_COINS_ITEM_PER_PAGE = 10
 private const val MY_COINS_INITIAL_PAGE = 1
 
-interface Input : co.nimblehq.compose.crypto.core.BaseInput {
+interface Input : BaseInput {
 
     fun loadData(isRefreshing: Boolean = false)
 
@@ -26,11 +28,11 @@ interface Input : co.nimblehq.compose.crypto.core.BaseInput {
     fun onTrendingCoinsItemClick(coin: CoinItemUiModel)
 }
 
-interface Output : co.nimblehq.compose.crypto.core.BaseOutput {
+interface Output : BaseOutput {
 
     val showMyCoinsLoading: StateFlow<IsLoading>
 
-    val showTrendingCoinsLoading: StateFlow<co.nimblehq.compose.crypto.core.LoadingState>
+    val showTrendingCoinsLoading: StateFlow<LoadingState>
 
     val myCoins: StateFlow<List<CoinItemUiModel>>
 
@@ -39,10 +41,10 @@ interface Output : co.nimblehq.compose.crypto.core.BaseOutput {
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    dispatchers: co.nimblehq.compose.crypto.core.util.DispatchersProvider,
+    dispatchers: DispatchersProvider,
     private val getMyCoinsUseCase: GetMyCoinsUseCase,
     private val getTrendingCoinsUseCase: GetTrendingCoinsUseCase
-) : co.nimblehq.compose.crypto.core.BaseViewModel(dispatchers), Input, Output {
+) : BaseViewModel(dispatchers), Input, Output {
 
     override val input = this
     override val output = this
@@ -51,8 +53,8 @@ class HomeViewModel @Inject constructor(
     override val showMyCoinsLoading: StateFlow<IsLoading>
         get() = _showMyCoinsLoading
 
-    private val _showTrendingCoinsLoading = MutableStateFlow<co.nimblehq.compose.crypto.core.LoadingState>(co.nimblehq.compose.crypto.core.LoadingState.Idle)
-    override val showTrendingCoinsLoading: StateFlow<co.nimblehq.compose.crypto.core.LoadingState>
+    private val _showTrendingCoinsLoading = MutableStateFlow<LoadingState>(LoadingState.Idle)
+    override val showTrendingCoinsLoading: StateFlow<LoadingState>
         get() = _showTrendingCoinsLoading
 
     private val _myCoins = MutableStateFlow<List<CoinItemUiModel>>(emptyList())
@@ -98,10 +100,10 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun getTrendingCoins(isRefreshing: Boolean, loadMore: Boolean) {
-        if (_showTrendingCoinsLoading.value != co.nimblehq.compose.crypto.core.LoadingState.Idle) return
+        if (_showTrendingCoinsLoading.value != LoadingState.Idle) return
         execute {
             if (isRefreshing) showLoading() else
-                _showTrendingCoinsLoading.value = if (loadMore) co.nimblehq.compose.crypto.core.LoadingState.LoadingMore else co.nimblehq.compose.crypto.core.LoadingState.Loading
+                _showTrendingCoinsLoading.value = if (loadMore) LoadingState.LoadingMore else LoadingState.Loading
             getTrendingCoinsUseCase.execute(
                 GetTrendingCoinsUseCase.Input(
                     currency = FIAT_CURRENCY,
@@ -124,7 +126,7 @@ class HomeViewModel @Inject constructor(
                     trendingCoinsPage++
                 }
             if (isRefreshing) hideLoading() else
-                _showTrendingCoinsLoading.value = co.nimblehq.compose.crypto.core.LoadingState.Idle
+                _showTrendingCoinsLoading.value = LoadingState.Idle
         }
     }
 
