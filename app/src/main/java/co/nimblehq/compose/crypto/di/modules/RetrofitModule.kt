@@ -4,6 +4,7 @@ import co.nimblehq.compose.crypto.BuildConfig.BASE_API_URL
 import co.nimblehq.compose.crypto.core.providers.ConverterFactoryProvider
 import co.nimblehq.compose.crypto.core.providers.RetrofitProvider
 import co.nimblehq.compose.crypto.data.ApiServiceProvider
+import co.nimblehq.compose.crypto.data.home.service.HomeApiService
 import co.nimblehq.compose.crypto.data.service.ApiService
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -37,4 +38,8 @@ class RetrofitModule {
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService =
         ApiServiceProvider.getApiService(retrofit)
+
+    @Provides
+    fun provideHomeApiService(retrofit: Retrofit): HomeApiService =
+        ApiServiceProvider.getHomeApiService(retrofit)
 }

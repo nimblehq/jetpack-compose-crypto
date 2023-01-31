@@ -1,9 +1,13 @@
 package co.nimblehq.compose.crypto.data.repository
 
 import co.nimblehq.compose.crypto.data.flowTransform
+import co.nimblehq.compose.crypto.data.home.model.response.CoinItemResponse
+import co.nimblehq.compose.crypto.data.home.model.response.toModel
 import co.nimblehq.compose.crypto.data.model.response.*
 import co.nimblehq.compose.crypto.data.service.ApiService
-import co.nimblehq.compose.crypto.domain.model.*
+import co.nimblehq.compose.crypto.domain.home.model.CoinItem
+import co.nimblehq.compose.crypto.domain.model.CoinDetail
+import co.nimblehq.compose.crypto.domain.model.CoinPrice
 import co.nimblehq.compose.crypto.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

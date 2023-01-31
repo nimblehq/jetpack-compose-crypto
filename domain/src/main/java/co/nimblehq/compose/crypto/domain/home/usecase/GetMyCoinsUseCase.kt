@@ -1,11 +1,11 @@
-package co.nimblehq.compose.crypto.domain.usecase
+package co.nimblehq.compose.crypto.domain.home.usecase
 
-import co.nimblehq.compose.crypto.domain.model.CoinItem
-import co.nimblehq.compose.crypto.domain.repository.CoinRepository
+import co.nimblehq.compose.crypto.domain.home.model.CoinItem
+import co.nimblehq.compose.crypto.domain.home.repository.HomeRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetMyCoinsUseCase @Inject constructor(private val repository: CoinRepository) {
+class GetMyCoinsUseCase @Inject constructor(private val repository: HomeRepository) {
 
     private val myCoinIds = listOf(
         "bitcoin",
