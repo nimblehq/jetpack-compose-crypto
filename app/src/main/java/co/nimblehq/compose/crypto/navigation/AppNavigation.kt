@@ -1,10 +1,12 @@
-package co.nimblehq.compose.crypto.core.navigation
+package co.nimblehq.compose.crypto.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.*
+import co.nimblehq.compose.crypto.core.navigation.AppDestination
+import co.nimblehq.compose.crypto.core.navigation.KEY_COIN_ID
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
-import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
+import home.HomeScreen
 
 @Composable
 fun AppNavigation(

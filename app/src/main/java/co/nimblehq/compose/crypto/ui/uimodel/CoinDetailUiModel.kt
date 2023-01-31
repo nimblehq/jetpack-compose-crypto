@@ -2,7 +2,7 @@ package co.nimblehq.compose.crypto.ui.uimodel
 
 import co.nimblehq.compose.crypto.data.extension.orZero
 import co.nimblehq.compose.crypto.domain.model.CoinDetail
-import co.nimblehq.compose.crypto.ui.screens.home.FIAT_CURRENCY
+import co.nimblehq.compose.crypto.feature.home.FIAT_CURRENCY
 import java.math.BigDecimal
 
 data class CoinDetailUiModel(

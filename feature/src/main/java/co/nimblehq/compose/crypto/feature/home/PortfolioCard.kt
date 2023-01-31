@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.home
+package co.nimblehq.compose.crypto.feature.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,9 +13,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
-import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.core.common.price.PriceChangeButton
 import co.nimblehq.compose.crypto.core.theme.*
+import co.nimblehq.compose.crypto.feature.R
 
 const val TestTagTotalCoinsLabel = "CardTotalCoinsLabel"
 const val TestTagTodayCoinProfitLabel = "todayProfitLabel"

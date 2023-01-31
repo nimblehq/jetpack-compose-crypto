@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.home
+package co.nimblehq.compose.crypto.feature.home
 
 import co.nimblehq.compose.crypto.core.*
 import co.nimblehq.compose.crypto.core.lib.IsLoading

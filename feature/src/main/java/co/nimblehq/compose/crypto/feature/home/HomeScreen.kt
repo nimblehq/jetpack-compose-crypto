@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.home
+package home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -19,16 +19,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
-import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.core.LoadingState
+import co.nimblehq.compose.crypto.core.*
+import co.nimblehq.compose.crypto.core.R
 import co.nimblehq.compose.crypto.core.extension.boxShadow
 import co.nimblehq.compose.crypto.core.lib.IsLoading
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
-import co.nimblehq.compose.crypto.core.userReadableMessage
-import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
-import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
+import co.nimblehq.compose.crypto.feature.home.*
+import co.nimblehq.compose.crypto.feature.home.preview.HomeScreenParams
+import co.nimblehq.compose.crypto.feature.home.preview.HomeScreenPreviewParameterProvider
 import timber.log.Timber
 
 private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0
