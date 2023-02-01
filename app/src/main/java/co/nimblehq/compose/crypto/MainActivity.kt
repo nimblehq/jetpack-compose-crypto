@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens
+package co.nimblehq.compose.crypto
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
