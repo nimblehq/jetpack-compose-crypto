@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.domain.model
+package co.nimblehq.compose.crypto.domain.detail.model
 
 import java.math.BigDecimal
 

@@ -1,7 +1,7 @@
-package co.nimblehq.compose.crypto.data.model.response
+package co.nimblehq.compose.crypto.data.detail.model
 
 import co.nimblehq.compose.crypto.data.extension.orZero
-import co.nimblehq.compose.crypto.domain.model.CoinDetail
+import co.nimblehq.compose.crypto.domain.detail.model.CoinDetail
 import com.squareup.moshi.Json
 import java.math.BigDecimal
 

@@ -1,6 +1,6 @@
-package co.nimblehq.compose.crypto.data.model.response
+package co.nimblehq.compose.crypto.data.detail.model
 
-import co.nimblehq.compose.crypto.domain.model.CoinPrice
+import co.nimblehq.compose.crypto.domain.detail.model.CoinPrice
 import com.squareup.moshi.Json
 import java.math.BigDecimal
 

@@ -1,7 +1,7 @@
-package co.nimblehq.compose.crypto.domain.usecase
+package co.nimblehq.compose.crypto.domain.detail.usecase
 
-import co.nimblehq.compose.crypto.domain.model.CoinPrice
-import co.nimblehq.compose.crypto.domain.repository.CoinRepository
+import co.nimblehq.compose.crypto.domain.detail.model.CoinPrice
+import co.nimblehq.compose.crypto.domain.detail.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
