@@ -5,7 +5,7 @@ import co.nimblehq.compose.crypto.domain.usecase.GetCoinDetailUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetCoinPricesUseCase
 import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.ui.screens.BaseViewModelTest
-import co.nimblehq.compose.crypto.core.uimodel.toUiModel
+import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
@@ -15,9 +15,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.*
 
 @ExperimentalCoroutinesApi
 class DetailViewModelTest : BaseViewModelTest() {
