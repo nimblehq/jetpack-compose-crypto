@@ -38,6 +38,10 @@ interface Output : BaseOutput {
     val myCoins: StateFlow<List<CoinItemUiModel>>
 
     val trendingCoins: StateFlow<List<CoinItemUiModel>>
+
+    val myCoinsError: SharedFlow<Throwable?>
+
+    val trendingCoinsError: SharedFlow<Throwable?>
 }
 
 @HiltViewModel
@@ -66,6 +70,14 @@ class HomeViewModel @Inject constructor(
     override val trendingCoins: StateFlow<List<CoinItemUiModel>>
         get() = _trendingCoins
 
+    private val _myCoinsError = MutableStateFlow<Throwable?>(null)
+    override val myCoinsError: StateFlow<Throwable?>
+        get() = _myCoinsError
+
+    private val _trendingCoinsError = MutableStateFlow<Throwable?>(null)
+    override val trendingCoinsError: StateFlow<Throwable?>
+        get() = _trendingCoinsError
+
     private var trendingCoinsPage = MY_COINS_INITIAL_PAGE
 
     init {
@@ -81,7 +93,11 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getMyCoins(isRefreshing: Boolean) = execute {
-        if (isRefreshing) showLoading() else _showMyCoinsLoading.value = true
+        if (isRefreshing) {
+            showLoading()
+        } else {
+            _showMyCoinsLoading.value = true
+        }
         getMyCoinsUseCase.execute(
             GetMyCoinsUseCase.Input(
                 currency = FIAT_CURRENCY,
@@ -92,7 +108,7 @@ class HomeViewModel @Inject constructor(
             )
         )
             .catch { e ->
-                _error.emit(e)
+                _myCoinsError.emit(e)
             }
             .collect { coins ->
                 _myCoins.emit(coins.map { it.toUiModel() })
@@ -115,7 +131,7 @@ class HomeViewModel @Inject constructor(
                 )
             )
                 .catch { e ->
-                    _error.emit(e)
+                    _trendingCoinsError.emit(e)
                 }
                 .collect { coins ->
                     val newCoinList = coins.map { it.toUiModel() }
@@ -126,8 +142,7 @@ class HomeViewModel @Inject constructor(
                     }
                     trendingCoinsPage++
                 }
-            if (isRefreshing) hideLoading() else
-                _showTrendingCoinsLoading.value = LoadingState.Idle
+            if (isRefreshing) hideLoading() else _showTrendingCoinsLoading.value = LoadingState.Idle
         }
     }
 

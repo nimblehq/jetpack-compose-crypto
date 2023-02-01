@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +33,11 @@ import timber.log.Timber
 
 private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0
 
+const val TestTagHomeTitle = "HomeTitle"
+const val TestTagTrendingItem = "TrendingItem"
+const val TestTagCoinItem = "CoinItem"
+const val TestTagCoinsLoader = "CoinsLoader"
+
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
@@ -39,14 +45,11 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     var rememberRefreshing by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) {
-        viewModel.output.error.collect { error ->
-            val message = error.userReadableMessage(context)
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        }
-    }
+
     LaunchedEffect(viewModel) {
-        viewModel.output.navigator.collect { destination -> navigator(destination) }
+        viewModel.output.navigator.collect { destination ->
+            navigator(destination)
+        }
     }
     LaunchedEffect(viewModel.showLoading) {
         viewModel.showLoading.collect { isRefreshing ->
@@ -58,6 +61,16 @@ fun HomeScreen(
     val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
     val myCoins: List<CoinItemUiModel> by viewModel.output.myCoins.collectAsState()
     val trendingCoins: List<CoinItemUiModel> by viewModel.output.trendingCoins.collectAsState()
+    val myCoinsError: Throwable? by viewModel.output.myCoinsError.collectAsState()
+    val trendingCoinsError: Throwable? by viewModel.output.trendingCoinsError.collectAsState()
+
+    myCoinsError?.let { error ->
+        Toast.makeText(context, error.userReadableMessage(context), Toast.LENGTH_SHORT).show()
+    }
+
+    trendingCoinsError?.let { error ->
+        Toast.makeText(context, error.userReadableMessage(context), Toast.LENGTH_SHORT).show()
+    }
 
     HomeScreenContent(
         showMyCoinsLoading = showMyCoinsLoading,
@@ -107,7 +120,8 @@ private fun HomeScreenContent(
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = Dp16),
+                                .padding(top = Dp16)
+                                .testTag(TestTagHomeTitle),
                             text = stringResource(id = R.string.home_title),
                             textAlign = TextAlign.Center,
                             style = AppTheme.styles.semiBold24,
@@ -163,7 +177,8 @@ private fun HomeScreenContent(
                             CircularProgressIndicator(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .wrapContentWidth(align = Alignment.CenterHorizontally),
+                                    .wrapContentWidth(align = Alignment.CenterHorizontally)
+                                    .testTag(tag = TestTagCoinsLoader),
                             )
                         }
                     } else {
@@ -181,6 +196,7 @@ private fun HomeScreenContent(
                                 )
                             ) {
                                 TrendingItem(
+                                    modifier = Modifier.testTag(tag = TestTagTrendingItem),
                                     coinItem = coin,
                                     onItemClick = { onTrendingItemClick.invoke(coin) }
                                 )
@@ -196,6 +212,7 @@ private fun HomeScreenContent(
                                     .fillMaxWidth()
                                     .wrapContentWidth(align = Alignment.CenterHorizontally)
                                     .padding(bottom = Dp16)
+                                    .testTag(tag = TestTagCoinsLoader),
                             )
                         }
                     }
@@ -259,7 +276,8 @@ private fun MyCoins(
                     .constrainAs(myCoins) {
                         top.linkTo(myCoinsTitle.bottom, margin = Dp16)
                         linkTo(start = parent.start, end = parent.end)
-                    },
+                    }
+                    .testTag(tag = TestTagCoinsLoader),
             )
         } else {
             LazyRow(
@@ -273,6 +291,7 @@ private fun MyCoins(
             ) {
                 items(coins) { coin ->
                     CoinItem(
+                        modifier = Modifier.testTag(tag = TestTagCoinItem),
                         coinItem = coin,
                         onItemClick = { onMyCoinsItemClick.invoke(coin) }
                     )

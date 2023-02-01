@@ -60,7 +60,7 @@ class HomeViewModelTest : BaseViewModelTest() {
             val error = Throwable()
             every { mockGetMyCoinsUseCase.execute(any()) } returns flow { throw error }
 
-            viewModel.output.error.test {
+            viewModel.output.myCoinsError.test {
                 testDispatcher.resumeDispatcher()
                 expectMostRecentItem() shouldBe error
                 cancelAndIgnoreRemainingEvents()
@@ -88,7 +88,7 @@ class HomeViewModelTest : BaseViewModelTest() {
             val error = Throwable()
             every { mockGetTrendingCoinsUseCase.execute(any()) } returns flow { throw error }
 
-            viewModel.output.error.test {
+            viewModel.output.trendingCoinsError.test {
                 testDispatcher.resumeDispatcher()
                 expectMostRecentItem() shouldBe error
                 cancelAndIgnoreRemainingEvents()
