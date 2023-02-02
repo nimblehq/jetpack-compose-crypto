@@ -1,21 +1,16 @@
 package co.nimblehq.compose.crypto.ui.screens.detail
 
+import co.nimblehq.compose.crypto.core.*
+import co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals
+import co.nimblehq.compose.crypto.core.util.DispatchersProvider
 import co.nimblehq.compose.crypto.domain.model.CoinPrice
 import co.nimblehq.compose.crypto.domain.usecase.GetCoinDetailUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetCoinPricesUseCase
-import co.nimblehq.compose.crypto.ui.base.BaseInput
-import co.nimblehq.compose.crypto.ui.base.BaseOutput
-import co.nimblehq.compose.crypto.ui.base.BaseViewModel
-import co.nimblehq.compose.crypto.ui.components.chartintervals.TimeIntervals
 import co.nimblehq.compose.crypto.ui.screens.home.FIAT_CURRENCY
 import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.ui.uimodel.toUiModel
-import co.nimblehq.compose.crypto.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.filterNot
+import kotlinx.coroutines.flow.*
 import java.util.*
 import javax.inject.Inject
 

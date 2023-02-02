@@ -1,9 +1,9 @@
 package co.nimblehq.compose.crypto.data
 
-import co.nimblehq.compose.crypto.data.model.response.ErrorResponse
-import co.nimblehq.compose.crypto.data.service.JsonApiException
-import co.nimblehq.compose.crypto.data.service.UnknownException
-import co.nimblehq.compose.crypto.data.service.providers.MoshiBuilderProvider
+import co.nimblehq.compose.crypto.core.JsonApiException
+import co.nimblehq.compose.crypto.core.UnknownException
+import co.nimblehq.compose.crypto.core.model.response.ErrorResponse
+import co.nimblehq.compose.crypto.core.providers.MoshiBuilderProvider
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response

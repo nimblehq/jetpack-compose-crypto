@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import co.nimblehq.compose.crypto.ui.theme.*
+import co.nimblehq.compose.crypto.core.theme.*
 
 @Composable
 fun SellBuyButton(

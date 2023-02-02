@@ -16,11 +16,11 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.extension.toFormattedString
-import co.nimblehq.compose.crypto.ui.common.price.PriceChange
+import co.nimblehq.compose.crypto.core.common.price.PriceChange
+import co.nimblehq.compose.crypto.core.extension.toFormattedString
+import co.nimblehq.compose.crypto.core.theme.*
+import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
 
 const val TestTagCoinItemSymbol = "CoinItemCoinSymbol"
@@ -30,8 +30,8 @@ const val TestTagCoinItemPriceChange = "CoinItemPriceChange"
 
 @Composable
 fun CoinItem(
-    modifier: Modifier = Modifier,
     coinItem: CoinItemUiModel,
+    modifier: Modifier = Modifier,
     onItemClick: () -> Unit
 ) {
     ConstraintLayout(

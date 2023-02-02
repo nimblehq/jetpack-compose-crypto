@@ -10,6 +10,7 @@ object BuildType {
 }
 
 object Module {
+    const val CORE = ":core"
     const val DATA = ":data"
     const val DOMAIN = ":domain"
 }

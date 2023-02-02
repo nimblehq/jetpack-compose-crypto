@@ -1,6 +1,6 @@
 package co.nimblehq.compose.crypto.test
 
-import co.nimblehq.compose.crypto.util.DispatchersProvider
+import co.nimblehq.compose.crypto.core.util.DispatchersProvider
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.rules.TestWatcher

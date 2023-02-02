@@ -53,25 +53,15 @@ android {
 }
 
 dependencies {
+    implementation(project(Module.CORE))
     implementation(project(Module.DOMAIN))
 
-    implementation("androidx.core:core-ktx:${Versions.ANDROIDX_CORE_KTX_VERSION}")
-    implementation("androidx.security:security-crypto:${Versions.ANDROID_CRYPTO_VERSION}")
     implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
     implementation("com.squareup.moshi:moshi:${Versions.MOSHI_VERSION}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.KOTLIN_VERSION}")
     implementation("javax.inject:javax.inject:${Versions.JAVAX_INJECT_VERSION}")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KOTLINX_COROUTINES_VERSION}")
-
-    api("com.squareup.retrofit2:converter-moshi:${Versions.RETROFIT_VERSION}")
-    api("com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}")
-
-    api("com.squareup.moshi:moshi-adapters:${Versions.MOSHI_VERSION}")
-    api("com.squareup.moshi:moshi-kotlin:${Versions.MOSHI_VERSION}")
-
-    api("com.squareup.okhttp3:okhttp:${Versions.OKHTTP_VERSION}")
-    api("com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP_VERSION}")
 
     // Testing
     testImplementation("junit:junit:${Versions.TEST_JUNIT_VERSION}")

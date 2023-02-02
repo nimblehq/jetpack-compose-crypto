@@ -20,15 +20,15 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.extension.boxShadow
-import co.nimblehq.compose.crypto.lib.IsLoading
-import co.nimblehq.compose.crypto.ui.base.LoadingState
-import co.nimblehq.compose.crypto.ui.navigation.AppDestination
+import co.nimblehq.compose.crypto.core.LoadingState
+import co.nimblehq.compose.crypto.core.extension.boxShadow
+import co.nimblehq.compose.crypto.core.lib.IsLoading
+import co.nimblehq.compose.crypto.core.navigation.AppDestination
+import co.nimblehq.compose.crypto.core.theme.*
+import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
+import co.nimblehq.compose.crypto.core.userReadableMessage
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.theme.*
-import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
-import co.nimblehq.compose.crypto.ui.userReadableMessage
 import timber.log.Timber
 
 private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0

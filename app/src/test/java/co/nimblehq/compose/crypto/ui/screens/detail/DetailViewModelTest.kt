@@ -15,9 +15,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.*
 
 @ExperimentalCoroutinesApi
 class DetailViewModelTest : BaseViewModelTest() {
