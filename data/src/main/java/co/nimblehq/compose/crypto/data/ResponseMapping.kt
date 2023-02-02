@@ -2,6 +2,7 @@ package co.nimblehq.compose.crypto.data
 
 import co.nimblehq.compose.crypto.core.JsonApiException
 import co.nimblehq.compose.crypto.core.UnknownException
+import co.nimblehq.compose.crypto.core.model.response.ErrorResponse
 import co.nimblehq.compose.crypto.core.providers.MoshiBuilderProvider
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
@@ -26,10 +27,10 @@ private fun <T> mapError(response: Response<T>?): Exception {
 }
 
 @Suppress("TooGenericExceptionCaught")
-private fun parseErrorResponse(source: String?): co.nimblehq.compose.crypto.core.model.response.ErrorResponse? {
+private fun parseErrorResponse(source: String?): ErrorResponse? {
     return try {
         val moshi = MoshiBuilderProvider.moshiBuilder.build()
-        val adapter = moshi.adapter(co.nimblehq.compose.crypto.core.model.response.ErrorResponse::class.java)
+        val adapter = moshi.adapter(ErrorResponse::class.java)
         adapter.fromJson(source.orEmpty())
     } catch (e: Exception) {
         null

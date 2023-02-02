@@ -19,6 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.core.common.price.PriceChangeButton
+import co.nimblehq.compose.crypto.core.components.chartintervals.ChartIntervalsButtonGroup
+import co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals
+import co.nimblehq.compose.crypto.core.components.linechart.CoinPriceChart
+import co.nimblehq.compose.crypto.core.components.linechart.CoinPriceLabelDrawer
 import co.nimblehq.compose.crypto.core.extension.toFormattedString
 import co.nimblehq.compose.crypto.core.lib.IsLoading
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
@@ -78,7 +83,7 @@ private fun DetailScreenContent(
     coinDetailUiModel: CoinDetailUiModel?,
     coinPrices: List<CoinPrice>,
     onBackIconClick: () -> Unit,
-    onTimeIntervalsChanged: (co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals) -> Unit,
+    onTimeIntervalsChanged: (TimeIntervals) -> Unit,
     showLoading: Boolean
 ) {
     val localDensity = LocalDensity.current
@@ -142,7 +147,7 @@ private fun DetailScreenContent(
                     style = AppTheme.styles.semiBold24
                 )
 
-                co.nimblehq.compose.crypto.core.common.price.PriceChangeButton(
+                PriceChangeButton(
                     modifier = Modifier
                         .constrainAs(priceChangePercent) {
                             top.linkTo(currentPrice.bottom)
@@ -152,7 +157,7 @@ private fun DetailScreenContent(
                     displayForDetailPage = true
                 )
 
-                co.nimblehq.compose.crypto.core.components.linechart.CoinPriceChart(
+                CoinPriceChart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .constrainAs(graph) {
@@ -175,7 +180,7 @@ private fun DetailScreenContent(
                     lineShader = GradientLineShader(
                         colors = AppTheme.colors.coinChartLineShaderGradient
                     ),
-                    labelDrawer = co.nimblehq.compose.crypto.core.components.linechart.CoinPriceLabelDrawer(
+                    labelDrawer = CoinPriceLabelDrawer(
                         labelTextColorLowest = AppTheme.colors.priceTextNegative,
                         labelTextColorHighest = AppTheme.colors.priceTextPositive
                     ),
@@ -183,7 +188,7 @@ private fun DetailScreenContent(
                 )
 
                 // Chart intervals
-                co.nimblehq.compose.crypto.core.components.chartintervals.ChartIntervalsButtonGroup(
+                ChartIntervalsButtonGroup(
                     modifier = Modifier.constrainAs(intervals) {
                         top.linkTo(graph.bottom, margin = Dp24)
                         start.linkTo(parent.start)
