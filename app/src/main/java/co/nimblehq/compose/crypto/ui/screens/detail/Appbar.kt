@@ -10,6 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.core.theme.AppTheme
+import co.nimblehq.compose.crypto.core.theme.ComposeTheme
 
 @Composable
 fun Appbar(
@@ -57,7 +58,7 @@ fun Appbar(
 @Preview
 @Composable
 fun AppbarPreview() {
-    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
+    ComposeTheme {
         Surface {
             Appbar(
                 modifier = Modifier,
@@ -71,7 +72,7 @@ fun AppbarPreview() {
 @Preview
 @Composable
 fun AppbarPreviewDark() {
-    co.nimblehq.compose.crypto.core.theme.ComposeTheme(darkTheme = true) {
+    ComposeTheme(darkTheme = true) {
         Surface {
             Appbar(
                 modifier = Modifier,
