@@ -15,9 +15,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.core.common.price.PriceChange
+import co.nimblehq.compose.crypto.core.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
-import co.nimblehq.compose.crypto.feature.home.preview.CoinItemPreviewParameterProvider
 import coil.compose.rememberAsyncImagePainter
 
 const val TestTagTrendingItemSymbol = "TrendingItemSymbol"

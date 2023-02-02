@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.home
+package co.nimblehq.compose.crypto.feature.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -15,12 +15,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.core.common.price.PriceChange
 import co.nimblehq.compose.crypto.core.extension.toFormattedString
+import co.nimblehq.compose.crypto.core.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
-import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
+import co.nimblehq.compose.crypto.feature.R
 import coil.compose.rememberAsyncImagePainter
 
 const val TestTagCoinItemSymbol = "CoinItemCoinSymbol"

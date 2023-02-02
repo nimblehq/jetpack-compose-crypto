@@ -5,10 +5,9 @@ import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.feature.home.HomeViewModel
-import co.nimblehq.compose.crypto.feature.home.toUiModel
 import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.ui.screens.BaseViewModelTest
-import co.nimblehq.compose.crypto.util.toUiModel
+import co.nimblehq.compose.crypto.feature.util.toUiModel
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk

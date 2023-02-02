@@ -43,4 +43,6 @@ android {
 dependencies {
     implementation(project(Module.CORE))
     implementation(project(Module.DOMAIN))
+
+    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
 }

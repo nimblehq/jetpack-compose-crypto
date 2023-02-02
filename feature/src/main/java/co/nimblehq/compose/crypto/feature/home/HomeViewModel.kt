@@ -7,7 +7,7 @@ import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.core.util.DispatchersProvider
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
-import co.nimblehq.compose.crypto.util.toUiModel
+import co.nimblehq.compose.crypto.feature.util.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject

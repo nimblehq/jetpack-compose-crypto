@@ -5,7 +5,7 @@ import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
 import java.math.BigDecimal
 
 @Suppress("MagicNumber")
-internal val coinItemPreview = CoinItemUiModel(
+val coinItemPreview = CoinItemUiModel(
     id = "bitcoin",
     symbol = "btc",
     coinName = "Bitcoin",

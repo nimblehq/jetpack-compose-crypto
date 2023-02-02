@@ -3,6 +3,7 @@ package co.nimblehq.compose.crypto.feature.home.preview
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import co.nimblehq.compose.crypto.core.LoadingState
 import co.nimblehq.compose.crypto.core.lib.IsLoading
+import co.nimblehq.compose.crypto.core.preview.coinItemPreview
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
 
 class HomeScreenPreviewParameterProvider : PreviewParameterProvider<HomeScreenParams> {
