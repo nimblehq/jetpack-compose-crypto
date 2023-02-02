@@ -26,5 +26,5 @@ data class HomeScreenParams(
     val myCoins: List<CoinItemUiModel>,
     val trendingCoins: List<CoinItemUiModel>,
     val isMyCoinsLoading: IsLoading,
-    val isTrendingCoinsLoading: co.nimblehq.compose.crypto.core.LoadingState
+    val isTrendingCoinsLoading: LoadingState
 )
