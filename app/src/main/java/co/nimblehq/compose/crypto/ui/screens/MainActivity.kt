@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            co.nimblehq.compose.crypto.core.theme.ComposeTheme {
+            ComposeTheme {
                 AppNavigation()
             }
         }
