@@ -25,7 +25,7 @@ fun Appbar(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
-                tint = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinInfoAppBarIconTint,
+                tint = AppTheme.colors.coinInfoAppBarIconTint,
                 contentDescription = null
             )
         }
@@ -34,8 +34,8 @@ fun Appbar(
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = title,
-                color = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.text,
-                style = co.nimblehq.compose.crypto.core.theme.AppTheme.styles.medium16
+                color = AppTheme.colors.text,
+                style = AppTheme.styles.medium16
             )
         }
 
@@ -46,7 +46,7 @@ fun Appbar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_heart),
-                    tint = co.nimblehq.compose.crypto.core.theme.AppTheme.colors.coinInfoAppBarIconTint,
+                    tint = AppTheme.colors.coinInfoAppBarIconTint,
                     contentDescription = null
                 )
             }
@@ -57,7 +57,7 @@ fun Appbar(
 @Preview
 @Composable
 fun AppbarPreview() {
-    co.nimblehq.compose.crypto.core.theme.ComposeTheme {
+    ComposeTheme {
         Surface {
             Appbar(
                 modifier = Modifier,
@@ -71,7 +71,7 @@ fun AppbarPreview() {
 @Preview
 @Composable
 fun AppbarPreviewDark() {
-    co.nimblehq.compose.crypto.core.theme.ComposeTheme(darkTheme = true) {
+    ComposeTheme(darkTheme = true) {
         Surface {
             Appbar(
                 modifier = Modifier,
