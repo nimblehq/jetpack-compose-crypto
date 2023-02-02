@@ -20,7 +20,6 @@ import co.nimblehq.compose.crypto.core.common.price.PriceChange
 import co.nimblehq.compose.crypto.core.extension.toFormattedString
 import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
-import co.nimblehq.compose.crypto.domain.model.CoinItem
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import coil.compose.rememberAsyncImagePainter
 
@@ -31,8 +30,8 @@ const val TestTagCoinItemPriceChange = "CoinItemPriceChange"
 
 @Composable
 fun CoinItem(
-    modifier: Modifier = Modifier,
     coinItem: CoinItemUiModel,
+    modifier: Modifier = Modifier,
     onItemClick: () -> Unit
 ) {
     ConstraintLayout(
@@ -144,12 +143,3 @@ fun CoinItemPreviewDark(
         )
     }
 }
-
-fun CoinItem.toUiModel() = CoinItemUiModel(
-    id = id,
-    symbol = symbol,
-    coinName = coinName,
-    image = image,
-    currentPrice = currentPrice,
-    priceChangePercentage24hInCurrency = priceChangePercentage24hInCurrency
-)
