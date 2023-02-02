@@ -5,8 +5,8 @@ import co.nimblehq.compose.crypto.core.lib.IsLoading
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.core.util.DispatchersProvider
-import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
-import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
+import co.nimblehq.compose.crypto.domain.home.usecase.GetMyCoinsUseCase
+import co.nimblehq.compose.crypto.domain.home.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.feature.util.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
