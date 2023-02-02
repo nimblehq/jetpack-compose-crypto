@@ -9,23 +9,31 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import co.nimblehq.compose.crypto.core.preview.CoinItemPreviewParameterProvider
+import co.nimblehq.compose.crypto.core.common.price.PriceChange
 import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
+import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import coil.compose.rememberAsyncImagePainter
 
+const val TestTagTrendingItemSymbol = "TrendingItemSymbol"
+const val TestTagTrendingItemCoinName = "TrendingItemCoinName"
+const val TestTagTrendingItemPriceChange = "TrendingItemPriceChange"
+
+@Suppress("LongMethod")
 @Composable
 fun TrendingItem(
+    modifier: Modifier = Modifier,
     coinItem: CoinItemUiModel,
     onItemClick: () -> Unit
 ) {
 
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(Dp12))
             .clickable { onItemClick.invoke() }
@@ -61,7 +69,8 @@ fun TrendingItem(
                     top.linkTo(parent.top)
                     bottom.linkTo(coinName.top)
                     start.linkTo(anchor = logo.end, margin = Dp16)
-                },
+                }
+                .testTag(tag = TestTagTrendingItemSymbol),
             text = coinItem.symbol.uppercase(),
             color = AppTheme.colors.text,
             style = AppTheme.styles.semiBold16
@@ -74,13 +83,14 @@ fun TrendingItem(
                     top.linkTo(coinSymbol.bottom)
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
-                },
+                }
+                .testTag(tag = TestTagTrendingItemCoinName),
             text = coinItem.coinName,
             color = AppTheme.colors.coinNameText,
             style = AppTheme.styles.medium14
         )
 
-        co.nimblehq.compose.crypto.core.common.price.PriceChange(
+        PriceChange(
             priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
             modifier = Modifier
                 .constrainAs(priceChange) {
@@ -89,6 +99,7 @@ fun TrendingItem(
                     bottom.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
                 }
+                .testTag(tag = TestTagTrendingItemPriceChange)
         )
     }
 }

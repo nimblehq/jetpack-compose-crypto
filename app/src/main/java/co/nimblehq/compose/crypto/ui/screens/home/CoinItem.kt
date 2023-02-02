@@ -9,26 +9,34 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.core.common.price.PriceChange
 import co.nimblehq.compose.crypto.core.extension.toFormattedString
-import co.nimblehq.compose.crypto.core.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.domain.model.CoinItem
+import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import coil.compose.rememberAsyncImagePainter
+
+const val TestTagCoinItemSymbol = "CoinItemCoinSymbol"
+const val TestTagCoinItemCoinName = "CoinItemCoinName"
+const val TestTagCoinItemPrice = "CoinItemPrice"
+const val TestTagCoinItemPriceChange = "CoinItemPriceChange"
 
 @Composable
 fun CoinItem(
+    modifier: Modifier = Modifier,
     coinItem: CoinItemUiModel,
     onItemClick: () -> Unit
 ) {
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .wrapContentWidth()
             .clip(RoundedCornerShape(Dp12))
             .clickable { onItemClick.invoke() }
@@ -60,7 +68,8 @@ fun CoinItem(
                 .constrainAs(coinSymbol) {
                     top.linkTo(parent.top)
                     start.linkTo(anchor = logo.end, margin = Dp16)
-                },
+                }
+                .testTag(tag = TestTagCoinItemSymbol),
             text = coinItem.symbol.uppercase(),
             color = AppTheme.colors.text,
             style = AppTheme.styles.semiBold16
@@ -73,7 +82,8 @@ fun CoinItem(
                     start.linkTo(coinSymbol.start)
                     top.linkTo(coinSymbol.bottom)
                     width = Dimension.preferredWrapContent
-                },
+                }
+                .testTag(tag = TestTagCoinItemCoinName),
             text = coinItem.coinName,
             color = AppTheme.colors.coinNameText,
             style = AppTheme.styles.medium14
@@ -85,7 +95,8 @@ fun CoinItem(
                     start.linkTo(logo.start)
                     top.linkTo(anchor = coinName.bottom, margin = Dp14)
                     width = Dimension.preferredWrapContent
-                },
+                }
+                .testTag(tag = TestTagCoinItemPrice),
             text = stringResource(
                 R.string.coin_currency,
                 coinItem.currentPrice.toFormattedString()
@@ -94,7 +105,7 @@ fun CoinItem(
             style = AppTheme.styles.semiBold16
         )
 
-        co.nimblehq.compose.crypto.core.common.price.PriceChange(
+        PriceChange(
             priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
             modifier = Modifier
                 .padding(start = Dp25)
@@ -103,6 +114,7 @@ fun CoinItem(
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
                 }
+                .testTag(tag = TestTagCoinItemPriceChange)
         )
     }
 }
