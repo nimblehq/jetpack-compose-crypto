@@ -1,7 +1,7 @@
 package co.nimblehq.compose.crypto.ui.uimodel
 
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
-import co.nimblehq.compose.crypto.domain.model.CoinItem
+import co.nimblehq.compose.crypto.domain.home.model.CoinItem
 import java.math.BigDecimal
 
 data class CoinItemUiModel(
