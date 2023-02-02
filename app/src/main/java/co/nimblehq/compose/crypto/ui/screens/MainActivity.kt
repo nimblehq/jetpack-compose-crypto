@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
+import co.nimblehq.compose.crypto.core.theme.ComposeTheme
 import co.nimblehq.compose.crypto.navigation.AppNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,7 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            co.nimblehq.compose.crypto.core.theme.ComposeTheme {
+            ComposeTheme {
                 AppNavigation()
             }
         }
