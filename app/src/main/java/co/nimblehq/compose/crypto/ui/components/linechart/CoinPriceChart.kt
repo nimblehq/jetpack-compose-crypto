@@ -44,9 +44,11 @@ fun CoinPriceChart(
         transitionAnimation.animateTo(1F, animationSpec = animation)
     }
 
-    Canvas(modifier = modifier
-        .fillMaxWidth()
-        .height(184.dp)) {
+    Canvas(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(184.dp)
+    ) {
         drawIntoCanvas { canvas ->
             val yAxisDrawableArea = computeYAxisDrawableArea(
                 xAxisLabelSize = DEFAULT_AXIS_SIZE,
@@ -84,37 +86,39 @@ fun CoinPriceChart(
                 )
             )
 
-            val maxPrice = lineChartData.points.maxOf { it.value }
-            val minPrice = lineChartData.points.minOf { it.value }
-            val maxPriceIndex = lineChartData.points.indexOfFirst { it.value == maxPrice }
-            val minPriceIndex = lineChartData.points.indexOfFirst { it.value == minPrice }
+            if (lineChartData.points.isNotEmpty()) {
+                val maxPrice = lineChartData.points.maxOf { it.value }
+                val minPrice = lineChartData.points.minOf { it.value }
+                val maxPriceIndex = lineChartData.points.indexOfFirst { it.value == maxPrice }
+                val minPriceIndex = lineChartData.points.indexOfFirst { it.value == minPrice }
 
-            lineChartData.points.forEachIndexed { index, point ->
-                withProgress(
-                    index = index,
-                    lineChartData = lineChartData,
-                    transitionProgress = transitionAnimation.value
-                ) {
-                    val pointLocation = computePointLocation(
-                        drawableArea = chartDrawableArea,
+                lineChartData.points.forEachIndexed { index, point ->
+                    withProgress(
+                        index = index,
                         lineChartData = lineChartData,
-                        point = point,
-                        index = index
-                    )
-                    pointDrawer.drawPoint(
-                        drawScope = this,
-                        canvas = canvas,
-                        center = pointLocation
-                    )
-                    if (index in listOf(minPriceIndex, maxPriceIndex)) {
-                        labelDrawer.drawLabel(
+                        transitionProgress = transitionAnimation.value
+                    ) {
+                        val pointLocation = computePointLocation(
+                            drawableArea = chartDrawableArea,
+                            lineChartData = lineChartData,
+                            point = point,
+                            index = index
+                        )
+                        pointDrawer.drawPoint(
                             drawScope = this,
                             canvas = canvas,
-                            label = point.label,
-                            pointLocation = pointLocation,
-                            xAxisArea = xAxisDrawableArea,
-                            isHighestPrice = index == maxPriceIndex
+                            center = pointLocation
                         )
+                        if (index in listOf(minPriceIndex, maxPriceIndex)) {
+                            labelDrawer.drawLabel(
+                                drawScope = this,
+                                canvas = canvas,
+                                label = point.label,
+                                pointLocation = pointLocation,
+                                xAxisArea = xAxisDrawableArea,
+                                isHighestPrice = index == maxPriceIndex
+                            )
+                        }
                     }
                 }
             }
