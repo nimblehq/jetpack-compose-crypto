@@ -5,7 +5,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.*
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.core.navigation.KEY_COIN_ID
-import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
+import co.nimblehq.compose.crypto.feature.detail.DetailScreen
 import co.nimblehq.compose.crypto.feature.home.HomeScreen
 
 @Composable

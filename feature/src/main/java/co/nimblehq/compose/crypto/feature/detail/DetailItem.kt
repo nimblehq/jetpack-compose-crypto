@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.detail
+package co.nimblehq.compose.crypto.feature.detail
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,9 +10,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.core.common.price.PriceChange
 import co.nimblehq.compose.crypto.core.theme.*
+import co.nimblehq.compose.crypto.feature.R
 
 @Composable
 fun DetailItem(
