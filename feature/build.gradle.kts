@@ -1,6 +1,12 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
+
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -41,8 +47,15 @@ android {
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
     implementation(project(Module.CORE))
     implementation(project(Module.DOMAIN))
 
+    implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
+    implementation("androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION_COMPOSE_VERSION}")
+
     debugImplementation("androidx.compose.ui:ui-tooling:${Versions.COMPOSE_VERSION}")
+
+    kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
 }
