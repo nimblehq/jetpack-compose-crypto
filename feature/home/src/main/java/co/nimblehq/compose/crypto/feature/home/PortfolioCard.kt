@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import co.nimblehq.compose.crypto.core.common.price.PriceChangeButton
 import co.nimblehq.compose.crypto.core.theme.*
-import co.nimblehq.compose.crypto.feature.R
 
 const val TestTagTotalCoinsLabel = "CardTotalCoinsLabel"
 const val TestTagTodayCoinProfitLabel = "todayProfitLabel"

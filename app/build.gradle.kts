@@ -118,7 +118,7 @@ dependencies {
     implementation(project(Module.CORE))
     implementation(project(Module.DATA))
     implementation(project(Module.DOMAIN))
-    implementation(project(Module.FEATURE))
+    implementation(project(Module.FEATURE_HOME))
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 

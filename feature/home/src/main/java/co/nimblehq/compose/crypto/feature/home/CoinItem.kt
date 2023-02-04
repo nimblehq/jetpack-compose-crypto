@@ -20,7 +20,6 @@ import co.nimblehq.compose.crypto.core.extension.toFormattedString
 import co.nimblehq.compose.crypto.core.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
-import co.nimblehq.compose.crypto.feature.R
 import coil.compose.rememberAsyncImagePainter
 
 const val TestTagCoinItemSymbol = "CoinItemCoinSymbol"

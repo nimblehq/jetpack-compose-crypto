@@ -13,5 +13,5 @@ object Module {
     const val CORE = ":core"
     const val DATA = ":data"
     const val DOMAIN = ":domain"
-    const val FEATURE = ":feature"
+    const val FEATURE_HOME = ":feature:home"
 }
