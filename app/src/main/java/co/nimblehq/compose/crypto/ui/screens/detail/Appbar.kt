@@ -10,6 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.core.theme.AppTheme
+import co.nimblehq.compose.crypto.core.theme.ComposeTheme
 
 @Composable
 fun Appbar(
