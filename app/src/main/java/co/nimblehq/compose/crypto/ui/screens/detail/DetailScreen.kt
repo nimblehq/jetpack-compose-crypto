@@ -26,9 +26,9 @@ import co.nimblehq.compose.crypto.core.components.linechart.CoinPriceChart
 import co.nimblehq.compose.crypto.core.components.linechart.CoinPriceLabelDrawer
 import co.nimblehq.compose.crypto.core.extension.toFormattedString
 import co.nimblehq.compose.crypto.core.lib.IsLoading
+import co.nimblehq.compose.crypto.core.mapping.userReadableMessage
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.core.theme.*
-import co.nimblehq.compose.crypto.core.userReadableMessage
 import co.nimblehq.compose.crypto.data.extension.orZero
 import co.nimblehq.compose.crypto.domain.model.CoinPrice
 import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams

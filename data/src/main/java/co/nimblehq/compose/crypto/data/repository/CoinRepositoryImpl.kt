@@ -1,11 +1,8 @@
 package co.nimblehq.compose.crypto.data.repository
 
-import co.nimblehq.compose.crypto.data.flowTransform
-import co.nimblehq.compose.crypto.data.home.model.response.CoinItemResponse
-import co.nimblehq.compose.crypto.data.home.model.response.toModel
+import co.nimblehq.compose.crypto.core.mapping.flowTransform
 import co.nimblehq.compose.crypto.data.model.response.*
 import co.nimblehq.compose.crypto.data.service.ApiService
-import co.nimblehq.compose.crypto.domain.home.model.CoinItem
 import co.nimblehq.compose.crypto.domain.model.CoinDetail
 import co.nimblehq.compose.crypto.domain.model.CoinPrice
 import co.nimblehq.compose.crypto.domain.repository.CoinRepository
@@ -15,24 +12,6 @@ import kotlinx.coroutines.flow.map
 class CoinRepositoryImpl(
     private val api: ApiService
 ) : CoinRepository {
-
-    override fun getCoins(
-        coinIds: List<String>?,
-        currency: String,
-        priceChangePercentage: String,
-        itemOrder: String,
-        itemPerPage: Int,
-        page: Int
-    ): Flow<List<CoinItem>> = flowTransform<List<CoinItemResponse>> {
-        api.getCoins(
-            coinIds = coinIds?.joinToString(separator = ","),
-            currency = currency,
-            priceChangePercentage = priceChangePercentage,
-            itemOrder = itemOrder,
-            itemPerPage = itemPerPage,
-            page = page
-        )
-    }.map { coinResponses -> coinResponses.map { it.toModel() } }
 
     override fun getCoinDetail(
         coinId: String,

@@ -1,6 +1,6 @@
 package co.nimblehq.compose.crypto.data.home.repository
 
-import co.nimblehq.compose.crypto.data.flowTransform
+import co.nimblehq.compose.crypto.core.mapping.flowTransform
 import co.nimblehq.compose.crypto.data.home.model.response.toModel
 import co.nimblehq.compose.crypto.data.home.service.HomeApiService
 import co.nimblehq.compose.crypto.domain.home.repository.HomeRepository
