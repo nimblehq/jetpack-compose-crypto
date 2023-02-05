@@ -12,7 +12,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.core.common.price.PriceChange
 import co.nimblehq.compose.crypto.core.theme.*
-import co.nimblehq.compose.crypto.feature.R
 
 @Composable
 fun DetailItem(

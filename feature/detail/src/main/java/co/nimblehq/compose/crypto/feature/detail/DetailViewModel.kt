@@ -7,8 +7,7 @@ import co.nimblehq.compose.crypto.core.util.DispatchersProvider
 import co.nimblehq.compose.crypto.domain.model.CoinPrice
 import co.nimblehq.compose.crypto.domain.usecase.GetCoinDetailUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetCoinPricesUseCase
-import co.nimblehq.compose.crypto.feature.home.FIAT_CURRENCY
-import co.nimblehq.compose.crypto.feature.util.toUiModel
+import co.nimblehq.compose.crypto.feature.detail.util.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import java.util.*
