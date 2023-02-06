@@ -9,8 +9,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-const val FIAT_CURRENCY = "usd"
-
 interface BaseInput
 
 interface BaseOutput

@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.feature.detail
 
 import co.nimblehq.compose.crypto.core.*
+import co.nimblehq.compose.crypto.core.common.FIAT_CURRENCY
 import co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals
 import co.nimblehq.compose.crypto.core.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.core.util.DispatchersProvider

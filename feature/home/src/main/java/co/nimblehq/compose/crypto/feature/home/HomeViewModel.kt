@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.feature.home
 
 import co.nimblehq.compose.crypto.core.*
+import co.nimblehq.compose.crypto.core.common.FIAT_CURRENCY
 import co.nimblehq.compose.crypto.core.lib.IsLoading
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
