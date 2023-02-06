@@ -4,6 +4,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.*
 import androidx.navigation.*
+import co.nimblehq.compose.crypto.MainActivity
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.core.extension.toFormattedString
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
@@ -12,7 +13,6 @@ import co.nimblehq.compose.crypto.domain.home.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.feature.home.*
 import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.ui.screens.BaseViewModelTest
-import co.nimblehq.compose.crypto.ui.screens.MainActivity
 import io.kotest.matchers.shouldBe
 import io.mockk.*
 import kotlinx.coroutines.*
