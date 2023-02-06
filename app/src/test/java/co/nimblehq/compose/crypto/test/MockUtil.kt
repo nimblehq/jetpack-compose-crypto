@@ -1,6 +1,6 @@
 package co.nimblehq.compose.crypto.test
 
-import co.nimblehq.compose.crypto.domain.model.CoinDetail
+import co.nimblehq.compose.crypto.domain.detail.model.CoinDetail
 import co.nimblehq.compose.crypto.domain.home.model.CoinItem
 import java.math.BigDecimal
 

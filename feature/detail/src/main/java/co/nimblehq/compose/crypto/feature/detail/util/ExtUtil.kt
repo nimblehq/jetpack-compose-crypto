@@ -3,7 +3,7 @@ package co.nimblehq.compose.crypto.feature.detail.util
 import co.nimblehq.compose.crypto.core.common.FIAT_CURRENCY
 import co.nimblehq.compose.crypto.core.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.data.extension.orZero
-import co.nimblehq.compose.crypto.domain.model.CoinDetail
+import co.nimblehq.compose.crypto.domain.detail.model.CoinDetail
 
 fun CoinDetail.toUiModel() = CoinDetailUiModel(
     coinName = coinName,

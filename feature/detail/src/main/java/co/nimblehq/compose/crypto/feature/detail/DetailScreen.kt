@@ -31,7 +31,7 @@ import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.core.theme.*
 import co.nimblehq.compose.crypto.core.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.data.extension.orZero
-import co.nimblehq.compose.crypto.domain.model.CoinPrice
+import co.nimblehq.compose.crypto.domain.detail.model.CoinPrice
 import co.nimblehq.compose.crypto.feature.detail.preview.DetailScreenParams
 import co.nimblehq.compose.crypto.feature.detail.preview.DetailScreenPreviewParameterProvider
 import coil.compose.rememberAsyncImagePainter

@@ -116,7 +116,7 @@ kapt {
 
 dependencies {
     implementation(project(Module.CORE))
-    implementation(project(Module.DATA))
+    implementation(project(Module.DATA_DETAIL))
     implementation(project(Module.DATA_HOME))
     implementation(project(Module.DOMAIN))
     implementation(project(Module.FEATURE_DETAIL))

@@ -3,8 +3,6 @@ package co.nimblehq.compose.crypto.di.modules
 import co.nimblehq.compose.crypto.BuildConfig
 import co.nimblehq.compose.crypto.core.providers.ConverterFactoryProvider
 import co.nimblehq.compose.crypto.core.providers.RetrofitProvider
-import co.nimblehq.compose.crypto.data.ApiServiceProvider
-import co.nimblehq.compose.crypto.data.service.ApiService
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -33,8 +31,4 @@ class RetrofitModule {
     ): Retrofit = RetrofitProvider
         .getRetrofitBuilder(baseUrl, okHttpClient, converterFactory)
         .build()
-
-    @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService =
-        ApiServiceProvider.getApiService(retrofit)
 }

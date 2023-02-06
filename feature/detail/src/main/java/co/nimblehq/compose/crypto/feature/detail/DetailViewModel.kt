@@ -5,9 +5,9 @@ import co.nimblehq.compose.crypto.core.common.FIAT_CURRENCY
 import co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals
 import co.nimblehq.compose.crypto.core.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.core.util.DispatchersProvider
-import co.nimblehq.compose.crypto.domain.model.CoinPrice
-import co.nimblehq.compose.crypto.domain.usecase.GetCoinDetailUseCase
-import co.nimblehq.compose.crypto.domain.usecase.GetCoinPricesUseCase
+import co.nimblehq.compose.crypto.domain.detail.model.CoinPrice
+import co.nimblehq.compose.crypto.domain.detail.usecase.GetCoinDetailUseCase
+import co.nimblehq.compose.crypto.domain.detail.usecase.GetCoinPricesUseCase
 import co.nimblehq.compose.crypto.feature.detail.util.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
