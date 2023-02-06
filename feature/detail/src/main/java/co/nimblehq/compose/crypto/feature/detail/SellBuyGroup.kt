@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.detail
+package co.nimblehq.compose.crypto.feature.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.core.theme.*
 
 @Composable

@@ -2,3 +2,4 @@
 include(":app", ":data", ":domain", ":core", ":feature")
 include(":feature:home")
 include(":data:home")
+include(":feature:detail")

@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.detail
+package co.nimblehq.compose.crypto.feature.detail
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth

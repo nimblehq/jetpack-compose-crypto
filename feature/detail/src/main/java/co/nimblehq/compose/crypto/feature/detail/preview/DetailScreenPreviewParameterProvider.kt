@@ -1,7 +1,7 @@
-package co.nimblehq.compose.crypto.ui.preview
+package co.nimblehq.compose.crypto.feature.detail.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
+import co.nimblehq.compose.crypto.core.uimodel.CoinDetailUiModel
 import java.math.BigDecimal
 
 @Suppress("MagicNumber")

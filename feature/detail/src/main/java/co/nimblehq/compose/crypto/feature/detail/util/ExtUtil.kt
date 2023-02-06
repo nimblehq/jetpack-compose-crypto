@@ -1,22 +1,9 @@
-package co.nimblehq.compose.crypto.ui.uimodel
+package co.nimblehq.compose.crypto.feature.detail.util
 
+import co.nimblehq.compose.crypto.core.common.FIAT_CURRENCY
+import co.nimblehq.compose.crypto.core.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.data.extension.orZero
 import co.nimblehq.compose.crypto.domain.model.CoinDetail
-import co.nimblehq.compose.crypto.feature.home.FIAT_CURRENCY
-import java.math.BigDecimal
-
-data class CoinDetailUiModel(
-    val coinName: String,
-    val image: String,
-    val currentPrice: BigDecimal,
-    val priceChangePercentage24hInCurrency: Double,
-    val marketCap: BigDecimal,
-    val marketCapChangePercentage24h: Double,
-    val ath: BigDecimal,
-    val athChangePercentage: Double,
-    val atl: BigDecimal,
-    val atlChangePercentage: Double
-)
 
 fun CoinDetail.toUiModel() = CoinDetailUiModel(
     coinName = coinName,

@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screens.detail
+package co.nimblehq.compose.crypto.feature.detail
 
 import android.content.res.Configuration
 import android.widget.Toast
@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
-import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.core.common.Appbar
 import co.nimblehq.compose.crypto.core.common.price.PriceChangeButton
 import co.nimblehq.compose.crypto.core.components.chartintervals.ChartIntervalsButtonGroup
 import co.nimblehq.compose.crypto.core.components.chartintervals.TimeIntervals
@@ -29,11 +29,11 @@ import co.nimblehq.compose.crypto.core.lib.IsLoading
 import co.nimblehq.compose.crypto.core.mapping.userReadableMessage
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.core.theme.*
+import co.nimblehq.compose.crypto.core.uimodel.CoinDetailUiModel
 import co.nimblehq.compose.crypto.data.extension.orZero
 import co.nimblehq.compose.crypto.domain.model.CoinPrice
-import co.nimblehq.compose.crypto.ui.preview.DetailScreenParams
-import co.nimblehq.compose.crypto.ui.preview.DetailScreenPreviewParameterProvider
-import co.nimblehq.compose.crypto.ui.uimodel.CoinDetailUiModel
+import co.nimblehq.compose.crypto.feature.detail.preview.DetailScreenParams
+import co.nimblehq.compose.crypto.feature.detail.preview.DetailScreenPreviewParameterProvider
 import coil.compose.rememberAsyncImagePainter
 import me.bytebeats.views.charts.line.LineChartData
 import me.bytebeats.views.charts.line.render.line.GradientLineShader

@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.feature.home
 
 import co.nimblehq.compose.crypto.core.*
+import co.nimblehq.compose.crypto.core.common.FIAT_CURRENCY
 import co.nimblehq.compose.crypto.core.lib.IsLoading
 import co.nimblehq.compose.crypto.core.navigation.AppDestination
 import co.nimblehq.compose.crypto.core.uimodel.CoinItemUiModel
@@ -12,7 +13,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-const val FIAT_CURRENCY = "usd"
 private const val MY_COINS_ORDER = "market_cap_desc"
 private const val MY_COINS_PRICE_CHANGE_IN_HOUR = "24h"
 private const val MY_COINS_ITEM_PER_PAGE = 10
