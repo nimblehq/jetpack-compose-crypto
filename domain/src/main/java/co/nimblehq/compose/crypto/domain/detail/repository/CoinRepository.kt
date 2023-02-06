@@ -1,6 +1,7 @@
-package co.nimblehq.compose.crypto.domain.repository
+package co.nimblehq.compose.crypto.domain.detail.repository
 
-import co.nimblehq.compose.crypto.domain.model.*
+import co.nimblehq.compose.crypto.domain.detail.model.CoinDetail
+import co.nimblehq.compose.crypto.domain.detail.model.CoinPrice
 import kotlinx.coroutines.flow.Flow
 
 @Suppress("LongParameterList")

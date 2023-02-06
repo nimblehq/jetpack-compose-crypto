@@ -1,13 +1,16 @@
 package co.nimblehq.compose.crypto.data.detail.repository
 
-import co.nimblehq.compose.crypto.data.detail.model.toModel
-import co.nimblehq.compose.crypto.data.detail.service.CoinDetailApiService
-import co.nimblehq.compose.crypto.data.flowTransform
+import co.nimblehq.compose.crypto.core.mapping.flowTransform
+import co.nimblehq.compose.crypto.data.detail.model.*
+import co.nimblehq.compose.crypto.data.service.ApiService
+import co.nimblehq.compose.crypto.domain.detail.model.CoinDetail
+import co.nimblehq.compose.crypto.domain.detail.model.CoinPrice
 import co.nimblehq.compose.crypto.domain.detail.repository.CoinRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class CoinRepositoryImpl(
-    private val api: CoinDetailApiService
+    private val api: ApiService
 ) : CoinRepository {
 
     override fun getCoinDetail(
@@ -18,7 +21,7 @@ class CoinRepositoryImpl(
         communityData: Boolean,
         developerData: Boolean,
         sparkline: Boolean
-    ) = flowTransform {
+    ): Flow<CoinDetail> = flowTransform<CoinDetailResponse> {
         api.getCoin(
             coinId = coinId,
             localization = localization,
@@ -35,7 +38,7 @@ class CoinRepositoryImpl(
         currency: String,
         fromTimestamp: Long,
         toTimestamp: Long
-    ) = flowTransform {
+    ): Flow<List<CoinPrice>> = flowTransform<CoinPriceResponse> {
         api.getCoinPrices(
             coinId = coinId,
             currency = currency,

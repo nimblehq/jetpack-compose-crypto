@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.data.service
 
-import co.nimblehq.compose.crypto.data.model.response.*
+import co.nimblehq.compose.crypto.data.detail.model.CoinDetailResponse
+import co.nimblehq.compose.crypto.data.detail.model.CoinPriceResponse
 import retrofit2.Response
 import retrofit2.http.*
 

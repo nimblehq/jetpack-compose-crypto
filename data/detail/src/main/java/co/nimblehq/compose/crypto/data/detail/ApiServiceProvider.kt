@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.data
+package co.nimblehq.compose.crypto.data.detail
 
 import co.nimblehq.compose.crypto.data.service.ApiService
 import retrofit2.Retrofit

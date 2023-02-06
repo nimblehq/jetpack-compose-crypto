@@ -11,7 +11,7 @@ object BuildType {
 
 object Module {
     const val CORE = ":core"
-    const val DATA = ":data"
+    const val DATA_DETAIL = ":data:detail"
     const val DATA_HOME = ":data:home"
     const val DOMAIN = ":domain"
     const val FEATURE_DETAIL = ":feature:detail"
