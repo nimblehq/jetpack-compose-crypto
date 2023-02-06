@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -40,6 +41,15 @@ import me.bytebeats.views.charts.line.render.line.GradientLineShader
 import me.bytebeats.views.charts.line.render.line.SolidLineDrawer
 import me.bytebeats.views.charts.line.render.point.EmptyPointDrawer
 import me.bytebeats.views.charts.simpleChartAnimation
+
+const val TestTagDetailLogo = "DetailLogo"
+const val TestTagDetailCurrentPrice = "DetailCurrentPrice"
+const val TestTagDetailPriceChangePercent = "DetailPriceChangePercent"
+const val TestTagDetailCircularProgress = "DetailCircularProgress"
+const val TestTagDetailLineChart = "DetailLineChart"
+const val TestTagDetailChartInterval = "DetailChartInterval"
+const val TestTagDetailCoinInfo = "DetailCoinInfo"
+const val TestTagDetailSellBuyGroup = "DetailSellBuyGroup"
 
 @Composable
 fun DetailScreen(
@@ -127,7 +137,8 @@ private fun DetailScreenContent(
                             top.linkTo(appBar.bottom)
                             linkTo(start = parent.start, end = parent.end)
                         }
-                        .padding(top = Dp8),
+                        .padding(top = Dp8)
+                        .testTag(tag = TestTagDetailLogo),
                     painter = rememberAsyncImagePainter(coinDetailUiModel.image),
                     contentDescription = null
                 )
@@ -138,7 +149,8 @@ private fun DetailScreenContent(
                             top.linkTo(logo.bottom)
                             linkTo(start = parent.start, end = parent.end)
                         }
-                        .padding(vertical = Dp8),
+                        .padding(vertical = Dp8)
+                        .testTag(tag = TestTagDetailCurrentPrice),
                     text = stringResource(
                         R.string.coin_currency,
                         coinDetailUiModel.currentPrice.toFormattedString()
@@ -152,7 +164,8 @@ private fun DetailScreenContent(
                         .constrainAs(priceChangePercent) {
                             top.linkTo(currentPrice.bottom)
                             linkTo(start = parent.start, end = parent.end)
-                        },
+                        }
+                        .testTag(tag = TestTagDetailPriceChangePercent),
                     priceChangePercent = coinDetailUiModel.priceChangePercentage24hInCurrency,
                     displayForDetailPage = true
                 )
@@ -164,7 +177,8 @@ private fun DetailScreenContent(
                             top.linkTo(priceChangePercent.bottom, margin = Dp24)
                             start.linkTo(parent.start)
                             end.linkTo(parent.end)
-                        },
+                        }
+                        .testTag(tag = TestTagDetailLineChart),
                     lineChartData = LineChartData(
                         points = coinPrices.map { coinPrice ->
                             val price = stringResource(
@@ -189,11 +203,13 @@ private fun DetailScreenContent(
 
                 // Chart intervals
                 ChartIntervalsButtonGroup(
-                    modifier = Modifier.constrainAs(intervals) {
-                        top.linkTo(graph.bottom, margin = Dp24)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    },
+                    modifier = Modifier
+                        .constrainAs(intervals) {
+                            top.linkTo(graph.bottom, margin = Dp24)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                        }
+                        .testTag(tag = TestTagDetailChartInterval),
                     onIntervalChanged = onTimeIntervalsChanged::invoke
                 )
 
@@ -216,7 +232,8 @@ private fun DetailScreenContent(
                                 top = parent.top,
                                 bottom = parent.bottom
                             )
-                        },
+                        }
+                        .testTag(tag = TestTagDetailCircularProgress),
                 )
             }
         }
@@ -225,7 +242,8 @@ private fun DetailScreenContent(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .navigationBarsPadding(),
+                    .navigationBarsPadding()
+                    .testTag(tag = TestTagDetailSellBuyGroup),
                 contentAlignment = Alignment.BottomEnd
             ) {
                 SellBuyGroup(
@@ -244,7 +262,11 @@ private fun CoinInfo(
     sellBuyLayoutHeight: Dp,
     coinDetailUiModel: CoinDetailUiModel
 ) {
-    Column(modifier = modifier.padding(start = Dp16, end = Dp16, bottom = sellBuyLayoutHeight)) {
+    Column(
+        modifier = modifier
+            .padding(start = Dp16, end = Dp16, bottom = sellBuyLayoutHeight)
+            .testTag(tag = TestTagDetailCoinInfo)
+    ) {
         DetailItem(
             modifier = Modifier,
             title = stringResource(id = R.string.detail_market_cap_title),
