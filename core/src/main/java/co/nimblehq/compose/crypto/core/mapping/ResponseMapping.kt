@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.data
+package co.nimblehq.compose.crypto.core.mapping
 
 import co.nimblehq.compose.crypto.core.JsonApiException
 import co.nimblehq.compose.crypto.core.UnknownException
