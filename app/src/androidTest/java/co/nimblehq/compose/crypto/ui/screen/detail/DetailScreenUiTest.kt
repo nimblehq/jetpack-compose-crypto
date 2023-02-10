@@ -26,7 +26,7 @@ import org.junit.Test
 import kotlin.math.abs
 
 @ExperimentalCoroutinesApi
-class DetailScreenTest : BaseScreenTest() {
+class DetailScreenUiTest : BaseScreenTest() {
 
     @get:Rule
     val composeAndroidTestRule = createAndroidComposeRule<MainActivity>()
@@ -43,6 +43,7 @@ class DetailScreenTest : BaseScreenTest() {
 
     @Before
     fun setUp() {
+        initDetailViewModel()
         composeAndroidTestRule.activity.setContent {
             DetailScreen(
                 coinId = "",
@@ -55,7 +56,7 @@ class DetailScreenTest : BaseScreenTest() {
     }
 
     @Test
-    fun when_navigate_to_detail_screen_it_show_loading() {
+    fun when_navigating_to_detail_screen_it_shows_loading() {
         composeAndroidTestRule.activity.setContent {
             DetailScreen(
                 coinId = "",
@@ -65,19 +66,15 @@ class DetailScreenTest : BaseScreenTest() {
             )
         }
 
-        initDetailViewModel()
-
         with(composeAndroidTestRule) {
             onNodeWithTag(TestTagDetailLoading).assertIsDisplayed()
         }
     }
 
     @Test
-    fun when_navigate_to_detail_screen_it_render_chart_interval_buttons_properly() {
+    fun when_navigating_to_detail_screen_it_renders_chart_interval_buttons_properly() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flowOf(coinDetail)
         every { mockGetCoinPricesUseCase.execute(any()) } returns flowOf(coinPrices)
-
-        initDetailViewModel()
 
         with(composeAndroidTestRule) {
             onNodeWithText(TimeIntervals.ONE_DAY.text).assertIsDisplayed()
@@ -89,11 +86,9 @@ class DetailScreenTest : BaseScreenTest() {
     }
 
     @Test
-    fun when_navigate_to_detail_screen_it_render_currentPrice_and_priceChangePercentage24hInCurrency_properly() {
+    fun when_navigating_to_detail_screen_it_render_currentPrice_and_priceChangePercentage24hInCurrency_properly() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flowOf(coinDetail)
         every { mockGetCoinPricesUseCase.execute(any()) } returns flowOf(coinPrices)
-
-        initDetailViewModel()
 
         with(composeAndroidTestRule) {
             coinDetail.marketData?.let { marketData ->
@@ -110,11 +105,9 @@ class DetailScreenTest : BaseScreenTest() {
     }
 
     @Test
-    fun when_navigate_to_detail_screen_it_render_coin_info_properly() {
+    fun when_navigating_to_detail_screen_it_render_coin_info_properly() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flowOf(coinDetail)
         every { mockGetCoinPricesUseCase.execute(any()) } returns flowOf(coinPrices)
-
-        initDetailViewModel()
 
         with(composeAndroidTestRule) {
             coinDetail.marketData?.let { marketData ->
@@ -131,13 +124,11 @@ class DetailScreenTest : BaseScreenTest() {
     }
 
     @Test
-    fun when_navigate_to_detail_screen_and_has_api_error_coin_price_chart_is_not_displayed() {
+    fun when_navigating_to_detail_screen_and_has_api_error_coin_price_chart_is_not_displayed() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flow {
             throw Throwable(errorGeneric)
         }
         every { mockGetCoinPricesUseCase.execute(any()) } returns flowOf(coinPrices)
-
-        initDetailViewModel()
 
         with(composeAndroidTestRule) {
             onNodeWithText(TestTagDetailCoinPriceChart).assertDoesNotExist()
@@ -145,11 +136,9 @@ class DetailScreenTest : BaseScreenTest() {
     }
 
     @Test
-    fun when_navigate_to_detail_screen_chart_interval_buttons_are_clickable() {
+    fun when_navigating_to_detail_screen_chart_interval_buttons_are_clickable() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flowOf(coinDetail)
         every { mockGetCoinPricesUseCase.execute(any()) } returns flowOf(coinPrices)
-
-        initDetailViewModel()
 
         with(composeAndroidTestRule) {
             onNodeWithText(TimeIntervals.ONE_DAY.text).assertHasClickAction()
