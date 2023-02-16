@@ -18,6 +18,7 @@ import co.nimblehq.compose.crypto.ui.screens.home.FIAT_CURRENCY
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
@@ -57,13 +58,13 @@ class DetailScreenUiTest : BaseScreenTest() {
 
     @Test
     fun when_navigating_to_detail_screen_it_shows_loading() {
-        composeAndroidTestRule.activity.setContent {
-            DetailScreen(
-                coinId = "",
-                navigator = { destination ->
-                    appDestination = destination
-                }
-            )
+        every { mockGetCoinDetailUseCase.execute(any()) } returns flow {
+            delay(100L)
+            emit(coinDetail)
+        }
+        every { mockGetCoinPricesUseCase.execute(any()) } returns flow {
+            delay(100L)
+            emit(coinPrices)
         }
 
         with(composeAndroidTestRule) {
