@@ -8,22 +8,20 @@ import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.extension.toFormattedString
-import co.nimblehq.compose.crypto.ui.BaseScreenTest
+import co.nimblehq.compose.crypto.test.TestDispatchersProvider
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.screens.MainActivity
 import co.nimblehq.compose.crypto.ui.screens.home.*
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
-class HomeScreenUITest : BaseScreenTest() {
+class HomeScreenUITest {
 
     @get:Rule
     val composeAndroidTestRule = createAndroidComposeRule<MainActivity>()
@@ -177,7 +175,7 @@ class HomeScreenUITest : BaseScreenTest() {
 
     private fun initViewModel() {
         viewModel = HomeViewModel(
-            dispatchers = testDispatcherProvider,
+            dispatchers = TestDispatchersProvider,
             getMyCoinsUseCase = mockGetMyCoinsUseCase,
             getTrendingCoinsUseCase = mockGetTrendingCoinsUseCase
         )
