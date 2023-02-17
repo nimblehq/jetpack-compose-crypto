@@ -15,6 +15,7 @@ import co.nimblehq.compose.crypto.ui.screens.home.*
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
@@ -75,6 +76,24 @@ class HomeScreenUITest {
             onNodeWithTag(testTag = TestTagCardTotalCoins).assertTextEquals("$7,273,291")
             onNodeWithTag(testTag = TestTagCardTodayProfit).assertTextEquals("$193,280")
         }
+    }
+
+    @Test
+    fun when_loading_MyCoins_it_renders_the_LoadingProgress_properly() {
+        every { mockGetMyCoinsUseCase.execute(any()) } returns flow { delay(500) }
+
+        initViewModel()
+
+        composeAndroidTestRule.onNodeWithTag(testTag = TestTagCoinsLoader).assertIsDisplayed()
+    }
+
+    @Test
+    fun when_loading_TrendingCoins_it_renders_the_LoadingProgress_properly() {
+        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flow { delay(500) }
+
+        initViewModel()
+
+        composeAndroidTestRule.onNodeWithTag(testTag = TestTagCoinsLoader).assertIsDisplayed()
     }
 
     @Test
