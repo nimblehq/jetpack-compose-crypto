@@ -66,7 +66,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun when_enter_to_HomeScreen_it_render_the_PortfolioCard_properly() {
+    fun hen_entering_HomeScreen__it_renders_the_PortfolioCard_properly() {
         initViewModel()
 
         with(composeAndroidTestRule) {
@@ -79,7 +79,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun when_loading_MyCoins_it_renders_the_LoadingProgress_properly() {
+    fun when_loading_MyCoins__it_renders_the_LoadingProgress_properly() {
         every { mockGetMyCoinsUseCase.execute(any()) } returns flow { delay(500) }
 
         initViewModel()
@@ -88,7 +88,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun when_loading_TrendingCoins_it_renders_the_LoadingProgress_properly() {
+    fun when_loading_TrendingCoins__it_renders_the_LoadingProgress_properly() {
         every { mockGetTrendingCoinsUseCase.execute(any()) } returns flow { delay(500) }
 
         initViewModel()
@@ -97,7 +97,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun when_enter_to_HomeScreen_and_load_MyCoins_successfully_it_render_the_UI_properly() {
+    fun when_entering_HomeScreen_and_loading_MyCoins_successfully__it_renders_the_UI_properly() {
         initViewModel()
 
         with(composeAndroidTestRule) {
@@ -121,7 +121,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun when_enter_to_HomeScreen_and_load_TrendingCoins_successfully_it_render_the_UI_properly() {
+    fun when_entering_to_the_HomeScreen_and_loading_TrendingCoins_successfully__it_renders_the_UI_properly() {
         initViewModel()
 
         with(composeAndroidTestRule) {
@@ -145,7 +145,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun when_clicked_on_MyCoin_item_it_navigates_to_DetailScreen() {
+    fun when_clicked_on_MyCoin_item__it_navigates_to_DetailScreen() {
         initViewModel()
 
         composeAndroidTestRule.onAllNodesWithTag(testTag = TestTagCoinItem).onFirst().performClick()
@@ -154,7 +154,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun when_clicked_on_TrendingCoin_item_it_navigates_to_DetailScreen() {
+    fun when_clicked_on_TrendingCoin_item__it_navigates_to_DetailScreen() {
         initViewModel()
 
         composeAndroidTestRule.onAllNodesWithTag(
@@ -165,7 +165,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun when_enter_to_HomeScreen_and_load_MyCoins_failed_it_shows_the_Toast_properly() {
+    fun when_entering_to_the_HomeScreen_and_loading_MyCoins_failed__it_shows_the_error_message() {
         every { mockGetMyCoinsUseCase.execute(any()) } returns flow {
             throw Throwable(errorGeneric)
         }
@@ -179,7 +179,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun when_enter_to_HomeScreen_and_load_TrendingCoins_failed_it_shows_the_Toast_properly() {
+    fun when_entering_to_the_HomeScreen_and_loading_TrendingCoins_failed__it_shows_the_error_message() {
         every { mockGetTrendingCoinsUseCase.execute(any()) } returns flow {
             throw Throwable(errorGeneric)
         }
