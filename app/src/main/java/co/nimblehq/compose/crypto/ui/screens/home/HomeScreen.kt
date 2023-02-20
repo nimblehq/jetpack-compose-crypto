@@ -65,10 +65,14 @@ fun HomeScreen(
 
     myCoinsError?.let { error ->
         Toast.makeText(context, error.userReadableMessage(context), Toast.LENGTH_SHORT).show()
+
+        viewModel.input.clearMyCoinsError()
     }
 
     trendingCoinsError?.let { error ->
         Toast.makeText(context, error.userReadableMessage(context), Toast.LENGTH_SHORT).show()
+
+        viewModel.input.clearTrendingCoinsError()
     }
 
     HomeScreenContent(

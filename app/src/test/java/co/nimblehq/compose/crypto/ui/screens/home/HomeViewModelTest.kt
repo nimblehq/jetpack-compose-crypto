@@ -119,6 +119,26 @@ class HomeViewModelTest : BaseViewModelTest() {
             }
         }
 
+    @Test
+    fun `When calling clearMyCoinsError, it should reset myCoinsError to null`() =
+        runBlockingTest {
+            initViewModel()
+            viewModel.output.myCoinsError.test {
+                viewModel.input.clearMyCoinsError()
+                expectMostRecentItem() shouldBe null
+            }
+        }
+
+    @Test
+    fun `When calling clearTrendingCoinsError, it should reset trendingCoinsError to null`() =
+        runBlockingTest {
+            initViewModel()
+            viewModel.output.trendingCoinsError.test {
+                viewModel.input.clearTrendingCoinsError()
+                expectMostRecentItem() shouldBe null
+            }
+        }
+
     private fun initViewModel() {
         viewModel = HomeViewModel(
             testDispatcherProvider,

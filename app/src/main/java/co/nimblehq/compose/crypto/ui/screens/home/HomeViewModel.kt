@@ -27,6 +27,10 @@ interface Input : BaseInput {
     fun onMyCoinsItemClick(coin: CoinItemUiModel)
 
     fun onTrendingCoinsItemClick(coin: CoinItemUiModel)
+
+    fun clearMyCoinsError()
+
+    fun clearTrendingCoinsError()
 }
 
 interface Output : BaseOutput {
@@ -155,6 +159,18 @@ class HomeViewModel @Inject constructor(
     override fun onTrendingCoinsItemClick(coin: CoinItemUiModel) {
         execute {
             _navigator.emit(AppDestination.CoinDetail.buildDestination(coin.id))
+        }
+    }
+
+    override fun clearMyCoinsError() {
+        execute {
+            _myCoinsError.emit(null)
+        }
+    }
+
+    override fun clearTrendingCoinsError() {
+        execute {
+            _trendingCoinsError.emit(null)
         }
     }
 }
