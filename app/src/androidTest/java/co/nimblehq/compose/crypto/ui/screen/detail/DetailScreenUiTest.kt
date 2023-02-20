@@ -9,9 +9,8 @@ import co.nimblehq.compose.crypto.domain.usecase.GetCoinPricesUseCase
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.test.MockUtil.coinDetail
 import co.nimblehq.compose.crypto.test.MockUtil.coinPrices
-import co.nimblehq.compose.crypto.ui.BaseScreenTest
+import co.nimblehq.compose.crypto.test.TestDispatchersProvider
 import co.nimblehq.compose.crypto.ui.components.chartintervals.TimeIntervals
-import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.screens.MainActivity
 import co.nimblehq.compose.crypto.ui.screens.detail.*
 import co.nimblehq.compose.crypto.ui.screens.home.FIAT_CURRENCY
@@ -27,7 +26,7 @@ import org.junit.Test
 import kotlin.math.abs
 
 @ExperimentalCoroutinesApi
-class DetailScreenUiTest : BaseScreenTest() {
+class DetailScreenUiTest {
 
     @get:Rule
     val composeAndroidTestRule = createAndroidComposeRule<MainActivity>()
@@ -40,11 +39,9 @@ class DetailScreenUiTest : BaseScreenTest() {
 
     private lateinit var detailViewModel: DetailViewModel
 
-    private var appDestination: AppDestination? = null
 
     @Before
     fun setUp() {
-
         every { mockGetCoinDetailUseCase.execute(any()) } returns flowOf(coinDetail)
         every { mockGetCoinPricesUseCase.execute(any()) } returns flowOf(coinPrices)
 
@@ -53,9 +50,7 @@ class DetailScreenUiTest : BaseScreenTest() {
             DetailScreen(
                 coinId = "",
                 viewModel = detailViewModel,
-                navigator = { destination ->
-                    appDestination = destination
-                }
+                navigator = { }
             )
         }
     }
@@ -78,7 +73,6 @@ class DetailScreenUiTest : BaseScreenTest() {
 
     @Test
     fun when_navigating_to_detail_screen_it_renders_chart_interval_buttons_properly() {
-
         with(composeAndroidTestRule) {
             onNodeWithText(TimeIntervals.ONE_DAY.text).assertIsDisplayed()
             onNodeWithText(TimeIntervals.ONE_WEEK.text).assertIsDisplayed()
@@ -90,7 +84,6 @@ class DetailScreenUiTest : BaseScreenTest() {
 
     @Test
     fun when_navigating_to_detail_screen_it_render_currentPrice_and_priceChangePercentage24hInCurrency_properly() {
-
         with(composeAndroidTestRule) {
             coinDetail.marketData?.let { marketData ->
                 val currentPrice = "$${marketData.currentPrice[FIAT_CURRENCY]?.toFormattedString()}"
@@ -107,7 +100,6 @@ class DetailScreenUiTest : BaseScreenTest() {
 
     @Test
     fun when_navigating_to_detail_screen_it_render_coin_info_properly() {
-
         with(composeAndroidTestRule) {
             coinDetail.marketData?.let { marketData ->
                 val marketCap = "$${marketData.marketCap[FIAT_CURRENCY]?.toFormattedString()}"
@@ -135,7 +127,6 @@ class DetailScreenUiTest : BaseScreenTest() {
 
     @Test
     fun when_navigating_to_detail_screen_chart_interval_buttons_are_clickable() {
-
         with(composeAndroidTestRule) {
             onNodeWithText(TimeIntervals.ONE_DAY.text).assertHasClickAction()
             onNodeWithText(TimeIntervals.ONE_WEEK.text).assertHasClickAction()
@@ -147,7 +138,7 @@ class DetailScreenUiTest : BaseScreenTest() {
 
     private fun initViewModel() {
         detailViewModel = DetailViewModel(
-            dispatchers = testDispatcherProvider,
+            dispatchers = TestDispatchersProvider,
             getCoinDetailUseCase = mockGetCoinDetailUseCase,
             getCoinPricesUseCase = mockGetCoinPricesUseCase
         )
