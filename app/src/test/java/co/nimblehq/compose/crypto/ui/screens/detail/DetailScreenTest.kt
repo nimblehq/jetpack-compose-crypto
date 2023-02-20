@@ -60,6 +60,8 @@ class DetailScreenTest : BaseViewModelTest() {
     fun setUp() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flowOf(MockUtil.coinDetail)
 
+        initViewModel()
+
         composeAndroidTestRule.activity.setContent {
             DetailScreen(
                 viewModel = viewModel,
@@ -71,8 +73,6 @@ class DetailScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When enter to DetailScreen, it shows the Loading properly`() {
-        initViewModel()
-
         composeAndroidTestRule.onNodeWithTag(
             testTag = TestTagDetailCircularProgress
         ).assertIsDisplayed()
@@ -80,8 +80,6 @@ class DetailScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When enter to DetailScreen and GetCoinDetail successfully, it renders the HeaderDetail properly`() {
-        initViewModel()
-
         with(composeAndroidTestRule) {
             onNodeWithTag(testTag = TestTagDetailAppbarTitle).assertTextEquals(coinDetailUiModel.coinName)
             onNodeWithTag(testTag = TestTagDetailLogo).assertIsDisplayed()
@@ -96,8 +94,6 @@ class DetailScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When enter to DetailScreen and GetCoinDetail successfully, it renders the Chart properly`() {
-        initViewModel()
-
         with(composeAndroidTestRule) {
             onNodeWithTag(testTag = TestTagDetailLineChart).assertExists()
             onNodeWithTag(testTag = TestTagDetailChartInterval).assertExists()
@@ -106,8 +102,6 @@ class DetailScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When enter to DetailScreen and GetCoinDetail successfully, it renders the CoinInfo properly`() {
-        initViewModel()
-
         with(composeAndroidTestRule) {
             onNodeWithTag(testTag = TestTagDetailCoinInfo).assertExists()
 
@@ -123,9 +117,11 @@ class DetailScreenTest : BaseViewModelTest() {
                 onLast().assertTextEquals("$${coinDetailUiModel.atl.toFormattedString()}")
             }
 
-            with(onAllNodesWithTag(
-                testTag = TestTagDetailItemPriceChange
-            )) {
+            with(
+                onAllNodesWithTag(
+                    testTag = TestTagDetailItemPriceChange
+                )
+            ) {
                 onFirst().onChild().assertTextEquals(
                     "${abs(coinDetailUiModel.marketCapChangePercentage24h).toFormattedString()}%"
                 )
@@ -141,8 +137,6 @@ class DetailScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When enter to DetailScreen and GetCoinDetail successfully, it renders the SellBuyGroup properly`() {
-        initViewModel()
-
         composeAndroidTestRule.onNodeWithTag(testTag = TestTagDetailSellBuyGroup).assertExists()
     }
 
@@ -151,8 +145,6 @@ class DetailScreenTest : BaseViewModelTest() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flow {
             throw Throwable(errorGeneric)
         }
-
-        initViewModel()
 
         with(composeAndroidTestRule) {
             onNodeWithTag(testTag = TestTagDetailAppbarTitle).assertDoesNotExist()
