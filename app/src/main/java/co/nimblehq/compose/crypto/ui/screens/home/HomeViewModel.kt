@@ -27,6 +27,10 @@ interface Input : BaseInput {
     fun onMyCoinsItemClick(coin: CoinItemUiModel)
 
     fun onTrendingCoinsItemClick(coin: CoinItemUiModel)
+
+    fun clearMyCoinsError()
+
+    fun clearTrendingCoinsError()
 }
 
 interface Output : BaseOutput {
@@ -39,9 +43,9 @@ interface Output : BaseOutput {
 
     val trendingCoins: StateFlow<List<CoinItemUiModel>>
 
-    val myCoinsError: SharedFlow<Throwable?>
+    val myCoinsError: StateFlow<Throwable?>
 
-    val trendingCoinsError: SharedFlow<Throwable?>
+    val trendingCoinsError: StateFlow<Throwable?>
 }
 
 @HiltViewModel
@@ -155,6 +159,18 @@ class HomeViewModel @Inject constructor(
     override fun onTrendingCoinsItemClick(coin: CoinItemUiModel) {
         execute {
             _navigator.emit(AppDestination.CoinDetail.buildDestination(coin.id))
+        }
+    }
+
+    override fun clearMyCoinsError() {
+        execute {
+            _myCoinsError.emit(null)
+        }
+    }
+
+    override fun clearTrendingCoinsError() {
+        execute {
+            _trendingCoinsError.emit(null)
         }
     }
 }

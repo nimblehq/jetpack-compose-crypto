@@ -33,7 +33,6 @@ import timber.log.Timber
 
 private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0
 
-const val TestTagHomeTitle = "HomeTitle"
 const val TestTagTrendingItem = "TrendingItem"
 const val TestTagCoinItem = "CoinItem"
 const val TestTagCoinsLoader = "CoinsLoader"
@@ -66,10 +65,14 @@ fun HomeScreen(
 
     myCoinsError?.let { error ->
         Toast.makeText(context, error.userReadableMessage(context), Toast.LENGTH_SHORT).show()
+
+        viewModel.input.clearMyCoinsError()
     }
 
     trendingCoinsError?.let { error ->
         Toast.makeText(context, error.userReadableMessage(context), Toast.LENGTH_SHORT).show()
+
+        viewModel.input.clearTrendingCoinsError()
     }
 
     HomeScreenContent(
@@ -120,8 +123,7 @@ private fun HomeScreenContent(
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = Dp16)
-                                .testTag(TestTagHomeTitle),
+                                .padding(top = Dp16),
                             text = stringResource(id = R.string.home_title),
                             textAlign = TextAlign.Center,
                             style = AppTheme.styles.semiBold24,

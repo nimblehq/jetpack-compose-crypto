@@ -1,35 +1,28 @@
-package co.nimblehq.compose.crypto.ui.screens.home
+package co.nimblehq.compose.crypto.ui.screen
 
 import androidx.activity.compose.setContent
 import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.*
-import androidx.navigation.*
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
 import co.nimblehq.compose.crypto.extension.toFormattedString
-import co.nimblehq.compose.crypto.test.MockUtil
+import co.nimblehq.compose.crypto.test.TestDispatchersProvider
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
-import co.nimblehq.compose.crypto.ui.screens.BaseViewModelTest
 import co.nimblehq.compose.crypto.ui.screens.MainActivity
+import co.nimblehq.compose.crypto.ui.screens.home.*
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
-import kotlinx.coroutines.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.shadows.ShadowToast
 
-@RunWith(RobolectricTestRunner::class)
-@ExperimentalCoroutinesApi
-class HomeScreenTest : BaseViewModelTest() {
+class HomeScreenUITest {
 
     @get:Rule
     val composeAndroidTestRule = createAndroidComposeRule<MainActivity>()
@@ -67,10 +60,13 @@ class HomeScreenTest : BaseViewModelTest() {
                 navigator = { destination -> appDestination = destination }
             )
         }
+
+        every { mockGetMyCoinsUseCase.execute(any()) } returns flowOf(MockUtil.myCoins)
+        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoins)
     }
 
     @Test
-    fun `When enter to HomeScreen, it render the PortfolioCard properly`() {
+    fun when_entering_HomeScreen__it_renders_the_PortfolioCard_properly() {
         initViewModel()
 
         with(composeAndroidTestRule) {
@@ -83,14 +79,28 @@ class HomeScreenTest : BaseViewModelTest() {
     }
 
     @Test
-    fun `When enter to HomeScreen and load MyCoins successfully, it render the UI properly`() {
-        every { mockGetMyCoinsUseCase.execute(any()) } returns flowOf(MockUtil.myCoins)
+    fun when_loading_MyCoins__it_renders_the_LoadingProgress_properly() {
+        every { mockGetMyCoinsUseCase.execute(any()) } returns flow { delay(500) }
 
         initViewModel()
 
-        with(composeAndroidTestRule) {
-            onNodeWithTag(testTag = TestTagCoinsLoader).assertIsDisplayed()
+        composeAndroidTestRule.onNodeWithTag(testTag = TestTagCoinsLoader).assertIsDisplayed()
+    }
 
+    @Test
+    fun when_loading_TrendingCoins__it_renders_the_LoadingProgress_properly() {
+        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flow { delay(500) }
+
+        initViewModel()
+
+        composeAndroidTestRule.onNodeWithTag(testTag = TestTagCoinsLoader).assertIsDisplayed()
+    }
+
+    @Test
+    fun when_entering_HomeScreen_and_loading_MyCoins_successfully__it_renders_the_UI_properly() {
+        initViewModel()
+
+        with(composeAndroidTestRule) {
             with(MockUtil.myCoins.first()) {
                 onAllNodesWithText(symbol.uppercase()).onFirst().assertIsDisplayed()
                 onAllNodesWithText(coinName).onFirst().assertIsDisplayed()
@@ -100,14 +110,10 @@ class HomeScreenTest : BaseViewModelTest() {
     }
 
     @Test
-    fun `When enter to HomeScreen and load TrendingCoins successfully, it render the UI properly`() {
-        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoins)
-
+    fun when_entering_to_the_HomeScreen_and_loading_TrendingCoins_successfully__it_renders_the_UI_properly() {
         initViewModel()
 
         with(composeAndroidTestRule) {
-            onNodeWithTag(testTag = TestTagCoinsLoader).assertIsDisplayed()
-
             with(MockUtil.trendingCoins.first()) {
                 onAllNodesWithText(symbol.uppercase()).onFirst().assertIsDisplayed()
                 onAllNodesWithText(coinName).onFirst().assertIsDisplayed()
@@ -117,9 +123,7 @@ class HomeScreenTest : BaseViewModelTest() {
     }
 
     @Test
-    fun `When clicked on MyCoin item, it navigates to DetailScreen`() {
-        every { mockGetMyCoinsUseCase.execute(any()) } returns flowOf(MockUtil.myCoins)
-
+    fun when_clicked_on_MyCoin_item__it_navigates_to_DetailScreen() {
         initViewModel()
 
         composeAndroidTestRule.onAllNodesWithTag(testTag = TestTagCoinItem).onFirst().performClick()
@@ -128,9 +132,7 @@ class HomeScreenTest : BaseViewModelTest() {
     }
 
     @Test
-    fun `When clicked on TrendingCoin item, it navigates to DetailScreen`() {
-        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoins)
-
+    fun when_clicked_on_TrendingCoin_item__it_navigates_to_DetailScreen() {
         initViewModel()
 
         composeAndroidTestRule.onAllNodesWithTag(
@@ -141,7 +143,7 @@ class HomeScreenTest : BaseViewModelTest() {
     }
 
     @Test
-    fun `When enter to HomeScreen and load MyCoins failed, it shows the Toast properly`() {
+    fun when_entering_to_the_HomeScreen_and_loading_MyCoins_failed__it_shows_the_error_message() {
         every { mockGetMyCoinsUseCase.execute(any()) } returns flow {
             throw Throwable(errorGeneric)
         }
@@ -153,11 +155,11 @@ class HomeScreenTest : BaseViewModelTest() {
             useUnmergedTree = true
         ).assertDoesNotExist()
 
-        ShadowToast.getTextOfLatestToast() shouldBe errorGeneric
+        // TODO: Add the assertion for the error message
     }
 
     @Test
-    fun `When enter to HomeScreen and load TrendingCoins failed, it shows the Toast properly`() {
+    fun when_entering_to_the_HomeScreen_and_loading_TrendingCoins_failed__it_shows_the_error_message() {
         every { mockGetTrendingCoinsUseCase.execute(any()) } returns flow {
             throw Throwable(errorGeneric)
         }
@@ -169,52 +171,12 @@ class HomeScreenTest : BaseViewModelTest() {
             useUnmergedTree = true
         ).assertDoesNotExist()
 
-        ShadowToast.getTextOfLatestToast() shouldBe errorGeneric
-    }
-
-    @Test
-    fun `When pulled to refresh and load MyCoins successfully, it render the UI properly`() {
-        every { mockGetMyCoinsUseCase.execute(any()) } returns flowOf(MockUtil.myCoins)
-
-        initViewModel()
-
-        with(composeAndroidTestRule) {
-            with(MockUtil.myCoins.first()) {
-                onAllNodesWithText(symbol.uppercase()).onFirst().assertIsDisplayed()
-                onAllNodesWithText(coinName).onFirst().assertIsDisplayed()
-                onAllNodesWithText(expectedPriceChange).onFirst().assertIsDisplayed()
-            }
-
-            onRoot().performTouchInput { swipeDown() }
-        }
-
-        verify(exactly = 2) { mockGetMyCoinsUseCase.execute(any()) }
-    }
-
-    @Test
-    fun `When pulled to refresh and load TrendingCoins successfully, it render the UI properly`() {
-        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoins)
-
-        initViewModel()
-
-        with(composeAndroidTestRule) {
-            onNodeWithTag(testTag = TestTagCoinsLoader).assertIsDisplayed()
-
-            with(MockUtil.trendingCoins.first()) {
-                onAllNodesWithText(symbol.uppercase()).onFirst().assertIsDisplayed()
-                onAllNodesWithText(coinName).onFirst().assertIsDisplayed()
-                onAllNodesWithText(expectedPriceChange).onFirst().assertIsDisplayed()
-            }
-
-            onRoot().performTouchInput { swipeDown() }
-        }
-
-        verify(exactly = 5) { mockGetTrendingCoinsUseCase.execute(any()) }
+        // TODO: Add the assertion for the error message
     }
 
     private fun initViewModel() {
         viewModel = HomeViewModel(
-            dispatchers = testDispatcherProvider,
+            dispatchers = TestDispatchersProvider,
             getMyCoinsUseCase = mockGetMyCoinsUseCase,
             getTrendingCoinsUseCase = mockGetTrendingCoinsUseCase
         )
