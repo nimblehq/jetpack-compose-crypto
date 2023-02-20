@@ -66,7 +66,7 @@ class HomeScreenUITest {
     }
 
     @Test
-    fun hen_entering_HomeScreen__it_renders_the_PortfolioCard_properly() {
+    fun when_entering_HomeScreen__it_renders_the_PortfolioCard_properly() {
         initViewModel()
 
         with(composeAndroidTestRule) {
@@ -176,6 +176,8 @@ class HomeScreenUITest {
             testTag = TestTagCoinItem,
             useUnmergedTree = true
         ).assertDoesNotExist()
+
+        // TODO: Add the assertion for the error message
     }
 
     @Test
@@ -190,6 +192,8 @@ class HomeScreenUITest {
             testTag = TestTagTrendingItem,
             useUnmergedTree = true
         ).assertDoesNotExist()
+
+        // TODO: Add the assertion for the error message
     }
 
     private fun initViewModel() {
