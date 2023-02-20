@@ -43,8 +43,6 @@ import me.bytebeats.views.charts.line.render.point.EmptyPointDrawer
 import me.bytebeats.views.charts.simpleChartAnimation
 
 const val TestTagDetailLogo = "DetailLogo"
-const val TestTagDetailCurrentPrice = "DetailCurrentPrice"
-const val TestTagDetailPriceChangePercent = "DetailPriceChangePercent"
 const val TestTagDetailCircularProgress = "DetailCircularProgress"
 const val TestTagDetailLineChart = "DetailLineChart"
 const val TestTagDetailChartInterval = "DetailChartInterval"
@@ -149,8 +147,7 @@ private fun DetailScreenContent(
                             top.linkTo(logo.bottom)
                             linkTo(start = parent.start, end = parent.end)
                         }
-                        .padding(vertical = Dp8)
-                        .testTag(tag = TestTagDetailCurrentPrice),
+                        .padding(vertical = Dp8),
                     text = stringResource(
                         R.string.coin_currency,
                         coinDetailUiModel.currentPrice.toFormattedString()
@@ -164,8 +161,7 @@ private fun DetailScreenContent(
                         .constrainAs(priceChangePercent) {
                             top.linkTo(currentPrice.bottom)
                             linkTo(start = parent.start, end = parent.end)
-                        }
-                        .testTag(tag = TestTagDetailPriceChangePercent),
+                        },
                     priceChangePercent = coinDetailUiModel.priceChangePercentage24hInCurrency,
                     displayForDetailPage = true
                 )

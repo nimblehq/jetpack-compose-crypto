@@ -6,7 +6,6 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -14,10 +13,6 @@ import androidx.constraintlayout.compose.Dimension
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.theme.*
-
-const val TestTagDetailItemTitle = "DetailItemTitle"
-const val TestTagDetailItemPrice = "DetailItemPrice"
-const val TestTagDetailItemPriceChange = "DetailItemPriceChange"
 
 @Composable
 fun DetailItem(
@@ -40,8 +35,7 @@ fun DetailItem(
                 .constrainAs(itemTitle) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
-                }
-                .testTag(tag = TestTagDetailItemTitle),
+                },
             text = title,
             color = AppTheme.colors.coinNameText,
             style = AppTheme.styles.medium12
@@ -54,8 +48,7 @@ fun DetailItem(
                     start.linkTo(itemTitle.start)
                     top.linkTo(itemTitle.bottom)
                     width = Dimension.preferredWrapContent
-                }
-                .testTag(tag = TestTagDetailItemPrice),
+                },
             text = stringResource(R.string.coin_currency, price),
             color = AppTheme.colors.text,
             style = AppTheme.styles.medium16
@@ -68,8 +61,7 @@ fun DetailItem(
                     end.linkTo(parent.end)
                     top.linkTo(itemTitle.top)
                     bottom.linkTo(itemPrice.bottom)
-                }
-                .testTag(tag = TestTagDetailItemPriceChange),
+                },
             displayForDetailPage = true
         )
     }

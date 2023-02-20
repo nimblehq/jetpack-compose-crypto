@@ -6,14 +6,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.AppTheme
 import co.nimblehq.compose.crypto.ui.theme.ComposeTheme
-
-const val TestTagDetailAppbarTitle = "AppbarTitle"
 
 @Composable
 fun Appbar(
@@ -36,9 +33,7 @@ fun Appbar(
 
         title?.let {
             Text(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .testTag(tag = TestTagDetailAppbarTitle),
+                modifier = Modifier.align(Alignment.Center),
                 text = title,
                 color = AppTheme.colors.text,
                 style = AppTheme.styles.medium16

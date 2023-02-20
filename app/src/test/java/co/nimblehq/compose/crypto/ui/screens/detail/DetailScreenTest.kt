@@ -81,14 +81,15 @@ class DetailScreenTest : BaseViewModelTest() {
     @Test
     fun `When enter to DetailScreen and GetCoinDetail successfully, it renders the HeaderDetail properly`() {
         with(composeAndroidTestRule) {
-            onNodeWithTag(testTag = TestTagDetailAppbarTitle).assertTextEquals(coinDetailUiModel.coinName)
             onNodeWithTag(testTag = TestTagDetailLogo).assertIsDisplayed()
-            onNodeWithTag(testTag = TestTagDetailCurrentPrice).assertTextEquals(
+
+            onNodeWithText(coinDetailUiModel.coinName).assertIsDisplayed()
+            onNodeWithText(
                 "$${coinDetailUiModel.currentPrice.toFormattedString()}"
-            )
-            onNodeWithTag(testTag = TestTagDetailPriceChangePercent).assertTextEquals(
+            ).assertIsDisplayed()
+            onNodeWithText(
                 "${abs(coinDetailUiModel.priceChangePercentage24hInCurrency).toFormattedString()}%"
-            )
+            ).assertIsDisplayed()
         }
     }
 
@@ -105,33 +106,23 @@ class DetailScreenTest : BaseViewModelTest() {
         with(composeAndroidTestRule) {
             onNodeWithTag(testTag = TestTagDetailCoinInfo).assertExists()
 
-            with(onAllNodesWithTag(testTag = TestTagDetailItemTitle)) {
-                onFirst().assertTextEquals(marketCapTitle)
-                this[1].assertTextEquals(allTimeHighTitle)
-                onLast().assertTextEquals(allTimeLowTitle)
-            }
+            onNodeWithText(marketCapTitle).assertIsDisplayed()
+            onNodeWithText(allTimeHighTitle).assertIsDisplayed()
+            onNodeWithText(allTimeLowTitle).assertIsDisplayed()
 
-            with(onAllNodesWithTag(testTag = TestTagDetailItemPrice)) {
-                onFirst().assertTextEquals("$${coinDetailUiModel.marketCap.toFormattedString()}")
-                this[1].assertTextEquals("$${coinDetailUiModel.ath.toFormattedString()}")
-                onLast().assertTextEquals("$${coinDetailUiModel.atl.toFormattedString()}")
-            }
+            onNodeWithText("$${coinDetailUiModel.marketCap.toFormattedString()}").assertIsDisplayed()
+            onNodeWithText("$${coinDetailUiModel.ath.toFormattedString()}").assertIsDisplayed()
+            onNodeWithText("$${coinDetailUiModel.atl.toFormattedString()}").assertIsDisplayed()
 
-            with(
-                onAllNodesWithTag(
-                    testTag = TestTagDetailItemPriceChange
-                )
-            ) {
-                onFirst().onChild().assertTextEquals(
-                    "${abs(coinDetailUiModel.marketCapChangePercentage24h).toFormattedString()}%"
-                )
-                this[1].onChild().assertTextEquals(
-                    "${abs(coinDetailUiModel.athChangePercentage).toFormattedString()}%"
-                )
-                onLast().onChild().assertTextEquals(
-                    "${abs(coinDetailUiModel.atlChangePercentage).toFormattedString()}%"
-                )
-            }
+            onNodeWithText(
+                "${abs(coinDetailUiModel.marketCapChangePercentage24h).toFormattedString()}%"
+            ).assertIsDisplayed()
+            onNodeWithText(
+                "${abs(coinDetailUiModel.athChangePercentage).toFormattedString()}%"
+            ).assertIsDisplayed()
+            onNodeWithText(
+                "${abs(coinDetailUiModel.atlChangePercentage).toFormattedString()}%"
+            ).assertIsDisplayed()
         }
     }
 
@@ -147,10 +138,15 @@ class DetailScreenTest : BaseViewModelTest() {
         }
 
         with(composeAndroidTestRule) {
-            onNodeWithTag(testTag = TestTagDetailAppbarTitle).assertDoesNotExist()
+            onNodeWithText(coinDetailUiModel.coinName).assertDoesNotExist()
+            onNodeWithText(
+                "$${coinDetailUiModel.currentPrice.toFormattedString()}"
+            ).assertDoesNotExist()
+            onNodeWithText(
+                "${abs(coinDetailUiModel.priceChangePercentage24hInCurrency).toFormattedString()}%"
+            ).assertDoesNotExist()
+
             onNodeWithTag(testTag = TestTagDetailLogo).assertDoesNotExist()
-            onNodeWithTag(testTag = TestTagDetailCurrentPrice).assertDoesNotExist()
-            onNodeWithTag(testTag = TestTagDetailPriceChangePercent).assertDoesNotExist()
             onNodeWithTag(testTag = TestTagDetailLineChart).assertDoesNotExist()
             onNodeWithTag(testTag = TestTagDetailChartInterval).assertDoesNotExist()
             onNodeWithTag(testTag = TestTagDetailCoinInfo).assertDoesNotExist()
