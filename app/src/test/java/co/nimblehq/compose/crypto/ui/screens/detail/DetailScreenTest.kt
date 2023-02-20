@@ -9,6 +9,7 @@ import co.nimblehq.compose.crypto.domain.usecase.GetCoinDetailUseCase
 import co.nimblehq.compose.crypto.domain.usecase.GetCoinPricesUseCase
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.test.MockUtil
+import co.nimblehq.compose.crypto.ui.components.chartintervals.TimeIntervals
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.screens.BaseViewModelTest
 import co.nimblehq.compose.crypto.ui.screens.MainActivity
@@ -72,14 +73,14 @@ class DetailScreenTest : BaseViewModelTest() {
     }
 
     @Test
-    fun `When enter to DetailScreen, it shows the Loading properly`() {
+    fun `When entering to the DetailScreen, it shows the loading properly`() {
         composeAndroidTestRule.onNodeWithTag(
             testTag = TestTagDetailCircularProgress
         ).assertIsDisplayed()
     }
 
     @Test
-    fun `When enter to DetailScreen and GetCoinDetail successfully, it renders the HeaderDetail properly`() {
+    fun `When entering to the DetailScreen and GetCoinDetail successfully, it renders the HeaderDetail properly`() {
         with(composeAndroidTestRule) {
             onNodeWithTag(testTag = TestTagDetailLogo).assertIsDisplayed()
 
@@ -94,15 +95,21 @@ class DetailScreenTest : BaseViewModelTest() {
     }
 
     @Test
-    fun `When enter to DetailScreen and GetCoinDetail successfully, it renders the Chart properly`() {
+    fun `When entering to the DetailScreen and GetCoinDetail successfully, it renders the Chart properly`() {
         with(composeAndroidTestRule) {
             onNodeWithTag(testTag = TestTagDetailLineChart).assertExists()
             onNodeWithTag(testTag = TestTagDetailChartInterval).assertExists()
+
+            onNodeWithText(TimeIntervals.ONE_DAY.text).assertIsDisplayed().assertHasClickAction()
+            onNodeWithText(TimeIntervals.ONE_WEEK.text).assertIsDisplayed().assertHasClickAction()
+            onNodeWithText(TimeIntervals.ONE_MONTH.text).assertIsDisplayed().assertHasClickAction()
+            onNodeWithText(TimeIntervals.ONE_YEAR.text).assertIsDisplayed().assertHasClickAction()
+            onNodeWithText(TimeIntervals.FIVE_YEAR.text).assertIsDisplayed().assertHasClickAction()
         }
     }
 
     @Test
-    fun `When enter to DetailScreen and GetCoinDetail successfully, it renders the CoinInfo properly`() {
+    fun `When entering to the DetailScreen and GetCoinDetail successfully, it renders the CoinInfo properly`() {
         with(composeAndroidTestRule) {
             onNodeWithTag(testTag = TestTagDetailCoinInfo).assertExists()
 
@@ -127,12 +134,12 @@ class DetailScreenTest : BaseViewModelTest() {
     }
 
     @Test
-    fun `When enter to DetailScreen and GetCoinDetail successfully, it renders the SellBuyGroup properly`() {
+    fun `When entering to the DetailScreen and GetCoinDetail successfully, it renders the SellBuyGroup properly`() {
         composeAndroidTestRule.onNodeWithTag(testTag = TestTagDetailSellBuyGroup).assertExists()
     }
 
     @Test
-    fun `When enter to DetailScreen and GetCoinDetail failed, it shows the Toast properly`() {
+    fun `When entering to the DetailScreen and GetCoinDetail failed, it shows the error message properly`() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flow {
             throw Throwable(errorGeneric)
         }
