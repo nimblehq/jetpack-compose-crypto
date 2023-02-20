@@ -50,7 +50,7 @@ class DetailScreenUiTest {
             DetailScreen(
                 coinId = "",
                 viewModel = detailViewModel,
-                navigator = { }
+                navigator = {}
             )
         }
     }
