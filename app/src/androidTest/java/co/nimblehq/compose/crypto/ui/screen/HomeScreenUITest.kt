@@ -70,11 +70,11 @@ class HomeScreenUITest {
         initViewModel()
 
         with(composeAndroidTestRule) {
-            onNodeWithTag(testTag = TestTagHomeTitle).assertTextEquals(homeTitle)
-            onNodeWithTag(testTag = TestTagTotalCoinsLabel).assertTextEquals(totalCoinsLabel)
-            onNodeWithTag(testTag = TestTagTodayCoinProfitLabel).assertTextEquals(todayProfitLabel)
-            onNodeWithTag(testTag = TestTagCardTotalCoins).assertTextEquals("$7,273,291")
-            onNodeWithTag(testTag = TestTagCardTodayProfit).assertTextEquals("$193,280")
+            onNodeWithText(homeTitle).assertIsDisplayed()
+            onNodeWithText(totalCoinsLabel).assertIsDisplayed()
+            onNodeWithText(todayProfitLabel).assertIsDisplayed()
+            onNodeWithText("$7,273,291").assertIsDisplayed()
+            onNodeWithText("$193,280").assertIsDisplayed()
         }
     }
 
@@ -102,20 +102,9 @@ class HomeScreenUITest {
 
         with(composeAndroidTestRule) {
             with(MockUtil.myCoins.first()) {
-                onAllNodesWithTag(
-                    testTag = TestTagCoinItemSymbol,
-                    useUnmergedTree = true
-                ).onFirst().assertTextEquals(symbol.uppercase())
-
-                onAllNodesWithTag(
-                    testTag = TestTagCoinItemCoinName,
-                    useUnmergedTree = true
-                ).onFirst().assertTextEquals(coinName)
-
-                onAllNodesWithTag(
-                    testTag = TestTagCoinItemPriceChange,
-                    useUnmergedTree = true
-                ).onFirst().onChild().assertTextEquals(expectedPriceChange)
+                onAllNodesWithText(symbol.uppercase()).onFirst().assertIsDisplayed()
+                onAllNodesWithText(coinName).onFirst().assertIsDisplayed()
+                onAllNodesWithText(expectedPriceChange).onFirst().assertIsDisplayed()
             }
         }
     }
@@ -126,20 +115,9 @@ class HomeScreenUITest {
 
         with(composeAndroidTestRule) {
             with(MockUtil.trendingCoins.first()) {
-                onAllNodesWithTag(
-                    testTag = TestTagTrendingItemSymbol,
-                    useUnmergedTree = true
-                ).onFirst().assertTextEquals(symbol.uppercase())
-
-                onAllNodesWithTag(
-                    testTag = TestTagTrendingItemCoinName,
-                    useUnmergedTree = true
-                ).onFirst().assertTextEquals(coinName)
-
-                onAllNodesWithTag(
-                    testTag = TestTagTrendingItemPriceChange,
-                    useUnmergedTree = true
-                ).onFirst().onChild().assertTextEquals(expectedPriceChange)
+                onAllNodesWithText(symbol.uppercase()).onFirst().assertIsDisplayed()
+                onAllNodesWithText(coinName).onFirst().assertIsDisplayed()
+                onAllNodesWithText(expectedPriceChange).onFirst().assertIsDisplayed()
             }
         }
     }
