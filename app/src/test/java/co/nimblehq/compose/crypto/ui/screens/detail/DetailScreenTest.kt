@@ -60,6 +60,7 @@ class DetailScreenTest : BaseViewModelTest() {
     @Before
     fun setUp() {
         every { mockGetCoinDetailUseCase.execute(any()) } returns flowOf(MockUtil.coinDetail)
+        every { mockGetCoinPricesUseCase.execute(any()) } returns flowOf(emptyList())
 
         initViewModel()
 
@@ -74,6 +75,8 @@ class DetailScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When entering to the DetailScreen, it shows the loading properly`() {
+        every { mockGetCoinDetailUseCase.execute(any()) } returns flow { delay(100) }
+
         composeAndroidTestRule.onNodeWithTag(
             testTag = TestTagDetailCircularProgress
         ).assertIsDisplayed()
