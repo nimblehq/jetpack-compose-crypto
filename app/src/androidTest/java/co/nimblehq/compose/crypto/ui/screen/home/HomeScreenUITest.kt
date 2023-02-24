@@ -1,4 +1,4 @@
-package co.nimblehq.compose.crypto.ui.screen
+package co.nimblehq.compose.crypto.ui.screen.home
 
 import androidx.activity.compose.setContent
 import androidx.compose.ui.test.*

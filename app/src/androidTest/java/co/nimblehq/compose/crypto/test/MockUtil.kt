@@ -1,7 +1,6 @@
 package co.nimblehq.compose.crypto.test
 
-import co.nimblehq.compose.crypto.domain.model.CoinDetail
-import co.nimblehq.compose.crypto.domain.model.CoinItem
+import co.nimblehq.compose.crypto.domain.model.*
 import java.math.BigDecimal
 
 object MockUtil {
@@ -96,5 +95,10 @@ object MockUtil {
 
             lastUpdated = "lastUpdated"
         )
+    )
+
+    val coinPrices = listOf(
+        CoinPrice(1000,BigDecimal.ZERO),
+        CoinPrice(2000, BigDecimal.ONE)
     )
 }
