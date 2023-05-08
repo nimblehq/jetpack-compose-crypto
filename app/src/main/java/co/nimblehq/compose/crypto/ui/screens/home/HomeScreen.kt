@@ -19,19 +19,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.*
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.boxShadow
 import co.nimblehq.compose.crypto.lib.IsLoading
-import co.nimblehq.compose.crypto.ui.base.LoadingState
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import co.nimblehq.compose.crypto.ui.userReadableMessage
-import timber.log.Timber
-
-private const val LIST_ITEM_LOAD_MORE_THRESHOLD = 0
+import kotlinx.coroutines.flow.flowOf
 
 const val TestTagHomeTitle = "HomeTitle"
 const val TestTagTrendingItem = "TrendingItem"
@@ -58,9 +57,8 @@ fun HomeScreen(
     }
 
     val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
-    val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
     val myCoins: List<CoinItemUiModel> by viewModel.output.myCoins.collectAsState()
-    val trendingCoins: List<CoinItemUiModel> by viewModel.output.trendingCoins.collectAsState()
+    val trendingCoins = viewModel.output.trendingCoins.collectAsLazyPagingItems()
     val myCoinsError: Throwable? by viewModel.output.myCoinsError.collectAsState()
     val trendingCoinsError: Throwable? by viewModel.output.trendingCoinsError.collectAsState()
 
@@ -74,14 +72,15 @@ fun HomeScreen(
 
     HomeScreenContent(
         showMyCoinsLoading = showMyCoinsLoading,
-        showTrendingCoinsLoading = showTrendingCoinsLoading,
         isRefreshing = rememberRefreshing,
         myCoins = myCoins,
         trendingCoins = trendingCoins,
         onMyCoinsItemClick = viewModel.input::onMyCoinsItemClick,
         onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick,
-        onRefresh = { viewModel.input.loadData(isRefreshing = true) },
-        onTrendingCoinsLoadMore = { viewModel.input.getTrendingCoins(loadMore = true) }
+        onRefresh = {
+            trendingCoins.refresh()
+            viewModel.input.loadData(isRefreshing = true)
+        },
     )
 }
 
@@ -90,14 +89,12 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenContent(
     showMyCoinsLoading: IsLoading,
-    showTrendingCoinsLoading: LoadingState,
     isRefreshing: IsLoading,
     myCoins: List<CoinItemUiModel>,
-    trendingCoins: List<CoinItemUiModel>,
+    trendingCoins: LazyPagingItems<CoinItemUiModel>,
     onMyCoinsItemClick: (CoinItemUiModel) -> Unit = {},
     onTrendingItemClick: (CoinItemUiModel) -> Unit = {},
     onRefresh: () -> Unit = {},
-    onTrendingCoinsLoadMore: () -> Unit = {}
 ) {
     val refreshingState = rememberPullRefreshState(
         refreshing = isRefreshing,
@@ -105,8 +102,8 @@ private fun HomeScreenContent(
         refreshThreshold = PullRefreshDefaults.RefreshThreshold,
         refreshingOffset = PullRefreshDefaults.RefreshThreshold
     )
-    val trendingCoinsLastIndex = trendingCoins.lastIndex
     val trendingCoinsState = rememberLazyListState()
+    val context = LocalContext.current.applicationContext
 
     Surface {
         Box(modifier = Modifier.pullRefresh(refreshingState)) {
@@ -171,49 +168,78 @@ private fun HomeScreenContent(
                         }
                     }
 
-                    // Full section loading
-                    if (showTrendingCoinsLoading == LoadingState.Loading) {
-                        item {
-                            CircularProgressIndicator(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .wrapContentWidth(align = Alignment.CenterHorizontally)
-                                    .testTag(tag = TestTagCoinsLoader),
+                    items(
+                        count = trendingCoins.itemCount,
+                        contentType = trendingCoins.itemContentType(),
+                        key = trendingCoins.itemKey { it.id },
+                    ) { index ->
+                        Box(
+                            modifier = Modifier.padding(
+                                start = Dp16, end = Dp16, bottom = Dp16
                             )
-                        }
-                    } else {
-                        itemsIndexed(trendingCoins) { index, coin ->
-                            if (index + LIST_ITEM_LOAD_MORE_THRESHOLD >= trendingCoinsLastIndex) {
-                                SideEffect {
-                                    Timber.d("onTrendingCoinsLoadMore at index: $index, lastIndex: $trendingCoinsLastIndex")
-                                    onTrendingCoinsLoadMore.invoke()
+                        ) {
+                            TrendingItem(
+                                modifier = Modifier.testTag(tag = TestTagTrendingItem),
+                                coinItem = trendingCoins[index],
+                                onItemClick = {
+                                    trendingCoins[index]?.let(onTrendingItemClick::invoke)
                                 }
-                            }
-
-                            Box(
-                                modifier = Modifier.padding(
-                                    start = Dp16, end = Dp16, bottom = Dp16
-                                )
-                            ) {
-                                TrendingItem(
-                                    modifier = Modifier.testTag(tag = TestTagTrendingItem),
-                                    coinItem = coin,
-                                    onItemClick = { onTrendingItemClick.invoke(coin) }
-                                )
-                            }
+                            )
                         }
                     }
 
-                    // Load more loading
-                    if (showTrendingCoinsLoading == LoadingState.LoadingMore) {
-                        item {
-                            CircularProgressIndicator(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .wrapContentWidth(align = Alignment.CenterHorizontally)
-                                    .padding(bottom = Dp16)
-                                    .testTag(tag = TestTagCoinsLoader),
-                            )
+                    when (val state = trendingCoins.loadState.prepend) {
+                        is LoadState.NotLoading -> Unit
+                        is LoadState.Loading -> {
+                            item {
+                                CircularProgressIndicator(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .wrapContentWidth(align = Alignment.CenterHorizontally)
+                                        .testTag(tag = TestTagCoinsLoader),
+                                )
+                            }
+                        }
+                        is LoadState.Error -> {
+                            item {
+                                ErrorView(message = state.error.userReadableMessage(context))
+                            }
+                        }
+                    }
+                    when (val state = trendingCoins.loadState.refresh) {
+                        is LoadState.NotLoading -> Unit
+                        is LoadState.Loading -> {
+                            item {
+                                CircularProgressIndicator(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .wrapContentWidth(align = Alignment.CenterHorizontally)
+                                        .testTag(tag = TestTagCoinsLoader),
+                                )
+                            }
+                        }
+                        is LoadState.Error -> {
+                            item {
+                                ErrorView(message = state.error.userReadableMessage(context))
+                            }
+                        }
+                    }
+                    when (val state = trendingCoins.loadState.append) {
+                        is LoadState.NotLoading -> Unit
+                        is LoadState.Loading -> {
+                            item {
+                                CircularProgressIndicator(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .wrapContentWidth(align = Alignment.CenterHorizontally)
+                                        .testTag(tag = TestTagCoinsLoader),
+                                )
+                            }
+                        }
+                        is LoadState.Error -> {
+                            item {
+                                ErrorView(message = state.error.userReadableMessage(context))
+                            }
                         }
                     }
                 }
@@ -227,6 +253,26 @@ private fun HomeScreenContent(
                 contentColor = AppTheme.colors.pullRefreshContent
             )
         }
+    }
+}
+
+@Composable
+private fun ErrorView(
+    message: String
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(Dp16)
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(top = Dp16)
+                .align(alignment = Alignment.Center),
+            text = message,
+            style = MaterialTheme.typography.h6,
+            color = MaterialTheme.colors.error
+        )
     }
 }
 
@@ -310,10 +356,9 @@ fun HomeScreenPreview(
         ComposeTheme {
             HomeScreenContent(
                 showMyCoinsLoading = isMyCoinsLoading,
-                showTrendingCoinsLoading = isTrendingCoinsLoading,
                 isRefreshing = isMyCoinsLoading,
                 myCoins = myCoins,
-                trendingCoins = trendingCoins
+                trendingCoins = flowOf(trendingCoins).collectAsLazyPagingItems(),
             )
         }
     }
@@ -328,10 +373,9 @@ fun HomeScreenPreviewDark(
         ComposeTheme {
             HomeScreenContent(
                 showMyCoinsLoading = isMyCoinsLoading,
-                showTrendingCoinsLoading = isTrendingCoinsLoading,
                 isRefreshing = isMyCoinsLoading,
                 myCoins = myCoins,
-                trendingCoins = trendingCoins
+                trendingCoins = flowOf(trendingCoins).collectAsLazyPagingItems(),
             )
         }
     }

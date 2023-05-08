@@ -14,11 +14,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import co.nimblehq.compose.crypto.data.extension.orZero
 import co.nimblehq.compose.crypto.ui.common.price.PriceChange
 import co.nimblehq.compose.crypto.ui.preview.CoinItemPreviewParameterProvider
 import co.nimblehq.compose.crypto.ui.theme.*
 import co.nimblehq.compose.crypto.ui.uimodel.CoinItemUiModel
 import coil.compose.rememberAsyncImagePainter
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.fade
+import com.google.accompanist.placeholder.material.placeholder
+import com.google.accompanist.placeholder.material.shimmer
 
 const val TestTagTrendingItemSymbol = "TrendingItemSymbol"
 const val TestTagTrendingItemCoinName = "TrendingItemCoinName"
@@ -28,7 +33,7 @@ const val TestTagTrendingItemPriceChange = "TrendingItemPriceChange"
 @Composable
 fun TrendingItem(
     modifier: Modifier = Modifier,
-    coinItem: CoinItemUiModel,
+    coinItem: CoinItemUiModel?,
     onItemClick: () -> Unit
 ) {
 
@@ -58,8 +63,12 @@ fun TrendingItem(
                         bottomMargin = Dp6
                     )
                     start.linkTo(parent.start)
-                },
-            painter = rememberAsyncImagePainter(coinItem.image),
+                }
+                .placeholder(
+                    visible = coinItem == null,
+                    highlight = PlaceholderHighlight.fade()
+                ),
+            painter = rememberAsyncImagePainter(coinItem?.image),
             contentDescription = null
         )
 
@@ -70,8 +79,13 @@ fun TrendingItem(
                     bottom.linkTo(coinName.top)
                     start.linkTo(anchor = logo.end, margin = Dp16)
                 }
+                .placeholder(
+                    visible = coinItem == null,
+                    shape = RoundedCornerShape(Dp4),
+                    highlight = PlaceholderHighlight.shimmer()
+                )
                 .testTag(tag = TestTagTrendingItemSymbol),
-            text = coinItem.symbol.uppercase(),
+            text = coinItem?.symbol.orEmpty().uppercase(),
             color = AppTheme.colors.text,
             style = AppTheme.styles.semiBold16
         )
@@ -84,14 +98,19 @@ fun TrendingItem(
                     bottom.linkTo(parent.bottom)
                     width = Dimension.preferredWrapContent
                 }
+                .placeholder(
+                    visible = coinItem == null,
+                    shape = RoundedCornerShape(Dp4),
+                    highlight = PlaceholderHighlight.shimmer()
+                )
                 .testTag(tag = TestTagTrendingItemCoinName),
-            text = coinItem.coinName,
+            text = coinItem?.coinName.orEmpty(),
             color = AppTheme.colors.coinNameText,
             style = AppTheme.styles.medium14
         )
 
         PriceChange(
-            priceChangePercentage24hInCurrency = coinItem.priceChangePercentage24hInCurrency,
+            priceChangePercentage24hInCurrency = coinItem?.priceChangePercentage24hInCurrency.orZero(),
             modifier = Modifier
                 .constrainAs(priceChange) {
                     end.linkTo(parent.end)
@@ -99,6 +118,10 @@ fun TrendingItem(
                     bottom.linkTo(coinName.bottom)
                     width = Dimension.preferredWrapContent
                 }
+                .placeholder(
+                    visible = coinItem == null,
+                    highlight = PlaceholderHighlight.shimmer()
+                )
                 .testTag(tag = TestTagTrendingItemPriceChange)
         )
     }
