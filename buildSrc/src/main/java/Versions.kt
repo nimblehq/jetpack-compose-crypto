@@ -15,9 +15,10 @@ object Versions {
     const val ANDROIDX_LIFECYCLE_VERSION = "2.5.1"
     const val ANDROIDX_NAVIGATION_COMPOSE_VERSION = "2.5.1"
 
-    const val COMPOSE_VERSION = "1.3.0-rc01"
+    const val COMPOSE_VERSION = "1.4.0"
     const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.1"
     const val COMPOSE_CHART_VERSION = "0.1.2"
+    const val COMPOSE_PAGING_VERSION = "1.0.0-alpha19"
     const val COIL_VERSION = "2.0.0" // API 31
 
     const val FIREBASE_BOM_VERSION = "30.3.0"
@@ -31,7 +32,7 @@ object Versions {
     const val JACOCO_VERSION = "0.8.7"
 
     const val KOTLIN_REFLECT_VERSION = "1.7.10"
-    const val KOTLIN_VERSION = "1.7.10"
+    const val KOTLIN_VERSION = "1.8.0"
     const val KOTLINX_COROUTINES_VERSION = "1.6.4"
 
     const val MOSHI_VERSION = "1.12.0"
