@@ -15,6 +15,8 @@ object Versions {
     const val ANDROIDX_LIFECYCLE_VERSION = "2.5.1"
     const val ANDROIDX_NAVIGATION_COMPOSE_VERSION = "2.5.1"
 
+    const val ACCOMPANIST_PLACEHOLDER_MATERIAL_VERSION = "0.25.1"
+
     const val COMPOSE_VERSION = "1.4.0"
     const val COMPOSE_CONSTRAINT_LAYOUT_VERSION = "1.0.1"
     const val COMPOSE_CHART_VERSION = "0.1.2"

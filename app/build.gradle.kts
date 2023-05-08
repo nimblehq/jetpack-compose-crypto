@@ -104,7 +104,7 @@ android {
     }
 
     testOptions {
-        unitTests { 
+        unitTests {
             isIncludeAndroidResources = true
         }
     }
@@ -132,6 +132,8 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:${Versions.ANDROIDX_NAVIGATION_COMPOSE_VERSION}")
 
+    implementation("androidx.paging:paging-compose:${Versions.COMPOSE_PAGING_VERSION}")
+
     implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
     implementation("androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION_COMPOSE_VERSION}")
 
@@ -147,6 +149,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KOTLINX_COROUTINES_VERSION}")
 
     implementation("io.github.bytebeats:compose-charts:${Versions.COMPOSE_CHART_VERSION}")
+
+    implementation("com.google.accompanist:accompanist-placeholder-material:${Versions.ACCOMPANIST_PLACEHOLDER_MATERIAL_VERSION}")
 
     kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
 
@@ -164,8 +168,8 @@ dependencies {
     testImplementation("io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.TEST_COROUTINES_VERSION}")
     testImplementation("app.cash.turbine:turbine:${Versions.TEST_TURBINE_VERSION}")
-    testImplementation ("androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE_VERSION}")
-    testImplementation ("org.robolectric:robolectric:${Versions.TEST_ROBOLECTRIC_VERSION}")
+    testImplementation("androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE_VERSION}")
+    testImplementation("org.robolectric:robolectric:${Versions.TEST_ROBOLECTRIC_VERSION}")
 
     kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
