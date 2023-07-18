@@ -3,11 +3,9 @@ package co.nimblehq.compose.crypto.domain.repository
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import co.nimblehq.compose.crypto.domain.model.CoinItem
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -41,6 +39,7 @@ class CoinPagingSource(
         }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CoinItem> =
         withContext(Dispatchers.IO) {
             suspendCoroutine { continuation ->
