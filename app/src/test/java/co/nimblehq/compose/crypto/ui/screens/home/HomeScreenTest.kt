@@ -6,7 +6,7 @@ import androidx.compose.ui.test.junit4.*
 import androidx.navigation.*
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
-import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
+import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsPaginationUseCase
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
@@ -53,7 +53,7 @@ class HomeScreenTest : BaseViewModelTest() {
         )
 
     private val mockGetMyCoinsUseCase = mockk<GetMyCoinsUseCase>()
-    private val mockGetTrendingCoinsUseCase = mockk<GetTrendingCoinsUseCase>()
+    private val mockGetTrendingCoinsPaginationUseCase = mockk<GetTrendingCoinsPaginationUseCase>()
 
     private lateinit var viewModel: HomeViewModel
 
@@ -112,7 +112,8 @@ class HomeScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When enter to HomeScreen and load TrendingCoins successfully, it render the UI properly`() {
-        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoins)
+        every { mockGetTrendingCoinsPaginationUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoinsPagination)
+        every { mockGetMyCoinsUseCase.execute(any()) } returns flowOf(MockUtil.myCoins)
 
         initViewModel()
 
@@ -151,7 +152,7 @@ class HomeScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When clicked on TrendingCoin item, it navigates to DetailScreen`() {
-        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoins)
+        every { mockGetTrendingCoinsPaginationUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoinsPagination)
 
         initViewModel()
 
@@ -180,7 +181,7 @@ class HomeScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When enter to HomeScreen and load TrendingCoins failed, it shows the Toast properly`() {
-        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flow {
+        every { mockGetTrendingCoinsPaginationUseCase.execute(any()) } returns flow {
             throw Throwable(errorGeneric)
         }
 
@@ -226,7 +227,8 @@ class HomeScreenTest : BaseViewModelTest() {
 
     @Test
     fun `When pulled to refresh and load TrendingCoins successfully, it render the UI properly`() {
-        every { mockGetTrendingCoinsUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoins)
+        every { mockGetTrendingCoinsPaginationUseCase.execute(any()) } returns flowOf(MockUtil.trendingCoinsPagination)
+        every { mockGetMyCoinsUseCase.execute(any()) } returns flowOf(MockUtil.myCoins)
 
         initViewModel()
 
@@ -253,14 +255,14 @@ class HomeScreenTest : BaseViewModelTest() {
             onRoot().performTouchInput { swipeDown() }
         }
 
-        verify(exactly = 5) { mockGetTrendingCoinsUseCase.execute(any()) }
+        verify(exactly = 1) { mockGetTrendingCoinsPaginationUseCase.execute(any()) }
     }
 
     private fun initViewModel() {
         viewModel = HomeViewModel(
             dispatchers = testDispatcherProvider,
             getMyCoinsUseCase = mockGetMyCoinsUseCase,
-            getTrendingCoinsUseCase = mockGetTrendingCoinsUseCase
+            getTrendingCoinsPaginationUseCase = mockGetTrendingCoinsPaginationUseCase
         )
     }
 }
