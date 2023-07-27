@@ -1,5 +1,6 @@
 package co.nimblehq.compose.crypto.test
 
+import androidx.paging.PagingData
 import co.nimblehq.compose.crypto.domain.model.CoinDetail
 import co.nimblehq.compose.crypto.domain.model.CoinItem
 import java.math.BigDecimal
@@ -43,6 +44,8 @@ object MockUtil {
     )
 
     val trendingCoins = myCoins
+
+    val trendingCoinsPagination = PagingData.from(trendingCoins)
 
     val coinDetail = CoinDetail(
         id = "bitcoin",

@@ -45,42 +45,38 @@ class CoinPagingSource(
         withContext(Dispatchers.IO) {
             suspendCoroutine { continuation ->
                 runBlocking {
-                    try {
-                        val page = params.key ?: STARTING_PAGE_INDEX
-                        val size = params.loadSize
-                        coinRepository.getCoins(
-                            currency = query.currency,
-                            priceChangePercentage = query.priceChangeInHour,
-                            itemOrder = query.order,
-                            page = page,
-                            itemPerPage = size
-                        ).catch {
-                            continuation.resume(LoadResult.Error(it))
-                        }.collectLatest { items ->
-                            val prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1
-                            val nextKey = if (items.isEmpty()) null else page + 1
+                    val page = params.key ?: STARTING_PAGE_INDEX
+                    val size = params.loadSize
+                    coinRepository.getCoins(
+                        currency = query.currency,
+                        priceChangePercentage = query.priceChangeInHour,
+                        itemOrder = query.order,
+                        page = page,
+                        itemPerPage = size
+                    ).catch {
+                        continuation.resume(LoadResult.Error(it))
+                    }.collectLatest { items ->
+                        val prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1
+                        val nextKey = if (items.isEmpty()) null else page + 1
 
-                            val result = if (params.placeholdersEnabled) {
-                                val itemsBefore = page * size
-                                val itemsAfter = itemsBefore + items.size
-                                LoadResult.Page(
-                                    data = items,
-                                    prevKey = prevKey,
-                                    nextKey = nextKey,
-                                    itemsAfter = if (itemsAfter > size) size else itemsAfter,
-                                    itemsBefore = if (page == STARTING_PAGE_INDEX) 0 else itemsBefore,
-                                )
-                            } else {
-                                LoadResult.Page(
-                                    data = items,
-                                    prevKey = prevKey,
-                                    nextKey = nextKey
-                                )
-                            }
-                            continuation.resume(result)
+                        val result = if (params.placeholdersEnabled) {
+                            val itemsBefore = page * size
+                            val itemsAfter = itemsBefore + items.size
+                            LoadResult.Page(
+                                data = items,
+                                prevKey = prevKey,
+                                nextKey = nextKey,
+                                itemsAfter = if (itemsAfter > size) size else itemsAfter,
+                                itemsBefore = if (page == STARTING_PAGE_INDEX) 0 else itemsBefore,
+                            )
+                        } else {
+                            LoadResult.Page(
+                                data = items,
+                                prevKey = prevKey,
+                                nextKey = nextKey
+                            )
                         }
-                    } catch (e: Exception) {
-                        continuation.resume(LoadResult.Error(e))
+                        continuation.resume(result)
                     }
                 }
             }
