@@ -99,9 +99,9 @@ tasks.register<JacocoReport>("jacocoTestReport") {
     executionData.setFrom(executionDataTree)
 
     reports {
-        xml.isEnabled = true
-        html.isEnabled = true
-        csv.isEnabled = false
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
     }
 }
 
