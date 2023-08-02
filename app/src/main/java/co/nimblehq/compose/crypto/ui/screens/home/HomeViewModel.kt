@@ -1,7 +1,6 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
-import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
-import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
+import co.nimblehq.compose.crypto.domain.usecase.*
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.*
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
@@ -52,7 +51,8 @@ interface Output : BaseOutput {
 class HomeViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
     private val getMyCoinsUseCase: GetMyCoinsUseCase,
-    private val getTrendingCoinsUseCase: GetTrendingCoinsUseCase
+    private val getTrendingCoinsUseCase: GetTrendingCoinsUseCase,
+    private val getConnectionStatsUseCase: GetConnectionStatsUseCase,
 ) : BaseViewModel(dispatchers), Input, Output {
 
     override val input = this
@@ -84,8 +84,19 @@ class HomeViewModel @Inject constructor(
 
     private var trendingCoinsPage = MY_COINS_INITIAL_PAGE
 
+    // TODO remove in integration ticket
+    private val _hasConnection = MutableStateFlow<Boolean?>(null)
+    val hasConnection: StateFlow<Boolean?> = _hasConnection
+
     init {
         loadData()
+        // TODO remove in integration ticket
+        execute {
+            getConnectionStatsUseCase()
+                .collect {
+                    _hasConnection.emit(it)
+                }
+        }
     }
 
     override fun loadData(isRefreshing: Boolean) {

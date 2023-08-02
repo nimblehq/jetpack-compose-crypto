@@ -5,8 +5,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.*
 import androidx.navigation.*
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
-import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
+import co.nimblehq.compose.crypto.domain.usecase.*
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
@@ -55,12 +54,16 @@ class HomeScreenTest : BaseViewModelTest() {
     private val mockGetMyCoinsUseCase = mockk<GetMyCoinsUseCase>()
     private val mockGetTrendingCoinsUseCase = mockk<GetTrendingCoinsUseCase>()
 
+    // TODO remove in integration ticket
+    private val mockGetConnectionStatsUseCase = mockk<GetConnectionStatsUseCase>()
+
     private lateinit var viewModel: HomeViewModel
 
     private var appDestination: AppDestination? = null
 
     @Before
     fun setUp() {
+        every { mockGetConnectionStatsUseCase() } returns flowOf(null)
         composeAndroidTestRule.activity.setContent {
             HomeScreen(
                 viewModel = viewModel,
@@ -216,7 +219,8 @@ class HomeScreenTest : BaseViewModelTest() {
         viewModel = HomeViewModel(
             dispatchers = testDispatcherProvider,
             getMyCoinsUseCase = mockGetMyCoinsUseCase,
-            getTrendingCoinsUseCase = mockGetTrendingCoinsUseCase
+            getTrendingCoinsUseCase = mockGetTrendingCoinsUseCase,
+            getConnectionStatsUseCase = mockGetConnectionStatsUseCase
         )
     }
 }

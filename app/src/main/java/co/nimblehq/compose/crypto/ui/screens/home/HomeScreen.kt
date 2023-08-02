@@ -56,6 +56,14 @@ fun HomeScreen(
         }
     }
 
+    // TODO remove in integration ticket
+    val hasConnection by viewModel.hasConnection.collectAsState()
+    LaunchedEffect(key1 = hasConnection) {
+        if (hasConnection != null) {
+            Toast.makeText(context,"Connection: $hasConnection", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
     val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
     val myCoins: List<CoinItemUiModel> by viewModel.output.myCoins.collectAsState()

@@ -1,8 +1,7 @@
 package co.nimblehq.compose.crypto.ui.screens.home
 
 import app.cash.turbine.test
-import co.nimblehq.compose.crypto.domain.usecase.GetMyCoinsUseCase
-import co.nimblehq.compose.crypto.domain.usecase.GetTrendingCoinsUseCase
+import co.nimblehq.compose.crypto.domain.usecase.*
 import co.nimblehq.compose.crypto.test.MockUtil
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.screens.BaseViewModelTest
@@ -24,6 +23,9 @@ class HomeViewModelTest : BaseViewModelTest() {
     private val mockGetMyCoinsUseCase = mockk<GetMyCoinsUseCase>()
     private val mockGetTrendingCoinsUseCase = mockk<GetTrendingCoinsUseCase>()
     private lateinit var viewModel: HomeViewModel
+
+    // TODO remove in integration ticket
+    private val mockGetConnectionStatsUseCase = mockk<GetConnectionStatsUseCase>()
 
     @Before
     fun setUp() {
@@ -143,7 +145,8 @@ class HomeViewModelTest : BaseViewModelTest() {
         viewModel = HomeViewModel(
             testDispatcherProvider,
             mockGetMyCoinsUseCase,
-            mockGetTrendingCoinsUseCase
+            mockGetTrendingCoinsUseCase,
+            mockGetConnectionStatsUseCase
         )
     }
 }
