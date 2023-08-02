@@ -25,7 +25,7 @@ class HomeViewModelTest : BaseViewModelTest() {
     private lateinit var viewModel: HomeViewModel
 
     // TODO remove in integration ticket
-    private val mockGetConnectionStatsUseCase = mockk<GetConnectionStatsUseCase>()
+    private val mockGetConnectionStatusUseCase = mockk<GetConnectionStatusUseCase>()
 
     @Before
     fun setUp() {
@@ -146,7 +146,7 @@ class HomeViewModelTest : BaseViewModelTest() {
             testDispatcherProvider,
             mockGetMyCoinsUseCase,
             mockGetTrendingCoinsUseCase,
-            mockGetConnectionStatsUseCase
+            mockGetConnectionStatusUseCase
         )
     }
 }

@@ -10,7 +10,7 @@ class GlobalRepositoryImpl(
     context: Context
 ) : GlobalRepository {
 
-    private var connectionStatus: MutableStateFlow<Boolean?> = MutableStateFlow(null)
+    private var isNetworkConnected: MutableStateFlow<Boolean?> = MutableStateFlow(null)
 
     private val networkRequest = NetworkRequest.Builder()
         .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
@@ -22,7 +22,7 @@ class GlobalRepositoryImpl(
         // network is available for use
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
-            connectionStatus.value = true
+            isNetworkConnected.value = true
         }
 
         // Network capabilities have changed for the network
@@ -32,15 +32,15 @@ class GlobalRepositoryImpl(
         ) {
             super.onCapabilitiesChanged(network, networkCapabilities)
             val unmetered = networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
-            if(unmetered) {
-                connectionStatus.value = true
+            if (unmetered) {
+                isNetworkConnected.value = true
             }
         }
 
         // lost network connection
         override fun onLost(network: Network) {
             super.onLost(network)
-            connectionStatus.value = false
+            isNetworkConnected.value = false
         }
     }
 
@@ -49,5 +49,5 @@ class GlobalRepositoryImpl(
         connectivityManager.requestNetwork(networkRequest, networkCallback)
     }
 
-    override fun getConnectionStatus(): Flow<Boolean?> = connectionStatus
+    override fun getConnectionStatus(): Flow<Boolean?> = isNetworkConnected
 }

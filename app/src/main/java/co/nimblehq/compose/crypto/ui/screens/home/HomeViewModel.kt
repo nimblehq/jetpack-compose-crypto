@@ -52,7 +52,7 @@ class HomeViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
     private val getMyCoinsUseCase: GetMyCoinsUseCase,
     private val getTrendingCoinsUseCase: GetTrendingCoinsUseCase,
-    private val getConnectionStatsUseCase: GetConnectionStatsUseCase,
+    private val getConnectionStatusUseCase: GetConnectionStatusUseCase,
 ) : BaseViewModel(dispatchers), Input, Output {
 
     override val input = this
@@ -92,7 +92,7 @@ class HomeViewModel @Inject constructor(
         loadData()
         // TODO remove in integration ticket
         execute {
-            getConnectionStatsUseCase()
+            getConnectionStatusUseCase()
                 .collect {
                     _hasConnection.emit(it)
                 }

@@ -55,7 +55,7 @@ class HomeScreenTest : BaseViewModelTest() {
     private val mockGetTrendingCoinsUseCase = mockk<GetTrendingCoinsUseCase>()
 
     // TODO remove in integration ticket
-    private val mockGetConnectionStatsUseCase = mockk<GetConnectionStatsUseCase>()
+    private val mockGetConnectionStatusUseCase = mockk<GetConnectionStatusUseCase>()
 
     private lateinit var viewModel: HomeViewModel
 
@@ -63,7 +63,7 @@ class HomeScreenTest : BaseViewModelTest() {
 
     @Before
     fun setUp() {
-        every { mockGetConnectionStatsUseCase() } returns flowOf(null)
+        every { mockGetConnectionStatusUseCase() } returns flowOf(null)
         composeAndroidTestRule.activity.setContent {
             HomeScreen(
                 viewModel = viewModel,
@@ -220,7 +220,7 @@ class HomeScreenTest : BaseViewModelTest() {
             dispatchers = testDispatcherProvider,
             getMyCoinsUseCase = mockGetMyCoinsUseCase,
             getTrendingCoinsUseCase = mockGetTrendingCoinsUseCase,
-            getConnectionStatsUseCase = mockGetConnectionStatsUseCase
+            getConnectionStatusUseCase = mockGetConnectionStatusUseCase
         )
     }
 }
