@@ -23,7 +23,6 @@ import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.boxShadow
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.LoadingState
-import co.nimblehq.compose.crypto.ui.common.AppDialogPopUp
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
@@ -57,9 +56,6 @@ fun HomeScreen(
         }
     }
 
-    // TODO remove in integration ticket
-    val isNetworkConnected by viewModel.isNetworkConnected.collectAsState()
-
     val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
     val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
     val myCoins: List<CoinItemUiModel> by viewModel.output.myCoins.collectAsState()
@@ -90,17 +86,6 @@ fun HomeScreen(
         onRefresh = { viewModel.input.loadData(isRefreshing = true) },
         onTrendingCoinsLoadMore = { viewModel.input.getTrendingCoins(loadMore = true) }
     )
-
-    // TODO remove in integration ticket
-    if (isNetworkConnected == false) {
-        AppDialogPopUp(
-            onDismiss = { /*TODO*/ },
-            onClick = { /*TODO*/ },
-            message = stringResource(id = R.string.no_internet_message),
-            actionText = stringResource(id = android.R.string.ok),
-            title = stringResource(id = R.string.no_internet_title)
-        )
-    }
 }
 
 @OptIn(ExperimentalMaterialApi::class)

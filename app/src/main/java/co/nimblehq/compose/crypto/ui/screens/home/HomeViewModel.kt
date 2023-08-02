@@ -52,7 +52,6 @@ class HomeViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
     private val getMyCoinsUseCase: GetMyCoinsUseCase,
     private val getTrendingCoinsUseCase: GetTrendingCoinsUseCase,
-    private val isNetworkConnectedUseCase: IsNetworkConnectedUseCase,
 ) : BaseViewModel(dispatchers), Input, Output {
 
     override val input = this
@@ -84,19 +83,8 @@ class HomeViewModel @Inject constructor(
 
     private var trendingCoinsPage = MY_COINS_INITIAL_PAGE
 
-    // TODO remove in integration ticket
-    private val _isNetworkConnected = MutableStateFlow<Boolean?>(null)
-    val isNetworkConnected: StateFlow<Boolean?> = _isNetworkConnected
-
     init {
         loadData()
-        // TODO remove in integration ticket
-        execute {
-            isNetworkConnectedUseCase()
-                .collect {
-                    _isNetworkConnected.emit(it)
-                }
-        }
     }
 
     override fun loadData(isRefreshing: Boolean) {

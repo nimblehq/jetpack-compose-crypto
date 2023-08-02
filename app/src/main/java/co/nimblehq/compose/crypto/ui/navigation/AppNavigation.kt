@@ -1,16 +1,35 @@
 package co.nimblehq.compose.crypto.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
 import androidx.navigation.compose.*
+import co.nimblehq.compose.crypto.R
+import co.nimblehq.compose.crypto.extension.collectAsEffect
+import co.nimblehq.compose.crypto.ui.common.AppDialogPopUp
+import co.nimblehq.compose.crypto.ui.screens.MainViewModel
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 
 @Composable
 fun AppNavigation(
     navController: NavHostController = rememberNavController(),
+    mainViewModel: MainViewModel = hiltViewModel(),
     startDestination: String = AppDestination.Home.destination
 ) {
+
+    mainViewModel.isNetworkConnected.collectAsEffect { isNetworkConnected ->
+        if (isNetworkConnected == false) {
+            val destination = AppDestination.NoNetwork
+
+            val currentRoute = navController.currentBackStackEntry?.destination?.route
+            if (currentRoute == AppDestination.NoNetwork.route) {
+                navController.popBackStack()
+            }
+
+            navController.navigate(destination)
+        }
+    }
     NavHost(
         navController = navController,
         startDestination = startDestination
@@ -25,6 +44,16 @@ fun AppNavigation(
             DetailScreen(
                 navigator = { destination -> navController.navigate(destination) },
                 coinId = it.arguments?.getString(KEY_COIN_ID).orEmpty()
+            )
+        }
+
+        dialog(AppDestination.NoNetwork.route) {
+            AppDialogPopUp(
+                onDismiss = { navController.popBackStack() },
+                onClick = { navController.popBackStack() },
+                message = R.string.no_internet_message,
+                actionText = android.R.string.ok,
+                title = R.string.no_internet_title
             )
         }
     }

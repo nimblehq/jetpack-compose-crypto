@@ -24,9 +24,6 @@ class HomeViewModelTest : BaseViewModelTest() {
     private val mockGetTrendingCoinsUseCase = mockk<GetTrendingCoinsUseCase>()
     private lateinit var viewModel: HomeViewModel
 
-    // TODO remove in integration ticket
-    private val mockIsNetworkConnectedUseCase = mockk<IsNetworkConnectedUseCase>()
-
     @Before
     fun setUp() {
         every { mockGetMyCoinsUseCase.execute(any()) } returns flowOf(MockUtil.myCoins)
@@ -145,8 +142,7 @@ class HomeViewModelTest : BaseViewModelTest() {
         viewModel = HomeViewModel(
             testDispatcherProvider,
             mockGetMyCoinsUseCase,
-            mockGetTrendingCoinsUseCase,
-            mockIsNetworkConnectedUseCase
+            mockGetTrendingCoinsUseCase
         )
     }
 }
