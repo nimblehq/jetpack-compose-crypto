@@ -1,59 +1,51 @@
 package co.nimblehq.compose.crypto.ui.common
 
-import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
-import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.theme.*
 
 @Composable
 fun AppDialogPopUp(
     onDismiss: () -> Unit,
     onClick: () -> Unit,
-    @StringRes title: Int,
-    @StringRes message: Int,
-    @StringRes actionText: Int,
+    title: String,
+    message: String,
+    actionText: String,
 ) {
     Dialog(
         onDismissRequest = onDismiss
     ) {
-        Column(
-            modifier = Modifier
-                .background(Color.White)
-                .width(DialogWidth)
-        ) {
-            Text(
-                text = stringResource(id = title),
-                style = AppTheme.typography.h6,
-                color = Color.Black,
-                modifier = Modifier.padding(top = Dp16, start = Dp16, end = Dp16)
-            )
-            Text(
-                text = stringResource(id = message),
-                style = AppTheme.typography.body1,
-                color = Color.Black,
-                modifier = Modifier.padding(Dp16)
-            )
-            Row(
-                horizontalArrangement = Arrangement.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = Dp16, end = Dp8)
+        Surface {
+            Column(
+                modifier = Modifier.width(DialogWidth)
             ) {
+                Text(
+                    text = title,
+                    style = AppTheme.typography.h6,
+                    color = AppTheme.colors.text,
+                    modifier = Modifier.padding(top = Dp16, start = Dp16, end = Dp16)
+                )
+                Text(
+                    text = message,
+                    style = AppTheme.typography.body1,
+                    color = AppTheme.colors.text,
+                    modifier = Modifier.padding(Dp16)
+                )
                 TextButton(
-                    onClick = onClick
+                    onClick = onClick,
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(bottom = Dp16, end = Dp8)
                 ) {
                     Text(
-                        text = stringResource(id = actionText),
+                        text = actionText,
                         style = AppTheme.styles.semiBold16,
-                        color = Color.Blue,
+                        color = AppTheme.colors.dialogText,
                     )
                 }
             }
@@ -69,9 +61,9 @@ fun AppDialogPopUpPreview() {
             AppDialogPopUp(
                 onDismiss = { /*TODO*/ },
                 onClick = { /*TODO*/ },
-                message = R.string.no_internet_message,
-                actionText = android.R.string.ok,
-                title = R.string.no_internet_title
+                message = "No internet connection was found. Please check your internet connection and try again.",
+                actionText = "OK",
+                title = "Oops!"
             )
         }
     }

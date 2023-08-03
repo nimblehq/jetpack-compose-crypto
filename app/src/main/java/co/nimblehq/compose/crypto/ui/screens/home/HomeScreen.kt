@@ -58,7 +58,7 @@ fun HomeScreen(
     }
 
     // TODO remove in integration ticket
-    val isNetworkConnected by viewModel.hasConnection.collectAsState()
+    val isNetworkConnected by viewModel.isNetworkConnected.collectAsState()
 
     val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
     val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
@@ -96,9 +96,9 @@ fun HomeScreen(
         AppDialogPopUp(
             onDismiss = { /*TODO*/ },
             onClick = { /*TODO*/ },
-            message = R.string.no_internet_message,
-            actionText = android.R.string.ok,
-            title = R.string.no_internet_title
+            message = stringResource(id = R.string.no_internet_message),
+            actionText = stringResource(id = android.R.string.ok),
+            title = stringResource(id = R.string.no_internet_title)
         )
     }
 }
