@@ -4,6 +4,6 @@ import co.nimblehq.compose.crypto.domain.repository.GlobalRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetConnectionStatusUseCase @Inject constructor(private val repository: GlobalRepository) {
-    operator fun invoke(): Flow<Boolean?> = repository.getConnectionStatus()
+class IsNetworkConnectedUseCase @Inject constructor(private val repository: GlobalRepository) {
+    operator fun invoke(): Flow<Boolean?> = repository.isNetworkConnected()
 }

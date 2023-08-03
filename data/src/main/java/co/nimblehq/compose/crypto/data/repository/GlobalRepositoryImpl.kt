@@ -10,7 +10,7 @@ class GlobalRepositoryImpl(
     context: Context
 ) : GlobalRepository {
 
-    private var isNetworkConnected: MutableStateFlow<Boolean?> = MutableStateFlow(null)
+    private val isNetworkConnected: MutableStateFlow<Boolean?> = MutableStateFlow(null)
 
     private val networkRequest = NetworkRequest.Builder()
         .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
@@ -49,5 +49,5 @@ class GlobalRepositoryImpl(
         connectivityManager.requestNetwork(networkRequest, networkCallback)
     }
 
-    override fun getConnectionStatus(): Flow<Boolean?> = isNetworkConnected
+    override fun isNetworkConnected(): Flow<Boolean?> = isNetworkConnected
 }

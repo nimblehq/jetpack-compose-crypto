@@ -57,10 +57,10 @@ fun HomeScreen(
     }
 
     // TODO remove in integration ticket
-    val hasConnection by viewModel.hasConnection.collectAsState()
-    LaunchedEffect(key1 = hasConnection) {
-        if (hasConnection != null) {
-            Toast.makeText(context,"Connection: $hasConnection", Toast.LENGTH_SHORT).show()
+    val isNetworkConnected by viewModel.hasConnection.collectAsState()
+    LaunchedEffect(isNetworkConnected) {
+        if (isNetworkConnected != null) {
+            Toast.makeText(context,"Connection: $isNetworkConnected", Toast.LENGTH_SHORT).show()
         }
     }
 
