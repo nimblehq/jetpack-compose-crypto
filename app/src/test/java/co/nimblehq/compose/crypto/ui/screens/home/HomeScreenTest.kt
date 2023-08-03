@@ -63,7 +63,8 @@ class HomeScreenTest : BaseViewModelTest() {
         composeAndroidTestRule.activity.setContent {
             HomeScreen(
                 viewModel = viewModel,
-                navigator = { destination -> appDestination = destination }
+                navigator = { destination -> appDestination = destination },
+                onInternetRestore = {}
             )
         }
     }

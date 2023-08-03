@@ -18,6 +18,8 @@ fun AppNavigation(
     startDestination: String = AppDestination.Home.destination
 ) {
 
+    var onInternetRestore: () -> Unit = {}
+
     mainViewModel.isNetworkConnected.collectAsEffect { isNetworkConnected ->
         if (isNetworkConnected == false) {
             val destination = AppDestination.NoNetwork
@@ -36,21 +38,30 @@ fun AppNavigation(
     ) {
         composable(AppDestination.Home) {
             HomeScreen(
-                navigator = { destination -> navController.navigate(destination) }
+                navigator = { destination -> navController.navigate(destination) },
+                onInternetRestore = {
+                    onInternetRestore = it
+                }
             )
         }
 
         composable(AppDestination.CoinDetail) {
             DetailScreen(
                 navigator = { destination -> navController.navigate(destination) },
-                coinId = it.arguments?.getString(KEY_COIN_ID).orEmpty()
+                coinId = it.arguments?.getString(KEY_COIN_ID).orEmpty(),
+                onInternetRestore = {
+                    onInternetRestore = it
+                }
             )
         }
 
         dialog(AppDestination.NoNetwork.route) {
             AppDialogPopUp(
                 onDismiss = { navController.popBackStack() },
-                onClick = { navController.popBackStack() },
+                onClick = {
+                    navController.popBackStack()
+                    onInternetRestore.invoke()
+                },
                 message = R.string.no_internet_message,
                 actionText = android.R.string.ok,
                 title = R.string.no_internet_title

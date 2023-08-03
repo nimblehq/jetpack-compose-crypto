@@ -40,8 +40,10 @@ const val TestTagCoinsLoader = "CoinsLoader"
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigator: (destination: AppDestination) -> Unit
+    navigator: (destination: AppDestination) -> Unit,
+    onInternetRestore: (() -> Unit) -> Unit
 ) {
+
     val context = LocalContext.current
     var rememberRefreshing by remember { mutableStateOf(false) }
 
@@ -54,6 +56,10 @@ fun HomeScreen(
         viewModel.showLoading.collect { isRefreshing ->
             rememberRefreshing = isRefreshing
         }
+    }
+
+    onInternetRestore {
+        viewModel.input.loadData(isRefreshing = true)
     }
 
     val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
