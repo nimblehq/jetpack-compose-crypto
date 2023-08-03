@@ -1,7 +1,7 @@
 package co.nimblehq.compose.crypto.ui.screens
 
 import androidx.lifecycle.viewModelScope
-import co.nimblehq.compose.crypto.domain.usecase.GetConnectionStatusUseCase
+import co.nimblehq.compose.crypto.domain.usecase.IsNetworkConnectedUseCase
 import co.nimblehq.compose.crypto.ui.base.*
 import co.nimblehq.compose.crypto.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ interface Output : BaseOutput {
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    getConnectionStatusUseCase: GetConnectionStatusUseCase,
+    isNetworkConnectedUseCase: IsNetworkConnectedUseCase,
     dispatchersProvider: DispatchersProvider,
 ) : BaseViewModel(dispatchersProvider), Input, Output {
     private val _isNetworkConnected = MutableSharedFlow<Boolean?>()
@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
     override val output: BaseOutput = this
 
     init {
-        getConnectionStatusUseCase()
+        isNetworkConnectedUseCase()
             .catch {
                 _error.emit(it)
             }

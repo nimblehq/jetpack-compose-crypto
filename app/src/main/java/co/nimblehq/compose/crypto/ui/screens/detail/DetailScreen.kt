@@ -54,7 +54,7 @@ fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel(),
     navigator: (destination: AppDestination) -> Unit,
     coinId: String,
-    onInternetRestore: (() -> Unit) -> Unit
+    onNetworkReconnected: (() -> Unit) -> Unit
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -85,7 +85,7 @@ fun DetailScreen(
         viewModel.input.getCoinId(coinId = coinId)
     }
 
-    onInternetRestore {
+    onNetworkReconnected {
         viewModel.input.getCoinId(coinId = coinId)
     }
 }

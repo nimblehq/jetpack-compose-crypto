@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
 import androidx.navigation.compose.*
@@ -38,10 +39,7 @@ fun AppNavigation(
     ) {
         composable(AppDestination.Home) {
             HomeScreen(
-                navigator = { destination -> navController.navigate(destination) },
-                onInternetRestore = {
-                    onInternetRestore = it
-                }
+                navigator = { destination -> navController.navigate(destination) }
             )
         }
 
@@ -49,8 +47,8 @@ fun AppNavigation(
             DetailScreen(
                 navigator = { destination -> navController.navigate(destination) },
                 coinId = it.arguments?.getString(KEY_COIN_ID).orEmpty(),
-                onInternetRestore = {
-                    onInternetRestore = it
+                onNetworkReconnected = { callback ->
+                    onInternetRestore = callback
                 }
             )
         }
@@ -62,9 +60,9 @@ fun AppNavigation(
                     navController.popBackStack()
                     onInternetRestore.invoke()
                 },
-                message = R.string.no_internet_message,
-                actionText = android.R.string.ok,
-                title = R.string.no_internet_title
+                message = stringResource(id = R.string.no_internet_message),
+                actionText = stringResource(id = android.R.string.ok),
+                title = stringResource(id = R.string.no_internet_title)
             )
         }
     }
