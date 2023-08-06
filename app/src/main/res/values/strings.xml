@@ -20,4 +20,7 @@
 
     <string name="coin_info_sell_button">Sell</string>
     <string name="coin_info_buy_button">Buy</string>
+    
+    <string name="no_internet_title">Oops!</string>
+    <string name="no_internet_message">No internet connection was found. Please check your internet connection and try again.</string>
 </resources>

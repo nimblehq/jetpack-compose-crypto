@@ -85,8 +85,8 @@ class HomeViewModel @Inject constructor(
     private var trendingCoinsPage = MY_COINS_INITIAL_PAGE
 
     // TODO remove in integration ticket
-    private val _hasConnection = MutableStateFlow<Boolean?>(null)
-    val hasConnection: StateFlow<Boolean?> = _hasConnection
+    private val _isNetworkConnected = MutableStateFlow<Boolean?>(null)
+    val isNetworkConnected: StateFlow<Boolean?> = _isNetworkConnected
 
     init {
         loadData()
@@ -94,7 +94,7 @@ class HomeViewModel @Inject constructor(
         execute {
             isNetworkConnectedUseCase()
                 .collect {
-                    _hasConnection.emit(it)
+                    _isNetworkConnected.emit(it)
                 }
         }
     }

@@ -3,6 +3,7 @@ package co.nimblehq.compose.crypto.ui.theme
 import androidx.compose.material.*
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Blue
 
 /**
  * Extend final [Colors] class to provide more custom app colors.
@@ -35,6 +36,7 @@ data class AppColors(
     val pullRefreshContent: Color = CaribbeanGreen,
 
     val text: Color,
+    val dialogText: Color,
     val textSectionLink: Color = TiffanyBlue,
 )
 
@@ -47,7 +49,8 @@ internal val LightColorPalette = AppColors(
     coinItemBackground = White,
     coinNameText = SonicSilver,
     pullRefreshBackground = White,
-    text = DarkJungleGreen
+    text = DarkJungleGreen,
+    dialogText = Blue
 )
 
 internal val DarkColorPalette = AppColors(
@@ -59,7 +62,8 @@ internal val DarkColorPalette = AppColors(
     coinItemBackground = QuartzAlpha20,
     coinNameText = LightSilver,
     pullRefreshBackground = DarkJungleGreen,
-    text = White
+    text = White,
+    dialogText = White
 )
 
 internal val LocalColors = staticCompositionLocalOf { LightColorPalette }
