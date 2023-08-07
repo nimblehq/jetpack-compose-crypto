@@ -1,27 +1,29 @@
 package co.nimblehq.compose.crypto.ui.navigation
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
 import androidx.navigation.compose.*
+import co.nimblehq.compose.crypto.CryptoAppState
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.collectAsEffect
 import co.nimblehq.compose.crypto.ui.common.AppDialogPopUp
-import co.nimblehq.compose.crypto.ui.screens.MainViewModel
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 
 @Composable
 fun AppNavigation(
     navController: NavHostController = rememberNavController(),
-    mainViewModel: MainViewModel = hiltViewModel(),
-    startDestination: String = AppDestination.Home.destination
+    startDestination: String = AppDestination.Home.destination,
+    cryptoAppState: CryptoAppState
 ) {
 
     var onInternetRestore: () -> Unit = {}
+    val context = LocalContext.current
 
-    mainViewModel.isNetworkConnected.collectAsEffect { isNetworkConnected ->
+    cryptoAppState.isNetworkConnected.collectAsEffect { isNetworkConnected ->
         if (isNetworkConnected == false) {
             val destination = AppDestination.NoNetwork
 
@@ -33,6 +35,11 @@ fun AppNavigation(
             navController.navigate(destination)
         }
     }
+
+    cryptoAppState.isNetworkError.collectAsEffect { error ->
+        Toast.makeText(context, error?.message, Toast.LENGTH_SHORT).show()
+    }
+
     NavHost(
         navController = navController,
         startDestination = startDestination
