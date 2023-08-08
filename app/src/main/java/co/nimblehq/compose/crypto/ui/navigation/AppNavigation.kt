@@ -1,44 +1,21 @@
 package co.nimblehq.compose.crypto.ui.navigation
 
-import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.*
 import androidx.navigation.compose.*
-import co.nimblehq.compose.crypto.CryptoAppState
 import co.nimblehq.compose.crypto.R
-import co.nimblehq.compose.crypto.extension.collectAsEffect
 import co.nimblehq.compose.crypto.ui.common.AppDialogPopUp
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 
 @Composable
 fun AppNavigation(
-    navController: NavHostController = rememberNavController(),
+    navController: NavHostController,
     startDestination: String = AppDestination.Home.destination,
-    cryptoAppState: CryptoAppState
+    onCallBackChange: (() -> Unit) -> Unit,
+    onInternetRestore: () -> Unit
 ) {
-
-    var onInternetRestore: () -> Unit = {}
-    val context = LocalContext.current
-
-    cryptoAppState.isNetworkConnected.collectAsEffect { isNetworkConnected ->
-        if (isNetworkConnected == false) {
-            val destination = AppDestination.NoNetwork
-
-            val currentRoute = navController.currentBackStackEntry?.destination?.route
-            if (currentRoute == AppDestination.NoNetwork.route) {
-                navController.popBackStack()
-            }
-
-            navController.navigate(destination)
-        }
-    }
-
-    cryptoAppState.isNetworkError.collectAsEffect { error ->
-        Toast.makeText(context, error?.message, Toast.LENGTH_SHORT).show()
-    }
 
     NavHost(
         navController = navController,
@@ -55,7 +32,7 @@ fun AppNavigation(
                 navigator = { destination -> navController.navigate(destination) },
                 coinId = it.arguments?.getString(KEY_COIN_ID).orEmpty(),
                 onNetworkReconnected = { callback ->
-                    onInternetRestore = callback
+                    onCallBackChange(callback)
                 }
             )
         }
@@ -65,7 +42,7 @@ fun AppNavigation(
                 onDismiss = { navController.popBackStack() },
                 onClick = {
                     navController.popBackStack()
-                    onInternetRestore.invoke()
+                    onInternetRestore()
                 },
                 message = stringResource(id = R.string.no_internet_message),
                 actionText = stringResource(id = android.R.string.ok),
@@ -88,7 +65,7 @@ private fun NavGraphBuilder.composable(
     )
 }
 
-private fun NavHostController.navigate(destination: AppDestination) {
+ fun NavHostController.navigate(destination: AppDestination) {
     when (destination) {
         is AppDestination.Up -> popBackStack()
         else -> navigate(route = destination.destination)
