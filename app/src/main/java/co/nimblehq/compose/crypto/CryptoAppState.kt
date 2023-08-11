@@ -23,14 +23,14 @@ class CryptoAppState(
     val isNetworkConnected: SharedFlow<Boolean?>
         get() = _isNetworkConnected
 
-    private val _isNetworkError = MutableSharedFlow<Throwable?>()
-    val isNetworkError: SharedFlow<Throwable?>
-        get() = _isNetworkError
+    private val _networkError = MutableSharedFlow<Throwable?>()
+    val networkError: SharedFlow<Throwable?>
+        get() = _networkError
 
     init {
         isNetworkConnectedUseCase()
             .catch {
-                _isNetworkError.emit(it)
+                _networkError.emit(it)
             }
             .onEach {
                 _isNetworkConnected.emit(it)

@@ -13,7 +13,7 @@ fun ComposeCryptoApp(
     navController: NavHostController = rememberNavController(),
     cryptoAppState: CryptoAppState
 ) {
-    var onInternetRestore: () -> Unit = {}
+    var globalDialogCallback: () -> Unit = {}
     val context = LocalContext.current
 
     cryptoAppState.isNetworkConnected.collectAsEffect { isNetworkConnected ->
@@ -29,17 +29,17 @@ fun ComposeCryptoApp(
         }
     }
 
-    cryptoAppState.isNetworkError.collectAsEffect { error ->
+    cryptoAppState.networkError.collectAsEffect { error ->
         Toast.makeText(context, error?.message, Toast.LENGTH_SHORT).show()
     }
 
     AppNavigation(
         navController = navController,
         onCallBackChange = {
-            onInternetRestore = it
+            globalDialogCallback = it
         },
-        onInternetRestore = {
-            onInternetRestore.invoke()
+        globalDialogCallback = {
+            globalDialogCallback.invoke()
         },
     )
 }

@@ -14,7 +14,7 @@ fun AppNavigation(
     navController: NavHostController,
     startDestination: String = AppDestination.Home.destination,
     onCallBackChange: (() -> Unit) -> Unit,
-    onInternetRestore: () -> Unit
+    globalDialogCallback: () -> Unit
 ) {
 
     NavHost(
@@ -42,7 +42,7 @@ fun AppNavigation(
                 onDismiss = { navController.popBackStack() },
                 onClick = {
                     navController.popBackStack()
-                    onInternetRestore()
+                    globalDialogCallback()
                 },
                 message = stringResource(id = R.string.no_internet_message),
                 actionText = stringResource(id = android.R.string.ok),
@@ -65,7 +65,7 @@ private fun NavGraphBuilder.composable(
     )
 }
 
- fun NavHostController.navigate(destination: AppDestination) {
+fun NavHostController.navigate(destination: AppDestination) {
     when (destination) {
         is AppDestination.Up -> popBackStack()
         else -> navigate(route = destination.destination)
