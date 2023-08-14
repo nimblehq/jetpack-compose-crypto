@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto.ui.screens.detail
 
 import android.content.res.Configuration
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -54,7 +55,7 @@ fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel(),
     navigator: (destination: AppDestination) -> Unit,
     coinId: String,
-    onNetworkReconnected: (() -> Unit) -> Unit
+    onDialogDismissed: Boolean
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -85,8 +86,11 @@ fun DetailScreen(
         viewModel.input.getCoinId(coinId = coinId)
     }
 
-    onNetworkReconnected {
-        viewModel.input.getCoinId(coinId = coinId)
+    LaunchedEffect(onDialogDismissed) {
+        Log.d("DetailScreen", "onDialogDismissed: $onDialogDismissed")
+        if (onDialogDismissed) {
+            viewModel.input.getCoinId(coinId = coinId)
+        }
     }
 }
 

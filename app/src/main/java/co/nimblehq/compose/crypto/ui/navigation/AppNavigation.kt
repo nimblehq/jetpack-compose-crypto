@@ -1,9 +1,16 @@
 package co.nimblehq.compose.crypto.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.*
-import androidx.navigation.compose.*
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDeepLink
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.common.AppDialogPopUp
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
@@ -13,9 +20,9 @@ import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 fun AppNavigation(
     navController: NavHostController,
     startDestination: String = AppDestination.Home.destination,
-    onCallBackChange: (() -> Unit) -> Unit,
-    globalDialogCallback: () -> Unit
 ) {
+
+    val onDialogDismissedState = remember { mutableStateOf(false) }
 
     NavHost(
         navController = navController,
@@ -31,18 +38,19 @@ fun AppNavigation(
             DetailScreen(
                 navigator = { destination -> navController.navigate(destination) },
                 coinId = it.arguments?.getString(KEY_COIN_ID).orEmpty(),
-                onNetworkReconnected = { callback ->
-                    onCallBackChange(callback)
-                }
+                onDialogDismissed = onDialogDismissedState.value
             )
         }
 
         dialog(AppDestination.NoNetwork.route) {
             AppDialogPopUp(
-                onDismiss = { navController.popBackStack() },
+                onDismiss = {
+                    onDialogDismissedState.value = true
+                    navController.popBackStack()
+                },
                 onClick = {
                     navController.popBackStack()
-                    globalDialogCallback()
+                    onDialogDismissedState.value = true
                 },
                 message = stringResource(id = R.string.no_internet_message),
                 actionText = stringResource(id = android.R.string.ok),
