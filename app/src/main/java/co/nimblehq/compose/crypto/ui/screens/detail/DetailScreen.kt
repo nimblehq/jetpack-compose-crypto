@@ -24,6 +24,7 @@ import co.nimblehq.compose.crypto.data.extension.orZero
 import co.nimblehq.compose.crypto.domain.model.CoinPrice
 import co.nimblehq.compose.crypto.extension.toFormattedString
 import co.nimblehq.compose.crypto.lib.IsLoading
+import co.nimblehq.compose.crypto.ui.common.DialogActionModel
 import co.nimblehq.compose.crypto.ui.common.price.PriceChangeButton
 import co.nimblehq.compose.crypto.ui.components.chartintervals.ChartIntervalsButtonGroup
 import co.nimblehq.compose.crypto.ui.components.chartintervals.TimeIntervals
@@ -54,7 +55,7 @@ fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel(),
     navigator: (destination: AppDestination) -> Unit,
     coinId: String,
-    onNetworkReconnected: (() -> Unit) -> Unit
+    onShowGlobalDialog: (dialogActions: List<DialogActionModel>) -> Unit
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -85,9 +86,20 @@ fun DetailScreen(
         viewModel.input.getCoinId(coinId = coinId)
     }
 
-    onNetworkReconnected {
-        viewModel.input.getCoinId(coinId = coinId)
-    }
+    onShowGlobalDialog(
+        listOf(
+            DialogActionModel(
+                actionText = stringResource(id = android.R.string.ok),
+                onClickAction = {}
+            ),
+            DialogActionModel(
+                actionText = stringResource(id = R.string.detail_dialog_action_retry),
+                onClickAction = {
+                    viewModel.input.getCoinId(coinId = coinId)
+                }
+            )
+        )
+    )
 }
 
 @Suppress("LongMethod", "LongParameterList")

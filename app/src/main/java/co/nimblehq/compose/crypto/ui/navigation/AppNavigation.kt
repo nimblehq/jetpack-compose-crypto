@@ -6,6 +6,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.*
 import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.ui.common.AppDialogPopUp
+import co.nimblehq.compose.crypto.ui.common.DialogActionModel
 import co.nimblehq.compose.crypto.ui.screens.detail.DetailScreen
 import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 
@@ -13,9 +14,9 @@ import co.nimblehq.compose.crypto.ui.screens.home.HomeScreen
 fun AppNavigation(
     navController: NavHostController,
     startDestination: String = AppDestination.Home.destination,
-    onCallBackChange: (() -> Unit) -> Unit,
-    globalDialogCallback: () -> Unit
 ) {
+
+    var dialogActions: List<DialogActionModel> = emptyList()
 
     NavHost(
         navController = navController,
@@ -23,7 +24,10 @@ fun AppNavigation(
     ) {
         composable(AppDestination.Home) {
             HomeScreen(
-                navigator = { destination -> navController.navigate(destination) }
+                navigator = { destination -> navController.navigate(destination) },
+                onShowGlobalDialog = { actions ->
+                    dialogActions = actions
+                }
             )
         }
 
@@ -31,8 +35,8 @@ fun AppNavigation(
             DetailScreen(
                 navigator = { destination -> navController.navigate(destination) },
                 coinId = it.arguments?.getString(KEY_COIN_ID).orEmpty(),
-                onNetworkReconnected = { callback ->
-                    onCallBackChange(callback)
+                onShowGlobalDialog = { actions ->
+                    dialogActions = actions
                 }
             )
         }
@@ -40,13 +44,12 @@ fun AppNavigation(
         dialog(AppDestination.NoNetwork.route) {
             AppDialogPopUp(
                 onDismiss = { navController.popBackStack() },
-                onClick = {
+                onClickAction = {
                     navController.popBackStack()
-                    globalDialogCallback()
                 },
                 message = stringResource(id = R.string.no_internet_message),
-                actionText = stringResource(id = android.R.string.ok),
-                title = stringResource(id = R.string.no_internet_title)
+                title = stringResource(id = R.string.no_internet_title),
+                dialogActions = dialogActions
             )
         }
     }

@@ -13,7 +13,6 @@ fun ComposeCryptoApp(
     navController: NavHostController = rememberNavController(),
     cryptoAppState: CryptoAppState
 ) {
-    var globalDialogCallback: () -> Unit = {}
     val context = LocalContext.current
 
     cryptoAppState.isNetworkConnected.collectAsEffect { isNetworkConnected ->
@@ -21,11 +20,9 @@ fun ComposeCryptoApp(
             val destination = AppDestination.NoNetwork
 
             val currentRoute = navController.currentBackStackEntry?.destination?.route
-            if (currentRoute == AppDestination.NoNetwork.route) {
-                navController.popBackStack()
+            if (currentRoute != AppDestination.NoNetwork.route) {
+                navController.navigate(destination)
             }
-
-            navController.navigate(destination)
         }
     }
 
@@ -34,12 +31,6 @@ fun ComposeCryptoApp(
     }
 
     AppNavigation(
-        navController = navController,
-        onCallBackChange = {
-            globalDialogCallback = it
-        },
-        globalDialogCallback = {
-            globalDialogCallback.invoke()
-        },
+        navController = navController
     )
 }

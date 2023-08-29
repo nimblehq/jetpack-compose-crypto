@@ -7,18 +7,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import co.nimblehq.compose.crypto.ui.theme.*
 
 @Composable
 fun AppDialogPopUp(
     onDismiss: () -> Unit,
-    onClick: () -> Unit,
     title: String,
     message: String,
-    actionText: String,
+    dialogActions: List<DialogActionModel>,
+    onClickAction: () -> Unit
 ) {
     Dialog(
-        onDismissRequest = onDismiss
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(
+            dismissOnClickOutside = false
+        )
     ) {
         Surface {
             Column(
@@ -36,22 +40,35 @@ fun AppDialogPopUp(
                     color = AppTheme.colors.text,
                     modifier = Modifier.padding(Dp16)
                 )
-                TextButton(
-                    onClick = onClick,
+                Row(
                     modifier = Modifier
                         .align(Alignment.End)
                         .padding(bottom = Dp16, end = Dp8)
                 ) {
-                    Text(
-                        text = actionText,
-                        style = AppTheme.styles.semiBold16,
-                        color = AppTheme.colors.dialogText,
-                    )
+                    for(action in dialogActions) {
+                        TextButton(
+                            onClick = {
+                                action.onClickAction()
+                                onClickAction()
+                            },
+                        ) {
+                            Text(
+                                text = action.actionText,
+                                style = AppTheme.styles.semiBold16,
+                                color = AppTheme.colors.dialogText,
+                            )
+                        }
+                    }
                 }
             }
         }
     }
 }
+
+data class DialogActionModel(
+    val actionText: String,
+    val onClickAction: () -> Unit
+)
 
 @Composable
 @Preview(showSystemUi = true)
@@ -59,11 +76,14 @@ fun AppDialogPopUpPreview() {
     ComposeTheme {
         Box {
             AppDialogPopUp(
-                onDismiss = { /*TODO*/ },
-                onClick = { /*TODO*/ },
+                onDismiss = {},
                 message = "No internet connection was found. Please check your internet connection and try again.",
-                actionText = "OK",
-                title = "Oops!"
+                title = "Oops!",
+                dialogActions = listOf(DialogActionModel(
+                    actionText = "OK",
+                    onClickAction = {}
+                )),
+                onClickAction = {}
             )
         }
     }

@@ -23,6 +23,7 @@ import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.boxShadow
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.LoadingState
+import co.nimblehq.compose.crypto.ui.common.DialogActionModel
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
@@ -41,6 +42,7 @@ const val TestTagCoinsLoader = "CoinsLoader"
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navigator: (destination: AppDestination) -> Unit,
+    onShowGlobalDialog: (dialogActions: List<DialogActionModel>) -> Unit
 ) {
 
     val context = LocalContext.current
@@ -86,6 +88,15 @@ fun HomeScreen(
         onTrendingItemClick = viewModel.input::onTrendingCoinsItemClick,
         onRefresh = { viewModel.input.loadData(isRefreshing = true) },
         onTrendingCoinsLoadMore = { viewModel.input.getTrendingCoins(loadMore = true) }
+    )
+
+    onShowGlobalDialog(
+        listOf(
+            DialogActionModel(
+                actionText = stringResource(id = android.R.string.ok),
+                onClickAction = {}
+            )
+        )
     )
 }
 
