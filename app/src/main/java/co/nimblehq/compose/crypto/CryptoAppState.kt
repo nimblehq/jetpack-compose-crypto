@@ -1,6 +1,7 @@
 package co.nimblehq.compose.crypto
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import co.nimblehq.compose.crypto.domain.usecase.IsNetworkConnectedUseCase
 import co.nimblehq.compose.crypto.util.DispatchersProvider
@@ -15,17 +16,16 @@ fun rememberCryptoAppState(
     CryptoAppState(isNetworkConnectedUseCase, dispatchersProvider)
 }
 
+@Stable
 class CryptoAppState(
     isNetworkConnectedUseCase: IsNetworkConnectedUseCase,
     dispatchersProvider: DispatchersProvider,
 ) {
-    private val _isNetworkConnected = MutableSharedFlow<Boolean?>()
-    val isNetworkConnected: SharedFlow<Boolean?>
-        get() = _isNetworkConnected
+    private val _isNetworkConnected = MutableStateFlow<Boolean?>(null)
+    val isNetworkConnected = _isNetworkConnected.asStateFlow()
 
     private val _networkError = MutableSharedFlow<Throwable?>()
-    val networkError: SharedFlow<Throwable?>
-        get() = _networkError
+    val networkError = _networkError.asSharedFlow()
 
     init {
         isNetworkConnectedUseCase()

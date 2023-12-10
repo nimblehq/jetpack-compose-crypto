@@ -69,7 +69,7 @@ class DetailScreenTest : BaseViewModelTest() {
                 viewModel = viewModel,
                 navigator = { destination -> appDestination = destination },
                 coinId = "Bitcoin",
-                onNetworkReconnected = {}
+                onShowGlobalDialog = {}
             )
         }
     }

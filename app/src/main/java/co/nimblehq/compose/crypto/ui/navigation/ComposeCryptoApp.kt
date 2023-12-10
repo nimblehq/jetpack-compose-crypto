@@ -2,6 +2,9 @@ package co.nimblehq.compose.crypto.ui.navigation
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -15,7 +18,9 @@ fun ComposeCryptoApp(
 ) {
     val context = LocalContext.current
 
-    cryptoAppState.isNetworkConnected.collectAsEffect { isNetworkConnected ->
+    val isNetworkConnected by cryptoAppState.isNetworkConnected.collectAsState()
+
+    LaunchedEffect(isNetworkConnected) {
         if (isNetworkConnected == false) {
             val destination = AppDestination.NoNetwork
 
@@ -30,7 +35,5 @@ fun ComposeCryptoApp(
         Toast.makeText(context, error?.message, Toast.LENGTH_SHORT).show()
     }
 
-    AppNavigation(
-        navController = navController
-    )
+    AppNavigation(navController = navController)
 }
