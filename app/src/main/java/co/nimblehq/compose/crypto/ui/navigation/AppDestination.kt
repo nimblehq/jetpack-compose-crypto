@@ -16,6 +16,8 @@ sealed class AppDestination(val route: String = "") {
 
     object Home : AppDestination("home")
 
+    object NoNetwork : AppDestination("no_network")
+
     /**
      * We can define route as "coin/details" without "coinId" parameter because we're passing it as argument already.
      * So either passing "coinId" via arguments or passing it via route.

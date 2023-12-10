@@ -68,7 +68,8 @@ class DetailScreenTest : BaseViewModelTest() {
             DetailScreen(
                 viewModel = viewModel,
                 navigator = { destination -> appDestination = destination },
-                coinId = "Bitcoin"
+                coinId = "Bitcoin",
+                onShowGlobalDialog = {}
             )
         }
     }

@@ -23,7 +23,7 @@ import co.nimblehq.compose.crypto.R
 import co.nimblehq.compose.crypto.extension.boxShadow
 import co.nimblehq.compose.crypto.lib.IsLoading
 import co.nimblehq.compose.crypto.ui.base.LoadingState
-import co.nimblehq.compose.crypto.ui.common.AppDialogPopUp
+import co.nimblehq.compose.crypto.ui.common.DialogActionModel
 import co.nimblehq.compose.crypto.ui.navigation.AppDestination
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenParams
 import co.nimblehq.compose.crypto.ui.preview.HomeScreenPreviewParameterProvider
@@ -41,8 +41,10 @@ const val TestTagCoinsLoader = "CoinsLoader"
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigator: (destination: AppDestination) -> Unit
+    navigator: (destination: AppDestination) -> Unit,
+    onShowGlobalDialog: (dialogActions: List<DialogActionModel>) -> Unit
 ) {
+
     val context = LocalContext.current
     var rememberRefreshing by remember { mutableStateOf(false) }
 
@@ -56,9 +58,6 @@ fun HomeScreen(
             rememberRefreshing = isRefreshing
         }
     }
-
-    // TODO remove in integration ticket
-    val isNetworkConnected by viewModel.isNetworkConnected.collectAsState()
 
     val showMyCoinsLoading: IsLoading by viewModel.output.showMyCoinsLoading.collectAsState()
     val showTrendingCoinsLoading: LoadingState by viewModel.output.showTrendingCoinsLoading.collectAsState()
@@ -91,16 +90,14 @@ fun HomeScreen(
         onTrendingCoinsLoadMore = { viewModel.input.getTrendingCoins(loadMore = true) }
     )
 
-    // TODO remove in integration ticket
-    if (isNetworkConnected == false) {
-        AppDialogPopUp(
-            onDismiss = { /*TODO*/ },
-            onClick = { /*TODO*/ },
-            message = stringResource(id = R.string.no_internet_message),
-            actionText = stringResource(id = android.R.string.ok),
-            title = stringResource(id = R.string.no_internet_title)
+    onShowGlobalDialog(
+        listOf(
+            DialogActionModel(
+                actionText = stringResource(id = android.R.string.ok),
+                onClickAction = {}
+            )
         )
-    }
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)

@@ -54,20 +54,17 @@ class HomeScreenTest : BaseViewModelTest() {
     private val mockGetMyCoinsUseCase = mockk<GetMyCoinsUseCase>()
     private val mockGetTrendingCoinsUseCase = mockk<GetTrendingCoinsUseCase>()
 
-    // TODO remove in integration ticket
-    private val mockIsNetworkConnectedUseCase = mockk<IsNetworkConnectedUseCase>()
-
     private lateinit var viewModel: HomeViewModel
 
     private var appDestination: AppDestination? = null
 
     @Before
     fun setUp() {
-        every { mockIsNetworkConnectedUseCase() } returns flowOf(null)
         composeAndroidTestRule.activity.setContent {
             HomeScreen(
                 viewModel = viewModel,
-                navigator = { destination -> appDestination = destination }
+                navigator = { destination -> appDestination = destination },
+                onShowGlobalDialog = {}
             )
         }
     }
@@ -219,8 +216,7 @@ class HomeScreenTest : BaseViewModelTest() {
         viewModel = HomeViewModel(
             dispatchers = testDispatcherProvider,
             getMyCoinsUseCase = mockGetMyCoinsUseCase,
-            getTrendingCoinsUseCase = mockGetTrendingCoinsUseCase,
-            isNetworkConnectedUseCase = mockIsNetworkConnectedUseCase
+            getTrendingCoinsUseCase = mockGetTrendingCoinsUseCase
         )
     }
 }
